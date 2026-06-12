@@ -61,7 +61,7 @@ function ImageTrack({
 }
 
 export default function SustainabilitySpotlight({title,data}:{title:string;data:SpotlightCardItem[]}) {
-  const slides = data;
+  const slides = data.slice(0,4);
 
   const [current, setCurrent] = useState(0);
 
