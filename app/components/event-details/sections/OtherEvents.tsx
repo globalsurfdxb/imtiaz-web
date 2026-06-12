@@ -31,7 +31,7 @@ const OtherEvents = ({ data }: { data: EventListingData }) => {
         />
         <div className="hidden md:block">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-40 mt-20 overflow-hidden">
-            {data?.listing?.map((item, index) => {
+            {data?.listing?.slice(0,2).map((item, index) => {
               const formattedItem = {
                 id: index + 1,
                 title: item.title,
@@ -50,6 +50,7 @@ const OtherEvents = ({ data }: { data: EventListingData }) => {
               );
             })}
           </div>
+          <Link href={"/media-center/events"}>
           <motion.div
             variants={moveUp(0)}
             initial="hidden"
@@ -65,6 +66,7 @@ const OtherEvents = ({ data }: { data: EventListingData }) => {
               px="px-[12px] lg:px-[20px] 3xl:px-[36.6px]"
             />
           </motion.div>
+          </Link>
         </div>
         <div
           ref={ref}
