@@ -7,7 +7,7 @@ import RelatedInitiative from "./sections/RelatedInitiative";
 
 const Index = ({data}:any) => {
 
-  const relatedItems = data?.related_initiatives.map((item:any)=>{
+  const relatedItems = data?.related_initiatives?.map((item:any)=>{
     return {
       title:item?.title,
       image:item?.featured_image_desktop,
@@ -20,8 +20,8 @@ const Index = ({data}:any) => {
       <Hero title={data?.page_banner_title}/>
       <VideoSection image={data?.page_poster_desktop}/>
       <Content content={data?.description} sourceUrl={data?.source_url}/>
-      <ImageSlider images={data?.gallery}/>
-      <RelatedInitiative data={relatedItems}/>
+      {data?.gallery && <ImageSlider images={data?.gallery}/>}
+      {relatedItems && <RelatedInitiative data={relatedItems}/>}
     </>
   );
 };

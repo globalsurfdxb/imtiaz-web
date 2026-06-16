@@ -6,7 +6,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
   const slug = (await params).slug;
   const response = await fetch(
-    `http://globalsurf.digital/dev/IMTIAZ/api/property_detail.php?lang=en&slug=${slug}`,
+    `${process.env.BASE_URL}/api/property_detail.php?lang=en&slug=${slug}`,
     { next: { revalidate: 60 } }
   );
   const data = await response.json();
