@@ -16,6 +16,7 @@ type Props = {
   video:string;
   title:string;
   poster:string;
+  propertiesData:any
 };
 
 const AboutJourneyV3 = ({
@@ -24,7 +25,8 @@ const AboutJourneyV3 = ({
   communitiesData,
   video,
   title,
-  poster
+  poster,
+  propertiesData
 }: Props) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -171,7 +173,7 @@ const AboutJourneyV3 = ({
         <div className="absolute bottom-[67px] w-full flex flex-col gap-10 md:gap-8 lg:gap-50 items-center">
             <div className="hidden lg:block opacity-0" ref={searchRef}>
               <div className="w-full">
-                <PropertyFilterBar communitiesData={communitiesData} />
+                <PropertyFilterBar communitiesData={communitiesData} propertiesData={propertiesData}/>
               </div>
             </div>
 
