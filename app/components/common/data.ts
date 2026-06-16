@@ -374,13 +374,15 @@ export const subMenuItems = {
     {
       id: "Agency",
       label: "AGENCY",
-      href: "/onboarding?tab=agency",
+      // href: "/onboarding?tab=agency",
+      href: "https://imtiaz.my.salesforce-sites.com/AgentOnboarding",
       newTab: true,
     },
     {
       id: "individual",
       label: "INDIVIDUAL",
-      href: "/onboarding?tab=individual",
+      // href: "/onboarding?tab=individual",
+      href: "https://imtiaz.my.salesforce-sites.com/AgentOnboarding",
       newTab: true,
     },
   ],

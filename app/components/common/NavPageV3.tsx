@@ -1864,7 +1864,6 @@ function DesktopMegaMenu({
   useEffect(() => {
     if (!menuData) return;
 
-    console.log(propertyFilter)
     const formattedProperties = menuData?.map((community: any) => {
       const relatedProperties =
         community.related_property?.map((property: any, index: number) => ({
@@ -2047,6 +2046,7 @@ useEffect(() => {
               {menuItems.map((item, index) => {
                 const isActive = activeMenu.id === item.id;
                 return (
+                  <Link target="_blank" href={(item.label === "AGENCY" || item.label === "INDIVIDUAL") ? (item.href || "#") : "#"}>
                   <motion.div
                     variants={moveRight(index * 0.13)}
                     initial="hidden"
@@ -2101,6 +2101,7 @@ useEffect(() => {
                       </motion.span>
                     </motion.div>
                   </motion.div>
+                  </Link>
                 );
               })}
             </div>
@@ -2368,6 +2369,7 @@ useEffect(() => {
               {activeCategory && <Link href={activeCommunityHref || ""} className="">
               <CustomOutlineButton
                         text={"View Community"}
+                        onClick={()=>setIsMenuOpen?.(false)}
                         borderColor="border-white"
                         textColor="text-white"
                         px="px-[18px] sm:px-[20px] md:px-[36px] h-[44px] md:h-[50px] xl:h-[66px] !leading-[1.58]"

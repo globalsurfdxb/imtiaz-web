@@ -85,6 +85,7 @@ type Props = {
   appSectionData: AppSectionData;
   data: HomePageResponse['data']
   communitiesData: any,
+  propertiesData:any
 };
 
 export default function Index({
@@ -93,6 +94,7 @@ export default function Index({
   appSectionData,
   data,
   communitiesData,
+  propertiesData
 }: Props) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const scrollRef = useRef<HTMLImageElement>(null);
@@ -206,6 +208,7 @@ export default function Index({
     },
   }));
 
+
   return (
     <>
       <HeroSection
@@ -223,6 +226,7 @@ export default function Index({
         video={data?.page_section1_video}
         title={data?.page_section1_title}
         poster={data?.page_section1_poster}
+        propertiesData={propertiesData}
       />
       <ProSliderV3 slides={heroSlides} RightLabel="New Launches" title={data?.page_section2_title} />
       <ProSliderComingSoonV3

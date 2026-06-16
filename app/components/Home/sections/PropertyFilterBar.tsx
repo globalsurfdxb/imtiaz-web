@@ -108,8 +108,8 @@ const Dropdown = ({
                 onClose();
               }}
               className={`w-full text-left px-5 py-2.5 text-16 transition-colors capitalize duration-150 rounded-sm cursor-pointer ${selected === option.value
-                  ? "text-black  bg-gray-50"
-                  : "text-white hover:bg-gray-50 hover:text-black"
+                ? "text-black  bg-gray-50"
+                : "text-white hover:bg-gray-50 hover:text-black"
                 }`}
             >
               {option.label.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase())}
@@ -122,7 +122,8 @@ const Dropdown = ({
 };
 
 // ── Main Component ────────────────────────────────────────────────────────────
-const PropertySearchBar = ({ communitiesData }: any) => {
+const PropertySearchBar = ({ communitiesData, propertiesData }: any) => {
+  console.log(propertiesData?.listing)
   const communityOptions: FilterOption[] = [
     { label: "All Communities", value: "" },
     ...(communitiesData?.listing ?? []).map((item: any) => ({
@@ -135,17 +136,27 @@ const PropertySearchBar = ({ communitiesData }: any) => {
     {
       id: "propertyType",
       label: "PROPERTY TYPE",
+      // options: [
+      //   { label: "Apartment", value: "Apartment" },
+      // ],
       options: [
-        { label: "Apartment", value: "Apartment" },
-      ],
+        ...new Set<string>(
+          (propertiesData?.listing ?? [])
+            .map((item: { property_type: string }) => item.property_type)
+            .filter(Boolean),
+        ),
+      ].map((value) => ({ label: value, value })),
     },
     {
       id: "status",
       label: "STATUS",
       options: [
-        { label: "Off Plan", value: "Off Plan" },
-        { label: "Completed", value: "Completed" },
-      ],
+      ...new Set<string>(
+        (propertiesData?.listing ?? [])
+          .map((item: { property_status: string }) => item.property_status)
+          .filter(Boolean),
+      ),
+    ].map((value)=>({label:value,value})),
     },
     {
       id: "community",
