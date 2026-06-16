@@ -78,7 +78,7 @@ const ImageSlider = ({ images }: { images: {featured_image_desktop:string;}[] })
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={bgImgRef}
-            src={images[0].featured_image_desktop}
+            src={images[0]?.featured_image_desktop}
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover"
@@ -112,7 +112,7 @@ const ImageSlider = ({ images }: { images: {featured_image_desktop:string;}[] })
             allowTouchMove={true}
             style={{ cursor: "inherit" }}
           >
-            {images.map((src, i) => (
+            {images?.map((src, i) => (
               <SwiperSlide
                 key={i}
                 className="relative w-full h-full"
