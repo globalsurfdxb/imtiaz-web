@@ -230,7 +230,7 @@ export default function Index({
         propertiesData={propertiesData}
       />}
       {data?.page_show_section2 === "true" && 
-      <ProSliderV3 slides={heroSlides} RightLabel="New Launches" title={data?.page_section2_title} />}
+      <ProSliderV3 slides={heroSlides} RightLabel="Featured Properties" title={data?.page_section2_title} />}
       {data?.page_show_section3 === "true" && <ProSliderComingSoonV3
         slides={heroSlidesComingSoon}
         // RightLabel="World of IMTIAZ"

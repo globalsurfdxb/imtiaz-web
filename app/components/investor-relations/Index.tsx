@@ -94,11 +94,11 @@ const faqData = {
       description={data.page_banner_caption}
       image={data.page_banner_desktop}
       maxW='max-w-[690px]' />
-      <Reasons data={investReasonsData}/>
-      <InvestmentSection data={investmentAppealData}/>
-      <ImtiazCommunities data={data.communities} title={data.communities_title}/>
-      <ImtiazProperties data={data.properties} title={data.properties_title}/>
-      <InvestorFaq data={faqData}/>
+      {data?.show_reasons_section == "true" && <Reasons data={investReasonsData}/>}
+      {data?.show_appeal_section == "true" && <InvestmentSection data={investmentAppealData}/>}
+      {data?.show_communities_section == "true" && <ImtiazCommunities data={data.communities} title={data.communities_title}/>}
+      {data?.show_properties_section == "true" && <ImtiazProperties data={data.properties} title={data.properties_title}/>}
+      {data?.show_faq_section == "true" && <InvestorFaq data={faqData}/>}
     </>
   )
 }

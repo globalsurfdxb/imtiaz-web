@@ -56,9 +56,9 @@ const spotlightData = (data?.spotlight || []).map((item, index) => ({
       description={data.page_banner_caption}
       image={data.page_banner_desktop}
       maxW="max-w-[816px]" />
-      <ImpactAreas data={impactAreas} />
-      <SustainablityMoments title={data.moments_title} description={data.moments_caption} data={data.moments}/>
-      <PressSpotlight title={data.spotlight_title} data={spotlightData}/>
+      {data?.show_reasons_section == "true" && <ImpactAreas data={impactAreas} />}
+      {data?.show_appeal_section == "true" && <SustainablityMoments title={data.moments_title} description={data.moments_caption} data={data.moments}/>}
+      {data?.show_communities_section == "true" && <PressSpotlight title={data.spotlight_title} data={spotlightData}/>}
     </>
   );
 }
