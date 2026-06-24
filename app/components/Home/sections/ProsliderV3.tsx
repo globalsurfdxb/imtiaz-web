@@ -576,7 +576,7 @@ export default function HeroSlider({ slides, RightLabel, title }: HeroSliderProp
                         animate={startAnim ? "show" : "hidden"}
                       >
                         <span className="text-white uppercase text-description !text-25 !leading-[1]">
-                          {RightLabel}
+                          {title}
                         </span>
                       </motion.div>
                     </div>

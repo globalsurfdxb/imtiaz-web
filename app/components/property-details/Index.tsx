@@ -51,14 +51,14 @@ const Index = ({
         starting_price={data?.starting_price}
         delivery_date={data?.delivery_date}
       />
-      {data.show_basic_section && <ProjectIntro
+      {data.show_basic_section == "true" && <ProjectIntro
         title={data?.basic_title}
         description={data?.basic_brief}
         brochure={data?.brochure}
         fact_sheet={data?.fact_sheet}
         unit_layout={data?.unit_layout}
       />}
-      {data.show_construction_section && <ConstructionProgress
+      {data.show_construction_section == "true" && <ConstructionProgress
         title={data?.construction_title}
         description={data?.construction_brief}
         image={data?.construction_image}
@@ -76,14 +76,14 @@ const Index = ({
         construction_button_url={data?.construction_button_url}
         slug={slug}
       />}
-      {data.show_reach_section && <IconGrid data={everythingWithinData} />}
-      {data.show_gallery_section && <GallerySlider data={data?.gallery} />}
-      {!data.show_gallery_section && <hr />}
-      {data.show_amenities_section && <Amenities data={amenetiesData} maxTitle="max-w-[90ch]" />}
+      {data.show_reach_section == "true" && <IconGrid data={everythingWithinData} />}
+      {data.show_gallery_section == "true" && <GallerySlider data={data?.gallery} />}
+      {data.show_gallery_section == "false" && <hr />}
+      {data.show_amenities_section == "true" && <Amenities data={amenetiesData} maxTitle="max-w-[90ch]" />}
       {!data?.unit_layouts && <hr />}
       {data?.unit_layouts && <UnitLayout data={data?.unit_layouts} />}
       
-      {data.show_community_overview_section && <MeydanHorizon
+      {data.show_community_overview_section == "true" && <MeydanHorizon
         title={data?.community_name}
         description={data?.community_basic_brief}
         subTitle={data?.community_basic_title}
@@ -92,13 +92,13 @@ const Index = ({
         latitude={data?.property_latitude}
         longitude={data?.property_longitude}
       />
-      {data.show_faq_section && <Faqsection
+      {data.show_faq_section == "true" && <Faqsection
         title={data?.faq_title}
         description={data?.faq_caption}
         data={data?.faq}
       />}
       
-      {data.show_similar_property_section && allPropertyData?.listing.filter(
+      {data.show_similar_property_section == "true" && allPropertyData?.listing.filter(
         (item) =>
           item.property_community == data?.community_name &&
           item.title !== data?.page_banner_title,

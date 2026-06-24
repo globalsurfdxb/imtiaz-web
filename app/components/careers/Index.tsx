@@ -103,11 +103,11 @@ const careersData = (data?.vacancies || []).map(
       description={data.page_banner_caption}
       image={data.page_banner_desktop}
       maxW="max-w-[392px]" />
-      <ImpactAreas data={careerImpactAreas} />
-      <WhatToExpect data={whatToExpectData}/>
-      <Suspense fallback={<div>Loading...</div>}>
+      {data?.show_reasons_section == "true" && <ImpactAreas data={careerImpactAreas} />}
+      {data?.show_appeal_section == "true" && <WhatToExpect data={whatToExpectData}/>}
+      {data?.show_communities_section == "true" && <Suspense fallback={<div>Loading...</div>}>
         <VacanciesSection careersData={careersData} vacanciesConfig={vacanciesConfig}/>
-      </Suspense>
+      </Suspense>}
     </div>
   );
 };
