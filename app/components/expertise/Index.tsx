@@ -45,8 +45,8 @@ const faqData = {
       description={data.page_banner_caption}
       image={data.page_banner_desktop}
       maxW="max-w-[805px]" />
-      <ThinkingThatDelivers data={thinkingThatDelivers}/>
-      <Faq data={faqData}/>
+      {data?.show_expertise_section == "true" && <ThinkingThatDelivers data={thinkingThatDelivers}/>}
+      {data?.show_faq_section == "true" && <Faq data={faqData}/>}
       <EnquirySection />
     </>
   ); 

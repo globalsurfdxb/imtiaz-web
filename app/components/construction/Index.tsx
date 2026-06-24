@@ -77,10 +77,10 @@ const commitmentSectionData = {
       <ConstructionBanner 
       {...bannerData}
       />
-      <TimelineSlider data={timelineSectionData}/>
-      <ExpertiseSlider data={coreExpertiseData}/>
-      <ImtiazProperties data={imtiazPropertiesData} title={imtiazPropertiesData.sectionTitle} className="py-120 2xl:py-130"/>     
-      <IconSlider data={commitmentSectionData}/>
+      {data?.show_history_section == "true" && <TimelineSlider data={timelineSectionData}/>}
+      {data?.show_expertise_section == "true" && <ExpertiseSlider data={coreExpertiseData}/>}
+      {data?.show_properties_section == "true" && <ImtiazProperties data={imtiazPropertiesData} title={imtiazPropertiesData.sectionTitle} className="py-120 2xl:py-130"/> }    
+      {data?.show_commitment_section == "true" && <IconSlider data={commitmentSectionData}/>}
     </>
   );
 };
