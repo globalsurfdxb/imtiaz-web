@@ -97,28 +97,28 @@ const Index = ({ data }: { data: AboutPageResponse['data'] }) => {
         description={data.page_banner_caption}
         image={data.page_banner_desktop}
         maxW="max-w-[904px]" />
-      <VisionSection data={visionSectionData} />
-      <MessageSection data={chairmanMessageData} />
-      <MessageSection data={ceoMessageData} />
-      <Philosophy title={data.philosophy_title} description={data.philosophy_caption} />
-      <HistorySection
+      {data?.show_vision_section == "true" && <VisionSection data={visionSectionData} />}
+      {data?.show_chairman_section == "true" && <MessageSection data={chairmanMessageData} />}
+      {data?.show_ceo_section == "true" && <MessageSection data={ceoMessageData} />}
+      {data?.show_philosophy_section == "true" && <Philosophy title={data.philosophy_title} description={data.philosophy_caption} />}
+      {data?.show_history_section == "true" && <HistorySection
         title={data.history_title}
         description={data.history_caption}
         history={formattedHistory}
-      />
-      <AwardSection
+      />}
+      {data?.show_medal_section == "true" && <AwardSection
         title={data.medal_title}
         descriptions={data.medal_brief}
         bgImage={data.medal_image_desktop}
         bgImagemob={data.medal_image_mobile}
-      />
-      <Expertise
+      />}
+      {data?.show_expertise_section == "true" && <Expertise
         title={data.expertise_title}
         description={data.expertise_caption}
         buttonText={data?.expertise_button_text || ""}
         buttonLink={data?.expertise_button_url || ""}
-      />
-      <OtherPageSlider data={otherPageSliderData} />
+      />}
+      {data?.show_extras_section == "true" && <OtherPageSlider data={otherPageSliderData} />}
     </>
   );
 };
