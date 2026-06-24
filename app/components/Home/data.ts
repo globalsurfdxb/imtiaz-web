@@ -64,8 +64,8 @@ export type HomePageResponse = {
     meta_description: string;
     page_banner_video: string;
     page_banner_video_mobile: string;
-    page_hero_poster_dektop:string;
-    page_hero_poster_mobile:string;
+    page_hero_poster_dektop: string;
+    page_hero_poster_mobile: string;
     page_section1_video: string;
     page_section3_video: string;
     page_section4_video: string;
@@ -93,6 +93,15 @@ export type HomePageResponse = {
     android_store_link: string;
     page_section1_poster: string;
     page_section7_poster: string;
+    page_show_section1: string,
+    page_show_section2: string,
+    page_show_section3: string,
+    page_show_section4: string,
+    page_show_section5: string,
+    page_show_section6: string,
+    page_show_section7: string,
+    page_show_section8: string,
+    page_show_section9: string,
 
     new_launches: NewLaunchItem[];
 
