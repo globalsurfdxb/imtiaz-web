@@ -219,6 +219,7 @@ export default function Index({
         posterDesktop={data?.page_hero_poster_dektop}
         posterMobile={data?.page_hero_poster_mobile}
       />
+      {data?.page_show_section1 === "true" && 
       <AboutJourneyV3
         searchRef={searchRef}
         mobsearchRef={mobsearchRef}
@@ -227,20 +228,21 @@ export default function Index({
         title={data?.page_section1_title}
         poster={data?.page_section1_poster}
         propertiesData={propertiesData}
-      />
-      <ProSliderV3 slides={heroSlides} RightLabel="New Launches" title={data?.page_section2_title} />
-      <ProSliderComingSoonV3
+      />}
+      {data?.page_show_section2 === "true" && 
+      <ProSliderV3 slides={heroSlides} RightLabel="New Launches" title={data?.page_section2_title} />}
+      {data?.page_show_section3 === "true" && <ProSliderComingSoonV3
         slides={heroSlidesComingSoon}
         // RightLabel="World of IMTIAZ"
         video={data?.page_section3_video}
         title={data?.page_section3_title}
         buttonText={data?.page_section3_buttontext}
         url={data?.page_section3_buttonurl}
-      />
+      />}
       {/* <FpfSection video={data?.page_section4_video} title={data?.page_section4_title} description={data?.page_section4_caption} buttonText={data?.page_section4_buttontext} url={data?.page_section4_buttonurl}/> */}
-      <CommunityNamesSlider slides={communityNamesData} title={data?.page_section5_title} />
-      <ImtiazProperties data={imtiazPropertiesData} title={data?.page_section6_title} />
-      <ConstructionProgress2
+      {data?.page_show_section4 === "true" && <CommunityNamesSlider slides={communityNamesData} title={data?.page_section5_title} />}
+      {data?.page_show_section5 === "true" && <ImtiazProperties data={imtiazPropertiesData} title={data?.page_section6_title} />}
+      {data?.page_show_section6 === "true" && <ConstructionProgress2
         data={ConstructionProgressData}
         video={data?.page_section7_video}
         title={data?.page_section7_title}
@@ -248,9 +250,9 @@ export default function Index({
         buttonText={data?.page_section7_buttontext}
         url={data?.page_section7_buttonurl}
         poster={data?.page_section7_poster}
-      />
-      <SpotlightSlider data={spotlight} title={data?.page_section8_title} />
-      <AppSectionV2 data={appSectionData} appStore={data?.apple_store_link} playStore={data?.android_store_link} title={data?.page_section9_title} description={data?.page_section9_caption} />
+      />}
+      {data?.page_show_section7 === "true" && <SpotlightSlider data={spotlight} title={data?.page_section8_title} />}
+      {data?.page_show_section8 === "true" && <AppSectionV2 data={appSectionData} appStore={data?.apple_store_link} playStore={data?.android_store_link} title={data?.page_section9_title} description={data?.page_section9_caption} />}
     </>
   );
 }   
