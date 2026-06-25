@@ -110,7 +110,7 @@ const AboutJourneyV3 = ({
     <>
       <section
         ref={sectionRef}
-        className="relative min-h-[82vh]  min-h-screen overflow-hidden flex flex-col justify-center items-center"
+        className="relative min-h-[82vh]  min-h-screen overflow-hidden flex flex-col justify-center items-center bg-white"
       // Added bottom padding like working component so section actually scrolls
       >
         {/* VIDEO */}

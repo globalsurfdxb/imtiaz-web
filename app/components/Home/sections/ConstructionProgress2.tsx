@@ -19,12 +19,12 @@ interface ConstructionProgressProps {
       link: string;
     };
   };
-  video:string;
-  title:string;
-  description:string;
-  buttonText:string;
-  url:string;
-  poster:string;
+  video: string;
+  title: string;
+  description: string;
+  buttonText: string;
+  url: string;
+  poster: string;
 }
 
 const ConstructionProgress: React.FC<ConstructionProgressProps> = ({
@@ -34,7 +34,7 @@ const ConstructionProgress: React.FC<ConstructionProgressProps> = ({
   description,
   buttonText,
   url,
-  poster
+  poster,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -105,7 +105,7 @@ const ConstructionProgress: React.FC<ConstructionProgressProps> = ({
     <section
       ref={sectionRef}
       // className="relative w-full overflow-hidden flex justify-center items-center h-[82vh] md:h-[70vh] lg:h-[75vh] xl:h-screen"
-      className="relative w-full overflow-hidden flex justify-center items-center h-screen"
+      className="relative w-full overflow-hidden flex justify-center items-center h-screen bg-white"
     >
       {/* ---------------- BACKGROUND VIDEO ---------------- */}
       <video
