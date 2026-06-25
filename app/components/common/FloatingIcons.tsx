@@ -117,19 +117,37 @@ export default function FloatingMobileIcons() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
+  // const icons = [
+  //   { src: "/icons/layout_icons/phone.svg", alt: "phone", onClick: () => {} },
+  //   {
+  //     src: "/icons/layout_icons/whatsapp.svg",
+  //     alt: "whatsapp",
+  //     onClick: () => {},
+  //   },
+  //   {
+  //     src: "/icons/layout_icons/message.svg",
+  //     alt: "message",
+  //     onClick: () => setEnquiryOpen(true),
+  //   },
+  // ];
+
   const icons = [
-    { src: "/icons/layout_icons/phone.svg", alt: "phone", onClick: () => {} },
-    {
-      src: "/icons/layout_icons/whatsapp.svg",
-      alt: "whatsapp",
-      onClick: () => {},
-    },
-    {
-      src: "/icons/layout_icons/message.svg",
-      alt: "message",
-      onClick: () => setEnquiryOpen(true),
-    },
-  ];
+  { 
+    src: "/icons/layout_icons/phone.svg", 
+    alt: "phone", 
+    onClick: () => { window.location.href = "tel:+971800468429"; }
+  },
+  {
+    src: "/icons/layout_icons/whatsapp.svg",
+    alt: "whatsapp",
+    onClick: () => { window.open("https://wa.me/971800468429", "_blank"); }
+  },
+  {
+    src: "/icons/layout_icons/message.svg",
+    alt: "message",
+    onClick: () => setEnquiryOpen(true),
+  },
+];
 
   return (
     <>
