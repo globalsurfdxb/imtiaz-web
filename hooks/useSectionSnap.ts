@@ -163,6 +163,7 @@
 
 
 
+
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -175,15 +176,10 @@ export function useSectionSnap(
   const { lock, unlock, syncTo } = useLenis();
 
   const currentIndexRef = useRef(0);
-  const isAnimatingRef  = useRef(false);
-  const rafIdRef        = useRef<number | null>(null);
-  const wasBelowRef     = useRef(false);
-  const releasedRef     = useRef(false);
-
-  // Touch
-  const touchStartYRef    = useRef(0);
-  const touchStartXRef    = useRef(0);
-  const touchBlockedRef   = useRef(false); // true = we own this touch sequence
+  const isAnimatingRef = useRef(false);
+  const rafIdRef = useRef<number | null>(null);
+  const wasBelowRef = useRef(false);
+  const releasedRef = useRef(false);
 
   const DURATION = 1600;
 
@@ -191,9 +187,11 @@ export function useSectionSnap(
     t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
   useEffect(() => {
-    if (!enabled) return;
-
-    // ── helpers ──────────────────────────────────────────────────────────────
+    // Disable entirely on touch devices — snap is a desktop-only pattern
+    const isTouchDevice = window.matchMedia(
+      "(hover: none) and (pointer: coarse)",
+    ).matches;
+    if (!enabled || isTouchDevice) return;
 
     const snapZoneBottom = (): number => {
       const last = sectionRefs[sectionRefs.length - 1]?.current;
@@ -201,20 +199,17 @@ export function useSectionSnap(
       return last.offsetTop + last.offsetHeight;
     };
 
-    const inSnapZone = (): boolean =>
-      window.scrollY < snapZoneBottom() - 50;
-
-    // ── animation ────────────────────────────────────────────────────────────
+    const inSnapZone = (): boolean => window.scrollY < snapZoneBottom() - 50;
 
     const animateTo = (targetY: number, onDone: () => void) => {
-      const startY    = window.scrollY;
-      const distance  = targetY - startY;
+      const startY = window.scrollY;
+      const distance = targetY - startY;
       const startTime = performance.now();
 
       if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
 
       const step = (now: number) => {
-        const elapsed  = now - startTime;
+        const elapsed = now - startTime;
         const progress = Math.min(elapsed / DURATION, 1);
         window.scrollTo(0, startY + distance * easeInOutCubic(progress));
 
@@ -241,7 +236,7 @@ export function useSectionSnap(
       const targetEl = sectionRefs[nextIndex]?.current;
       if (!targetEl) return;
 
-      isAnimatingRef.current  = true;
+      isAnimatingRef.current = true;
       currentIndexRef.current = nextIndex;
 
       lock();
@@ -262,124 +257,47 @@ export function useSectionSnap(
       unlock();
     };
 
-    // ── shared snap-or-release logic ──────────────────────────────────────────
-    // Returns true if the event was handled (caller should preventDefault),
-    // false if it should pass through freely.
-
     const handleIntent = (isDown: boolean): boolean => {
-      // Re-engage from released state
       if (releasedRef.current) {
         if (!inSnapZone()) return false;
         if (!isDown) {
-          releasedRef.current     = false;
-          wasBelowRef.current     = true;
+          releasedRef.current = false;
+          wasBelowRef.current = true;
         } else {
-          return false; // inside zone scrolling down while released → free
+          return false;
         }
       }
 
-      // Below snap zone → free
       if (!inSnapZone()) {
         wasBelowRef.current = true;
         return false;
       }
 
-      // Just re-entered from below → reset index to one past last
       if (wasBelowRef.current) {
-        wasBelowRef.current     = false;
+        wasBelowRef.current = false;
         currentIndexRef.current = sectionRefs.length;
       }
 
       const atLast = currentIndexRef.current >= sectionRefs.length - 1;
 
-      // At last section scrolling down → hand off to free scroll
       if (atLast && isDown) {
         release();
         return false;
       }
 
       doSnap(isDown ? 1 : -1);
-      return true; // we handled it
+      return true;
     };
-
-    // ── wheel (desktop) ───────────────────────────────────────────────────────
 
     const onWheel = (e: WheelEvent) => {
       const handled = handleIntent(e.deltaY > 0);
       if (handled) e.preventDefault();
     };
 
-    // ── touch (mobile) ────────────────────────────────────────────────────────
-    // Strategy:
-    // - On touchstart: record position, reset ownership flag
-    // - On touchmove: once we know direction (>10px vertical delta),
-    //   decide if we own this sequence. If yes, preventDefault every move.
-    // - On touchend: if we own it, fire the snap.
-    // This prevents the browser's native momentum scroll from fighting our rAF.
-
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartYRef.current  = e.touches[0].clientY;
-      touchStartXRef.current  = e.touches[0].clientX;
-      touchBlockedRef.current = false;
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (isAnimatingRef.current) {
-        // During our animation, block ALL native scroll
-        e.preventDefault();
-        return;
-      }
-
-      const dy = touchStartYRef.current - e.touches[0].clientY;
-      const dx = touchStartXRef.current - e.touches[0].clientX;
-
-      // Ignore horizontal swipes (Swiper)
-      if (Math.abs(dx) > Math.abs(dy)) return;
-
-      // Wait for a minimum vertical intent
-      if (Math.abs(dy) < 10) return;
-
-      const isDown = dy > 0;
-
-      // Check if we should own this sequence
-      const wouldHandle =
-        !releasedRef.current &&
-        inSnapZone() &&
-        !(currentIndexRef.current >= sectionRefs.length - 1 && isDown);
-
-      if (wouldHandle) {
-        touchBlockedRef.current = true;
-        e.preventDefault(); // block native scroll for this move
-      }
-    };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      const dy = touchStartYRef.current - e.changedTouches[0].clientY;
-      const dx = touchStartXRef.current - e.changedTouches[0].clientX;
-
-      // Ignore horizontal swipes
-      if (Math.abs(dx) > Math.abs(dy)) return;
-
-      // Ignore micro-swipes
-      if (Math.abs(dy) < 40) return;
-
-      // Only fire snap if we owned this touch sequence
-      if (!touchBlockedRef.current) return;
-
-      touchBlockedRef.current = false;
-      handleIntent(dy > 0);
-    };
-
-    window.addEventListener("wheel",      onWheel,      { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: true  });
-    window.addEventListener("touchmove",  onTouchMove,  { passive: false });
-    window.addEventListener("touchend",   onTouchEnd,   { passive: true  });
+    window.addEventListener("wheel", onWheel, { passive: false });
 
     return () => {
-      window.removeEventListener("wheel",      onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove",  onTouchMove);
-      window.removeEventListener("touchend",   onTouchEnd);
+      window.removeEventListener("wheel", onWheel);
       if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
     };
   }, [enabled, sectionRefs, lock, unlock, syncTo]);
