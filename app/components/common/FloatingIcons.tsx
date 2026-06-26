@@ -263,25 +263,6 @@ export default function FloatingMobileIcons() {
   const modalRef = useRef<HTMLDivElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
 
-  // ── Desktop icon entrance on mount
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const icons = containerRef.current.querySelectorAll(".desk-icon");
-    gsap.fromTo(
-      icons,
-      { opacity: 0, x: 30, scale: 0.7 },
-      {
-        opacity: 1,
-        x: 0,
-        scale: 1,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "back.out(1.7)",
-        delay: 0.4,
-      },
-    );
-  }, []);
-
   // ── Modal open animation
   useEffect(() => {
     if (!enquiryOpen) return;
@@ -339,12 +320,37 @@ export default function FloatingMobileIcons() {
   };
 
   useEffect(() => {
-    if (!pillRef.current) return;
-    gsap.fromTo(
-      pillRef.current,
-      { y: "140%", opacity: 0 },
-      { y: "0%", opacity: 1, duration: 0.6, ease: "back.out(1.4)", delay: 0.5 },
-    );
+    const onReady = () => {
+      // Desktop icons
+      if (containerRef.current) {
+        const icons = containerRef.current.querySelectorAll(".desk-icon");
+        gsap.fromTo(
+          icons,
+          { opacity: 0, x: 30, scale: 0.7 },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "back.out(1.7)",
+            delay: 0.4,
+          },
+        );
+      }
+
+      // Mobile pill
+      if (pillRef.current) {
+        gsap.fromTo(
+          pillRef.current,
+          { y: "140%", opacity: 0 },
+          { y: "0%", opacity: 1, duration: 0.6, ease: "back.out(1.4)" },
+        );
+      }
+    };
+
+    window.addEventListener("headerAnimationComplete", onReady);
+    return () => window.removeEventListener("headerAnimationComplete", onReady);
   }, []);
 
   // const icons = [
@@ -382,6 +388,12 @@ export default function FloatingMobileIcons() {
       onClick: () => setEnquiryOpen(true),
     },
   ];
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const icons = containerRef.current.querySelectorAll(".desk-icon");
+    gsap.set(icons, { opacity: 0, x: 30, scale: 0.7 });
+  }, []);
 
   return (
     <>
