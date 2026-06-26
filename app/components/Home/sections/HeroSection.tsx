@@ -59,8 +59,8 @@ type Props = {
   desktopVideo: string;
   mobileVideo: string;
   title: string;
-  posterDesktop:string;
-  posterMobile:string;
+  posterDesktop: string;
+  posterMobile: string;
 };
 
 export default function HeroSection({
@@ -69,7 +69,7 @@ export default function HeroSection({
   mobileVideo,
   title,
   posterDesktop,
-  posterMobile
+  posterMobile,
 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -90,7 +90,7 @@ export default function HeroSection({
     <>
       <section
         id="sec1"
-        className="h-screen bg-black text-white flex items-center justify-center relative text-center sticky top-0 z-0"
+        className="h-[100svh] bg-black text-white flex items-center justify-center relative text-center sticky top-0 z-0"
       >
         <div className="relative w-full h-screen overflow-hidden flex items-center justify-center text-center">
           {/* Portrait video — mobile only */}
@@ -115,7 +115,7 @@ export default function HeroSection({
           />
 
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.3)_1.12%,rgba(0,0,0,0.15)_40.24%,rgba(0,0,0,0.75)_100%)] pointer-events-none" />
-          <div className="absolute w-full bottom-[80px] md:bottom-[100px] flex flex-col gap-10 md:gap-8 lg:gap-50 items-center justify-center">
+          <div className="absolute w-full bottom-[100px] md:bottom-[100px] flex flex-col gap-10 md:gap-8 lg:gap-50 items-center justify-center">
             <div className="relative overflow-hidden">
               <h1
                 ref={titleRef}
