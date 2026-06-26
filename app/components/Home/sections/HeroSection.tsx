@@ -59,8 +59,8 @@ type Props = {
   desktopVideo: string;
   mobileVideo: string;
   title: string;
-  posterDesktop:string;
-  posterMobile:string;
+  posterDesktop: string;
+  posterMobile: string;
 };
 
 export default function HeroSection({
@@ -69,7 +69,7 @@ export default function HeroSection({
   mobileVideo,
   title,
   posterDesktop,
-  posterMobile
+  posterMobile,
 }: Props) {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
