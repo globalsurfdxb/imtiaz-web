@@ -236,12 +236,14 @@ export function useSectionSnap(
       const targetEl = sectionRefs[nextIndex]?.current;
       if (!targetEl) return;
 
+      const offset = Number(targetEl.dataset.snapOffset ?? 0);
+
       isAnimatingRef.current = true;
       currentIndexRef.current = nextIndex;
 
       lock();
 
-      animateTo(targetEl.offsetTop, () => {
+animateTo(targetEl.offsetTop + offset, () => {
         syncTo(targetEl.offsetTop);
         requestAnimationFrame(() => {
           unlock();

@@ -105,7 +105,7 @@ const ConstructionProgress: React.FC<ConstructionProgressProps> = ({
     <section
       ref={sectionRef}
       // className="relative w-full overflow-hidden flex justify-center items-center h-[82vh] md:h-[70vh] lg:h-[75vh] xl:h-screen"
-      className="relative w-full overflow-hidden flex justify-center items-center h-screen bg-white"
+      className="relative w-full overflow-hidden flex justify-center items-center h-screen bg-black"
     >
       {/* ---------------- BACKGROUND VIDEO ---------------- */}
       <video
@@ -120,7 +120,7 @@ const ConstructionProgress: React.FC<ConstructionProgressProps> = ({
       />
 
       {/* ---------------- OVERLAY ---------------- */}
-      <div className="absolute inset-0 z-[2] bg-black/60" />
+      {/* <div className="absolute inset-0 z-[2] bg-black/60" /> */}
 
       {/* ---------------- TEXT ---------------- */}
       <div

@@ -143,7 +143,7 @@ export default function FloatingMobileIcons() {
     onClick: () => { window.open("https://wa.me/971800468429", "_blank"); }
   },
   {
-    src: "/icons/layout_icons/message.svg",
+    src: "/icons/layout_icons/message2.svg",
     alt: "message",
     onClick: () => setEnquiryOpen(true),
   },
