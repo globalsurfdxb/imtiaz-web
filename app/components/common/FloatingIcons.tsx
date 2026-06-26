@@ -413,7 +413,7 @@ export default function FloatingMobileIcons() {
         style={{ transform: "translateY(140%)", opacity: 0 }}
         className="fixed bottom-0 left-1/2 -translate-x-1/2 z-[900] lg:hidden pb-1"
       >
-        <div className="flex items-center gap-3 px-4 py-2 rounded-[50px] bg-white/10 backdrop-blur-[30px]">
+        <div className="flex items-center gap-3 px-4 py-2 rounded-[50px] bg-foreground-light/70 backdrop-blur-[30px]">
           {icons.map(({ src, alt, onClick }) => (
             <div
               key={alt}
