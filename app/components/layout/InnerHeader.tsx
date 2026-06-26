@@ -176,7 +176,7 @@ const InnerHeader = ({menuData}:{menuData:any}) => {
                     width={183}
                     height={50}
                     priority
-                    className="w-[131px] xl:w-[183px] h-[44px] md:h-[30px] lg:h-[45px] 3xl:h-[50px] invert brightness-0"
+                    className="w-[131px] xl:w-[183px] h-[20px] md:h-[30px] lg:h-[45px] 3xl:h-[50px] invert brightness-0"
                   />
                 </Link>
               </div>
@@ -197,7 +197,7 @@ const InnerHeader = ({menuData}:{menuData:any}) => {
                     />
                   </button>
 
-                  <div className="relative" ref={langRef}>
+                  {/* <div className="relative" ref={langRef}>
                     <button
                       ref={langBtnRef}
                       onClick={() => {
@@ -267,7 +267,7 @@ const InnerHeader = ({menuData}:{menuData:any}) => {
                         </AnimatePresence>,
                         document.body,
                       )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

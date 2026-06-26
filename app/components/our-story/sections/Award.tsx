@@ -17,7 +17,7 @@ export default function AwardSection({title,descriptions,bgImage,bgImagemob}:Pro
   return (
     <section
       data-header="dark"
-      className="relative w-full overflow-hidden flex flex-col max-[640px]:h-[931px]"
+      className="relative w-full overflow-hidden flex flex-col max-[640px]:h-[955px]"
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0 overflow-hidden">
