@@ -247,7 +247,6 @@
 //   );
 // }
 
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -322,7 +321,6 @@ export default function FloatingMobileIcons() {
     });
   };
 
-
   // const icons = [
   //   { src: "/icons/layout_icons/phone.svg", alt: "phone", onClick: () => {} },
   //   {
@@ -338,40 +336,57 @@ export default function FloatingMobileIcons() {
   // ];
 
   const animate = () => {
-  if (containerRef.current) {
+    if (containerRef.current) {
+      const icons = containerRef.current.querySelectorAll(".desk-icon");
+      gsap.fromTo(
+        icons,
+        { opacity: 0, x: 30, scale: 0.7 },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "back.out(1.7)",
+          delay: 0.4,
+        },
+      );
+    }
+    if (pillRef.current) {
+      gsap.fromTo(
+        pillRef.current,
+        { y: "140%", opacity: 0 },
+        { y: "0%", opacity: 1, duration: 0.6, ease: "back.out(1.4)" },
+      );
+    }
+  };
+
+  useEffect(() => {
+    const isHome = pathname === "/";
+
+    // Reset first
+    if (containerRef.current) {
+      const icons = containerRef.current.querySelectorAll(".desk-icon");
+      gsap.set(icons, { opacity: 0, x: 30, scale: 0.7 });
+    }
+    if (pillRef.current) {
+      gsap.set(pillRef.current, { y: "140%", opacity: 0 });
+    }
+
+    if (!isHome) {
+      setTimeout(animate, 50);
+      return;
+    }
+
+    window.addEventListener("headerAnimationComplete", animate);
+    return () => window.removeEventListener("headerAnimationComplete", animate);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
     const icons = containerRef.current.querySelectorAll(".desk-icon");
-    gsap.fromTo(
-      icons,
-      { opacity: 0, x: 30, scale: 0.7 },
-      { opacity: 1, x: 0, scale: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.7)", delay: 0.4 },
-    );
-  }
-  if (pillRef.current) {
-    gsap.fromTo(
-      pillRef.current,
-      { y: "140%", opacity: 0 },
-      { y: "0%", opacity: 1, duration: 0.6, ease: "back.out(1.4)" },
-    );
-  }
-};
-
-useEffect(() => {
-  const isHome = pathname === "/";
-
-  if (!isHome) {
-    animate();
-    return;
-  }
-
-  window.addEventListener("headerAnimationComplete", animate);
-  return () => window.removeEventListener("headerAnimationComplete", animate);
-}, []);
-
-useEffect(() => {
-  if (!containerRef.current) return;
-  const icons = containerRef.current.querySelectorAll(".desk-icon");
-  gsap.set(icons, { opacity: 0, x: 30, scale: 0.7 });
-}, []);
+    gsap.set(icons, { opacity: 0, x: 30, scale: 0.7 });
+  }, []);
 
   const icons = [
     {
