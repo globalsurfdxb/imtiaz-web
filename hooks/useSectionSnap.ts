@@ -167,146 +167,150 @@
 
 
 
-// "use client";
+"use client";
 
-// import { useEffect, useRef } from "react";
-// import { useLenis } from "@/app/contexts/LenisContext";
+import { useEffect, useRef } from "react";
+import { useLenis } from "@/app/contexts/LenisContext";
 
-// export function useSectionSnap(
-//   sectionRefs: React.RefObject<HTMLElement | null>[],
-//   enabled: boolean,
-// ) {
-//   const { lock, unlock, syncTo } = useLenis();
+export function useSectionSnap(
+  sectionRefs: React.RefObject<HTMLElement | null>[],
+  enabled: boolean,
+) {
+  const { lock, unlock, syncTo } = useLenis();
 
-//   const currentIndexRef = useRef(0);
-//   const isAnimatingRef = useRef(false);
-//   const rafIdRef = useRef<number | null>(null);
-//   const wasBelowRef = useRef(false);
-//   const releasedRef = useRef(false);
+  const currentIndexRef = useRef(0);
+  const isAnimatingRef = useRef(false);
+  const rafIdRef = useRef<number | null>(null);
+  const wasBelowRef = useRef(false);
+  const releasedRef = useRef(false);
 
-//   const DURATION = 1600;
+  const DURATION = 1600;
 
-//   const easeInOutCubic = (t: number) =>
-//     t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const easeInOutCubic = (t: number) =>
+    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-//   useEffect(() => {
-//     // Disable entirely on touch devices — snap is a desktop-only pattern
-//     const isTouchDevice = window.matchMedia(
-//       "(hover: none) and (pointer: coarse)",
-//     ).matches;
-//     if (!enabled || isTouchDevice) return;
+  useEffect(() => {
+    // Disable entirely on touch devices — snap is a desktop-only pattern
+    const isTouchDevice = window.matchMedia(
+      "(hover: none) and (pointer: coarse)",
+    ).matches;
+    if (!enabled || isTouchDevice) return;
 
-//     const snapZoneBottom = (): number => {
-//       const last = sectionRefs[sectionRefs.length - 1]?.current;
-//       if (!last) return 0;
-//       return last.offsetTop + last.offsetHeight;
-//     };
+    const snapZoneBottom = (): number => {
+      const last = sectionRefs[sectionRefs.length - 1]?.current;
+      if (!last) return 0;
+      return last.offsetTop + last.offsetHeight;
+    };
 
-//     const inSnapZone = (): boolean => window.scrollY < snapZoneBottom() - 50;
+    const inSnapZone = (): boolean => window.scrollY < snapZoneBottom() - 50;
 
-//     const animateTo = (targetY: number, onDone: () => void) => {
-//       const startY = window.scrollY;
-//       const distance = targetY - startY;
-//       const startTime = performance.now();
+    const animateTo = (targetY: number, onDone: () => void) => {
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const startTime = performance.now();
 
-//       if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
+      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
 
-//       const step = (now: number) => {
-//         const elapsed = now - startTime;
-//         const progress = Math.min(elapsed / DURATION, 1);
-//         window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+      const step = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / DURATION, 1);
+        window.scrollTo(0, startY + distance * easeInOutCubic(progress));
 
-//         if (progress < 1) {
-//           rafIdRef.current = requestAnimationFrame(step);
-//         } else {
-//           window.scrollTo(0, targetY);
-//           rafIdRef.current = null;
-//           onDone();
-//         }
-//       };
+        if (progress < 1) {
+          rafIdRef.current = requestAnimationFrame(step);
+        } else {
+          window.scrollTo(0, targetY);
+          rafIdRef.current = null;
+          onDone();
+        }
+      };
 
-//       rafIdRef.current = requestAnimationFrame(step);
-//     };
+      rafIdRef.current = requestAnimationFrame(step);
+    };
 
-//     const doSnap = (direction: 1 | -1) => {
-//       if (isAnimatingRef.current) return;
+    const doSnap = (direction: 1 | -1) => {
+      if (isAnimatingRef.current) return;
 
-//       const nextIndex = currentIndexRef.current + direction;
+      const nextIndex = currentIndexRef.current + direction;
 
-//       if (nextIndex < 0) return;
-//       if (nextIndex >= sectionRefs.length) return;
+      if (nextIndex < 0) return;
+      if (nextIndex >= sectionRefs.length) return;
 
-//       const targetEl = sectionRefs[nextIndex]?.current;
-//       if (!targetEl) return;
+      const targetEl = sectionRefs[nextIndex]?.current;
+      if (!targetEl) return;
 
-//       const offset = Number(targetEl.dataset.snapOffset ?? 0);
+      const offset = Number(targetEl.dataset.snapOffset ?? 0);
 
-//       isAnimatingRef.current = true;
-//       currentIndexRef.current = nextIndex;
+      isAnimatingRef.current = true;
+      currentIndexRef.current = nextIndex;
 
-//       lock();
+      lock();
 
-// animateTo(targetEl.offsetTop + offset, () => {
-//         syncTo(targetEl.offsetTop);
-//         requestAnimationFrame(() => {
-//           unlock();
-//           isAnimatingRef.current = false;
-//         });
-//       });
-//     };
+animateTo(targetEl.offsetTop + offset, () => {
+        syncTo(targetEl.offsetTop);
+        requestAnimationFrame(() => {
+          unlock();
+          isAnimatingRef.current = false;
+        });
+      });
+    };
 
-//     const release = () => {
-//       releasedRef.current = true;
-//       wasBelowRef.current = true;
-//       syncTo(window.scrollY);
-//       unlock();
-//     };
+    const release = () => {
+      releasedRef.current = true;
+      wasBelowRef.current = true;
+      syncTo(window.scrollY);
+      unlock();
+    };
 
-//     const handleIntent = (isDown: boolean): boolean => {
-//       if (releasedRef.current) {
-//         if (!inSnapZone()) return false;
-//         if (!isDown) {
-//           releasedRef.current = false;
-//           wasBelowRef.current = true;
-//         } else {
-//           return false;
-//         }
-//       }
+    const handleIntent = (isDown: boolean): boolean => {
+      if (releasedRef.current) {
+        if (!inSnapZone()) return false;
+        if (!isDown) {
+          releasedRef.current = false;
+          wasBelowRef.current = true;
+        } else {
+          return false;
+        }
+      }
 
-//       if (!inSnapZone()) {
-//         wasBelowRef.current = true;
-//         return false;
-//       }
+      if (!inSnapZone()) {
+        wasBelowRef.current = true;
+        return false;
+      }
 
-//       if (wasBelowRef.current) {
-//         wasBelowRef.current = false;
-//         currentIndexRef.current = sectionRefs.length;
-//       }
+      if (wasBelowRef.current) {
+        wasBelowRef.current = false;
+        currentIndexRef.current = sectionRefs.length;
+      }
 
-//       const atLast = currentIndexRef.current >= sectionRefs.length - 1;
+      const atLast = currentIndexRef.current >= sectionRefs.length - 1;
 
-//       if (atLast && isDown) {
-//         release();
-//         return false;
-//       }
+      if (atLast && isDown) {
+        release();
+        return false;
+      }
 
-//       doSnap(isDown ? 1 : -1);
-//       return true;
-//     };
+      doSnap(isDown ? 1 : -1);
+      return true;
+    };
 
-//     const onWheel = (e: WheelEvent) => {
-//       const handled = handleIntent(e.deltaY > 0);
-//       if (handled) e.preventDefault();
-//     };
+    const onWheel = (e: WheelEvent) => {
+      const handled = handleIntent(e.deltaY > 0);
+      if (handled) e.preventDefault();
+    };
 
-//     window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("wheel", onWheel, { passive: false });
 
-//     return () => {
-//       window.removeEventListener("wheel", onWheel);
-//       if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
-//     };
-//   }, [enabled, sectionRefs, lock, unlock, syncTo]);
-// }
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
+    };
+  }, [enabled, sectionRefs, lock, unlock, syncTo]);
+}
+
+
+
+
 
 
 
@@ -329,6 +333,7 @@
 //   const wasBelowRef = useRef(false);
 //   const releasedRef = useRef(false);
 //   const touchStartYRef = useRef<number | null>(null);
+//   const touchActiveRef = useRef(false); // true while finger is down in snap zone
 
 //   const DURATION = 1600;
 
@@ -434,233 +439,71 @@
 //       return true;
 //     };
 
-//     // Desktop
+//     // ── Desktop ────────────────────────────────────────────────────────────────
 //     const onWheel = (e: WheelEvent) => {
 //       const handled = handleIntent(e.deltaY > 0);
 //       if (handled) e.preventDefault();
 //     };
 
-//     // Mobile — record on start, snap on end only
+//     // ── Mobile ─────────────────────────────────────────────────────────────────
 //     const onTouchStart = (e: TouchEvent) => {
 //       touchStartYRef.current = e.touches[0].clientY;
+//       touchActiveRef.current = inSnapZone();
+
+//       // Lock Lenis immediately so its smooth scroll doesn't run during the gesture
+//       if (touchActiveRef.current) {
+//         lock();
+//       }
+//     };
+
+//     const onTouchMove = (e: TouchEvent) => {
+//       // Prevent native scroll entirely while finger is down in snap zone.
+//       // This is the key fix — no browser scroll = nothing to fight against.
+//       if (touchActiveRef.current) {
+//         e.preventDefault();
+//       }
 //     };
 
 //     const onTouchEnd = (e: TouchEvent) => {
 //       if (touchStartYRef.current === null) return;
+
 //       const delta = touchStartYRef.current - e.changedTouches[0].clientY;
 //       touchStartYRef.current = null;
-//       if (Math.abs(delta) < TOUCH_THRESHOLD) return;
-//       handleIntent(delta > 0);
+
+//       if (!touchActiveRef.current) return;
+//       touchActiveRef.current = false;
+
+//       if (Math.abs(delta) < TOUCH_THRESHOLD) {
+//         // Swipe too small — just resync and unlock, no snap
+//         syncTo(window.scrollY);
+//         unlock();
+//         return;
+//       }
+
+//       // handleIntent calls doSnap which calls lock() again — that's fine, idempotent
+//       const handled = handleIntent(delta > 0);
+//       if (!handled) {
+//         // handleIntent didn't snap (e.g. release case) — unlock already called inside
+//         // but if it returned false without releasing, unlock here
+//         if (!releasedRef.current) {
+//           syncTo(window.scrollY);
+//           unlock();
+//         }
+//       }
 //     };
 
 //     window.addEventListener("wheel", onWheel, { passive: false });
 //     window.addEventListener("touchstart", onTouchStart, { passive: true });
+//     // ← non-passive so we can preventDefault
+//     window.addEventListener("touchmove", onTouchMove, { passive: false });
 //     window.addEventListener("touchend", onTouchEnd, { passive: true });
 
 //     return () => {
 //       window.removeEventListener("wheel", onWheel);
 //       window.removeEventListener("touchstart", onTouchStart);
+//       window.removeEventListener("touchmove", onTouchMove);
 //       window.removeEventListener("touchend", onTouchEnd);
 //       if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
 //     };
 //   }, [enabled, sectionRefs, lock, unlock, syncTo]);
 // }
-
-
-
-
-
-
-"use client";
-
-import { useEffect, useRef } from "react";
-import { useLenis } from "@/app/contexts/LenisContext";
-
-const TOUCH_THRESHOLD = 30;
-
-export function useSectionSnap(
-  sectionRefs: React.RefObject<HTMLElement | null>[],
-  enabled: boolean,
-) {
-  const { lock, unlock, syncTo } = useLenis();
-
-  const currentIndexRef = useRef(0);
-  const isAnimatingRef = useRef(false);
-  const rafIdRef = useRef<number | null>(null);
-  const wasBelowRef = useRef(false);
-  const releasedRef = useRef(false);
-  const touchStartYRef = useRef<number | null>(null);
-  const touchActiveRef = useRef(false); // true while finger is down in snap zone
-
-  const DURATION = 1600;
-
-  const easeInOutCubic = (t: number) =>
-    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-  useEffect(() => {
-    if (!enabled) return;
-
-    const snapZoneBottom = (): number => {
-      const last = sectionRefs[sectionRefs.length - 1]?.current;
-      if (!last) return 0;
-      return last.offsetTop + last.offsetHeight;
-    };
-
-    const inSnapZone = (): boolean => window.scrollY < snapZoneBottom() - 50;
-
-    const animateTo = (targetY: number, onDone: () => void) => {
-      const startY = window.scrollY;
-      const distance = targetY - startY;
-      const startTime = performance.now();
-
-      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
-
-      const step = (now: number) => {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / DURATION, 1);
-        window.scrollTo(0, startY + distance * easeInOutCubic(progress));
-
-        if (progress < 1) {
-          rafIdRef.current = requestAnimationFrame(step);
-        } else {
-          window.scrollTo(0, targetY);
-          rafIdRef.current = null;
-          onDone();
-        }
-      };
-
-      rafIdRef.current = requestAnimationFrame(step);
-    };
-
-    const doSnap = (direction: 1 | -1) => {
-      if (isAnimatingRef.current) return;
-
-      const nextIndex = currentIndexRef.current + direction;
-      if (nextIndex < 0 || nextIndex >= sectionRefs.length) return;
-
-      const targetEl = sectionRefs[nextIndex]?.current;
-      if (!targetEl) return;
-
-      const offset = Number(targetEl.dataset.snapOffset ?? 0);
-
-      isAnimatingRef.current = true;
-      currentIndexRef.current = nextIndex;
-
-      lock();
-
-      animateTo(targetEl.offsetTop + offset, () => {
-        syncTo(targetEl.offsetTop);
-        requestAnimationFrame(() => {
-          unlock();
-          isAnimatingRef.current = false;
-        });
-      });
-    };
-
-    const release = () => {
-      releasedRef.current = true;
-      wasBelowRef.current = true;
-      syncTo(window.scrollY);
-      unlock();
-    };
-
-    const handleIntent = (isDown: boolean): boolean => {
-      if (releasedRef.current) {
-        if (!inSnapZone()) return false;
-        if (!isDown) {
-          releasedRef.current = false;
-          wasBelowRef.current = true;
-        } else {
-          return false;
-        }
-      }
-
-      if (!inSnapZone()) {
-        wasBelowRef.current = true;
-        return false;
-      }
-
-      if (wasBelowRef.current) {
-        wasBelowRef.current = false;
-        currentIndexRef.current = sectionRefs.length;
-      }
-
-      const atLast = currentIndexRef.current >= sectionRefs.length - 1;
-
-      if (atLast && isDown) {
-        release();
-        return false;
-      }
-
-      doSnap(isDown ? 1 : -1);
-      return true;
-    };
-
-    // ── Desktop ────────────────────────────────────────────────────────────────
-    const onWheel = (e: WheelEvent) => {
-      const handled = handleIntent(e.deltaY > 0);
-      if (handled) e.preventDefault();
-    };
-
-    // ── Mobile ─────────────────────────────────────────────────────────────────
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartYRef.current = e.touches[0].clientY;
-      touchActiveRef.current = inSnapZone();
-
-      // Lock Lenis immediately so its smooth scroll doesn't run during the gesture
-      if (touchActiveRef.current) {
-        lock();
-      }
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      // Prevent native scroll entirely while finger is down in snap zone.
-      // This is the key fix — no browser scroll = nothing to fight against.
-      if (touchActiveRef.current) {
-        e.preventDefault();
-      }
-    };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      if (touchStartYRef.current === null) return;
-
-      const delta = touchStartYRef.current - e.changedTouches[0].clientY;
-      touchStartYRef.current = null;
-
-      if (!touchActiveRef.current) return;
-      touchActiveRef.current = false;
-
-      if (Math.abs(delta) < TOUCH_THRESHOLD) {
-        // Swipe too small — just resync and unlock, no snap
-        syncTo(window.scrollY);
-        unlock();
-        return;
-      }
-
-      // handleIntent calls doSnap which calls lock() again — that's fine, idempotent
-      const handled = handleIntent(delta > 0);
-      if (!handled) {
-        // handleIntent didn't snap (e.g. release case) — unlock already called inside
-        // but if it returned false without releasing, unlock here
-        if (!releasedRef.current) {
-          syncTo(window.scrollY);
-          unlock();
-        }
-      }
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    // ← non-passive so we can preventDefault
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
-
-    return () => {
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
-      if (rafIdRef.current !== null) cancelAnimationFrame(rafIdRef.current);
-    };
-  }, [enabled, sectionRefs, lock, unlock, syncTo]);
-}
