@@ -115,7 +115,7 @@ export default function HeroSection({
           />
 
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.3)_1.12%,rgba(0,0,0,0.15)_40.24%,rgba(0,0,0,0.75)_100%)] pointer-events-none" />
-          <div className="absolute w-full bottom-[80px] md:bottom-[100px] flex flex-col gap-10 md:gap-8 lg:gap-50 items-center justify-center">
+          <div className="absolute w-full bottom-[100px] md:bottom-[100px] flex flex-col gap-10 md:gap-8 lg:gap-50 items-center justify-center">
             <div className="relative overflow-hidden">
               <h1
                 ref={titleRef}
