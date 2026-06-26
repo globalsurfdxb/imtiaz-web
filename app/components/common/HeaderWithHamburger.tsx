@@ -372,7 +372,7 @@ const HeaderWithHamburger = ({menuData}:{menuData:any}) => {
                     />
                   </button>
 
-                  <div className="relative" ref={langRef}>
+                  {/* <div className="relative" ref={langRef}>
                     <button
                       ref={langBtnRef}
                       onClick={() => {
@@ -442,7 +442,7 @@ const HeaderWithHamburger = ({menuData}:{menuData:any}) => {
                         </AnimatePresence>,
                         document.body,
                       )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
