@@ -90,7 +90,7 @@ export default function HeroSection({
     <>
       <section
         id="sec1"
-        className="h-screen bg-black text-white flex items-center justify-center relative text-center sticky top-0 z-0"
+        className="h-[100svh] bg-black text-white flex items-center justify-center relative text-center sticky top-0 z-0"
       >
         <div className="relative w-full h-screen overflow-hidden flex items-center justify-center text-center">
           {/* Portrait video — mobile only */}
