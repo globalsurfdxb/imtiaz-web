@@ -255,7 +255,7 @@ export default function ProjectCard({
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleCardClick}
     >
-      <div className="relative w-full aspect-[8.2/10] md:aspect-[9/13] xl:aspect-[8.5/13] 3xl:aspect-[8.48/13] overflow-hidden">
+      <div className="relative w-full aspect-[8.2/10] md:aspect-[9/13] xl:aspect-[9.3/13] 3xl:aspect-[8.48/13] overflow-hidden">
         <Image
           src={image}
           alt={title}

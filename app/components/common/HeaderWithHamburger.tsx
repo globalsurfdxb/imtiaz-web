@@ -86,12 +86,12 @@ const HeaderWithHamburger = ({menuData}:{menuData:any}) => {
       hdrcntsH = "65px";
     } else if (w < 410 && w >= 375) {
       startH = "40px";
-      endH = "26px";
+      endH = "20px";
       hdrcntsH = "80px";
     } else {
       startH = "39px";
-      endH = "26px";
-      hdrcntsH = "80px";
+      endH = "20px";
+      hdrcntsH = "70px";
     }
 
     gsap.set(".hdrlgs svg", { height: startH });

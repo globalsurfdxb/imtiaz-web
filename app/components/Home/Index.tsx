@@ -101,7 +101,6 @@
 //   const searchRef = useRef<HTMLImageElement>(null);
 //   const mobsearchRef = useRef<HTMLImageElement>(null);
 
-
 //   const { unlock } = useLenis();
 
 //   useEffect(() => {
@@ -157,7 +156,6 @@
 //     };
 //   }, []);
 
-
 //   const communityNamesData = {
 //     heading: "IMTIAZ COMMUNITIES",
 //     communities: data.communities.map((community, index) => ({
@@ -208,7 +206,6 @@
 //     },
 //   }));
 
-
 //   return (
 //     <>
 //       <HeroSection
@@ -219,7 +216,7 @@
 //         posterDesktop={data?.page_hero_poster_dektop}
 //         posterMobile={data?.page_hero_poster_mobile}
 //       />
-//       {data?.page_show_section1 === "true" && 
+//       {data?.page_show_section1 === "true" &&
 //       <AboutJourneyV3
 //         searchRef={searchRef}
 //         mobsearchRef={mobsearchRef}
@@ -229,7 +226,7 @@
 //         poster={data?.page_section1_poster}
 //         propertiesData={propertiesData}
 //       />}
-//       {data?.page_show_section2 === "true" && 
+//       {data?.page_show_section2 === "true" &&
 //       <ProSliderV3 slides={heroSlides} RightLabel="Featured Properties" title={data?.page_section2_title} />}
 //       {data?.page_show_section3 === "true" && <ProSliderComingSoonV3
 //         slides={heroSlidesComingSoon}
@@ -255,10 +252,7 @@
 //       {data?.page_show_section9 === "true" && <AppSectionV2 data={appSectionData} appStore={data?.apple_store_link} playStore={data?.android_store_link} title={data?.page_section9_title} description={data?.page_section9_caption} />}
 //     </>
 //   );
-// }   
-
-
-
+// }
 
 "use client";
 
@@ -346,9 +340,9 @@ type Props = {
   imtiazPropertiesData: ImtiazPropertiesData;
   ConstructionProgressData: ConstructionProgressData;
   appSectionData: AppSectionData;
-  data: HomePageResponse['data']
-  communitiesData: any,
-  propertiesData:any
+  data: HomePageResponse["data"];
+  communitiesData: any;
+  propertiesData: any;
 };
 
 export default function Index({
@@ -357,7 +351,7 @@ export default function Index({
   appSectionData,
   data,
   communitiesData,
-  propertiesData
+  propertiesData,
 }: Props) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const scrollRef = useRef<HTMLImageElement>(null);
@@ -371,6 +365,11 @@ export default function Index({
   const snapRef2 = useRef<HTMLElement>(null); // AboutJourneyV3
   const snapRef3 = useRef<HTMLElement>(null); // ProSliderV3
   const snapRef4 = useRef<HTMLElement>(null); // ProSliderComingSoonV3
+  const snapRef5 = useRef<HTMLElement>(null); // CommunityNamesSlider
+  const snapRef6 = useRef<HTMLElement>(null); // ImtiazProperties
+  const snapRef7 = useRef<HTMLElement>(null); // ConstructionProgress2
+  const snapRef8 = useRef<HTMLElement>(null); // SpotlightSlider
+  const snapRef9 = useRef<HTMLElement>(null); // AppSectionV2
 
   // snap enabled only after header animation fires
   const [snapEnabled, setSnapEnabled] = useState(false);
@@ -399,22 +398,25 @@ export default function Index({
           titleRef.current,
           { y: 40, opacity: 0 },
           { y: 0, opacity: 1, duration: 1.2 },
-        ).fromTo(
-          searchRef.current,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1 },
-          "-=0.3",
-        ).fromTo(
-          scrollRef.current,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1 },
-          "-=0.3",
-        ).fromTo(
-          mobsearchRef.current,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1 },
-          "-=0.3",
-        );
+        )
+          .fromTo(
+            searchRef.current,
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1 },
+            "-=0.3",
+          )
+          .fromTo(
+            scrollRef.current,
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1 },
+            "-=0.3",
+          )
+          .fromTo(
+            mobsearchRef.current,
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1 },
+            "-=0.3",
+          );
       });
 
       window.dispatchEvent(new Event("homeAnimationsReady"));
@@ -440,6 +442,11 @@ export default function Index({
   if (data?.page_show_section1 === "true") snapRefs.push(snapRef2);
   if (data?.page_show_section2 === "true") snapRefs.push(snapRef3);
   if (data?.page_show_section3 === "true") snapRefs.push(snapRef4);
+  if (data?.page_show_section5 === "true") snapRefs.push(snapRef5);
+  if (data?.page_show_section6 === "true") snapRefs.push(snapRef6);
+  if (data?.page_show_section7 === "true") snapRefs.push(snapRef7);
+  if (data?.page_show_section8 === "true") snapRefs.push(snapRef8);
+  if (data?.page_show_section9 === "true") snapRefs.push(snapRef9);
 
   useSectionSnap(snapRefs, snapEnabled);
   // ──────────────────────────────────────────────────────────────────────────
@@ -465,7 +472,7 @@ export default function Index({
       location: property.property_community,
       hoverImage: property.brand_logo,
       startingFrom: property.icon1_text,
-      units: property.icon2_text
+      units: property.icon2_text,
     })),
   };
 
@@ -487,13 +494,12 @@ export default function Index({
     video: item.banner_video_dektop,
     pillFeatures: {
       title: "/icons/pro_slider/sunset_bay.svg",
-      features: item.amenities.slice(0,4).map((feature) => ({
+      features: item.amenities.slice(0, 4).map((feature) => ({
         icon: feature.icon_url,
         label: feature.title,
       })),
     },
   }));
-
 
   return (
     <>
@@ -552,7 +558,7 @@ export default function Index({
 
       {/* ── from here: normal Lenis scroll ───────────────────────────────── */}
       {/* <FpfSection video={data?.page_section4_video} title={data?.page_section4_title} description={data?.page_section4_caption} buttonText={data?.page_section4_buttontext} url={data?.page_section4_buttonurl}/> */}
-      {data?.page_show_section5 === "true" && <CommunityNamesSlider slides={communityNamesData} title={data?.page_section5_title} />}
+      {/* {data?.page_show_section5 === "true" && <CommunityNamesSlider slides={communityNamesData} title={data?.page_section5_title} />}
       {data?.page_show_section6 === "true" && <ImtiazProperties data={imtiazPropertiesData} title={data?.page_section6_title} />}
       {data?.page_show_section7 === "true" && <ConstructionProgress2
         data={ConstructionProgressData}
@@ -564,7 +570,55 @@ export default function Index({
         poster={data?.page_section7_poster}
       />}
       {data?.page_show_section8 === "true" && <SpotlightSlider data={spotlight} title={data?.page_section8_title} />}
-      {data?.page_show_section9 === "true" && <AppSectionV2 data={appSectionData} appStore={data?.apple_store_link} playStore={data?.android_store_link} title={data?.page_section9_title} description={data?.page_section9_caption} />}
+      {data?.page_show_section9 === "true" && <AppSectionV2 data={appSectionData} appStore={data?.apple_store_link} playStore={data?.android_store_link} title={data?.page_section9_title} description={data?.page_section9_caption} />} */}
+      {data?.page_show_section5 === "true" && (
+        <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
+          <CommunityNamesSlider
+            slides={communityNamesData}
+            title={data?.page_section5_title}
+          />
+        </div>
+      )}
+      {data?.page_show_section6 === "true" && (
+        <div
+          ref={snapRef6 as React.RefObject<HTMLDivElement>}
+          data-snap-offset="80"
+        >
+          <ImtiazProperties
+            data={imtiazPropertiesData}
+            title={data?.page_section6_title}
+          />
+        </div>
+      )}
+      {data?.page_show_section7 === "true" && (
+        <div ref={snapRef7 as React.RefObject<HTMLDivElement>}>
+          <ConstructionProgress2
+            data={ConstructionProgressData}
+            video={data?.page_section7_video}
+            title={data?.page_section7_title}
+            description={data?.page_section7_caption}
+            buttonText={data?.page_section7_buttontext}
+            url={data?.page_section7_buttonurl}
+            poster={data?.page_section7_poster}
+          />
+        </div>
+      )}
+      {data?.page_show_section8 === "true" && (
+        <div ref={snapRef8 as React.RefObject<HTMLDivElement>}>
+          <SpotlightSlider data={spotlight} title={data?.page_section8_title} />
+        </div>
+      )}
+      {data?.page_show_section9 === "true" && (
+        <div ref={snapRef9 as React.RefObject<HTMLDivElement>}>
+          <AppSectionV2
+            data={appSectionData}
+            appStore={data?.apple_store_link}
+            playStore={data?.android_store_link}
+            title={data?.page_section9_title}
+            description={data?.page_section9_caption}
+          />
+        </div>
+      )}
     </>
   );
 }
