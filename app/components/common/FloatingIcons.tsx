@@ -247,12 +247,14 @@
 //   );
 // }
 
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import EnquiryForm from "@/app/components/auth/EnquiryForm";
 import gsap from "gsap";
+import { usePathname } from "next/navigation";
 
 export default function FloatingMobileIcons() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -262,6 +264,7 @@ export default function FloatingMobileIcons() {
   const backdropRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   // ── Modal open animation
   useEffect(() => {
@@ -319,39 +322,6 @@ export default function FloatingMobileIcons() {
     });
   };
 
-  useEffect(() => {
-    const onReady = () => {
-      // Desktop icons
-      if (containerRef.current) {
-        const icons = containerRef.current.querySelectorAll(".desk-icon");
-        gsap.fromTo(
-          icons,
-          { opacity: 0, x: 30, scale: 0.7 },
-          {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "back.out(1.7)",
-            delay: 0.4,
-          },
-        );
-      }
-
-      // Mobile pill
-      if (pillRef.current) {
-        gsap.fromTo(
-          pillRef.current,
-          { y: "140%", opacity: 0 },
-          { y: "0%", opacity: 1, duration: 0.6, ease: "back.out(1.4)" },
-        );
-      }
-    };
-
-    window.addEventListener("headerAnimationComplete", onReady);
-    return () => window.removeEventListener("headerAnimationComplete", onReady);
-  }, []);
 
   // const icons = [
   //   { src: "/icons/layout_icons/phone.svg", alt: "phone", onClick: () => {} },
@@ -366,6 +336,42 @@ export default function FloatingMobileIcons() {
   //     onClick: () => setEnquiryOpen(true),
   //   },
   // ];
+
+  const animate = () => {
+  if (containerRef.current) {
+    const icons = containerRef.current.querySelectorAll(".desk-icon");
+    gsap.fromTo(
+      icons,
+      { opacity: 0, x: 30, scale: 0.7 },
+      { opacity: 1, x: 0, scale: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.7)", delay: 0.4 },
+    );
+  }
+  if (pillRef.current) {
+    gsap.fromTo(
+      pillRef.current,
+      { y: "140%", opacity: 0 },
+      { y: "0%", opacity: 1, duration: 0.6, ease: "back.out(1.4)" },
+    );
+  }
+};
+
+useEffect(() => {
+  const isHome = pathname === "/";
+
+  if (!isHome) {
+    animate();
+    return;
+  }
+
+  window.addEventListener("headerAnimationComplete", animate);
+  return () => window.removeEventListener("headerAnimationComplete", animate);
+}, []);
+
+useEffect(() => {
+  if (!containerRef.current) return;
+  const icons = containerRef.current.querySelectorAll(".desk-icon");
+  gsap.set(icons, { opacity: 0, x: 30, scale: 0.7 });
+}, []);
 
   const icons = [
     {
@@ -383,17 +389,11 @@ export default function FloatingMobileIcons() {
       },
     },
     {
-      src: "/icons/layout_icons/message2.svg",
+      src: "/icons/layout_icons/message3.svg",
       alt: "message",
       onClick: () => setEnquiryOpen(true),
     },
   ];
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const icons = containerRef.current.querySelectorAll(".desk-icon");
-    gsap.set(icons, { opacity: 0, x: 30, scale: 0.7 });
-  }, []);
 
   return (
     <>
