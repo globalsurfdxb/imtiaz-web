@@ -245,9 +245,9 @@ const Main = ({ data }: {data:PropertiesPageData}) => {
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         const matches =
-          item.title.toLowerCase().includes(q) ||
-          item.property_community.toLowerCase().includes(q) ||
-          item.property_type.toLowerCase().includes(q);
+          item.title?.toLowerCase().includes(q) ||
+          item.property_community?.toLowerCase().includes(q) ||
+          item.property_type?.toLowerCase().includes(q);
         if (!matches) return false;
       }
       return true;

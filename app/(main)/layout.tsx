@@ -23,6 +23,11 @@ const propertyResponse = await fetch(`${process.env.BASE_URL}/api/properties.php
 
 const propertyData = await propertyResponse.json();
 
+const communityResponse = await fetch(`${process.env.BASE_URL}/api/communities.php?lang=en`, {
+  next: { revalidate: 60 },
+});
+const communityData = await communityResponse.json();
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,9 +37,9 @@ export default function RootLayout({
     <>
       <ScrollToTopReload />
       <LenisUnlock />
-      <HeaderWithHamburger menuData={menuData.data.listing}/>
+      <HeaderWithHamburger menuData={menuData.data.listing} />
       {children}
-      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []}/>
+      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []} latestCommunities={communityData?.data?.listing?.slice(0, 6) ?? []}/>
     </>
   )
 }

@@ -24,9 +24,14 @@ export default async function InnerLayout({
 
   const propertyData = await propertyResponse.json();
 
+  const communityResponse = await fetch(`${process.env.BASE_URL}/api/communities.php?lang=en`, {
+  next: { revalidate: 60 },
+});
+const communityData = await communityResponse.json();
+
   return (
     <>
-      <InnerComponents menuData={menuData.data.listing} propertyData={propertyData}>
+      <InnerComponents menuData={menuData.data.listing} propertyData={propertyData} communityData={communityData}>
         {children}
       </InnerComponents>
     </>
