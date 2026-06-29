@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
+  AdvancedMarker,
   Map,
   MapCameraChangedEvent,
   Marker,
@@ -22,6 +23,7 @@ import "swiper/css/effect-fade";
 import PropertyCard from "./PropertyCard";
 import SliderArrowButton from "../../common/SliderNavigationButton";
 import { PropertyListingItem } from "../data";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 
 type ProjectWithId = PropertyListingItem & {
@@ -63,10 +65,21 @@ export default function FeaturedProjects({
   const [activeProject, setActiveProject] = useState<string>("");
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const markerRefs = useRef<Record<string, google.maps.marker.AdvancedMarkerElement>>({});
+  const clustererRef = useRef<MarkerClusterer | null>(null);
+
+  const [zoom, setZoom] = useState(15);
+
+const BASE_SIZE = 59;
+const activeSize = zoom >= 15
+  ? BASE_SIZE
+  : Math.max(20, BASE_SIZE * (zoom / 15) * 0.9);
+const innerSize = activeSize * 0.61;
+
   useEffect(() => {
     setVisibleProjects([]);
     setHighlighted([]);
-    setActiveProject(projects[0]?.id || "");
+    setActiveProject("0"); // ← index 0, not projects[0]?.id
   }, [projects]);
 
   const [isDesktop, setIsDesktop] = useState(false);
@@ -88,11 +101,47 @@ export default function FeaturedProjects({
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const { lock, unlock, scrollTo } = useLenis();
 
+  useEffect(() => {
+    if (!map) return;
+    clustererRef.current = new MarkerClusterer({
+  map,
+  renderer: {
+    render({ count, position }) {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <div style="
+          background: #490905;
+          color: white;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          font-weight: bold;
+          border: 2px solid white;
+        ">${count}</div>
+      `;
+      return new google.maps.marker.AdvancedMarkerElement({
+        position,
+        content: div.firstElementChild as HTMLElement,
+      });
+    },
+  },
+});
+  }, [map]);
+
+useEffect(() => {
+  if (!clustererRef.current) return;
+  clustererRef.current.clearMarkers();
+  clustererRef.current.addMarkers(Object.values(markerRefs.current));
+}, [highlighted]);
+
   const handleCameraChanged = (event: MapCameraChangedEvent) => {
     const { bounds } = event.detail || {};
     if (!bounds) return;
 
-    // Filter only from already filtered projects
     const visibleProjectsInBounds = projects.filter(
       (p) =>
         parseFloat(p.property_latitude) >= bounds.south &&
@@ -101,19 +150,38 @@ export default function FeaturedProjects({
         parseFloat(p.property_longitude) <= bounds.east,
     );
 
-    const visibleIds = visibleProjectsInBounds.map((p) => p.id);
+    // Store indices instead of ids
+    const visibleIndices = visibleProjectsInBounds.map((p) =>
+      projects.indexOf(p).toString()
+    );
 
     setVisibleProjects(visibleProjectsInBounds);
-    setHighlighted(visibleIds);
+    setHighlighted(visibleIndices); // ← indices now
 
     if (visibleProjectsInBounds.length > 0) {
-      if (!visibleIds.includes(activeProject)) {
-        setActiveProject(visibleProjectsInBounds[0].id);
+      if (!visibleIndices.includes(activeProject)) {
+        setActiveProject(projects.indexOf(visibleProjectsInBounds[0]).toString());
       }
     } else {
       setActiveProject("");
     }
   };
+
+  // Apply grayscale styles via setOptions (works with mapId)
+  useEffect(() => {
+    if (!map) return;
+    (map as any).setOptions({
+      styles: [
+        { elementType: "geometry", stylers: [{ saturation: -100 }] },
+        { elementType: "labels.icon", stylers: [{ saturation: -100 }] },
+        { elementType: "labels.text.fill", stylers: [{ saturation: -100 }] },
+        { elementType: "labels.text.stroke", stylers: [{ saturation: -100 }] },
+        { featureType: "road", elementType: "geometry", stylers: [{ saturation: -100 }] },
+        { featureType: "water", elementType: "geometry", stylers: [{ saturation: -100 }] },
+        { featureType: "poi", elementType: "geometry", stylers: [{ saturation: -100 }] },
+      ],
+    });
+  }, [map]);
 
   useEffect(() => {
     if (!map || projects.length === 0) return;
@@ -180,7 +248,7 @@ export default function FeaturedProjects({
                     delayRange={index * 0.11}
                   >
                     <ProjectCard
-                      
+
                       image={project.featured_image_desktop}
                       hoverImage={project.brand_logo}
                       subtitle={project.property_caption}
@@ -292,70 +360,93 @@ export default function FeaturedProjects({
                   lat: parseFloat(projects[0]?.property_latitude),
                   lng: parseFloat(projects[0]?.property_longitude),
                 }}
-                defaultZoom={15}
+                onZoomChanged={(e) => setZoom(e.detail.zoom)}
+                mapId="2567b86b459988d06657407f"
+                defaultZoom={12}
                 className="w-full h-full"
                 gestureHandling="greedy"
                 onCameraChanged={handleCameraChanged}
                 disableDefaultUI={true}
-                styles={[
-                  { elementType: "geometry", stylers: [{ saturation: -100 }] },
-                  {
-                    elementType: "labels.icon",
-                    stylers: [{ saturation: -100 }],
-                  },
-                  {
-                    elementType: "labels.text.fill",
-                    stylers: [{ saturation: -100 }],
-                  },
-                  {
-                    elementType: "labels.text.stroke",
-                    stylers: [{ saturation: -100 }],
-                  },
-                  {
-                    featureType: "road",
-                    elementType: "geometry",
-                    stylers: [{ saturation: -100 }],
-                  },
-                  {
-                    featureType: "water",
-                    elementType: "geometry",
-                    stylers: [{ saturation: -100 }],
-                  },
-                  {
-                    featureType: "poi",
-                    elementType: "geometry",
-                    stylers: [{ saturation: -100 }],
-                  },
-                ]}
+              // styles={[
+              //   { elementType: "geometry", stylers: [{ saturation: -100 }] },
+              //   {
+              //     elementType: "labels.icon",
+              //     stylers: [{ saturation: -100 }],
+              //   },
+              //   {
+              //     elementType: "labels.text.fill",
+              //     stylers: [{ saturation: -100 }],
+              //   },
+              //   {
+              //     elementType: "labels.text.stroke",
+              //     stylers: [{ saturation: -100 }],
+              //   },
+              //   {
+              //     featureType: "road",
+              //     elementType: "geometry",
+              //     stylers: [{ saturation: -100 }],
+              //   },
+              //   {
+              //     featureType: "water",
+              //     elementType: "geometry",
+              //     stylers: [{ saturation: -100 }],
+              //   },
+              //   {
+              //     featureType: "poi",
+              //     elementType: "geometry",
+              //     stylers: [{ saturation: -100 }],
+              //   },
+              // ]}
               >
-                {projects?.map((project) => {
-                  const isHovered = activeProject === project.id;
-                  const isHighlighted = highlighted.includes(project.id);
-                  if (!isHovered && !isHighlighted) return null;
+                {projects?.map((project, index) => {
+                  const isActive = activeProject === index.toString();
+                  const isHighlighted = highlighted.includes(index.toString());
+                  if (!isActive && !isHighlighted) return null;
+
                   return (
-                    <Marker
-                      key={project.id}
+                    <AdvancedMarker
+                      key={index}
                       position={{
                         lat: parseFloat(project.property_latitude),
                         lng: parseFloat(project.property_longitude),
                       }}
-                      title={project.title}
-                      icon={{
-                        url: isHovered
-                          ? "/active-icon.svg"
-                          : "/inactive-icon.svg",
+                      ref={(marker) => {
+                        if (marker) {
+                          markerRefs.current[index.toString()] = marker;
+                        } else {
+                          delete markerRefs.current[index.toString()];
+                        }
                       }}
                       onClick={() => {
                         setVisibleProjects((prev) => {
-                          const newArr = prev.filter(
-                            (p) => p.id !== project.id,
-                          );
+                          const newArr = prev.filter((p) => p !== project);
                           return [project, ...newArr];
                         });
-                        setActiveProject(project.id);
+                        setActiveProject(index.toString());
                         scrollTo(700, { duration: 1.2 });
                       }}
-                    />
+                    >
+                      {isActive ? (
+  <div
+    className="relative flex items-center justify-center"
+    style={{ width: activeSize, height: activeSize }}
+  >
+    <div className="absolute inset-0 rounded-full border border-[#490905] bg-[#490905]/10" />
+    <div
+      className="rounded-full overflow-hidden z-10"
+      style={{ width: innerSize, height: innerSize }}
+    >
+      <img
+        src={project.featured_image_desktop}
+        alt={project.title}
+        className="w-full h-full object-cover"
+      />
+    </div>
+  </div>
+) : (
+  <img src="/inactive-icon.svg" alt="" className="w-6 h-6" />
+)}
+                    </AdvancedMarker>
                   );
                 })}
               </Map>

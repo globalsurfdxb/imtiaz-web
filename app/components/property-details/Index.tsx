@@ -21,7 +21,7 @@ const Index = ({
 }: {
   data: PropertyDetailsData;
   allPropertyData: PropertiesPageData;
-  slug:string;
+  slug: string;
 }) => {
   const everythingWithinData = {
     title: data?.reach_title,
@@ -57,6 +57,9 @@ const Index = ({
         brochure={data?.brochure}
         fact_sheet={data?.fact_sheet}
         unit_layout={data?.unit_layout}
+        hide_button_brochure={data?.hide_button_brochure}
+        hide_button_factsheet={data?.hide_button_factsheet}
+        hide_button_unitlayout={data?.hide_button_unitlayout}
       />}
       {data.show_construction_section == "true" && <ConstructionProgress
         title={data?.construction_title}
@@ -81,12 +84,13 @@ const Index = ({
       {data.show_gallery_section == "false" && <hr />}
       {data.show_amenities_section == "true" && <Amenities data={amenetiesData} maxTitle="max-w-[90ch]" />}
       {!data?.unit_layouts && <hr />}
-      {data?.unit_layouts && <UnitLayout data={data?.unit_layouts} />}
-      
+      {data?.show_unitlayout_section == "true" && data?.unit_layouts && <UnitLayout data={data?.unit_layouts} />}
+
       {data.show_community_overview_section == "true" && <MeydanHorizon
         title={data?.community_name}
         description={data?.community_basic_brief}
         subTitle={data?.community_basic_title}
+        slug={data?.community_slug}
       />}
       <Map
         latitude={data?.property_latitude}
@@ -97,18 +101,18 @@ const Index = ({
         description={data?.faq_caption}
         data={data?.faq}
       />}
-      
+
       {data.show_similar_property_section == "true" && allPropertyData?.listing.filter(
         (item) =>
           item.property_community == data?.community_name &&
           item.title !== data?.page_banner_title,
       ).length > 0 && (
-        <LandpropertyCards
-          data={allPropertyData?.listing}
-          community={data?.community_name}
-          property={data?.page_banner_title}
-        />
-      )}
+          <LandpropertyCards
+            data={allPropertyData?.listing}
+            community={data?.community_name}
+            property={data?.page_banner_title}
+          />
+        )}
       <RegBtn />
     </>
   );

@@ -10,9 +10,10 @@ type Props = {
   title:string;
   description:string;
   subTitle:string;
+  slug:string;
 }
 
-const MeydanHorizon = ({title,description,subTitle}:Props) => {
+const MeydanHorizon = ({title,description,subTitle,slug}:Props) => {
   // const { title, description, subtitle } = communitySectionData;
   const desktopBtnRef = useScrollFadeUp({
     y: 40,
@@ -41,7 +42,7 @@ const MeydanHorizon = ({title,description,subTitle}:Props) => {
           />}
 
           <div ref={desktopBtnRef} style={{ opacity: 0 }}>
-            <Link href="/communities">
+            <Link href={`/communities/${slug}`}>
             <CustomOutlineButton
               text="View Community"
               px="px-[30px] 3xl:px-[39.54px] mx-auto mt-[50px] h-[44px] md:h-[50px]  xl:h-[66px]"
