@@ -7,10 +7,12 @@ import InnerFooter from "../../components/layout/InnerFooter";
 
 export default function InnerLayout({
   children,
-  menuData
+  menuData,
+  propertyData
 }: {
   children: React.ReactNode;
   menuData: any;
+  propertyData:any;
 }) {
   const { unlock } = useLenis();
 
@@ -23,7 +25,7 @@ export default function InnerLayout({
     <>
       <InnerHeader menuData={menuData}/>
       {children}
-      <InnerFooter />
+      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []}/>
     </>
   );
 }

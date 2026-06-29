@@ -18,10 +18,15 @@ export default async function InnerLayout({
 
   const menuData = await menuResponse.json();
 
+  const propertyResponse = await fetch(`${process.env.BASE_URL}/api/properties.php?lang=en`, {
+    next: { revalidate: 60 },
+  })
+
+  const propertyData = await propertyResponse.json();
 
   return (
     <>
-      <InnerComponents menuData={menuData.data.listing}>
+      <InnerComponents menuData={menuData.data.listing} propertyData={propertyData}>
         {children}
       </InnerComponents>
     </>
