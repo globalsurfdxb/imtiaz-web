@@ -273,7 +273,7 @@ export default function SustainabilitySpotlight({
   return (
     <section
       ref={sectionRef}
-      className="w-full make-header-black bg-white h-screen flex justify-center items-center relative z-10"
+      className="w-full make-header-black bg-white h-[100svh] flex justify-center items-center relative z-10"
       data-header="dark"
     >
       <div className="container">

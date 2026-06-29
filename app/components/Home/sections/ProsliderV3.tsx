@@ -471,7 +471,7 @@ export default function HeroSlider({ slides, RightLabel, title }: HeroSliderProp
   };
 
   return (
-    <div className="w-full relative h-screen bg-white" ref={sectionRef}>
+    <div className="w-full relative h-[100svh] bg-white" ref={sectionRef}>
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {/* <Image
             src="/images/home/pro-slider/bg-1.jpg"
