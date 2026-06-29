@@ -594,7 +594,7 @@ const MonthCard = ({ monthData, index }: MonthCardProps) => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
+                      className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"
                     />
 
                     {/* Dark overlay for better contrast */}
@@ -602,7 +602,7 @@ const MonthCard = ({ monthData, index }: MonthCardProps) => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 0.3 }}
                       transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-black"
+                      className="absolute inset-0 bg-black/40"
                     />
                   </div>
                 </SwiperSlide>
