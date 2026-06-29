@@ -14,11 +14,9 @@ type LatestProject = {
   title: string;
 };
 
-const InnerFooter = ({latestProjects}:{latestProjects: LatestProject[]}) => {
+const InnerFooter = ({latestProjects,latestCommunities}:{latestProjects: LatestProject[],latestCommunities:LatestProject[]}) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-
-  console.log(latestProjects)
 
   const validateEmail = (value: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -167,7 +165,7 @@ const InnerFooter = ({latestProjects}:{latestProjects: LatestProject[]}) => {
           ))}
         </div>
       </div> */}
-      <FooterColumns latestProjects={latestProjects}/>
+      <FooterColumns latestProjects={latestProjects} latestCommunities={latestCommunities}/>
 
       {/* ================= BOTTOM FOOTER BAR ================= */}
       <div className="bg-primary relative pt-[21px] pb-[20px]">

@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   console.log(payload);
 
   const muleRes = await fetch(
-    "https://iz-lead-integration-api-j23hh6.gi3bpb.deu-c1.eu1.cloudhub.io/api/form-integration",
+    "https://iz-lead-integration-api-45b3q6.9u15kv.deu-c1.eu1.cloudhub.io/api/form-integration",
     {
       method: "POST",
       headers: {

@@ -8,11 +8,13 @@ import InnerFooter from "../../components/layout/InnerFooter";
 export default function InnerLayout({
   children,
   menuData,
-  propertyData
+  propertyData,
+  communityData
 }: {
   children: React.ReactNode;
   menuData: any;
   propertyData:any;
+  communityData:any;
 }) {
   const { unlock } = useLenis();
 
@@ -25,7 +27,7 @@ export default function InnerLayout({
     <>
       <InnerHeader menuData={menuData}/>
       {children}
-      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []}/>
+      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []} latestCommunities={communityData?.data?.listing?.slice(0, 6) ?? []}/>
     </>
   );
 }

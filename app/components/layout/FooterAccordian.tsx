@@ -13,22 +13,28 @@ type LatestProject = {
   title: string;
 };
 
-const getColumnItems = (col: typeof footerV2Data.columns[0], latestProjects: LatestProject[]) => {
+const getColumnItems = (
+  col: typeof footerV2Data.columns[0],
+  latestProjects: LatestProject[],
+  latestCommunities: LatestProject[]
+) => {
   if (col.heading === "Latest Projects") {
     return latestProjects.map((p) => ({ label: p.title, link: `/properties/${p.slug}` }));
+  }
+  if (col.heading === "COMMUNITIES") {
+    return latestCommunities.map((c) => ({ label: c.title, link: `/communities/${c.slug}` }));
   }
   return col.items;
 };
 
 // ---- Accordion (mobile only) ----
-const FooterAccordion = ({ latestProjects }: { latestProjects: LatestProject[] }) => {
+const FooterAccordion = ({ latestProjects,latestCommunities }: { latestProjects: LatestProject[],latestCommunities:LatestProject[] }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
-console.log(latestProjects)
   return (
     <div className="sm:hidden bg-white/2">
       {footerV2Data.columns.map((col, i) => {
-        const items = getColumnItems(col, latestProjects);
+        const items = getColumnItems(col, latestProjects, latestCommunities);
         return (
           <div key={i} className="border-b border-white/15">
             <button
@@ -75,10 +81,10 @@ console.log(latestProjects)
 };
 
 // ---- Grid (sm+) ----
-const FooterGrid = ({ latestProjects }: { latestProjects: LatestProject[] }) => (
+const FooterGrid = ({ latestProjects, latestCommunities }: { latestProjects: LatestProject[], latestCommunities:LatestProject[] }) => (
   <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 xl:gap-10 container">
     {footerV2Data.columns.map((col, i) => {
-      const items = getColumnItems(col, latestProjects);
+      const items = getColumnItems(col, latestProjects, latestCommunities);
       return (
         <Reveal variants={moveUpV2} key={i}>
           <div>
@@ -102,12 +108,12 @@ const FooterGrid = ({ latestProjects }: { latestProjects: LatestProject[] }) => 
 );
 
 // ---- Section wrapper (drop-in replacement) ----
-const FooterColumns = ({ latestProjects = [] }: { latestProjects?: LatestProject[] }) => {
+const FooterColumns = ({ latestProjects = [], latestCommunities = [] }: { latestProjects?: LatestProject[],latestCommunities?:LatestProject[] }) => {
   return (
   <div className=" pt-[40px] md:py-100">
     <div>
-          <FooterAccordion latestProjects={latestProjects}/>
-          <FooterGrid latestProjects={latestProjects}/>
+          <FooterAccordion latestProjects={latestProjects} latestCommunities={latestCommunities}/>
+          <FooterGrid latestProjects={latestProjects} latestCommunities={latestCommunities}/>
       </div>
     </div>
 );
