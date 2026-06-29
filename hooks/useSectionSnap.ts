@@ -448,20 +448,20 @@ export function useSectionSnap(
     // ── Mobile ─────────────────────────────────────────────────────────────────
     const onTouchStart = (e: TouchEvent) => {
       touchStartYRef.current = e.touches[0].clientY;
-      touchActiveRef.current = inSnapZone() && !releasedRef.current;
+      touchActiveRef.current = inSnapZone();
 
       // Lock Lenis immediately so its smooth scroll doesn't run during the gesture
-      if (touchActiveRef.current) {
-        lock();
-      }
+  if (touchActiveRef.current && !releasedRef.current) {
+    lock();
+  }
     };
 
     const onTouchMove = (e: TouchEvent) => {
       // Prevent native scroll entirely while finger is down in snap zone.
       // This is the key fix — no browser scroll = nothing to fight against.
-      if (touchActiveRef.current) {
-        e.preventDefault();
-      }
+  if (touchActiveRef.current && !releasedRef.current) {
+    e.preventDefault();
+  }
     };
 
     const onTouchEnd = (e: TouchEvent) => {
