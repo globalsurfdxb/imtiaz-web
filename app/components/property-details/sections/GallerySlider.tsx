@@ -380,7 +380,7 @@ function SlideContent({
         className="object-cover"
         priority
         sizes="100vw"
-        style={{ transform: `scale(1.15) translateY(${parallaxY}vh)` }}
+        style={{ transform: `translateY(${parallaxY}vh)` }}
       />
       {/* <div
         className="absolute inset-0"

@@ -484,6 +484,7 @@ import CustomIconButton from "../../common/CustomIconButton";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { useLenis } from "@/app/contexts/LenisContext";
 import { UnitLayoutItem } from "../data";
+import EnquiryForm from "../../auth/EnquiryForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -491,11 +492,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 type Unit = {
   id: number,
-    label: string,
-    units: string,
-    area: string,
-    image: string,
-    brand_logo:string
+  label: string,
+  units: string,
+  area: string,
+  image: string,
+  brand_logo: string
 }
 
 function FloorPlanImage({ unit }: { unit: Unit }) {
@@ -612,8 +613,14 @@ function MobileFloorPanel({ unit }: { unit: Unit }) {
   );
 }
 
-function SideInfo({ unit }: { unit: Unit }) {
+function SideInfo({ unit, openModal }: { unit: Unit; openModal: (url: string, fileName: string) => void }) {
   const sideInfoRef = useRef<HTMLDivElement>(null);
+
+  const getFileName = (path: string, label: string) => {
+    const fileName = path?.split('/').pop() || label.toLowerCase();
+    return fileName;
+  };
+
 
   useEffect(() => {
     if (!sideInfoRef.current) return;
@@ -647,7 +654,7 @@ function SideInfo({ unit }: { unit: Unit }) {
         </div>
       </div>
 
-      <a href={unit.brand_logo} download={`${unit.brand_logo}`}>
+      <div onClick={() => openModal(unit.image, getFileName(unit.image, unit.label))}>
         <CustomIconButton
           icondownload={true}
           iconColor="dark"
@@ -657,23 +664,92 @@ function SideInfo({ unit }: { unit: Unit }) {
           textColor="text-primary-2"
           variant="dark"
         />
-      </a>
+      </div>
     </div>
   );
 }
 
-export default function UnitLayout({ data }: {data:UnitLayoutItem[]}) {
+export default function UnitLayout({ data }: { data: UnitLayoutItem[] }) {
 
-const units = (data || []).map((item, index) => ({
-  id: index,
-  label: item.title || "",
-  area: item.total_area || "",
-  image: item.image_url || "",
-  ...item,
-}));
+  const units = (data || []).map((item, index) => ({
+    id: index,
+    label: item.title || "",
+    area: item.total_area || "",
+    image: item.image_url || "",
+    ...item,
+  }));
+
+  const [enquiryVisible, setEnquiryVisible] = useState(false);
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const pendingDownload = useRef<{ url: string; fileName: string } | null>(null);
+
+
+
+  const openModal = (url: string, fileName: string) => {
+    pendingDownload.current = { url, fileName };
+    setEnquiryVisible(true);
+  };
+
+  // Animate in after visible
+  useEffect(() => {
+    if (!enquiryVisible) return;
+    setTimeout(() => {
+      if (!backdropRef.current || !modalRef.current) return;
+      gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" });
+      gsap.fromTo(
+        modalRef.current,
+        { opacity: 0, scale: 1.08, filter: "blur(8px)" },
+        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }
+      );
+    }, 50);
+  }, [enquiryVisible]);
+
+  const closeModal = () => {
+    if (!backdropRef.current || !modalRef.current) return;
+    gsap.to(backdropRef.current, { opacity: 0, duration: 0.3, ease: "power2.in" });
+    gsap.to(modalRef.current, {
+      opacity: 0, scale: 1.06, filter: "blur(16px)", duration: 0.5, ease: "power3.out",
+      onComplete: () => setEnquiryVisible(false),
+    });
+  };
+
+const handleSuccess = async () => {
+  closeModal();
+  if (!pendingDownload.current) return;
+  const { url, fileName } = pendingDownload.current;
+  pendingDownload.current = null;
+
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    const mimeToExt: Record<string, string> = {
+      "image/jpeg": "jpg",
+      "image/png": "png",
+      "image/webp": "webp",
+      "application/pdf": "pdf",
+    };
+    const mime = blob.type.split(";")[0].trim();
+    const ext = mimeToExt[mime] || "jpg";
+    const baseName = fileName.replace(/\.[^/.]+$/, "");
+    const finalName = `${baseName}.${ext}`;
+
+    const objectUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = objectUrl;
+    a.download = finalName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(objectUrl);
+  } catch {
+    window.open(url, "_blank");
+  }
+};
 
   const [activeId, setActiveId] = useState<number | null>(0);
-  const activeUnit = units.find((u:{id:number}) => u.id === activeId);
+  const activeUnit = units.find((u: { id: number }) => u.id === activeId);
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const buttonsContainerRef = useRef<HTMLDivElement>(null);
@@ -832,11 +908,24 @@ const units = (data || []).map((item, index) => ({
           {/* RIGHT: Stats + download — desktop only */}
           {activeUnit && (
             <div className="hidden lg:flex flex-col justify-center gap-6 min-w-[300px] 3xl:min-w-[358px]">
-              <SideInfo unit={activeUnit} />
+              <SideInfo unit={activeUnit} openModal={openModal}/>
             </div>
           )}
         </div>
       </div>
+
+      {/* Enquiry Modal */}
+      {enquiryVisible && (
+        <>
+          <div ref={backdropRef} className="fixed inset-0 z-[1000] bg-black/80 backdrop-blur-[6px] opacity-0" onClick={closeModal} />
+          <div ref={modalRef} className="fixed inset-0 z-[1001] flex items-center justify-center opacity-0 pointer-events-none">
+            <div className="pointer-events-auto w-full">
+              <EnquiryForm onClose={closeModal} onSwitch={() => { }} onSuccess={handleSuccess} />
+            </div>
+          </div>
+        </>
+      )}
+
     </section>
   );
 }

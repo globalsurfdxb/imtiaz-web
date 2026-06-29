@@ -17,6 +17,17 @@ const menuResponse = await fetch(`${process.env.BASE_URL}/api/menu_communities_p
 
 const menuData = await menuResponse.json();
 
+const propertyResponse = await fetch(`${process.env.BASE_URL}/api/properties.php?lang=en`, {
+  next: { revalidate: 60 },
+})
+
+const propertyData = await propertyResponse.json();
+
+const communityResponse = await fetch(`${process.env.BASE_URL}/api/communities.php?lang=en`, {
+  next: { revalidate: 60 },
+});
+const communityData = await communityResponse.json();
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,9 +37,9 @@ export default function RootLayout({
     <>
       <ScrollToTopReload />
       <LenisUnlock />
-      <HeaderWithHamburger menuData={menuData.data.listing}/>
+      <HeaderWithHamburger menuData={menuData.data.listing} />
       {children}
-      <InnerFooter />
+      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []} latestCommunities={communityData?.data?.listing?.slice(0, 6) ?? []}/>
     </>
   )
 }
