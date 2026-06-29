@@ -81,9 +81,10 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => {
 interface CareerFormProps {
   onClose: () => void;
   onSwitch: () => void;
+  onSuccess?:()=>void;
 }
 
-export default function EnquiryForm({ onClose, onSwitch }: CareerFormProps) {
+export default function EnquiryForm({ onClose, onSwitch,onSuccess }: CareerFormProps) {
   const [activeTab, setActiveTab] = useState<"enquiry" | "viewing">("enquiry");
   const backgroundRef = useRef<HTMLDivElement>(null);
   const whiteBoxRef = useRef<HTMLDivElement>(null);
@@ -193,6 +194,7 @@ export default function EnquiryForm({ onClose, onSwitch }: CareerFormProps) {
       });
       if (result.success) {
         setSubmitSuccess(true);
+        onSuccess ? onSuccess() : null
         enquiryForm.reset();
       }
       else setSubmitError("Submission failed. Please try again.");
