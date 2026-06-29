@@ -581,9 +581,9 @@ export default function Index({
       )}
       {data?.page_show_section6 === "true" && (
         <div
-          ref={snapRef6 as React.RefObject<HTMLDivElement>}
-          data-snap-offset="80"
-        >
+  ref={snapRef6 as React.RefObject<HTMLDivElement>}
+  className="max-md:h-screen overflow-hidden"   // ← add this
+>
           <ImtiazProperties
             data={imtiazPropertiesData}
             title={data?.page_section6_title}
