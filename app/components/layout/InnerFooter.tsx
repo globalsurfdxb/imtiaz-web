@@ -7,10 +7,18 @@ import { motion } from "framer-motion";
 import { moveUp } from "../motionVariants";
 import FooterColumns from "./FooterAccordian";
 import Link from "next/link";
+import { Property } from "../Home/data";
 
-const InnerFooter = () => {
+type LatestProject = {
+  slug: string;
+  title: string;
+};
+
+const InnerFooter = ({latestProjects}:{latestProjects: LatestProject[]}) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+
+  console.log(latestProjects)
 
   const validateEmail = (value: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
@@ -159,7 +167,7 @@ const InnerFooter = () => {
           ))}
         </div>
       </div> */}
-      <FooterColumns />
+      <FooterColumns latestProjects={latestProjects}/>
 
       {/* ================= BOTTOM FOOTER BAR ================= */}
       <div className="bg-primary relative pt-[21px] pb-[20px]">
