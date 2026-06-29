@@ -448,7 +448,7 @@ export function useSectionSnap(
     // ── Mobile ─────────────────────────────────────────────────────────────────
     const onTouchStart = (e: TouchEvent) => {
       touchStartYRef.current = e.touches[0].clientY;
-      touchActiveRef.current = inSnapZone();
+      touchActiveRef.current = inSnapZone() && !releasedRef.current;
 
       // Lock Lenis immediately so its smooth scroll doesn't run during the gesture
       if (touchActiveRef.current) {

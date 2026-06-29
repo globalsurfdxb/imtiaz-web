@@ -182,7 +182,7 @@ export default function HeroSlider({ slides, RightLabel,video,title,buttonText,u
   }, []);
 
   return (
-    <div className="w-full relative h-screen bg-white" ref={rootRef}>
+    <div className="w-full relative h-[100svh] bg-white" ref={rootRef}>
       <Swiper
         effect="fade"
         fadeEffect={{ crossFade: true }}

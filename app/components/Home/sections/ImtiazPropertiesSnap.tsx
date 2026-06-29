@@ -131,7 +131,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
   return (
     <section
       data-header="dark"
-      className={`make-header-black w-full h-screen bg-white z-10 relative flex items-center justify-center`}
+      className={`make-header-black w-full h-[100svh] bg-white z-10 relative flex items-center justify-center`}
     >
       <div className="container">
         <div className="overflow-hidden">
