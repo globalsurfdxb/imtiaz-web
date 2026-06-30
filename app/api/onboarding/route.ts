@@ -48,12 +48,14 @@ export async function POST(req: NextRequest) {
 
   const muleData = await muleRes.json().catch(() => ({}));
 
+  console.log(process.env.MULE_CLIENT_ID)
+  console.log(process.env.MULE_CLIENT_SECRET)
   console.log("send message")
 
   if (!muleRes.ok) {
     console.error("Mule error:", muleRes.status, muleData);
   }
-  
+
   return NextResponse.json(
     { success: muleRes.ok, mule_response: muleData },
     { status: muleRes.status }
