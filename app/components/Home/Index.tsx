@@ -373,7 +373,7 @@ export default function Index({
   const snapRef8 = useRef<HTMLElement>(null); // SpotlightSlider
   const snapRef9 = useRef<HTMLElement>(null); // AppSectionV2
 
-  const footerRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLElement>(null);
   const [footerReady, setFooterReady] = useState(false);
 
   useEffect(() => {
@@ -627,13 +627,13 @@ export default function Index({
 
       {data?.page_show_section9 === "true" && (
         <div ref={snapRef9 as React.RefObject<HTMLDivElement>}>
-        <AppSectionV2
-          data={appSectionData}
-          appStore={data?.apple_store_link}
-          playStore={data?.android_store_link}
-          title={data?.page_section9_title}
-          description={data?.page_section9_caption}
-        />
+          <AppSectionV2
+            data={appSectionData}
+            appStore={data?.apple_store_link}
+            playStore={data?.android_store_link}
+            title={data?.page_section9_title}
+            description={data?.page_section9_caption}
+          />
         </div>
       )}
     </>
