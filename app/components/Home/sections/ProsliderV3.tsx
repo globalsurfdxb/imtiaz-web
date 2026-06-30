@@ -379,7 +379,6 @@ export default function HeroSlider({
   RightLabel,
   title,
 }: HeroSliderProps) {
-  console.log(slides, "slidesssss");
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [mounted, setMounted] = useState(false);
