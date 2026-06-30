@@ -65,7 +65,8 @@ const AppSection = ({ data,title,description, appStore, playStore }: { data: App
   return (
     <section
       ref={section5Ref}
-      className="make-header-black w-full py-[70px] lg:py-120 3xl:py-[130px] bg-gray relative z-10"
+      // className="make-header-black w-full py-[70px] lg:py-120 3xl:py-[130px] bg-gray relative z-10"
+className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:py-[130px] flex items-start md:items-center justify-center bg-gray relative z-10 overflow-hidden"
     >
       <div
         className="container"
@@ -125,6 +126,44 @@ const AppSection = ({ data,title,description, appStore, playStore }: { data: App
               </motion.p>
             </div>
 
+                        <div className="md:hidden flex gap-[14px] justify-center mb-[10px]">
+              <motion.div
+                variants={fadeUp}
+                custom={0.23}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+              >
+                <a href={appStore} className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer">
+                  <Image
+                    src="/images/home/app/appstore1.svg"
+                    alt="Download on App Store"
+                    width={194}
+                    height={65}
+                    className="w-auto h-[55px] lg:w-[194px] lg:h-[65px] "
+                  />
+                </a>
+              </motion.div>
+
+              <motion.div
+                variants={fadeUp}
+                custom={0.23}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+              >
+                <a href={playStore} className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer">
+                  <Image
+                    src="/images/home/app/playstore1.svg"
+                    alt="Get it on Google Play"
+                    width={194}
+                    height={65}
+                    className="w-auto h-[55px] lg:w-[194px] lg:h-[65px]"
+                  />
+                </a>
+              </motion.div>
+            </div>
+
             {/* PHONE - mobile only, between desc and buttons */}
             <div className="flex md:hidden justify-center  mb-[34px] md:50">
               <div className="relative w-[286px] h-[553px] overflow-hidden phone-wrapper z-[100]">
@@ -146,8 +185,9 @@ const AppSection = ({ data,title,description, appStore, playStore }: { data: App
                 </div>
               </div>
             </div>
+          
 
-            <div className="flex gap-[14px] justify-center">
+            <div className="hidden md:flex gap-[14px] justify-center">
               <motion.div
                 variants={fadeUp}
                 custom={0.23}

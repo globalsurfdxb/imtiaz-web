@@ -119,7 +119,7 @@ export default function HeroSection({
             <div className="relative overflow-hidden">
               <h1
                 ref={titleRef}
-                className="text-heading uppercase text-white opacity-0 max-w-[135ch]"
+                className="text-heading uppercase text-white opacity-0 max-w-[135ch] container"
               >
                 {/* BUILDING WITH PURPOSE. <br />
                 DELIVERING WITH PRECISION. */}
