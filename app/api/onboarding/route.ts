@@ -48,8 +48,6 @@ export async function POST(req: NextRequest) {
 
   const muleData = await muleRes.json().catch(() => ({}));
 
-  console.log(process.env.MULE_CLIENT_ID)
-  console.log(process.env.MULE_CLIENT_SECRET)
   console.log("send message")
 
   if (!muleRes.ok) {
