@@ -519,8 +519,6 @@
 
 
 
-
-
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -537,11 +535,10 @@ export function useSectionSnap(
   const currentIndexRef = useRef(0);
   const isAnimatingRef = useRef(false);
   const rafIdRef = useRef<number | null>(null);
-  const wasBelowRef = useRef(false);
   const releasedRef = useRef(false);
+  const wasInZoneRef = useRef(false); // last known zone membership, updated by the scroll watcher
   const touchStartYRef = useRef<number | null>(null);
-  const touchActiveRef = useRef(false); // true while finger is down AND we're in the snap zone
-  const touchInsideZoneRef = useRef(false); // live tracking, updated every touchmove
+  const touchActiveRef = useRef(false); // true while finger is down AND we're already inside the zone
 
   const DURATION = 1600;
 
@@ -560,8 +557,6 @@ export function useSectionSnap(
     const inSnapZone = (): boolean => window.scrollY < snapZoneBottom() - 50;
 
     // Force iOS Safari to abort any in-flight momentum scroll.
-    // Toggling overflow on body for one frame is the only reliable way
-    // to interrupt native momentum once it's started.
     const killMomentum = () => {
       const body = document.body;
       const prevOverflow = body.style.overflow;
@@ -569,6 +564,21 @@ export function useSectionSnap(
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       body.offsetHeight; // force reflow
       body.style.overflow = prevOverflow;
+    };
+
+    const nearestSectionIndex = (): number => {
+      let closest = 0;
+      let closestDist = Infinity;
+      sectionRefs.forEach((ref, i) => {
+        const el = ref.current;
+        if (!el) return;
+        const dist = Math.abs(el.offsetTop - window.scrollY);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = i;
+        }
+      });
+      return closest;
     };
 
     const animateTo = (targetY: number, onDone: () => void) => {
@@ -595,19 +605,14 @@ export function useSectionSnap(
       rafIdRef.current = requestAnimationFrame(step);
     };
 
-    const doSnap = (direction: 1 | -1) => {
-      if (isAnimatingRef.current) return;
-
-      const nextIndex = currentIndexRef.current + direction;
-      if (nextIndex < 0 || nextIndex >= sectionRefs.length) return;
-
-      const targetEl = sectionRefs[nextIndex]?.current;
+    const snapToIndex = (index: number) => {
+      const targetEl = sectionRefs[index]?.current;
       if (!targetEl) return;
 
       const offset = Number(targetEl.dataset.snapOffset ?? 0);
 
       isAnimatingRef.current = true;
-      currentIndexRef.current = nextIndex;
+      currentIndexRef.current = index;
 
       killMomentum();
       lock();
@@ -621,38 +626,67 @@ export function useSectionSnap(
       });
     };
 
+    const doSnap = (direction: 1 | -1) => {
+      if (isAnimatingRef.current) return;
+
+      const nextIndex = currentIndexRef.current + direction;
+      if (nextIndex < 0 || nextIndex >= sectionRefs.length) return;
+
+      snapToIndex(nextIndex);
+    };
+
     const release = () => {
       releasedRef.current = true;
-      wasBelowRef.current = true;
       syncTo(window.scrollY);
       unlock();
     };
 
-    const handleIntent = (isDown: boolean): boolean => {
+    // ── Live scroll watcher ──────────────────────────────────────────────────
+    // Catches zone-boundary crossings regardless of input method: wheel,
+    // touch-drag, or unattended momentum after the finger has lifted.
+    // This is what the old touch-event-only detection missed entirely.
+    const onScroll = () => {
+      if (isAnimatingRef.current) return;
       if (releasedRef.current) {
-        if (!inSnapZone()) return false;
-        if (!isDown) {
+        // Only re-arm once the user has scrolled back into the zone from below.
+        if (inSnapZone()) {
           releasedRef.current = false;
-          wasBelowRef.current = true;
         } else {
-          return false;
+          wasInZoneRef.current = false;
+          return;
         }
       }
 
-      if (!inSnapZone()) {
-        wasBelowRef.current = true;
-        return false;
-      }
+      const nowInZone = inSnapZone();
 
-      if (wasBelowRef.current) {
-        wasBelowRef.current = false;
-        currentIndexRef.current = sectionRefs.length;
+      if (nowInZone && !wasInZoneRef.current) {
+        // Crossed into the zone — from above (top of page) or from below
+        // (scrolling up out of normal content). Snap to the nearest section
+        // immediately, killing any native momentum that carried us here.
+        wasInZoneRef.current = true;
+        touchActiveRef.current = true;
+        currentIndexRef.current = nearestSectionIndex();
+        snapToIndex(currentIndexRef.current);
+      } else if (!nowInZone && wasInZoneRef.current) {
+        wasInZoneRef.current = false;
+        touchActiveRef.current = false;
       }
+    };
+
+    const handleGestureIntent = (isDown: boolean): boolean => {
+      if (releasedRef.current) return false;
+      if (!inSnapZone()) return false;
 
       const atLast = currentIndexRef.current >= sectionRefs.length - 1;
+      const atFirst = currentIndexRef.current <= 0;
 
       if (atLast && isDown) {
         release();
+        return false;
+      }
+      if (atFirst && !isDown) {
+        // Scrolling up past the first snap section — let it fall through
+        // to normal scroll (page top), scroll watcher will re-snap if needed.
         return false;
       }
 
@@ -662,45 +696,20 @@ export function useSectionSnap(
 
     // ── Desktop ────────────────────────────────────────────────────────────────
     const onWheel = (e: WheelEvent) => {
-      const handled = handleIntent(e.deltaY > 0);
+      if (!inSnapZone() || releasedRef.current) return;
+      const handled = handleGestureIntent(e.deltaY > 0);
       if (handled) e.preventDefault();
     };
 
-    // ── Mobile ─────────────────────────────────────────────────────────────────
+    // ── Mobile: only handles in-zone section-to-section gestures now.
+    // Zone *entry* detection is owned entirely by onScroll above.
     const onTouchStart = (e: TouchEvent) => {
       touchStartYRef.current = e.touches[0].clientY;
-      const startsInZone = inSnapZone();
-      touchInsideZoneRef.current = startsInZone;
-      touchActiveRef.current = startsInZone;
-
-      if (startsInZone && !releasedRef.current) {
-        killMomentum();
-        lock();
-      }
+      touchActiveRef.current = inSnapZone() && !releasedRef.current;
     };
 
     const onTouchMove = (e: TouchEvent) => {
-      if (releasedRef.current) return;
-
-      const nowInZone = inSnapZone();
-
-      // Live transition: finger was outside the zone when it landed, but
-      // momentum has since carried the page across the boundary mid-gesture.
-      // This is the exact iOS upward-scroll glitch — catch it here.
-      if (nowInZone && !touchInsideZoneRef.current) {
-        touchInsideZoneRef.current = true;
-        touchActiveRef.current = true;
-        killMomentum();
-        lock();
-      } else if (!nowInZone && touchInsideZoneRef.current) {
-        // Drifted back out before crossing the threshold — let native scroll resume.
-        touchInsideZoneRef.current = false;
-        touchActiveRef.current = false;
-        syncTo(window.scrollY);
-        unlock();
-      }
-
-      if (touchActiveRef.current) {
+      if (touchActiveRef.current && !releasedRef.current) {
         e.preventDefault();
       }
     };
@@ -711,11 +720,8 @@ export function useSectionSnap(
       const delta = touchStartYRef.current - e.changedTouches[0].clientY;
       touchStartYRef.current = null;
 
-      const wasActive = touchActiveRef.current;
+      if (!touchActiveRef.current) return;
       touchActiveRef.current = false;
-      touchInsideZoneRef.current = false;
-
-      if (!wasActive) return;
 
       if (Math.abs(delta) < TOUCH_THRESHOLD) {
         syncTo(window.scrollY);
@@ -723,21 +729,21 @@ export function useSectionSnap(
         return;
       }
 
-      const handled = handleIntent(delta > 0);
-      if (!handled) {
-        if (!releasedRef.current) {
-          syncTo(window.scrollY);
-          unlock();
-        }
+      const handled = handleGestureIntent(delta > 0);
+      if (!handled && !releasedRef.current) {
+        syncTo(window.scrollY);
+        unlock();
       }
     };
 
+    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("touchstart", onTouchStart, { passive: true });
     window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
+      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchmove", onTouchMove);
