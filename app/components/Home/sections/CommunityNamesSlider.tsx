@@ -383,7 +383,7 @@ export default function HeroFeatureSlider({
                               }}
                             >
                               <Link
-                                href={`/communities/${c.name.toLowerCase().replace(/\s+/g, "-")}`}
+                                href={`/communities/${c.link?.replace(/^\/?community\//, "")}`}
                               >
                                 <CustomOutlineButton
                                   text="Read More"
