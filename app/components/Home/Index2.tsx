@@ -490,6 +490,7 @@ export default function Index({
   };
 
   const heroSlides = data.new_launches.map((item) => ({
+    slug: item.slug,
     title: item.title,
     video: item.banner_video_dektop,
     pillFeatures: {
