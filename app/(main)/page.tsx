@@ -943,6 +943,7 @@
 //   );
 // }
 
+import type { Metadata } from "next";
 import Index from "@/app/components/Home/Index";
 import {
   heroSlides,
@@ -954,23 +955,44 @@ import {
   promotion,
 } from "../components/Home/data";
 
-export default async function Page() {
-
+async function getHomeData() {
   const response = await fetch(`${process.env.BASE_URL}/api/home.php?lang=en`, {
     next: { revalidate: 60 },
   });
-  const data = await response.json();
+  return response.json();
+}
 
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getHomeData();
+  const meta = data?.data;
 
-  const communitiesResponse = await fetch(`${process.env.BASE_URL}/api/communities.php?lang=en`, {
-    next: { revalidate: 60 },
-  });
+  return {
+    title: meta?.meta_title,
+    description: meta?.meta_description,
+    openGraph: {
+      title: meta?.meta_title,
+      description: meta?.meta_description,
+    },
+  };
+}
+
+export default async function Page() {
+  const data = await getHomeData();
+
+  const communitiesResponse = await fetch(
+    `${process.env.BASE_URL}/api/communities.php?lang=en`,
+    {
+      next: { revalidate: 60 },
+    },
+  );
   const communitiesData = await communitiesResponse.json();
 
-
-  const propertyResponse = await fetch(`${process.env.BASE_URL}/api/properties.php?lang=en`, {
-    next: { revalidate: 60 },
-  });
+  const propertyResponse = await fetch(
+    `${process.env.BASE_URL}/api/properties.php?lang=en`,
+    {
+      next: { revalidate: 60 },
+    },
+  );
   const propertiesData = await propertyResponse.json();
 
   return (
