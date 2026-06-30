@@ -14,7 +14,7 @@ type LatestProject = {
   title: string;
 };
 
-const InnerFooter = ({latestProjects,latestCommunities}:{latestProjects: LatestProject[],latestCommunities:LatestProject[]}) => {
+const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: LatestProject[], latestCommunities: LatestProject[] }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
@@ -165,11 +165,41 @@ const InnerFooter = ({latestProjects,latestCommunities}:{latestProjects: LatestP
           ))}
         </div>
       </div> */}
-      <FooterColumns latestProjects={latestProjects} latestCommunities={latestCommunities}/>
+      <FooterColumns latestProjects={latestProjects} latestCommunities={latestCommunities} />
+
+      {/* ICONS */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="md:hidden flex gap-[5px] md:gap-2 justify-center md:justify-start xl:justify-end w-full z-10 overflow-hidden"
+      >
+        {footerV2Data.bottom.icons.map((icon, i) => (
+          <Link
+            href={icon.url}
+            target="_blank"
+            key={i}
+            className="cursor-pointer w-6 h-6 md:w-auto md:h-auto md:p-[13px] rounded-full bg-primary flex items-center justify-center"
+          >
+            <Image
+              src={icon.image}
+              alt="icon"
+              width={22}
+              height={22}
+              className={`w-auto hover:scale-110 transition-all duration-300 ${i === footerV2Data.bottom.icons.length - 1
+                  ? "h-[10px] md:h-[22px]"
+                  : "h-[15px] md:h-[22px]"
+                }`}
+            />
+          </Link>
+        ))}
+      </motion.div>
 
       {/* ================= BOTTOM FOOTER BAR ================= */}
       <div className="bg-primary relative pt-[21px] pb-[20px]">
         <div className="absolute inset-0 z-0 bg-white/2 w-full h-full pointer-events-none" />
+
 
         <div className="container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 items-center md:gap-7">
           {/* LEFT LINKS */}
@@ -207,25 +237,26 @@ const InnerFooter = ({latestProjects,latestCommunities}:{latestProjects: LatestP
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex gap-[5px] md:gap-2 justify-center md:justify-start xl:justify-end w-full z-10 overflow-hidden"
+            className="hidden md:flex gap-[5px] md:gap-2 justify-center md:justify-start xl:justify-end w-full z-10 overflow-hidden"
           >
             {footerV2Data.bottom.icons.map((icon, i) => (
-              <div
+              <Link
+                href={icon.url}
+                target="_blank"
                 key={i}
                 className="cursor-pointer w-6 h-6 md:w-auto md:h-auto md:p-[13px] rounded-full bg-primary flex items-center justify-center"
               >
                 <Image
-                  src={icon}
+                  src={icon.image}
                   alt="icon"
                   width={22}
                   height={22}
-                  className={`w-auto hover:scale-110 transition-all duration-300 ${
-                    i === footerV2Data.bottom.icons.length - 1
+                  className={`w-auto hover:scale-110 transition-all duration-300 ${i === footerV2Data.bottom.icons.length - 1
                       ? "h-[10px] md:h-[22px]"
                       : "h-[15px] md:h-[22px]"
-                  }`}
+                    }`}
                 />
-              </div>
+              </Link>
             ))}
           </motion.div>
         </div>

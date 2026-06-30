@@ -234,7 +234,7 @@ export default function MegaMenu({
                     className="cursor-pointer rounded-full w-[33px] h-[33px] bg-white/25 backdrop-blur-[30px] flex items-center justify-center"
                   >
                     <Image
-                      src={icon}
+                      src={icon.image}
                       alt="icon"
                       width={22}
                       height={22}
