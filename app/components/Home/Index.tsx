@@ -254,6 +254,8 @@
 //   );
 // }
 
+
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -264,7 +266,7 @@ import { useSectionSnap } from "@/hooks/useSectionSnap";
 import ProSliderComingSoonV3 from "../../components/Home/sections/ProSliderComingSoonV3";
 import FpfSection from "../../components/Home/sections/FpfSection";
 import ProSliderV3 from "../../components/Home/sections/ProsliderV3";
-import ImtiazProperties from "../../components/Home/sections/ImtiazPropsSlider";
+// import ImtiazProperties from "../../components/Home/sections/ImtiazPropsSlider";
 import ConstructionProgress2 from "../../components/Home/sections/ConstructionProgress2";
 import AppSectionV2 from "../../components/Home/sections/AppSection";
 import CommunityNamesSlider from "../../components/Home/sections/CommunityNamesSlider";
@@ -272,6 +274,8 @@ import AboutJourneyV3 from "../../components/Home/sections/AboutJourneyV3";
 import SpotlightSlider from "../../components/Home/sections/SpotlightSlider";
 import HeroSection from "./sections/HeroSection";
 import { HomePageResponse } from "./data";
+import ImtiazPropertiesSnap from "./sections/ImtiazPropertiesSnap";
+import SpotlightSliderSnap from './sections/SpotlightSliderSnap'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -369,7 +373,6 @@ export default function Index({
   const snapRef6 = useRef<HTMLElement>(null); // ImtiazProperties
   const snapRef7 = useRef<HTMLElement>(null); // ConstructionProgress2
   const snapRef8 = useRef<HTMLElement>(null); // SpotlightSlider
-  const snapRef9 = useRef<HTMLElement>(null); // AppSectionV2
 
   // snap enabled only after header animation fires
   const [snapEnabled, setSnapEnabled] = useState(false);
@@ -446,7 +449,6 @@ export default function Index({
   if (data?.page_show_section6 === "true") snapRefs.push(snapRef6);
   if (data?.page_show_section7 === "true") snapRefs.push(snapRef7);
   if (data?.page_show_section8 === "true") snapRefs.push(snapRef8);
-  if (data?.page_show_section9 === "true") snapRefs.push(snapRef9);
 
   useSectionSnap(snapRefs, snapEnabled);
   // ──────────────────────────────────────────────────────────────────────────
@@ -580,11 +582,8 @@ export default function Index({
         </div>
       )}
       {data?.page_show_section6 === "true" && (
-        <div
-          ref={snapRef6 as React.RefObject<HTMLDivElement>}
-          data-snap-offset="80"
-        >
-          <ImtiazProperties
+        <div ref={snapRef6 as React.RefObject<HTMLDivElement>}>
+          <ImtiazPropertiesSnap
             data={imtiazPropertiesData}
             title={data?.page_section6_title}
           />
@@ -605,11 +604,10 @@ export default function Index({
       )}
       {data?.page_show_section8 === "true" && (
         <div ref={snapRef8 as React.RefObject<HTMLDivElement>}>
-          <SpotlightSlider data={spotlight} title={data?.page_section8_title} />
+          <SpotlightSliderSnap data={spotlight} title={data?.page_section8_title} />
         </div>
       )}
       {data?.page_show_section9 === "true" && (
-        <div ref={snapRef9 as React.RefObject<HTMLDivElement>}>
           <AppSectionV2
             data={appSectionData}
             appStore={data?.apple_store_link}
@@ -617,7 +615,6 @@ export default function Index({
             title={data?.page_section9_title}
             description={data?.page_section9_caption}
           />
-        </div>
       )}
     </>
   );
