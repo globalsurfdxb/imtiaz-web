@@ -349,6 +349,7 @@ export interface feats {
 export interface SlideData {
   title: string;
   video: string;
+  slug: string;
   bgImage?: string; // optional per-slide fallback image shown during transition
   pillFeatures: {
     title: string;
@@ -360,7 +361,7 @@ type HeroSliderProps = {
   slides: SlideData[];
   RightLabel?: string;
   heroBgImage?: string; // static fallback image shown behind all slides
-  title:string;
+  title: string;
 };
 
 const fadeUp = {
@@ -373,7 +374,12 @@ const fadeUp = {
   exit: moveUpExit.exit,
 };
 
-export default function HeroSlider({ slides, RightLabel, title }: HeroSliderProps) {
+export default function HeroSlider({
+  slides,
+  RightLabel,
+  title,
+}: HeroSliderProps) {
+  console.log(slides, "slidesssss");
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -472,6 +478,11 @@ export default function HeroSlider({ slides, RightLabel, title }: HeroSliderProp
 
   return (
     <div className="w-full relative h-[100svh] bg-white" ref={sectionRef}>
+      <style jsx global>{`
+        .hero-pro-slider .swiper-slide:not(.swiper-slide-active) {
+          pointer-events: none;
+        }
+      `}</style>
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         {/* <Image
             src="/images/home/pro-slider/bg-1.jpg"
@@ -493,7 +504,7 @@ export default function HeroSlider({ slides, RightLabel, title }: HeroSliderProp
           modules={[EffectFade, Autoplay, Navigation]}
           // autoplay={{ delay: 8000, disableOnInteraction: false }}
           onSwiper={setSwiperInstance}
-          className="w-full swiper-fade h-full"
+          className="w-full swiper-fade hero-pro-slider h-full"
           onSlideChange={(swiper) => {
             setActiveIndex(swiper.realIndex);
           }}
@@ -526,38 +537,38 @@ export default function HeroSlider({ slides, RightLabel, title }: HeroSliderProp
 
                 {/* Mobile nav */}
                 {slides.length > 1 && (
-                <motion.div className="block lg:hidden absolute left-0 top-1/2 -translate-y-1/2 w-full opacity-60">
-                  <div className="container flex items-center justify-between w-full">
-                    <button
-                      aria-label="Previous slide"
-                      onClick={handlePrev}
-                      className="relative w-[50px] h-[50px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
-                    >
-                      <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-                      <Image
-                        src="/icons/left_arrow_slider_primary.svg"
-                        alt="Prev"
-                        width={28}
-                        height={28}
-                        className="relative z-10 object-contain w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-                      />
-                    </button>
-                    <button
-                      aria-label="Next slide"
-                      onClick={handleNext}
-                      className="relative w-[50px] h-[50px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
-                    >
-                      <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-                      <Image
-                        src="/icons/left_arrow_slider_primary.svg"
-                        alt="Next"
-                        width={28}
-                        height={28}
-                        className="relative rotate-180 z-10 object-contain w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-                      />
-                    </button>
-                  </div>
-                </motion.div>
+                  <motion.div className="block lg:hidden absolute left-0 top-1/2 -translate-y-1/2 w-full opacity-60">
+                    <div className="container flex items-center justify-between w-full">
+                      <button
+                        aria-label="Previous slide"
+                        onClick={handlePrev}
+                        className="relative w-[50px] h-[50px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+                      >
+                        <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
+                        <Image
+                          src="/icons/left_arrow_slider_primary.svg"
+                          alt="Prev"
+                          width={28}
+                          height={28}
+                          className="relative z-10 object-contain w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+                        />
+                      </button>
+                      <button
+                        aria-label="Next slide"
+                        onClick={handleNext}
+                        className="relative w-[50px] h-[50px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+                      >
+                        <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
+                        <Image
+                          src="/icons/left_arrow_slider_primary.svg"
+                          alt="Next"
+                          width={28}
+                          height={28}
+                          className="relative rotate-180 z-10 object-contain w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+                        />
+                      </button>
+                    </div>
+                  </motion.div>
                 )}
 
                 {/* TOP AREA */}
@@ -672,7 +683,10 @@ export default function HeroSlider({ slides, RightLabel, title }: HeroSliderProp
                             </motion.div>
                             <motion.div variants={moveUp(0.5)}>
                               <Link
-                                href={`/properties/${slide.title.toLowerCase().replace(/\s+/g, "-")}`}
+                                href={`/properties/${slide.slug}`}
+                                onClick={(e) => {
+                                  if (index !== activeIndex) e.preventDefault();
+                                }}
                               >
                                 <CustomOutlineButton
                                   text="Explore"
@@ -697,46 +711,46 @@ export default function HeroSlider({ slides, RightLabel, title }: HeroSliderProp
 
       {/* ── DESKTOP NAV ARROWS (z-20, above Swiper z-10) ────────────────────── */}
       {slides.length > 1 && (
-      <motion.div
-        variants={fadeUp}
-        custom={0.5}
-        initial="hidden"
-        animate={startAnim ? "show" : "hidden"}
-        exit="exit"
-        className="hidden lg:block absolute top-1/2 -translate-y-1/2 left-0 w-full z-20 pointer-events-none"
-      >
-        <div className="container flex items-center justify-center gap-5 md:justify-between">
-          <button
-            aria-label="Previous slide"
-            onClick={handlePrev}
-            className="pointer-events-auto relative w-[62px] h-[62px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
-          >
-            <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-            <Image
-              src="/icons/left_arrow_slider_primary.svg"
-              alt="Prev"
-              width={28}
-              height={28}
-              className="relative z-10 object-contain w-[28px] h-[28px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-            />
-          </button>
+        <motion.div
+          variants={fadeUp}
+          custom={0.5}
+          initial="hidden"
+          animate={startAnim ? "show" : "hidden"}
+          exit="exit"
+          className="hidden lg:block absolute top-1/2 -translate-y-1/2 left-0 w-full z-20 pointer-events-none"
+        >
+          <div className="container flex items-center justify-center gap-5 md:justify-between">
+            <button
+              aria-label="Previous slide"
+              onClick={handlePrev}
+              className="pointer-events-auto relative w-[62px] h-[62px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+            >
+              <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
+              <Image
+                src="/icons/left_arrow_slider_primary.svg"
+                alt="Prev"
+                width={28}
+                height={28}
+                className="relative z-10 object-contain w-[28px] h-[28px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+              />
+            </button>
 
-          <button
-            aria-label="Next slide"
-            onClick={handleNext}
-            className="pointer-events-auto relative w-[62px] h-[62px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
-          >
-            <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-            <Image
-              src="/icons/left_arrow_slider_primary.svg"
-              alt="Next"
-              width={28}
-              height={28}
-              className="relative rotate-180 z-10 object-contain w-[28px] h-[28px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-            />
-          </button>
-        </div>
-      </motion.div>
+            <button
+              aria-label="Next slide"
+              onClick={handleNext}
+              className="pointer-events-auto relative w-[62px] h-[62px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+            >
+              <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
+              <Image
+                src="/icons/left_arrow_slider_primary.svg"
+                alt="Next"
+                width={28}
+                height={28}
+                className="relative rotate-180 z-10 object-contain w-[28px] h-[28px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+              />
+            </button>
+          </div>
+        </motion.div>
       )}
       {mounted &&
         enquiryVisible &&

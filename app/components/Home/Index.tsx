@@ -507,6 +507,7 @@ export default function Index({
 
   const heroSlides = data.new_launches.map((item) => ({
     title: item.title,
+    slug: item.slug,
     video: item.banner_video_dektop,
     pillFeatures: {
       title: "/icons/pro_slider/sunset_bay.svg",
