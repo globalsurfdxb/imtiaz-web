@@ -354,14 +354,29 @@ export const LenisProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const scrollTo = (target: number, options?: { duration?: number }) => {
+const scrollTo = (target: number, options?: { duration?: number }) => {
     if (lenisRef.current) {
       isProgrammaticScroll.current = true;
+      const isInstant = options?.duration === 0;
+      const finalOptions = isInstant
+        ? { ...options, immediate: true }
+        : options;
+
+      let settled = false;
+      const settle = () => {
+        if (settled) return;
+        settled = true;
+        isProgrammaticScroll.current = false;
+      };
+
       lenisRef.current.scrollTo(target, {
-        ...options,
-        onComplete: () => {
-          isProgrammaticScroll.current = false;
-        },
+        ...finalOptions,
+        onComplete: settle,
+      });
+
+      const fallbackDelay = isInstant ? 0 : ((options?.duration ?? 1.2) * 1000 + 200);
+      requestAnimationFrame(() => {
+        setTimeout(settle, fallbackDelay);
       });
     }
   };
