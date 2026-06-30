@@ -358,7 +358,7 @@ export default function SustainabilitySpotlight({
               slides={slides}
               targetRef={mImgsRef}
               parallaxRef={mParallaxRef}
-              className="w-full relative h-[308px] sm:h-[400px] overflow-hidden cursor-grab active:cursor-grabbing select-none mb-5 sm:mb-50 border border-red-500"
+              className="w-full relative h-[308px] sm:h-[400px] overflow-hidden cursor-grab active:cursor-grabbing select-none mb-5 sm:mb-50"
               pointerHandlers={pointerHandlers}
             />
           </div>
