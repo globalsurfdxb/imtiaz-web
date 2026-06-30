@@ -30,30 +30,28 @@ const Pagination = ({
     }, 20);
   };
 
-  const getPages = (): (number | "...")[] => {
-    if (totalPages <= 6) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
-    }
+const getPages = (): (number | "...")[] => {
+  if (totalPages <= 6) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
 
-    const pages: (number | "...")[] = [1, 2, 3, 4];
+  const pages: (number | "...")[] = [1];
 
-    if (currentPage > 5) {
-      pages.push("...");
-      pages.push(currentPage);
-    }
+  const start = Math.max(2, currentPage - 1);
+  const end = Math.min(totalPages - 1, currentPage + 1);
 
-    if (currentPage > 4 && currentPage < totalPages - 1) {
-      if (!pages.includes(currentPage)) pages.push(currentPage);
-    }
+  if (start > 2) pages.push("...");
 
-    pages.push("...");
-    pages.push(totalPages);
+  for (let p = start; p <= end; p++) {
+    pages.push(p);
+  }
 
-    return pages.filter((p, i, arr) =>
-      p === "..." ? arr[i - 1] !== "..." : arr.indexOf(p) === i,
-    );
-  };
+  if (end < totalPages - 1) pages.push("...");
 
+  pages.push(totalPages);
+
+  return pages;
+};
   const pages = getPages();
 
   return (

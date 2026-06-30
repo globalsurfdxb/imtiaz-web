@@ -134,25 +134,30 @@ const Main = ({ data }: {data:PropertiesPageData}) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [view, setView] = useState<"list" | "map">("list");
 
-  const itemsPerPageRef = useRef(6);
-  const [, forceUpdate] = useState(0);
+const itemsPerPageRef = useRef(4);
+const [, forceUpdate] = useState(0);
 
-  useEffect(() => {
-    const initial = window.innerWidth >= 1600 ? 8 : 6;
-    if (initial !== itemsPerPageRef.current) {
-      itemsPerPageRef.current = initial;
+useEffect(() => {
+  const getColumns = () => {
+    const w = window.innerWidth;
+    if (w >= 1700) return 4;
+    if (w >= 1140) return 3;
+    if (w >= 640) return 2;
+    return 1;
+  };
+
+  const applyItemsPerPage = () => {
+    const next = getColumns() * 4; // always 4 rows
+    if (next !== itemsPerPageRef.current) {
+      itemsPerPageRef.current = next;
       forceUpdate((n) => n + 1);
     }
-    const update = () => {
-      const next = window.innerWidth >= 1600 ? 8 : 6;
-      if (next !== itemsPerPageRef.current) {
-        itemsPerPageRef.current = next;
-        forceUpdate((n) => n + 1);
-      }
-    };
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
+  };
+
+  applyItemsPerPage();
+  window.addEventListener("resize", applyItemsPerPage);
+  return () => window.removeEventListener("resize", applyItemsPerPage);
+}, []);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParamsRef.current.toString());
