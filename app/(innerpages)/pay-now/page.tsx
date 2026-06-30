@@ -1,14 +1,33 @@
+import type { Metadata } from "next";
 import Index from "@/app/components/pay-now/Index";
 export const dynamic = "force-dynamic";
 
-const page = async () => {
+async function getPayNowData() {
   const response = await fetch(
     `${process.env.BASE_URL}/api/paynow.php?lang=en`,
     {
       next: { revalidate: 60 },
     },
   );
-  const data = await response.json();
+  return response.json();
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getPayNowData();
+  const meta = data?.data;
+
+  return {
+    title: meta?.meta_title,
+    description: meta?.meta_description,
+    openGraph: {
+      title: meta?.meta_title,
+      description: meta?.meta_description,
+    },
+  };
+}
+
+const page = async () => {
+  const data = await getPayNowData();
 
   return (
     <>
