@@ -607,6 +607,7 @@ export default function Index({
           <SpotlightSliderSnap data={spotlight} title={data?.page_section8_title} />
         </div>
       )}
+      
       {/* {data?.page_show_section9 === "true" && (
           <AppSectionV2
             data={appSectionData}
