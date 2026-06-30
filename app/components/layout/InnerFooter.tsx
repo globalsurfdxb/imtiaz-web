@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { footerV2Data } from "../common/data";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { moveUp } from "../motionVariants";
 import FooterColumns from "./FooterAccordian";
@@ -14,15 +14,47 @@ type LatestProject = {
   title: string;
 };
 
+const COOLDOWN_MS = 30000;
+
 const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: LatestProject[], latestCommunities: LatestProject[] }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+  const [cooldownRemaining, setCooldownRemaining] = useState(0);
+  const lastSubmitRef = useRef<number>(0);
+  const cooldownIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+
+  const startCooldown = () => {
+    lastSubmitRef.current = Date.now();
+    setCooldownRemaining(COOLDOWN_MS / 1000);
+
+    if (cooldownIntervalRef.current) clearInterval(cooldownIntervalRef.current);
+
+    cooldownIntervalRef.current = setInterval(() => {
+      const elapsed = Date.now() - lastSubmitRef.current;
+      const remaining = Math.max(0, Math.ceil((COOLDOWN_MS - elapsed) / 1000));
+      setCooldownRemaining(remaining);
+
+      if (remaining <= 0 && cooldownIntervalRef.current) {
+        clearInterval(cooldownIntervalRef.current);
+        cooldownIntervalRef.current = null;
+      }
+    }, 1000);
+  };
 
   const validateEmail = (value: string) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const elapsed = Date.now() - lastSubmitRef.current;
+    if (elapsed < COOLDOWN_MS) {
+      setError(`Please wait ${Math.ceil((COOLDOWN_MS - elapsed) / 1000)}s before trying again`);
+      return;
+    }
+
     if (!email) {
       setError("Email is required");
       return;
@@ -34,9 +66,34 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
     }
 
     setError("");
-    // ✅ proceed with API / submit
-    console.log("Email:", email);
+    setSubmitLoading(true);
+    startCooldown();
+
+    try {
+      const res = await fetch("https://backenduat.imtiaz.ae/api/subscribe.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ Email: email }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok) {
+        setSubscribed(true);
+        setEmail("");
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitLoading(false);
+    }
   };
+
+
   return (
     <footer
       data-header="dark"
@@ -93,9 +150,10 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
 
               <button
                 onClick={handleSubmit}
-                className="bg-white/10 cursor-pointer backdrop-blur-[30px] px-8 md:px-7 xl:px-[44px] py-[16px] rounded-[50px] text-16 text-white"
+                disabled={submitLoading}
+                className="bg-white/10 cursor-pointer backdrop-blur-[30px] px-8 md:px-7 xl:px-[44px] py-[16px] rounded-[50px] text-16 text-white disabled:opacity-60"
               >
-                {footerV2Data.top.sendText}
+                {subscribed ? "Subscribed!" : submitLoading ? "Sending..." : footerV2Data.top.sendText}
               </button>
 
               {/* ✅ Error message */}
@@ -188,8 +246,8 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
               width={22}
               height={22}
               className={`w-auto hover:scale-110 transition-all duration-300 ${i === footerV2Data.bottom.icons.length - 1
-                  ? "h-[10px] md:h-[22px]"
-                  : "h-[15px] md:h-[22px]"
+                ? "h-[10px] md:h-[22px]"
+                : "h-[15px] md:h-[22px]"
                 }`}
             />
           </Link>
@@ -252,8 +310,8 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
                   width={22}
                   height={22}
                   className={`w-auto hover:scale-110 transition-all duration-300 ${i === footerV2Data.bottom.icons.length - 1
-                      ? "h-[10px] md:h-[22px]"
-                      : "h-[15px] md:h-[22px]"
+                    ? "h-[10px] md:h-[22px]"
+                    : "h-[15px] md:h-[22px]"
                     }`}
                 />
               </Link>
