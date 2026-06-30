@@ -1,24 +1,44 @@
 import Index from "@/app/components/news-details/Index";
+import type { Metadata } from "next";
 
-const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
-  const slug = (await params).slug;
+async function getNewsDetailData(slug: string) {
   const response = await fetch(
     `${process.env.BASE_URL}/api/news_detail.php?lang=en&slug=${slug}`,
-    { next: { revalidate: 60 } }
+    { next: { revalidate: 60 } },
   );
-  const data = await response.json();
-          console.log(data, " our story");
+  return response.json();
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await getNewsDetailData(slug);
+  const meta = data?.data;
+
+  return {
+    title: meta?.meta_title,
+    description: meta?.meta_description,
+    openGraph: {
+      title: meta?.meta_title,
+      description: meta?.meta_description,
+    },
+  };
+}
+
+const Page = async ({ params }: Props) => {
+  const { slug } = await params;
+  const data = await getNewsDetailData(slug);
 
   const allNewsResponse = await fetch(
     `${process.env.BASE_URL}/api/news.php?lang=en`,
-    { next: { revalidate: 60 } }
+    { next: { revalidate: 60 } },
   );
   const allNewsData = await allNewsResponse.json();
 
-  return (
-    <Index data={data.data} allNewsData={allNewsData.data}/>
-  )
-}
+  return <Index data={data.data} allNewsData={allNewsData.data} />;
+};
 
-export default page
+export default Page;
