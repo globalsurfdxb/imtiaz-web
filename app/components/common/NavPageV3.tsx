@@ -2048,7 +2048,7 @@ useEffect(() => {
               {menuItems.map((item, index) => {
                 const isActive = activeMenu.id === item.id;
                 return (
-                  <Link target="_blank" href={(item.label === "AGENCY" || item.label === "INDIVIDUAL") ? (item.href || "#") : "#"}>
+                  // <Link href={(item.label === "AGENCY" || item.label === "INDIVIDUAL") ? (item.href || "#") : "#"}>
                   <motion.div
                     variants={moveRight(index * 0.13)}
                     initial="hidden"
@@ -2103,7 +2103,7 @@ useEffect(() => {
                       </motion.span>
                     </motion.div>
                   </motion.div>
-                  </Link>
+                  // </Link>
                 );
               })}
             </div>
