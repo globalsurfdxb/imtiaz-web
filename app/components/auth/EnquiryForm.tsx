@@ -192,6 +192,9 @@ export default function EnquiryForm({ onClose, onSwitch,onSuccess }: CareerFormP
         utm: buildUtmPayload(),
         landingPageName:"enquiry"
       });
+
+      console.log("Result",result)
+      
       if (result.success) {
         setSubmitSuccess(true);
         onSuccess ? onSuccess() : null

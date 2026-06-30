@@ -25,7 +25,6 @@ import SliderArrowButton from "../../common/SliderNavigationButton";
 import { PropertyListingItem } from "../data";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
-
 type ProjectWithId = PropertyListingItem & {
   id: string;
 };
@@ -70,11 +69,11 @@ export default function FeaturedProjects({
 
   const [zoom, setZoom] = useState(15);
 
-const BASE_SIZE = 59;
-const activeSize = zoom >= 15
-  ? BASE_SIZE
-  : Math.max(20, BASE_SIZE * (zoom / 15) * 0.9);
-const innerSize = activeSize * 0.61;
+  const BASE_SIZE = 49;
+  const activeSize = zoom >= 15
+    ? BASE_SIZE
+    : Math.max(20, BASE_SIZE * (zoom / 15) * 0.9);
+  const innerSize = activeSize * 0.61;
 
   useEffect(() => {
     setVisibleProjects([]);
@@ -101,42 +100,57 @@ const innerSize = activeSize * 0.61;
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const { lock, unlock, scrollTo } = useLenis();
 
+  // Create the clusterer once the map instance is available
   useEffect(() => {
     if (!map) return;
     clustererRef.current = new MarkerClusterer({
-  map,
-  renderer: {
-    render({ count, position }) {
-      const div = document.createElement("div");
-      div.innerHTML = `
-        <div style="
-          background: #490905;
-          color: white;
-          border-radius: 50%;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 14px;
-          font-weight: bold;
-          border: 2px solid white;
-        ">${count}</div>
-      `;
-      return new google.maps.marker.AdvancedMarkerElement({
-        position,
-        content: div.firstElementChild as HTMLElement,
-      });
-    },
-  },
-});
+      map,
+      renderer: {
+        render({ count, position }) {
+          const div = document.createElement("div");
+          div.innerHTML = `
+            <div style="
+              background: #490905;
+              color: white;
+              border-radius: 50%;
+              width: 40px;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 14px;
+              font-weight: bold;
+              border: 2px solid white;
+            ">${count}</div>
+          `;
+          return new google.maps.marker.AdvancedMarkerElement({
+            position,
+            content: div.firstElementChild as HTMLElement,
+          });
+        },
+      },
+    });
+
+    return () => {
+      clustererRef.current?.clearMarkers();
+      clustererRef.current = null;
+    };
   }, [map]);
 
-useEffect(() => {
-  if (!clustererRef.current) return;
-  clustererRef.current.clearMarkers();
-  clustererRef.current.addMarkers(Object.values(markerRefs.current));
-}, [highlighted]);
+  // Re-sync clusterer markers whenever the set of rendered markers could have changed.
+  // Deferred with setTimeout(0) so all AdvancedMarker ref callbacks (and any internal
+  // async marker creation from @vis.gl/react-google-maps) have settled before we read
+  // markerRefs.current — this is what fixes "works after pan/zoom, not on first load".
+  useEffect(() => {
+    if (!map || !clustererRef.current) return;
+
+    const timeout = setTimeout(() => {
+      clustererRef.current?.clearMarkers();
+      clustererRef.current?.addMarkers(Object.values(markerRefs.current));
+    }, 0);
+
+    return () => clearTimeout(timeout);
+  }, [map, highlighted, activeProject]);
 
   const handleCameraChanged = (event: MapCameraChangedEvent) => {
     const { bounds } = event.detail || {};
@@ -183,6 +197,9 @@ useEffect(() => {
     });
   }, [map]);
 
+  // Initial center/zoom + force a bounds calculation on first idle so
+  // highlighted/visibleProjects (and therefore markers + clustering) populate
+  // without requiring the user to pan/zoom first.
   useEffect(() => {
     if (!map || projects.length === 0) return;
 
@@ -198,15 +215,23 @@ useEffect(() => {
       currentCenter.lat() !== newCenter.lat ||
       currentCenter.lng() !== newCenter.lng
     ) {
-      // Smooth pan (Google handles the animation)
       map.panTo(newCenter);
     }
 
-    // Only reset zoom if it’s not already correct
     if (map.getZoom() !== 11) {
       map.setZoom(11);
     }
-  }, [projects]);
+
+    const idleListener = map.addListener("idle", () => {
+      const bounds = map.getBounds();
+      if (bounds) {
+        handleCameraChanged({ detail: { bounds: bounds.toJSON() } } as MapCameraChangedEvent);
+      }
+      google.maps.event.removeListener(idleListener);
+    });
+
+    return () => google.maps.event.removeListener(idleListener);
+  }, [map, projects]);
 
   const handleEnter = () => {
     if (window.innerWidth >= 1280) lock();
@@ -248,7 +273,6 @@ useEffect(() => {
                     delayRange={index * 0.11}
                   >
                     <ProjectCard
-
                       image={project.featured_image_desktop}
                       hoverImage={project.brand_logo}
                       subtitle={project.property_caption}
@@ -283,7 +307,6 @@ useEffect(() => {
                     loop
                     onSwiper={(swiper) => (swiperRef.current = swiper)}
                     onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-
                     className="!overflow-visible w-full"
                   >
                     {visibleProjects.map((project, index) => (
@@ -362,41 +385,11 @@ useEffect(() => {
                 }}
                 onZoomChanged={(e) => setZoom(e.detail.zoom)}
                 mapId="2567b86b459988d06657407f"
-                defaultZoom={12}
+                defaultZoom={11}
                 className="w-full h-full"
-                gestureHandling="greedy"
+                gestureHandling="cooperative"
                 onCameraChanged={handleCameraChanged}
                 disableDefaultUI={true}
-              // styles={[
-              //   { elementType: "geometry", stylers: [{ saturation: -100 }] },
-              //   {
-              //     elementType: "labels.icon",
-              //     stylers: [{ saturation: -100 }],
-              //   },
-              //   {
-              //     elementType: "labels.text.fill",
-              //     stylers: [{ saturation: -100 }],
-              //   },
-              //   {
-              //     elementType: "labels.text.stroke",
-              //     stylers: [{ saturation: -100 }],
-              //   },
-              //   {
-              //     featureType: "road",
-              //     elementType: "geometry",
-              //     stylers: [{ saturation: -100 }],
-              //   },
-              //   {
-              //     featureType: "water",
-              //     elementType: "geometry",
-              //     stylers: [{ saturation: -100 }],
-              //   },
-              //   {
-              //     featureType: "poi",
-              //     elementType: "geometry",
-              //     stylers: [{ saturation: -100 }],
-              //   },
-              // ]}
               >
                 {projects?.map((project, index) => {
                   const isActive = activeProject === index.toString();
@@ -427,25 +420,40 @@ useEffect(() => {
                       }}
                     >
                       {isActive ? (
-  <div
-    className="relative flex items-center justify-center"
-    style={{ width: activeSize, height: activeSize }}
-  >
-    <div className="absolute inset-0 rounded-full border border-[#490905] bg-[#490905]/10" />
-    <div
-      className="rounded-full overflow-hidden z-10"
-      style={{ width: innerSize, height: innerSize }}
-    >
-      <img
-        src={project.featured_image_desktop}
-        alt={project.title}
-        className="w-full h-full object-cover"
-      />
-    </div>
-  </div>
-) : (
-  <img src="/inactive-icon.svg" alt="" className="w-6 h-6" />
-)}
+                        <div
+                          className="relative flex items-center justify-center"
+                          style={{ width: activeSize, height: activeSize }}
+                        >
+                          <div className="absolute inset-0 rounded-full border border-[#490905] bg-[#490905]/10" />
+                          <div
+                            className="rounded-full overflow-hidden z-10"
+                            style={{ width: innerSize, height: innerSize }}
+                          >
+                            <img
+                              src={project.featured_image_desktop}
+                              alt={project.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div
+                          className="relative flex items-center justify-center"
+                          style={{ width: activeSize, height: activeSize }}
+                        >
+                          <div className="absolute inset-0 rounded-full border border-[#490905] bg-[#490905]/10" />
+                          <div
+                            className="rounded-full overflow-hidden z-10"
+                            style={{ width: innerSize, height: innerSize }}
+                          >
+                            <img
+                              src={project.featured_image_desktop}
+                              alt={project.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+                      )}
                     </AdvancedMarker>
                   );
                 })}
