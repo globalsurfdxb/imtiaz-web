@@ -253,7 +253,7 @@ export default function HeroSlider({ slides, RightLabel,video,title,buttonText,u
                       initial="hidden"
                       animate={inView ? "show" : "hidden"}
                       exit="exit"
-                      className="flex gap-4 mt-5 md:mt-15  font-[avenirRoman] overflow-hidden"
+                      className="flex gap-4 mt-5 md:mt-15 font-[avenirRoman] overflow-hidden"
                     >
                       {/* <motion.div
                         variants={fadeUp}
