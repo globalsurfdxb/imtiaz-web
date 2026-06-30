@@ -23,11 +23,17 @@ import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function HeroFeatureSlider({data,title}:{title:string,data:InvestorRelationsPageResponse['data']['communities']}) {
+export default function HeroFeatureSlider({
+  data,
+  title,
+}: {
+  title: string;
+  data: InvestorRelationsPageResponse["data"]["communities"];
+}) {
   // const { heading, communities = [] } = communityNamesData;
 
   const heading = title;
-  const communities = data
+  const communities = data;
 
   const initialActive = communities?.[1] ? 1 : 0;
 
@@ -36,7 +42,9 @@ export default function HeroFeatureSlider({data,title}:{title:string,data:Invest
 
   /* Background fade logic */
   const [bgBase, setBgBase] = useState<string | null>(
-    communities?.[initialActive]?.featured_image_desktop ?? communities?.[0]?.featured_image_desktop ?? null,
+    communities?.[initialActive]?.featured_image_desktop ??
+      communities?.[0]?.featured_image_desktop ??
+      null,
   );
   const [prevBg, setPrevBg] = useState<string | null>(null);
 
@@ -65,7 +73,7 @@ export default function HeroFeatureSlider({data,title}:{title:string,data:Invest
     once: true,
   });
 
-    const [bp, setBp] = useState<"mobile" | "desktop">("desktop");
+  const [bp, setBp] = useState<"mobile" | "desktop">("desktop");
 
   useEffect(() => {
     const handleResize = () => {
@@ -122,7 +130,8 @@ export default function HeroFeatureSlider({data,title}:{title:string,data:Invest
 
   const handleMouseLeave = () => {
     const current = communities[activeFeat] ?? communities[0];
-    if (current?.featured_image_desktop) switchBg(current.featured_image_desktop);
+    if (current?.featured_image_desktop)
+      switchBg(current.featured_image_desktop);
   };
 
   useEffect(() => {
@@ -140,7 +149,7 @@ export default function HeroFeatureSlider({data,title}:{title:string,data:Invest
     swiper.navigation.update();
   }, [swiper, prevRef.current, nextRef.current]);
 
-    const gap = bp === "mobile" ? "20px" : "50px";
+  const gap = bp === "mobile" ? "20px" : "50px";
 
   return (
     <section
@@ -235,10 +244,10 @@ export default function HeroFeatureSlider({data,title}:{title:string,data:Invest
       {/* Heading */}
       <div className="container pt-[70px] md:pt-120 2xl:pt-[130px] relative z-10">
         <motion.div className="flex items-center justify-center relative">
-            <SectionHeading
-              title={heading}
-              className="text-center text-white text-heading"
-            />
+          <SectionHeading
+            title={heading}
+            className="text-center text-white text-heading"
+          />
         </motion.div>
       </div>
 
@@ -341,7 +350,8 @@ export default function HeroFeatureSlider({data,title}:{title:string,data:Invest
                               }}
                             >
                               <Link
-                                href={`/communities/${c.title.toLowerCase().replace(/\s+/g, "-")}`}
+                                // href={`/communities/${c.title.toLowerCase().replace(/\s+/g, "-")}`}
+                                href={`/communities/${c.slug}`}
                               >
                                 <CustomOutlineButton
                                   text="Read More"
@@ -360,7 +370,9 @@ export default function HeroFeatureSlider({data,title}:{title:string,data:Invest
                                 key={i}
                                 // onClick={() => swiperRef.current?.slideToLoop(i)}
                                 className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${
-                                  i === activeFeat ? "bg-white" : "bg-transparent"
+                                  i === activeFeat
+                                    ? "bg-white"
+                                    : "bg-transparent"
                                 }`}
                               />
                             ))}
