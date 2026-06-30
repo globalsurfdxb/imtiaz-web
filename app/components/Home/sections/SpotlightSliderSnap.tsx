@@ -364,13 +364,15 @@ export default function SustainabilitySpotlight({
           </div>
 
           <div className="flex items-center justify-between w-full gap-30">
-            <CustomOutlineButton
-              variant="dark"
-              text="View All"
-              borderColor="border-primary-2"
-              textColor="text-primary-2"
-              px="px-10 md:px-[30px] lg:px-[26px] h-[44px] md:h-[50px]  xl:h-[66px]"
-            />
+            <Link href={data.viewAllHref}>
+              <CustomOutlineButton
+                variant="dark"
+                text="View All"
+                borderColor="border-primary-2"
+                textColor="text-primary-2"
+                px="px-10 md:px-[30px] lg:px-[26px] h-[44px] md:h-[50px]  xl:h-[66px]"
+              />
+            </Link>
             <div className="flex items-center gap-[15px]">
               <SliderArrowButton
                 onClick={() => {
@@ -445,7 +447,7 @@ export default function SustainabilitySpotlight({
                         exit="exit"
                       >
                         <Link
-                          href={`/media-center/news/${slide.title.toLowerCase().replace(/ /g, "-")}`}
+                          href={`/media-center/news/${slide.href}`}
                           className="text-primary-2 text-19 font-[avenirBook] leading-[100%]  transition-colors duration-300"
                         >
                           <CustomOutlineButton
