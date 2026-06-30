@@ -284,7 +284,7 @@ export default function SustainabilitySpotlight({
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="uppercase text-heading text-foreground mb-20 md:mb-50 text-center"
+            className="uppercase text-heading text-foreground mb-[12px] md:mb-50 text-center"
           >
             {title}
           </motion.h2>
@@ -292,7 +292,7 @@ export default function SustainabilitySpotlight({
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.id}
-              className="flex flex-col items-center text-center mb-[30px] lg:mb-50"
+              className="flex flex-col items-center text-center mb-[15px] md:mb-[30px] lg:mb-50"
             >
               <motion.span
                 custom={0}
@@ -300,7 +300,7 @@ export default function SustainabilitySpotlight({
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-16 font-[avenirBook] text-foreground-light mb-5 md:mb-[30px] lg:mb-20"
+                className="text-16 font-[avenirBook] text-foreground-light mb-[10px] md:mb-[30px] lg:mb-20"
               >
                 {slide.date}
               </motion.span>
@@ -310,7 +310,7 @@ export default function SustainabilitySpotlight({
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-25 font-[optima] uppercase text-foreground line-clamp-2 leading-[1.2] mb-[30px] lg:mb-50 max-w-[598px]"
+                className="text-25 font-[optima] uppercase text-foreground line-clamp-2 leading-[1.2] mb-[20px] md:mb-[30px] lg:mb-50 max-w-[598px]"
               >
                 {slide.title}
               </motion.h3>
@@ -337,7 +337,8 @@ export default function SustainabilitySpotlight({
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex items-center gap-[10px] mb-[30px] lg:mb-50">
+          <div className="w-full relative">
+          <div className=" absolute bottom-0 left-0 right-0 z-10 flex items-center justify-center gap-[10px] mb-[40px] lg:mb-50">
             {slides.map((_, i) => (
               <button
                 key={i}
@@ -347,20 +348,20 @@ export default function SustainabilitySpotlight({
                 }}
                 className={`rounded-full transition-all duration-300 cursor-pointer w-[10px] h-[10px] ${
                   i === current
-                    ? "bg-primary-2"
-                    : "bg-white border border-primary-2"
+                    ? "bg-white"
+                    : "bg-transparent border border-white"
                 }`}
               />
             ))}
           </div>
-
-          <ImageTrack
-            slides={slides}
-            targetRef={mImgsRef}
-            parallaxRef={mParallaxRef}
-            className="w-full relative h-[308px] sm:h-[400px] overflow-hidden cursor-grab active:cursor-grabbing select-none mb-5 sm:mb-50"
-            pointerHandlers={pointerHandlers}
-          />
+            <ImageTrack
+              slides={slides}
+              targetRef={mImgsRef}
+              parallaxRef={mParallaxRef}
+              className="w-full relative h-[308px] sm:h-[400px] overflow-hidden cursor-grab active:cursor-grabbing select-none mb-5 sm:mb-50 border border-red-500"
+              pointerHandlers={pointerHandlers}
+            />
+          </div>
 
           <div className="flex items-center justify-between w-full gap-30">
             <CustomOutlineButton
