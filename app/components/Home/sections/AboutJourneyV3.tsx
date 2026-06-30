@@ -3,8 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
-import Link from "next/link";
 import PropertyFilterBar from "./PropertyFilterBar";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -13,10 +11,10 @@ type Props = {
   searchRef?: React.RefObject<HTMLDivElement | null>;
   mobsearchRef?: React.RefObject<HTMLDivElement | null>;
   communitiesData: any;
-  video:string;
-  title:string;
-  poster:string;
-  propertiesData:any
+  video: string;
+  title: string;
+  poster: string;
+  propertiesData: any;
 };
 
 const AboutJourneyV3 = ({
@@ -26,7 +24,7 @@ const AboutJourneyV3 = ({
   video,
   title,
   poster,
-  propertiesData
+  propertiesData,
 }: Props) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -111,9 +109,20 @@ const AboutJourneyV3 = ({
       <section
         ref={sectionRef}
         className="relative h-[100svh] overflow-hidden flex flex-col justify-center items-center bg-white"
-      // Added bottom padding like working component so section actually scrolls
+        // Added bottom padding like working component so section actually scrolls
       >
         {/* VIDEO */}
+        <video
+          ref={videoRef}
+          src="/videos/abt-mobile.mp4"
+          poster={poster}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="md:hidden absolute inset-0 w-full h-full object-cover scale-[1.6]"
+        />
+
         <video
           ref={videoRef}
           src={video}
@@ -122,7 +131,7 @@ const AboutJourneyV3 = ({
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover scale-[1.6]"
+          className="hidden md:block absolute inset-0 w-full h-full object-cover scale-[1.6]"
         />
 
         {/* OVERLAY */}
@@ -171,59 +180,65 @@ const AboutJourneyV3 = ({
         </div>
 
         <div className="absolute bottom-[67px] w-full flex flex-col gap-10 md:gap-8 lg:gap-50 items-center">
-            <div className="hidden lg:block opacity-0" ref={searchRef}>
-              <div className="w-full">
-                <PropertyFilterBar communitiesData={communitiesData} propertiesData={propertiesData}/>
-              </div>
-            </div>
-
-            <div className="w-full lg:hidden px-5 opacity-0 mt-[20px] " ref={mobsearchRef}>
-              <div className="w-full lg:hidden px-5">
-                <div
-                  className="flex items-center justify-between bg-white/5 backdrop-blur-[30px] border border-white/10 rounded-full px-5 py-3 min-w-full"
-                  onClick={() => setIsVisible(true)}
-                >
-                  <span className="text-white text-[12px] leading-[2] uppercase">
-                    Search Property
-                  </span>
-                  <span className="text-white text-xl leading-none">
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M0.720001 5.72003H10.72"
-                        stroke="white"
-                        strokeWidth="1.44"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M5.72003 10.72V0.719971"
-                        stroke="white"
-                        strokeWidth="1.44"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
+          <div className="hidden lg:block opacity-0" ref={searchRef}>
+            <div className="w-full">
+              <PropertyFilterBar
+                communitiesData={communitiesData}
+                propertiesData={propertiesData}
+              />
             </div>
           </div>
 
-      </section>
-        <div
-          className={`fixed -bottom-1 left-0 right-0 z-[9999] flex justify-center px-4 pb-6 transition-transform duration-500 ease-out ${isVisible ? "translate-y-0" : "translate-y-full"
-            }`}
-        >
-          <div className="w-full " ref={containerRef}>
-            <PropertyFilterBar communitiesData={communitiesData} />
+          <div
+            className="w-full lg:hidden px-5 opacity-0 mt-[20px] "
+            ref={mobsearchRef}
+          >
+            <div className="w-full lg:hidden px-5">
+              <div
+                className="flex items-center justify-between bg-white/5 backdrop-blur-[30px] border border-white/10 rounded-full px-5 py-3 min-w-full"
+                onClick={() => setIsVisible(true)}
+              >
+                <span className="text-white text-[12px] leading-[2] uppercase">
+                  Search Property
+                </span>
+                <span className="text-white text-xl leading-none">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.720001 5.72003H10.72"
+                      stroke="white"
+                      strokeWidth="1.44"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M5.72003 10.72V0.719971"
+                      stroke="white"
+                      strokeWidth="1.44"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+      <div
+        className={`fixed -bottom-1 left-0 right-0 z-[9999] flex justify-center px-4 pb-6 transition-transform duration-500 ease-out ${
+          isVisible ? "translate-y-0" : "translate-y-full"
+        }`}
+      >
+        <div className="w-full " ref={containerRef}>
+          <PropertyFilterBar communitiesData={communitiesData} />
+        </div>
+      </div>
     </>
   );
 };
