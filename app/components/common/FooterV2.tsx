@@ -182,7 +182,7 @@ const Footer = () => {
                 className="cursor-pointer p-[13px] rounded-full bg-primary flex items-center justify-center"
               >
                 <Image
-                  src={icon}
+                  src={icon.image}
                   alt="icon"
                   width={22}
                   height={22}

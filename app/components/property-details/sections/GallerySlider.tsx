@@ -418,18 +418,34 @@ function TabSwiper({
       fadeEffect={{ crossFade: true }}
       allowTouchMove={true}
       pagination={{
-        clickable: true,
-        el: paginationRef.current,
-      }}
+  clickable: true,
+  renderBullet: (index, className) => {
+    return `<span class="${className}" data-index="${index}"></span>`;
+  },
+}}
       onBeforeInit={(swiper) => {
         // @ts-expect-error swiper pagination type
         swiper.params.pagination.el = paginationRef.current;
       }}
-      onSwiper={(swiper) => {
-        swiperRef.current = swiper;
-        swiper.pagination.render();
-        swiper.pagination.update();
-      }}
+onSwiper={(swiper) => {
+  swiperRef.current = swiper;
+  if (paginationRef.current) {
+    // @ts-expect-error swiper pagination type
+    swiper.params.pagination.el = paginationRef.current;
+    swiper.pagination.init();
+    swiper.pagination.render();
+    swiper.pagination.update();
+
+    // Bypass Swiper's internal animating-guard on rapid pagination clicks
+    paginationRef.current.addEventListener("click", (e) => {
+      const target = (e.target as HTMLElement).closest("[data-index]");
+      if (!target) return;
+      const idx = Number(target.getAttribute("data-index"));
+      swiper.animating = false;
+      swiper.slideToLoop(idx, 300);
+    });
+  }
+}}
       // autoplay={{
       //   delay: 4500,
       //   disableOnInteraction: false,
@@ -677,6 +693,7 @@ export default function GallerySlider({ data }: { data: any }) {
             position: activeTab === "exterior" ? "absolute" : "relative",
             pointerEvents: activeTab === "interior" ? "auto" : "none",
           }}
+          
         />
         <div
           ref={exteriorPaginationRef}
