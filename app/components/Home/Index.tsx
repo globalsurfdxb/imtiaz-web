@@ -254,8 +254,6 @@
 //   );
 // }
 
-
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -275,7 +273,7 @@ import SpotlightSlider from "../../components/Home/sections/SpotlightSlider";
 import HeroSection from "./sections/HeroSection";
 import { HomePageResponse } from "./data";
 import ImtiazPropertiesSnap from "./sections/ImtiazPropertiesSnap";
-import SpotlightSliderSnap from './sections/SpotlightSliderSnap'
+import SpotlightSliderSnap from "./sections/SpotlightSliderSnap";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -373,6 +371,20 @@ export default function Index({
   const snapRef6 = useRef<HTMLElement>(null); // ImtiazProperties
   const snapRef7 = useRef<HTMLElement>(null); // ConstructionProgress2
   const snapRef8 = useRef<HTMLElement>(null); // SpotlightSlider
+  const snapRef9 = useRef<HTMLElement>(null); // AppSectionV2
+
+  const footerRef = useRef<HTMLElement>(null);
+  const [footerReady, setFooterReady] = useState(false);
+
+  useEffect(() => {
+    const footerEl = document.querySelector<HTMLElement>(
+      'footer[data-header="dark"]',
+    );
+    if (footerEl) {
+      footerRef.current = footerEl;
+      setFooterReady(true);
+    }
+  }, []);
 
   // snap enabled only after header animation fires
   const [snapEnabled, setSnapEnabled] = useState(false);
@@ -449,8 +461,10 @@ export default function Index({
   if (data?.page_show_section6 === "true") snapRefs.push(snapRef6);
   if (data?.page_show_section7 === "true") snapRefs.push(snapRef7);
   if (data?.page_show_section8 === "true") snapRefs.push(snapRef8);
+  if (data?.page_show_section9 === "true") snapRefs.push(snapRef9);
+  if (footerReady) snapRefs.push(footerRef);
 
-  useSectionSnap(snapRefs, snapEnabled);
+  useSectionSnap(snapRefs, snapEnabled && footerReady);
   // ──────────────────────────────────────────────────────────────────────────
 
   const communityNamesData = {
@@ -604,11 +618,15 @@ export default function Index({
       )}
       {data?.page_show_section8 === "true" && (
         <div ref={snapRef8 as React.RefObject<HTMLDivElement>}>
-          <SpotlightSliderSnap data={spotlight} title={data?.page_section8_title} />
+          <SpotlightSliderSnap
+            data={spotlight}
+            title={data?.page_section8_title}
+          />
         </div>
       )}
 
       {data?.page_show_section9 === "true" && (
+        <div ref={snapRef9 as React.RefObject<HTMLDivElement>}>
           <AppSectionV2
             data={appSectionData}
             appStore={data?.apple_store_link}
@@ -616,6 +634,7 @@ export default function Index({
             title={data?.page_section9_title}
             description={data?.page_section9_caption}
           />
+        </div>
       )}
     </>
   );

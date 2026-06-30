@@ -40,7 +40,7 @@ const InnerFooter = ({latestProjects,latestCommunities}:{latestProjects: LatestP
   return (
     <footer
       data-header="dark"
-      className="w-full make-header-black text-white bg-primary-2 relative z-10 overflow-hidden"
+      className="w-full h-[100svh] make-header-black text-white bg-primary-2 relative z-10 overflow-hidden"
     >
       {/* ================= TOP HERO SECTION ================= */}
       <div className="w-full overflow-hidden py-[40px] lg:py-120 3xl:py-150 bg-primary-2">
