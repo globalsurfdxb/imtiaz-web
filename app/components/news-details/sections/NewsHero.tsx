@@ -9,6 +9,7 @@ import { SectionHeading } from "../../animations/SectionHeading";
 import { motion } from "framer-motion";
 import { moveDown, moveUp } from "../../motionVariants";
 import { useParallax } from "@/app/hooks/useParallax";
+import { getReadingTime } from "@/app/utils/readingTime";
 
 interface Props {
   news: NewsDetailResponse['data'];
@@ -16,6 +17,7 @@ interface Props {
 
 const NewsHero = ({ news }: Props) => {
   const { ref, parallaxY } = useParallax(15);
+    const readingTime = getReadingTime(news.description);
 
   const [size, setSize] = useState(32);
   
@@ -28,6 +30,13 @@ const NewsHero = ({ news }: Props) => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+    const handleShare = () => {
+    const shareUrl = window.location.href;
+    const linkedinUrl = `http://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}`;
+    window.open(linkedinUrl, "_blank", "noopener,noreferrer,width=600,height=600");
+  };
+
   return (
     <section className="w-full pt-[174px] md:pt-200" data-header="dark">
       <div className="container flex flex-col items-center container-spacing-details-page">
@@ -57,13 +66,13 @@ const NewsHero = ({ news }: Props) => {
             className="flex items-center gap-[10px] text-foreground-light font-[avenirBook] text-[14px] md:text-16"
           >
             <div>
-              {/* <span>{news.category}</span> */}
-              <span> - </span>
+              {/* <span>{news.category}</span>
+              <span> - </span> */}
               <span>{news.post_date}</span>
             </div>
             <span>|</span>
             <div>
-              <span>Reading Time: </span>
+              <span>Reading Time: {readingTime} </span>
             </div>
           </motion.div>
 
@@ -75,6 +84,7 @@ const NewsHero = ({ news }: Props) => {
             viewport={{ once: true }}
             className="text-foreground-light cursor-pointer hover:scale-110 transition-all duration-300"
             aria-label="Share"
+            onClick={handleShare}
           >
             <GoShareAndroid size={size} />
           </motion.button>

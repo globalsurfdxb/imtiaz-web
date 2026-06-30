@@ -1578,18 +1578,20 @@ function MobileMegaMenu({
           </a>
           <div className="flex gap-[5px] mt-5">
             {socialLinks.map((icon, i) => (
-              <div
+              <Link
+              href={icon.url}
+              target="_blank"
                 key={i}
                 className="cursor-pointer rounded-full w-[33px] h-[33px] bg-white/25 backdrop-blur-[30px] flex items-center justify-center"
               >
                 <Image
-                  src={icon}
+                  src={icon.image}
                   alt="icon"
                   width={22}
                   height={22}
                   className="w-[16px] h-[16px] opacity-100 hover:opacity-70 transition-opacity duration-300"
                 />
-              </div>
+              </Link>
             ))}
           </div>
         </motion.div>
@@ -2165,6 +2167,7 @@ useEffect(() => {
                 </div>
                 <div className="flex gap-[5px] w-full mt-[30px]">
                   {socialLinks.map((icon, i) => (
+                    <Link href={icon.url} target="_blank">
                     <motion.div
                       variants={moveUp(i * 0.2)}
                       initial="hidden"
@@ -2174,13 +2177,14 @@ useEffect(() => {
                       className="cursor-pointer rounded-full w-[33px] h-[33px] bg-white/25 backdrop-blur-[30px] flex items-center justify-center"
                     >
                       <Image
-                        src={icon}
+                        src={icon.image}
                         alt="icon"
                         width={22}
                         height={22}
                         className="opacity-100 w-[16px] h-[16px] hover:opacity-70 transition-opacity duration-300"
                       />
                     </motion.div>
+                    </Link>
                   ))}
                 </div>
               </div>

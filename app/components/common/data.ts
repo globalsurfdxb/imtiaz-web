@@ -89,7 +89,7 @@ type FooterV2Data = {
   bottom: {
     left: { label: string; href: string }[];
     center: string;
-    icons: string[];
+    icons: {image:string,url:string}[];
   };
 };
 
@@ -187,10 +187,26 @@ export const footerV2Data: FooterV2Data = {
     ],
     center: "©2025 Imtiaz Development. All Rights Reserved",
     icons: [
-      "/icons/footer/instagram.svg",
-      "/icons/footer/fb.svg",
-      "/icons/footer/linkedin.svg",
-      "/icons/footer/yt.svg",
+      {
+        image: "/icons/footer/instagram.svg",
+        url: "https://www.instagram.com/imtiazdevelopments/",
+      },
+      {
+        image: "/icons/footer/fb.svg",
+        url: "https://www.facebook.com/imtiazdevelopments/",
+      },
+      {
+        image: "/icons/footer/tiktok.svg",
+        url: "https://www.tiktok.com/@imtiazdevelopmentsuae",
+      },
+      {
+        image: "/icons/footer/linkedin.svg",
+        url: "https://www.linkedin.com/company/imtiaz-developments/",
+      },
+      {
+        image: "/icons/footer/yt.svg",
+        url: "https://www.youtube.com/@imtiazdevelopments",
+      },
     ],
   },
 };
@@ -257,7 +273,7 @@ export const subMenuItems = {
     {
       id: "investor",
       label: "INVESTOR RELATIONS",
-      href: "/media-center/investor-relations",
+      href: "/about/investor-relations",
     },
     { id: "construction", label: "CONSTRUCTION", href: "/about/construction" },
   ],
@@ -431,14 +447,37 @@ export const subMenuItems = {
 // Right side contact section
 export const contactInfo = {
   emailSales: "sales@imtiaz.ae",
-  emailInfo: "Info@imtiaz.ae",
+  emailInfo: "info@imtiaz.ae",
   phone: "+971 800 468429",
 };
 
 // Social icons (replace with your icons)
+// export const socialLinks = [
+//   "/icons/footer/instagram.svg",
+//   "/icons/footer/fb.svg",
+//   "/icons/footer/linkedin.svg",
+//   "/icons/footer/yt.svg",
+// ];
+
 export const socialLinks = [
-  "/icons/footer/instagram.svg",
-  "/icons/footer/fb.svg",
-  "/icons/footer/linkedin.svg",
-  "/icons/footer/yt.svg",
+  {
+    image: "/icons/footer/instagram.svg",
+    url: "https://www.instagram.com/imtiazdevelopments/",
+  },
+  {
+    image: "/icons/footer/fb.svg",
+    url: "https://www.facebook.com/imtiazdevelopments/",
+  },
+  {
+    image: "/icons/footer/tiktok.svg",
+    url: "https://www.tiktok.com/@imtiazdevelopmentsuae",
+  },
+  {
+    image: "/icons/footer/linkedin.svg",
+    url: "https://www.linkedin.com/company/imtiaz-developments/",
+  },
+  {
+    image: "/icons/footer/yt.svg",
+    url: "https://www.youtube.com/@imtiazdevelopments",
+  },
 ];
