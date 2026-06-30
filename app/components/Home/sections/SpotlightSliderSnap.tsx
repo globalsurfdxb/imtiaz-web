@@ -321,6 +321,7 @@ export default function SustainabilitySpotlight({
                 animate="visible"
                 exit="exit"
               >
+
                 <Link
                   href={`/media-center/${slide.href}`}
                   className="text-primary-2 text-19 leading-[100%] font-[avenirBook] hover:opacity-70 transition-opacity duration-300"
@@ -333,6 +334,7 @@ export default function SustainabilitySpotlight({
                     px="px-[12px] lg:px-[20px] 3xl:px-[36.6px]"
                   />
                 </Link>
+                
               </motion.div>
             </motion.div>
           </AnimatePresence>
