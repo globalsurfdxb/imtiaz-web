@@ -607,7 +607,7 @@ export default function Index({
           <SpotlightSliderSnap data={spotlight} title={data?.page_section8_title} />
         </div>
       )}
-      {data?.page_show_section9 === "true" && (
+      {/* {data?.page_show_section9 === "true" && (
           <AppSectionV2
             data={appSectionData}
             appStore={data?.apple_store_link}
@@ -615,7 +615,7 @@ export default function Index({
             title={data?.page_section9_title}
             description={data?.page_section9_caption}
           />
-      )}
+      )} */}
     </>
   );
 }
