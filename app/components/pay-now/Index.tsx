@@ -10,10 +10,10 @@ const Index = ({data}:{data:OnlinePaymentResponse['data']}) => {
     image={data.page_banner_desktop}
     description={data.page_banner_caption}
     maxW="max-w-[641px]" />
-    <PaymentForm 
+    {/* <PaymentForm 
     title={data.page_title}
     description={data.page_caption}
-    />
+    /> */}
     </>
   )
 }
