@@ -647,7 +647,7 @@ export default function HeroSlider({
                                 "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 50%, rgba(255, 255, 255, 0) 100%)",
                             }}
                           ></div>
-                          <div className="overflow-hidden  lg:px-[30px] 3xl:px-[68px] py-5">
+                          <div className="overflow-hidden  lg:px-[30px] 3xl:px-[68px] py-3 md:py-5">
                             <CarouselSlider
                               features={slide.pillFeatures.features}
                               activeIndex={activeIndex}
@@ -662,7 +662,7 @@ export default function HeroSlider({
                           ></div>
                         </div>
 
-                        <motion.div className="md:pr-6 md:pr-[15px] flex items-center justify-center">
+                        <motion.div className="md:pr-6 md:pr-[15px] flex items-center justify-center pb-10">
                           <motion.div
                             key={`btns-${activeIndex}`}
                             variants={moveUp(0)}
