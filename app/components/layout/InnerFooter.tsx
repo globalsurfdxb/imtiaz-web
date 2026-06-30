@@ -40,10 +40,10 @@ const InnerFooter = ({latestProjects,latestCommunities}:{latestProjects: LatestP
   return (
     <footer
       data-header="dark"
-      className="w-full make-header-black text-white bg-primary-2 relative z-10 overflow-hidden"
+      className="w-full h-[100svh] flex flex-col justify-between make-header-black text-white bg-primary-2 relative z-10 overflow-hidden"
     >
       {/* ================= TOP HERO SECTION ================= */}
-      <div className="w-full overflow-hidden py-[40px] lg:py-120 3xl:py-150 bg-primary-2">
+      <div className="w-full overflow-hidden pt-[40px] pb-[30px] md:py-[40px] lg:py-120 3xl:py-150 bg-primary-2">
         <div className="z-[20] h-full container flex flex-col md:flex-row md:justify-between items-center shrink-0">
           {/* Logo */}
           <motion.div
@@ -57,12 +57,12 @@ const InnerFooter = ({latestProjects,latestCommunities}:{latestProjects: LatestP
               alt="logo"
               width={295}
               height={70}
-              className="w-auto max-w-[291px] 3xl:w-[291px] h-[50px] xl:h-[60px] shrink-0 invert brightness-0"
+              className="w-auto max-w-[291px] 3xl:w-[291px] h-[30px] md:h-[50px] xl:h-[60px] shrink-0 invert brightness-0"
             />
           </motion.div>
 
           {/* Stay Updated */}
-          <div className="w-full md:w-auto flex flex-col mt-12 md:mt-0 md:flex-row gap-5 xl:gap-10 items-center">
+          <div className="w-full md:w-auto flex flex-col mt-[30px] sm:mt-12 md:mt-0 md:flex-row gap-4 md:gap-5 xl:gap-10 items-center">
             <motion.p
               variants={moveUp(0.1)}
               initial="hidden"
@@ -78,7 +78,7 @@ const InnerFooter = ({latestProjects,latestCommunities}:{latestProjects: LatestP
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="w-full md:w-auto flex items-center gap-8 xl:gap-15 rounded-[50px] p-[6px] border border-white relative"
+              className="w-full md:w-auto flex items-center gap-2 md:gap-8 xl:gap-15 rounded-[50px] p-[3px] md:p-[6px] border border-white relative overflow-hidden"
             >
               <input
                 type="email"
@@ -88,12 +88,12 @@ const InnerFooter = ({latestProjects,latestCommunities}:{latestProjects: LatestP
                   if (error) setError(""); // clear on typing
                 }}
                 placeholder={footerV2Data.top.placeholderEmail}
-                className="bg-transparent flex-1 pl-5 xl:pl-9   font-[avenirBook] text-16 text-white placeholder-white/60 focus:outline-none"
+                className="bg-transparent flex-1 pl-4 md:pl-5 xl:pl-9 font-[avenirBook] text-16 text-white placeholder-white/60 focus:outline-none"
               />
 
               <button
                 onClick={handleSubmit}
-                className="bg-white/10 cursor-pointer backdrop-blur-[30px] px-10 md:px-7 xl:px-[44px] py-[16px] rounded-[50px] text-16 text-white"
+                className="bg-white/10 cursor-pointer backdrop-blur-[30px] px-8 md:px-7 xl:px-[44px] py-[16px] rounded-[50px] text-16 text-white"
               >
                 {footerV2Data.top.sendText}
               </button>
