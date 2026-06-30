@@ -39,7 +39,7 @@ const FooterAccordion = ({ latestProjects,latestCommunities }: { latestProjects:
           <div key={i} className="border-b border-white/15">
             <button
               onClick={() => toggle(i)}
-              className="w-full flex items-center justify-between py-[20px] text-left container"
+              className="w-full flex items-center justify-between py-[15px] md:py-[20px] text-left container"
             >
               <span className="uppercase text-white font-bold text-16 leading-[1.62]">
                 {col.heading}
@@ -110,7 +110,7 @@ const FooterGrid = ({ latestProjects, latestCommunities }: { latestProjects: Lat
 // ---- Section wrapper (drop-in replacement) ----
 const FooterColumns = ({ latestProjects = [], latestCommunities = [] }: { latestProjects?: LatestProject[],latestCommunities?:LatestProject[] }) => {
   return (
-  <div className=" pt-[40px] md:py-100">
+  <div className="pt-[30px] md:py-100">
     <div>
           <FooterAccordion latestProjects={latestProjects} latestCommunities={latestCommunities}/>
           <FooterGrid latestProjects={latestProjects} latestCommunities={latestCommunities}/>
