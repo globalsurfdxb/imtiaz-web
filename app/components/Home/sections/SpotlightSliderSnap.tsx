@@ -322,7 +322,7 @@ export default function SustainabilitySpotlight({
                 exit="exit"
               >
                 <Link
-                  href={slide.href}
+                  href={`/media-center/${slide.href}`}
                   className="text-primary-2 text-19 leading-[100%] font-[avenirBook] hover:opacity-70 transition-opacity duration-300"
                 >
                   <CustomOutlineButton
@@ -447,7 +447,7 @@ export default function SustainabilitySpotlight({
                         exit="exit"
                       >
                         <Link
-                          href={`/media-center/news/${slide.href}`}
+                          href={`/media-center/${slide.href}`}
                           className="text-primary-2 text-19 font-[avenirBook] leading-[100%]  transition-colors duration-300"
                         >
                           <CustomOutlineButton
