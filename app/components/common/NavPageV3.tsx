@@ -1372,21 +1372,24 @@ function MobileMegaMenu({
 
     setDynamicSubMenuItems((prev) => ({
       ...prev,
-      properties: [
-        ...formattedProperties,
-        {
-          id: "all-communities",
-          label: "ALL COMMUNITIES",
-          isButton: true,
-          href: "/communities",
-        },
-        {
-          id: "all-properties",
-          label: "ALL PROPERTIES",
-          isButton: true,
-          href: "/properties",
-        },
-      ],
+      properties:
+        formattedProperties.length > 0
+          ? [
+            ...formattedProperties,
+            {
+              id: "all-communities",
+              label: "ALL COMMUNITIES",
+              isButton: true,
+              href: "/communities",
+            },
+            {
+              id: "all-properties",
+              label: "ALL PROPERTIES",
+              isButton: true,
+              href: "/properties",
+            },
+          ]
+          : [], // 👈 no data → truly empty, tab will hide
     }));
   }, [menuData, propertyFilter]);
 
@@ -1439,6 +1442,27 @@ function MobileMegaMenu({
       transition: { duration: 0.28, ease: "easeInOut" as const },
     },
   };
+
+  const visibleMenuItems = menuItems.filter(
+    (item) =>
+      (dynamicSubMenuItems[item.id as keyof typeof dynamicSubMenuItems]?.length ?? 0) > 0
+  );
+
+  const expandedCommunityRaw = expandedChild
+    ? menuData?.find((c: any) => c.community_slug === expandedChild)
+    : null;
+
+  const availableStatuses = new Set(
+    (expandedCommunityRaw?.related_property ?? []).map(
+      (p: any) => p.property_status
+    )
+  );
+
+  const propertyFilterOptions = [
+    { label: "ALL", value: "all" },
+    { label: "OFF PLAN", value: "Off Plan" },
+    { label: "COMPLETED", value: "Completed" },
+  ].filter((f) => f.value === "all" || availableStatuses.has(f.value));
 
   return (
     <div className="fixed w-full h-[100dvh] overflow-hidden flex flex-col md:hidden">
@@ -1516,7 +1540,7 @@ function MobileMegaMenu({
       >
         {/* Main nav items */}
         <nav className="flex flex-col gap-6">
-          {menuItems.map((item, index) => (
+          {visibleMenuItems.map((item, index) => (
             <motion.div
               key={item.id}
               variants={moveRight(index * 0.08)}
@@ -1579,8 +1603,8 @@ function MobileMegaMenu({
           <div className="flex gap-[5px] mt-5">
             {socialLinks.map((icon, i) => (
               <Link
-              href={icon.url}
-              target="_blank"
+                href={icon.url}
+                target="_blank"
                 key={i}
                 className="cursor-pointer rounded-full w-[33px] h-[33px] bg-white/25 backdrop-blur-[30px] flex items-center justify-center"
               >
@@ -1688,50 +1712,37 @@ function MobileMegaMenu({
                         exit="collapsed"
                         className="overflow-hidden"
                       >
-                        {
-                           (<div className="flex gap-6 py-[7px] pl-3">
-                            {[
-                              { label: "ALL", value: "all" },
-                              { label: "OFF PLAN", value: "Off Plan" },
-                              { label: "COMPLETED", value: "Completed" },
-                            ].map((filter) => {
+                        {propertyFilterOptions.length > 1 && (
+                          <div className="flex gap-6 py-[7px] pl-3">
+                            {propertyFilterOptions.map((filter) => {
                               const isActive = propertyFilter === filter.value;
-
                               return (
                                 <button
                                   key={filter.value}
                                   onClick={() =>
                                     setPropertyFilter(
-                                      isActive
-                                        ? null
-                                        : (filter.value as "off-plan" | "completed")
+                                      isActive ? null : (filter.value as "off-plan" | "completed")
                                     )
                                   }
                                   className={`
-          relative text-[12px] uppercase tracking-[1px]
-          transition-all duration-300 pb-1 cursor-pointer
-          ${isActive
-                                      ? "text-white"
-                                      : "text-white/60 hover:text-white"
-                                    }
-        `}
+            relative text-[12px] uppercase tracking-[1px]
+            transition-all duration-300 pb-1 cursor-pointer
+            ${isActive ? "text-white" : "text-white/60 hover:text-white"}
+          `}
                                 >
                                   {filter.label}
-
                                   <span
                                     className={`
-            absolute left-0 bottom-0 h-[1px] bg-white
-            transition-all duration-300
-            ${isActive
-                                        ? "w-full opacity-100"
-                                        : "w-0 opacity-0"
-                                      }
-          `}
+              absolute left-0 bottom-0 h-[1px] bg-white
+              transition-all duration-300
+              ${isActive ? "w-full opacity-100" : "w-0 opacity-0"}
+            `}
                                   />
                                 </button>
                               );
                             })}
-                          </div>)}
+                          </div>
+                        )}
                         <div className="flex flex-col pb-3 pl-3 gap-0">
                           {item.children!.map((child) => (
                             <div
@@ -1908,27 +1919,46 @@ function DesktopMegaMenu({
 
     setDynamicSubMenuItems((prev) => ({
       ...prev,
-      properties: [
-        ...formattedProperties,
-        {
-          id: "all-communities",
-          label: "ALL COMMUNITIES",
-          isButton: true,
-          href: "/communities",
-        },
-        {
-          id: "all-properties",
-          label: "ALL PROPERTIES",
-          isButton: true,
-          href: "/properties",
-        },
-      ],
+      properties:
+        formattedProperties.length > 0
+          ? [
+            ...formattedProperties,
+            {
+              id: "all-communities",
+              label: "ALL COMMUNITIES",
+              isButton: true,
+              href: "/communities",
+            },
+            {
+              id: "all-properties",
+              label: "ALL PROPERTIES",
+              isButton: true,
+              href: "/properties",
+            },
+          ]
+          : [], // 👈 no data → truly empty, tab will hide
     }));
   }, [menuData, propertyFilter]);
 
   const activeCommunityHref = activeCategory
-  ? `/communities/${activeCategory}`
-  : undefined;
+    ? `/communities/${activeCategory}`
+    : undefined;
+
+  const activeCommunityRaw = activeCategory
+    ? menuData?.find((c: any) => c.community_slug === activeCategory)
+    : null;
+
+  const availableStatuses = new Set(
+    (activeCommunityRaw?.related_property ?? []).map(
+      (p: any) => p.property_status
+    )
+  );
+
+  const propertyFilterOptions = [
+    { label: "ALL", value: "all" },
+    { label: "OFF PLAN", value: "Off Plan" },
+    { label: "COMPLETED", value: "Completed" },
+  ].filter((f) => f.value === "all" || availableStatuses.has(f.value));
 
   useEffect(() => {
     mounted.current = true;
@@ -1973,17 +2003,22 @@ function DesktopMegaMenu({
   const activeChildren = activeItem?.children || [];
 
   useEffect(() => {
-  setPropertyFilter("all");
-}, [activeCategory]);
+    setPropertyFilter("all");
+  }, [activeCategory]);
 
 
-const childrenScrollRef = useRef<HTMLDivElement>(null);
+  const childrenScrollRef = useRef<HTMLDivElement>(null);
 
-useEffect(() => {
-  if (childrenScrollRef.current) {
-    childrenScrollRef.current.scrollTop = 0;
-  }
-}, [propertyFilter]);
+  useEffect(() => {
+    if (childrenScrollRef.current) {
+      childrenScrollRef.current.scrollTop = 0;
+    }
+  }, [propertyFilter]);
+
+  const visibleMenuItems = menuItems.filter(
+    (item) =>
+      (dynamicSubMenuItems[item.id as keyof typeof dynamicSubMenuItems]?.length ?? 0) > 0
+  );
 
   return (
     <div className="relative w-full h-screen overflow-hidden z-1000 bg-white flex-col hidden md:flex">
@@ -2045,7 +2080,7 @@ useEffect(() => {
           {/* LEFT MENU */}
           <div className="w-1/2 lg:w-1/3 2xl:w-1/4 flex flex-col justify-between xl:mr-4">
             <div className="flex flex-col justify-center gap-[22px] w-full text-white relative mb-120">
-              {menuItems.map((item, index) => {
+              {visibleMenuItems.map((item, index) => {
                 const isActive = activeMenu.id === item.id;
                 return (
                   // <Link href={(item.label === "AGENCY" || item.label === "INDIVIDUAL") ? (item.href || "#") : "#"}>
@@ -2168,22 +2203,22 @@ useEffect(() => {
                 <div className="flex gap-[5px] w-full mt-[30px]">
                   {socialLinks.map((icon, i) => (
                     <Link href={icon.url} target="_blank">
-                    <motion.div
-                      variants={moveUp(i * 0.2)}
-                      initial="hidden"
-                      whileInView="show"
-                      viewport={{ amount: 0.2, once: true }}
-                      key={i}
-                      className="cursor-pointer rounded-full w-[33px] h-[33px] bg-white/25 backdrop-blur-[30px] flex items-center justify-center"
-                    >
-                      <Image
-                        src={icon.image}
-                        alt="icon"
-                        width={22}
-                        height={22}
-                        className="opacity-100 w-[16px] h-[16px] hover:opacity-70 transition-opacity duration-300"
-                      />
-                    </motion.div>
+                      <motion.div
+                        variants={moveUp(i * 0.2)}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ amount: 0.2, once: true }}
+                        key={i}
+                        className="cursor-pointer rounded-full w-[33px] h-[33px] bg-white/25 backdrop-blur-[30px] flex items-center justify-center"
+                      >
+                        <Image
+                          src={icon.image}
+                          alt="icon"
+                          width={22}
+                          height={22}
+                          className="opacity-100 w-[16px] h-[16px] hover:opacity-70 transition-opacity duration-300"
+                        />
+                      </motion.div>
                     </Link>
                   ))}
                 </div>
@@ -2293,93 +2328,77 @@ useEffect(() => {
 
             {/* SECOND COLUMN */}
             <div>
-              {activeMenu.id === "properties" && activeCategory &&
-                 (
-                  <div className="flex gap-6 mb-6 border-b border-white/20">
-                    {[
-                      { label: "ALL", value: "all" },
-                      { label: "OFF PLAN", value: "Off Plan" },
-                      { label: "COMPLETED", value: "Completed" },
-                    ].map((filter) => {
-                      const isActive = propertyFilter === filter.value;
-
-                      return (
-                        <button
-                          key={filter.value}
-                          onClick={() =>
-                            setPropertyFilter(
-                              isActive
-                                ? null
-                                : (filter.value as "off-plan" | "completed")
-                            )
-                          }
+              {activeMenu.id === "properties" && activeCategory && propertyFilterOptions.length > 1 && (
+                <div className="flex gap-6 mb-6 border-b border-white/20">
+                  {propertyFilterOptions.map((filter) => {
+                    const isActive = propertyFilter === filter.value;
+                    return (
+                      <button
+                        key={filter.value}
+                        onClick={() =>
+                          setPropertyFilter(
+                            isActive ? null : (filter.value as "off-plan" | "completed")
+                          )
+                        }
+                        className={`
+            relative text-[14px] uppercase tracking-[1px]
+            transition-all duration-300 pb-3 cursor-pointer
+            ${isActive ? "text-white" : "text-white/60 hover:text-white"}
+          `}
+                      >
+                        {filter.label}
+                        <span
                           className={`
-              relative text-[14px] uppercase tracking-[1px]
-              transition-all duration-300 pb-3 cursor-pointer
-              ${isActive
-                              ? "text-white"
-                              : "text-white/60 hover:text-white"
-                            }
+              absolute left-0 bottom-[-1px] h-[1px]
+              bg-white transition-all duration-300
+              ${isActive ? "w-full opacity-100" : "w-full opacity-0"}
             `}
-                        >
-                          {filter.label}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+              <div className="flex flex-col gap-10">
+                <div ref={childrenScrollRef} onWheel={(e) => e.stopPropagation()} className={`min-w-[250px] text-white flex items-start max-h-[335px] overflow-y-auto menu-scrollbar pr-2 overflow-x-hidden`}>
+                  <AnimatePresence mode="wait">
+                    {activeChildren.length > 0 && (
+                      <motion.div
+                        key={activeCategory}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        transition={{ duration: 0.3 }}
+                        className="flex flex-col gap-2 lg:gap-4"
+                      >
+                        {activeChildren.map((child) => (
+                          <Link
+                            key={child.id}
+                            href={child.href || "#"}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleNavigate(child.href, child.newTab);
+                            }}
+                            className="text-16 text-description uppercase py-1 hover:translate-x-2 transition-all duration-300 block"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
-                          {/* ACTIVE BORDER */}
-                          <span
-                            className={`
-                absolute left-0 bottom-[-1px] h-[1px]
-                bg-white transition-all duration-300
-                ${isActive
-                                ? "w-full opacity-100"
-                                : "w-full opacity-0"
-                              }
-              `}
-                          />
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-                <div className="flex flex-col gap-10">
-              <div ref={childrenScrollRef} onWheel={(e) => e.stopPropagation()} className={`min-w-[250px] text-white flex items-start max-h-[335px] overflow-y-auto menu-scrollbar pr-2 overflow-x-hidden`}>
-                <AnimatePresence mode="wait">
-                  {activeChildren.length > 0 && (
-                    <motion.div
-                      key={activeCategory}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      transition={{ duration: 0.3 }}
-                      className="flex flex-col gap-2 lg:gap-4"
-                    >
-                      {activeChildren.map((child) => (
-                        <Link
-                          key={child.id}
-                          href={child.href || "#"}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleNavigate(child.href, child.newTab);
-                          }}
-                          className="text-16 text-description uppercase py-1 hover:translate-x-2 transition-all duration-300 block"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {activeCategory && <Link href={activeCommunityHref || ""} className="">
+                  <CustomOutlineButton
+                    text={"View Community"}
+                    onClick={() => setIsMenuOpen?.(false)}
+                    borderColor="border-white"
+                    textColor="text-white"
+                    px="px-[18px] sm:px-[20px] md:px-[36px] h-[44px] md:h-[50px] xl:h-[66px] !leading-[1.58]"
+                  />
+                </Link>}
               </div>
-              
-              {activeCategory && <Link href={activeCommunityHref || ""} className="">
-              <CustomOutlineButton
-                        text={"View Community"}
-                        onClick={()=>setIsMenuOpen?.(false)}
-                        borderColor="border-white"
-                        textColor="text-white"
-                        px="px-[18px] sm:px-[20px] md:px-[36px] h-[44px] md:h-[50px] xl:h-[66px] !leading-[1.58]"
-                      />
-                      </Link>}
-                      </div>
             </div>
           </div>
 
