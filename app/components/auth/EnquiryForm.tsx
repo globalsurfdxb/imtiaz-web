@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useUtm } from "@/hooks/useUtm";
 import { submitOnboardingLead } from "@/lib/submitOnboarding";
 import { submitViewingLead } from "@/lib/submitViewing";
+import EnquiryThankYouPopup from "../thank-you/EnquiryThankYouPopup";
 
 type EnquiryValues = {
   firstName: string;
@@ -83,10 +84,11 @@ interface CareerFormProps {
   onClose: () => void;
   onSwitch: () => void;
   onSuccess?: () => void;
+  initialTab?: "enquiry" | "viewing";
 }
 
-export default function EnquiryForm({ onClose, onSwitch, onSuccess }: CareerFormProps) {
-  const [activeTab, setActiveTab] = useState<"enquiry" | "viewing">("enquiry");
+export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab = "enquiry" }: CareerFormProps) {
+  const [activeTab, setActiveTab] = useState<"enquiry" | "viewing">(initialTab);
   const backgroundRef = useRef<HTMLDivElement>(null);
   const whiteBoxRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -472,17 +474,13 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess }: CareerForm
                         {enquiryError && (
                           <p className="text-[12px] text-[#c0392b]">{enquiryError}</p>
                         )}
-                        {enquirySuccess ? (
-                          <p className="text-[14px] text-primary">Thank you! We'll be in touch.</p>
-                        ) : (
-                          <CustomOutlineButton
-                            px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px]"
-                            text={enquiryLoading ? "Submitting..." : "Submit"}
-                            borderColor="border-primary-2"
-                            textColor="text-foreground-light"
-                            variant="dark"
-                          />
-                        )}
+                        <CustomOutlineButton
+                          px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px]"
+                          text={enquiryLoading ? "Submitting..." : "Submit"}
+                          borderColor="border-primary-2"
+                          textColor="text-foreground-light"
+                          variant="dark"
+                        />
                       </div>
                     </form>
 
@@ -626,17 +624,13 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess }: CareerForm
                         {viewingError && (
                           <p className="text-[12px] text-[#c0392b]">{viewingError}</p>
                         )}
-                        {viewingSuccess ? (
-                          <p className="text-[14px] text-primary">Thank you! We'll be in touch.</p>
-                        ) : (
-                          <CustomOutlineButton
-                            px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px]"
-                            text={viewingLoading ? "Submitting..." : "Submit"}
-                            borderColor="border-primary-2"
-                            textColor="text-foreground-light"
-                            variant="dark"
-                          />
-                        )}
+                        <CustomOutlineButton
+                          px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px]"
+                          text={viewingLoading ? "Submitting..." : "Submit"}
+                          borderColor="border-primary-2"
+                          textColor="text-foreground-light"
+                          variant="dark"
+                        />
                       </div>
                     </form>
 
@@ -647,6 +641,17 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess }: CareerForm
           </div>
         </div>
       </div>
+
+      {(enquirySuccess || viewingSuccess) && (
+        <EnquiryThankYouPopup
+        type={viewingSuccess ? "viewing" : "enquiry"}
+          onClose={() => {
+            setEnquirySuccess(false);
+            setViewingSuccess(false);
+          }}
+        />
+      )}
+
     </>
   );
 }
