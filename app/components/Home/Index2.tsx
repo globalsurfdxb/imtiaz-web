@@ -847,10 +847,10 @@ export default function Index({
   if (data?.page_show_section2 === "true") snapRefs.push(snapRef3);
   // if (data?.page_show_section3 === "true") snapRefs.push(snapRef4);
   if (data?.page_show_section3 === "true") snapRefs.push(snapRef4);
-  if (data?.page_show_section6 === "true") snapRefs.push(snapRef5);
+  // if (data?.page_show_section6 === "true") snapRefs.push(snapRef5);
   // if (data?.page_show_section7 === "true") snapRefs.push(snapRef6);
-  if (data?.page_show_section8 === "true") snapRefs.push(snapRef6);
-  if (data?.page_show_section9 === "true") snapRefs.push(snapRef7);
+  if (data?.page_show_section8 === "true") snapRefs.push(snapRef5);
+  if (data?.page_show_section9 === "true") snapRefs.push(snapRef6);
   if (footerReady) snapRefs.push(footerRef);
 
   useSectionSnap(snapRefs, snapEnabled && footerReady);
@@ -987,14 +987,14 @@ export default function Index({
       )} */}
 
 
-      {data?.page_show_section6 === "true" && (
+      {/* {data?.page_show_section6 === "true" && (
         <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
           <ImtiazPropertiesSnap
             data={imtiazPropertiesData}
             title={data?.page_section6_title}
           />
         </div>
-      )}
+      )} */}
 
       {/* {data?.page_show_section7 === "true" && (
         <div ref={snapRef7 as React.RefObject<HTMLDivElement>}>
@@ -1011,7 +1011,7 @@ export default function Index({
       )} */}
 
       {data?.page_show_section8 === "true" && (
-        <div ref={snapRef6 as React.RefObject<HTMLDivElement>}>
+        <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
           <SpotlightSliderSnap
             data={spotlight}
             title={data?.page_section8_title}
@@ -1020,7 +1020,7 @@ export default function Index({
       )}
 
       {data?.page_show_section9 === "true" && (
-        <div ref={snapRef7 as React.RefObject<HTMLDivElement>}>
+        <div ref={snapRef6 as React.RefObject<HTMLDivElement>}>
           <AppSectionV2
             data={appSectionData}
             appStore={data?.apple_store_link}
