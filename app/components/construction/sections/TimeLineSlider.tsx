@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import "swiper/css";
 
 import SliderArrowButton from "../../common/SliderNavigationButton";
-import { timelineSectionData } from "../data";
+// import { timelineSectionData } from "../data";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
 import { moveLeft, moveRight } from "../../motionVariants";
@@ -130,7 +130,7 @@ export default function TimelineSlider({data}:{data:TimeLineSlider}) {
           slidesPerView="auto"
           className="!overflow-visible h-full"
         >
-          {slides.map((slide, index) => {
+          {[...slides, ...slides, ...slides].map((slide, index) => {
             const isActive = activeIndex === index;
 
             return (
@@ -234,8 +234,9 @@ export default function TimelineSlider({data}:{data:TimeLineSlider}) {
             syncTo("year", swiper.realIndex);
           }}
           slidesPerView="auto"
+          className="!overflow-visible"
         >
-          {slides.map((slide, index) => {
+          {[...slides, ...slides, ...slides].map((slide, index) => {
             const isActive = activeIndex === index;
 
             return (
