@@ -48,12 +48,12 @@ const enquiryData = {
   ],
 
   contactInfo: [
-    {
-      icon: "/images/icons/videocall.svg",
-      text: data.call_text,
-      href: data.call_link,
-      alignment: true,
-    },
+    // {
+    //   icon: "/images/icons/videocall.svg",
+    //   text: data.call_text,
+    //   href: data.call_link,
+    //   alignment: true,
+    // },
     {
       icon: "/images/icons/book.svg",
       text: data.view_text,
