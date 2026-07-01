@@ -16,6 +16,11 @@ import Reveal from "../../animations/RevealOneByOneAnimation";
 import { moveLeft, moveUp, moveUpV2 } from "../../motionVariants";
 import { motion } from "framer-motion";
 import { useParallax } from "@/app/hooks/useParallax";
+import { useUtm } from "@/hooks/useUtm";
+import { submitContactLead } from "@/lib/submitContact";
+import EnquiryForm from "../../auth/EnquiryForm";
+import gsap from "gsap";
+import EnquiryThankYouPopup from "../../thank-you/EnquiryThankYouPopup";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -71,24 +76,24 @@ const ErrorSlot = ({ msg }: { msg?: string }) => (
 const FieldLine = ({ hasError }: { hasError: boolean }) => (
   <div className="relative h-px w-full bg-foreground-light/30">
     <div
-      className={`absolute inset-y-0 left-0 transition-all duration-[420ms] ease-out ${
-        hasError
-          ? "bg-[#c0392b] w-full"
-          : "w-0 group-focus-within:w-full bg-black"
-      }`}
+      className={`absolute inset-y-0 left-0 transition-all duration-[420ms] ease-out ${hasError
+        ? "bg-[#c0392b] w-full"
+        : "w-0 group-focus-within:w-full bg-black"
+        }`}
     />
   </div>
 );
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) {
+export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryData }) {
   const {
     register,
     handleSubmit,
     watch,
     setValue,
     control,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     mode: "onTouched",
@@ -100,8 +105,43 @@ export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) 
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Enquiry:", data);
+  const { buildUtmPayload } = useUtm();
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const [enquiryVisible, setEnquiryVisible] = useState(false);
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const onSubmit = async (data: FormValues) => {
+    setSubmitLoading(true);
+    setSubmitError(null);
+    try {
+      const result = await submitContactLead({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        mobile: `${data.phoneCode}${data.phone}`,
+        message: data.message,
+        contactMode: data.contactMode,
+        utm: buildUtmPayload(),
+        landingPageName: "contact-us",
+      });
+
+      console.log("Contact result:", result);
+
+      if (result.success) {
+        setSubmitSuccess(true);
+        reset();
+      } else {
+        setSubmitError("Submission failed. Please try again.");
+      }
+    } catch {
+      setSubmitError("Something went wrong.");
+    } finally {
+      setSubmitLoading(false);
+    }
   };
 
   const phoneRowRef = useRef<HTMLDivElement>(null);
@@ -132,6 +172,30 @@ export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) 
     return () => window.removeEventListener("resize", check);
   }, []);
 
+
+  // Animate in after visible
+  useEffect(() => {
+    if (!enquiryVisible) return;
+    setTimeout(() => {
+      if (!backdropRef.current || !modalRef.current) return;
+      gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" });
+      gsap.fromTo(
+        modalRef.current,
+        { opacity: 0, scale: 1.08, filter: "blur(8px)" },
+        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }
+      );
+    }, 50);
+  }, [enquiryVisible]);
+
+  const closeModal = () => {
+    if (!backdropRef.current || !modalRef.current) return;
+    gsap.to(backdropRef.current, { opacity: 0, duration: 0.3, ease: "power2.in" });
+    gsap.to(modalRef.current, {
+      opacity: 0, scale: 1.06, filter: "blur(16px)", duration: 0.5, ease: "power3.out",
+      onComplete: () => setEnquiryVisible(false),
+    });
+  };
+
   return (
     <section
       className="w-full light-section py-120 3xl:pt-130 3xl:pb-160"
@@ -151,8 +215,8 @@ export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) 
             />
             <div className="flex flex-col gap-[30px] xl:gap-[40px]">
               {enquiryData.contactInfo.map((item, index) => (
-                <div key={index} className=" group w-fit">
-                  <Link href={item.href}>
+                <div key={index} className=" group w-fit" onClick={() => index == 0 ? setEnquiryVisible(true) : null}>
+                  <Link href={index !== 0 ? item.href : "#"}>
                     <div
                       className={`flex gap-[15px]   cursor-pointer ${item.alignment ? "items-center" : ""}`}
                     >
@@ -289,7 +353,7 @@ export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) 
                 </motion.div>
 
                 {/* Row 3 — Reason */}
-                <motion.div
+                {/* <motion.div
                   variants={moveUp(0.14)}
                   initial="hidden"
                   whileInView="show"
@@ -324,7 +388,7 @@ export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) 
                     />
                     <ErrorSlot msg={errors.reason?.message} />
                   </div>
-                </motion.div>
+                </motion.div> */}
 
                 {/* Row 4 — Message */}
                 <motion.div
@@ -372,11 +436,10 @@ export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) 
                                 onClick={() => field.onChange(mode)}
                               >
                                 <span
-                                  className={`w-[20px] h-[20px] rounded-full border flex items-center justify-center transition-colors duration-200 mb-1 ${
-                                    field.value === mode
-                                      ? "border-foreground-light"
-                                      : "border-foreground-light"
-                                  }`}
+                                  className={`w-[20px] h-[20px] rounded-full border flex items-center justify-center transition-colors duration-200 mb-1 ${field.value === mode
+                                    ? "border-foreground-light"
+                                    : "border-foreground-light"
+                                    }`}
                                 >
                                   {field.value === mode && (
                                     <span className="w-[14px] h-[14px] rounded-full bg-foreground-light block" />
@@ -409,11 +472,10 @@ export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) 
                             onClick={() => field.onChange(!field.value)}
                           >
                             <span
-                              className={`w-5 mb-1 h-5 border border-foreground-light flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${
-                                field.value
-                                  ? "text-foreground-light border-foreground-light"
-                                  : "border-foreground-light"
-                              }`}
+                              className={`w-5 mb-1 h-5 border border-foreground-light flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${field.value
+                                ? "text-foreground-light border-foreground-light"
+                                : "border-foreground-light"
+                                }`}
                             >
                               {field.value && (
                                 <svg
@@ -453,13 +515,12 @@ export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) 
                             onClick={() => field.onChange(!field.value)}
                           >
                             <span
-                              className={`w-5 h-5 mb-1 border flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${
-                                field.value
-                                  ? "text-foreground-light border-foreground-light"
-                                  : errors.privacy
-                                    ? "border-[#c0392b]"
-                                    : "border-foreground-light"
-                              }`}
+                              className={`w-5 h-5 mb-1 border flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${field.value
+                                ? "text-foreground-light border-foreground-light"
+                                : errors.privacy
+                                  ? "border-[#c0392b]"
+                                  : "border-foreground-light"
+                                }`}
                             >
                               {field.value && (
                                 <svg
@@ -486,18 +547,40 @@ export default function EnquirySection({enquiryData}:{enquiryData:EnquiryData}) 
                   </div>
                 </div>
 
-                {/* Submit */}
-                <CustomOutlineButton
-                  text="Enquire"
-                  textColor="text-foreground-light"
-                  borderColor="border-foreground-light"
-                  px="px-50 2xl:py-[23px] 2xl:px-[90.5px] h-[44px] md:h-[50px]  xl:h-[66px]"
-                />
+                <div className="flex flex-col items-start gap-2">
+                  {submitError && (
+                    <p className="text-[12px] text-[#c0392b]">{submitError}</p>
+                  )}
+                  <CustomOutlineButton
+                    text={submitLoading ? "Submitting..." : "Enquire"}
+                    textColor="text-foreground-light"
+                    borderColor="border-foreground-light"
+                    px="px-50 2xl:py-[23px] 2xl:px-[90.5px] h-[44px] md:h-[50px] xl:h-[66px]"
+                  />
+                </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Enquiry Modal */}
+      {enquiryVisible && (
+        <>
+          <div ref={backdropRef} className="fixed inset-0 z-[1000] bg-black/80 backdrop-blur-[6px] opacity-0" onClick={closeModal} />
+          <div ref={modalRef} className="fixed inset-0 z-[1001] flex items-center justify-center opacity-0 pointer-events-none">
+            <div className="pointer-events-auto w-full">
+              <EnquiryForm onClose={closeModal} initialTab="viewing" onSwitch={() => { }} />
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Thank you popup after successful submit */}
+      {submitSuccess && (
+        <EnquiryThankYouPopup onClose={() => setSubmitSuccess(false)} />
+      )}
+
     </section>
   );
 }

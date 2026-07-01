@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Index from "@/app/components/contact-us/Index";
+import { Suspense } from "react";
 
 async function getContactUsData() {
   const response = await fetch(
@@ -30,7 +31,9 @@ const page = async () => {
 
   return (
     <>
+    <Suspense fallback={null}>
       <Index data={data.data} />
+      </Suspense>
     </>
   );
 };
