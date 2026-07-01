@@ -842,15 +842,15 @@ export default function Index({
   // if (data?.page_show_section9 === "true") snapRefs.push(snapRef9);
   // if (footerReady) snapRefs.push(footerRef);
 
-    const snapRefs: React.RefObject<HTMLElement | null>[] = [snapRef1];
+  const snapRefs: React.RefObject<HTMLElement | null>[] = [snapRef1];
   if (data?.page_show_section1 === "true") snapRefs.push(snapRef2);
   if (data?.page_show_section2 === "true") snapRefs.push(snapRef3);
-  // if (data?.page_show_section3 === "true") snapRefs.push(snapRef4);
-  if (data?.page_show_section3 === "true") snapRefs.push(snapRef4);
-  // if (data?.page_show_section6 === "true") snapRefs.push(snapRef5);
-  // if (data?.page_show_section7 === "true") snapRefs.push(snapRef6);
-  // if (data?.page_show_section8 === "true") snapRefs.push(snapRef5);
-  // if (data?.page_show_section9 === "true") snapRefs.push(snapRef5);
+  if (data?.page_show_section7 === "true") snapRefs.push(snapRef4);
+  if (data?.page_show_section8 === "true") snapRefs.push(snapRef5);
+  if (data?.page_show_section9 === "true") snapRefs.push(snapRef6);
+  // if (data?.page_show_section7 === "true") snapRefs.push(snapRef7);
+  // if (data?.page_show_section8 === "true") snapRefs.push(snapRef8);
+  // if (data?.page_show_section9 === "true") snapRefs.push(snapRef9);
   if (footerReady) snapRefs.push(footerRef);
 
   useSectionSnap(snapRefs, snapEnabled && footerReady);
@@ -949,9 +949,29 @@ export default function Index({
         </div>
       )}
 
-      {/* ── snap section 4: ProSliderComingSoonV3 ────────────────────────── */}
-      {data?.page_show_section3 === "true" && (
+            {data?.page_show_section7 === "true" && (
         <div ref={snapRef4 as React.RefObject<HTMLDivElement>}>
+          <ProSliderV3
+            slides={heroSlides}
+            RightLabel="Featured Properties"
+            title={data?.page_section2_title}
+          />
+        </div>
+      )}
+
+            {data?.page_show_section8 === "true" && (
+        <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
+          <ProSliderV3
+            slides={heroSlides}
+            RightLabel="Featured Properties"
+            title={data?.page_section2_title}
+          />
+        </div>
+      )}
+
+      {/* ── snap section 4: ProSliderComingSoonV3 ────────────────────────── */}
+      {data?.page_show_section9 === "true" && (
+        <div ref={snapRef6 as React.RefObject<HTMLDivElement>}>
           <ProSliderComingSoonV3
             slides={heroSlidesComingSoon}
             video={data?.page_section3_video}
