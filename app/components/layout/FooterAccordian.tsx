@@ -110,7 +110,7 @@ const FooterGrid = ({ latestProjects, latestCommunities }: { latestProjects: Lat
 // ---- Section wrapper (drop-in replacement) ----
 const FooterColumns = ({ latestProjects = [], latestCommunities = [] }: { latestProjects?: LatestProject[],latestCommunities?:LatestProject[] }) => {
   return (
-  <div className="pt-[30px] md:py-100">
+  <div className="pt-[30px] md:py-100 min-[1500px]:py-50 min-[1600px]:pt-100 3xl:py-100">
     <div>
           <FooterAccordion latestProjects={latestProjects} latestCommunities={latestCommunities}/>
           <FooterGrid latestProjects={latestProjects} latestCommunities={latestCommunities}/>
