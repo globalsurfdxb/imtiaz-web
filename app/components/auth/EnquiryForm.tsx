@@ -15,6 +15,7 @@ import { useUtm } from "@/hooks/useUtm";
 import { submitOnboardingLead } from "@/lib/submitOnboarding";
 import { submitViewingLead } from "@/lib/submitViewing";
 import EnquiryThankYouPopup from "../thank-you/EnquiryThankYouPopup";
+import { useRouter } from "next/navigation";
 
 type EnquiryValues = {
   firstName: string;
@@ -88,6 +89,8 @@ interface CareerFormProps {
 }
 
 export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab = "enquiry" }: CareerFormProps) {
+  const router = useRouter()
+  
   const [activeTab, setActiveTab] = useState<"enquiry" | "viewing">(initialTab);
   const backgroundRef = useRef<HTMLDivElement>(null);
   const whiteBoxRef = useRef<HTMLDivElement>(null);
@@ -205,9 +208,11 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
       console.log("Result", result);
 
       if (result.success) {
-        setEnquirySuccess(true);
+        // setEnquirySuccess(true);
         onSuccess ? onSuccess() : null;
         enquiryForm.reset();
+        onClose();
+        router.push("/thank-you?type=enquiry");
       } else {
         setEnquiryError("Submission failed. Please try again.");
       }
@@ -236,8 +241,10 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
       console.log("Viewing result:", result);
 
       if (result.success) {
-        setViewingSuccess(true);
+        // setViewingSuccess(true);
         viewingForm.reset();
+        onClose();
+        router.push("/thank-you?type=viewing");
       } else {
         setViewingError("Submission failed. Please try again.");
       }
@@ -642,7 +649,7 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
         </div>
       </div>
 
-      {(enquirySuccess || viewingSuccess) && (
+      {/* {(enquirySuccess || viewingSuccess) && (
         <EnquiryThankYouPopup
         type={viewingSuccess ? "viewing" : "enquiry"}
           onClose={() => {
@@ -650,7 +657,7 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
             setViewingSuccess(false);
           }}
         />
-      )}
+      )} */}
 
     </>
   );

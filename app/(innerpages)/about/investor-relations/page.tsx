@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Index from "../../../components/investor-relations/Index";
+import { headers } from "next/headers";
 
 async function getInvestorRelationsData() {
   const response = await fetch(
@@ -14,10 +15,14 @@ async function getInvestorRelationsData() {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getInvestorRelationsData();
   const meta = data?.data;
+  const pathname = (await headers()).get("x-pathname") || "/";
 
   return {
     title: meta?.meta_title,
     description: meta?.meta_description,
+    alternates: {
+      canonical: pathname,
+    },
     openGraph: {
       title: meta?.meta_title,
       description: meta?.meta_description,

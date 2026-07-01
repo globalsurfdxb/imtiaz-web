@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 import Index from "@/app/components/off-plan-properties/Index";
+import { headers } from "next/headers";
 
 async function getOffPlanPropertiesData() {
   const response = await fetch(
@@ -15,10 +16,14 @@ async function getOffPlanPropertiesData() {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getOffPlanPropertiesData();
   const meta = data?.data;
+  const pathname = (await headers()).get("x-pathname") || "/";
 
   return {
     title: meta?.meta_title,
     description: meta?.meta_description,
+    alternates: {
+      canonical: pathname,
+    },
     openGraph: {
       title: meta?.meta_title,
       description: meta?.meta_description,
