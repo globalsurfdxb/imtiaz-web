@@ -1,10 +1,11 @@
 "use client";
 
-import { useCallback, useRef, useState,useEffect } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import Breadcrumb from "./Breadcrumb";
 import { AnimatedHeading } from "../animations/AnimateHeading";
+import { usePathname } from "next/navigation";
 
 interface InnerHeroProps {
   image: string;
@@ -37,7 +38,9 @@ const InnerHeroBanner = ({
   const breadcrumbRef = useRef<HTMLDivElement>(null);
   const regbtnRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
+  const pathname = usePathname();
 
+  const showBreadcrumb = pathname !== "/pay-now";
 
 
   const handleImageLoad = useCallback(() => {
@@ -47,30 +50,30 @@ const InnerHeroBanner = ({
     gsap.context(() => {
       // Zoom-out → slow Ken-Burns creep
       // 👉 First: run intro ONCE
-        gsap.fromTo(
-          imageWrapperRef.current,
-          { scale: ZOOM_OUT_START, transformOrigin: "center center" },
-          {
-            scale: ZOOM_OUT_END,
-            duration: ZOOM_OUT_DURATION,
-            ease: "expo.out",
-            onComplete: () => {
-              // 👉 Then start infinite subtle loop
-              gsap
-                .timeline({ repeat: -1 })
-                .to(imageWrapperRef.current, {
-                  scale: ZOOM_IN_END,
-                  duration: ZOOM_IN_DURATION,
-                  ease: "sine.inOut",
-                })
-                .to(imageWrapperRef.current, {
-                  scale: ZOOM_OUT_END,
-                  duration: ZOOM_IN_DURATION,
-                  ease: "sine.inOut",
-                });
-            },
+      gsap.fromTo(
+        imageWrapperRef.current,
+        { scale: ZOOM_OUT_START, transformOrigin: "center center" },
+        {
+          scale: ZOOM_OUT_END,
+          duration: ZOOM_OUT_DURATION,
+          ease: "expo.out",
+          onComplete: () => {
+            // 👉 Then start infinite subtle loop
+            gsap
+              .timeline({ repeat: -1 })
+              .to(imageWrapperRef.current, {
+                scale: ZOOM_IN_END,
+                duration: ZOOM_IN_DURATION,
+                ease: "sine.inOut",
+              })
+              .to(imageWrapperRef.current, {
+                scale: ZOOM_OUT_END,
+                duration: ZOOM_IN_DURATION,
+                ease: "sine.inOut",
+              });
           },
-        );
+        },
+      );
 
       // Description
       if (descRef.current) {
@@ -107,7 +110,7 @@ const InnerHeroBanner = ({
         gsap.fromTo(
           regbtnRef.current,
           { y: 100 },
-          { 
+          {
             y: 0,
             duration: 0.65,
             ease: "power3.out",
@@ -115,12 +118,12 @@ const InnerHeroBanner = ({
           },
         );
       }
-      
+
     });
   }, []);
 
   return (
-    <section 
+    <section
       className="relative w-full h-[82vh] 2xl:h-[89.5dvh] overflow-hidden"
       data-header="light"
     >
@@ -165,15 +168,15 @@ const InnerHeroBanner = ({
         </div>
       </div>
 
-      <div
+      {showBreadcrumb && <div
         ref={breadcrumbRef}
         style={{ opacity: 0 }}
         className="absolute flex flex-col justify-center   items-center gap-5 bottom-[60px] 3xl:bottom-[63px] left-0 right-0 flex justify-center"
       >
         <Breadcrumb />
         
-      </div>
-      
+      </div>}
+
     </section>
   );
 };
