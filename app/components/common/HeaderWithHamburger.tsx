@@ -46,22 +46,54 @@ const HeaderWithHamburger = ({menuData}:{menuData:any}) => {
     setMounted(true);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const current = window.scrollY;
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const current = window.scrollY;
 
-      if (current > lastScroll.current && current > 300) {
+  //     if (current > lastScroll.current && current > 300) {
+  //       setShowHeader(false);
+  //     } else {
+  //       setShowHeader(true);
+  //     }
+
+  //     lastScroll.current = current;
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
+
+
+
+useEffect(() => {
+  let ticking = false;
+
+  const handleScroll = () => {
+    const current = Math.max(window.scrollY, 0);
+    const delta = current - lastScroll.current;
+
+    if (Math.abs(delta) > 5) {
+      if (delta > 0 && current > 300) {
         setShowHeader(false);
-      } else {
+      } else if (delta < 0) {
         setShowHeader(true);
       }
-
       lastScroll.current = current;
-    };
+    }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(handleScroll);
+    }
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
 
   useEffect(() => {
     const w = window.innerWidth;
@@ -165,24 +197,24 @@ const HeaderWithHamburger = ({menuData}:{menuData:any}) => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const current = window.scrollY;
-      if (!headerRef.current) return;
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const current = window.scrollY;
+  //     if (!headerRef.current) return;
 
-      if (current > lastScroll.current && current > 300) {
-        headerRef.current.style.transform =
-          "translateX(-50%) translateY(-100%)";
-      } else {
-        headerRef.current.style.transform = "translateX(-50%) translateY(0px)";
-      }
+  //     if (current > lastScroll.current && current > 300) {
+  //       headerRef.current.style.transform =
+  //         "translateX(-50%) translateY(-100%)";
+  //     } else {
+  //       headerRef.current.style.transform = "translateX(-50%) translateY(0px)";
+  //     }
 
-      lastScroll.current = current;
-    };
+  //     lastScroll.current = current;
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
