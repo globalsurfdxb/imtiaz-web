@@ -231,7 +231,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="md:hidden flex gap-[5px] md:gap-2 justify-center md:justify-start xl:justify-end w-full z-10 overflow-hidden"
+        className="md:hidden flex gap-[5px] md:gap-2 justify-center md:justify-start xl:justify-end w-full z-10 overflow-hidden py-4 md:py-0"
       >
         {footerV2Data.bottom.icons.map((icon, i) => (
           <Link
@@ -284,7 +284,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="text-white/45 text-16 leading-[1.56] text-center w-full mb-[20px] md:mb-0"
+            className="text-white/45 text-16 leading-[1.56] text-center w-full mb-[50px] md:mb-0"
           >
             ©{new Date().getFullYear()} Imtiaz Development. All Rights Reserved
           </motion.div>
