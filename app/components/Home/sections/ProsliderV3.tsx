@@ -662,7 +662,7 @@ export default function HeroSlider({
                           ></div>
                         </div>
 
-                        <motion.div className="md:pr-6 md:pr-[15px] flex items-center justify-center pb-10 md:pb-0">
+                        <motion.div className="md:pr-[15px] flex items-center justify-center pb-10 sm:pb-0">
                           <motion.div
                             key={`btns-${activeIndex}`}
                             variants={moveUp(0)}
