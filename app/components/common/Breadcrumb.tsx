@@ -12,6 +12,13 @@ const Breadcrumb = ({ variant = "white" }: BreadcrumbProps) => {
 
   const segments = pathname.split("/").filter(Boolean);
 
+  const isNewsDetail = segments[0] === "media-center" && segments[1] === "news" && segments.length === 3;
+  const isBlogDetail = segments[0] === "media-center" && segments[1] === "blog" && segments.length === 3;
+  const isEventDetail = segments[0] === "media-center" && segments[1] === "events" && segments.length === 3;
+
+  const isMediaDetail = isNewsDetail || isBlogDetail || isEventDetail;
+
+
   // ✅ ONLY real existing routes
   const VALID_ROUTES = new Set([
     "/",
@@ -25,13 +32,21 @@ const Breadcrumb = ({ variant = "white" }: BreadcrumbProps) => {
     "/about/careers"
   ]);
 
-  const crumbs = segments.map((seg, i) => {
-    const href = "/" + segments.slice(0, i + 1).join("/");
+const crumbs = segments
+  .filter((seg) => {
+    // On detail pages, skip "media-center" segment
+    if (isMediaDetail && seg === "media-center") return false;
+    return true;
+  })
+  .map((seg, i, arr) => {
+    // Rebuild href from filtered segments
+    const segIndex = segments.indexOf(seg);
+    const href = "/" + segments.slice(0, segIndex + 1).join("/");
 
     return {
       label: seg.charAt(0).toUpperCase() + seg.slice(1).replace(/-/g, " "),
       href,
-      isLast: i === segments.length - 1,
+      isLast: i === arr.length - 1,
       clickable: VALID_ROUTES.has(href),
     };
   });
@@ -54,15 +69,14 @@ const Breadcrumb = ({ variant = "white" }: BreadcrumbProps) => {
         <div key={i} className="flex items-center gap-[10px]">
           {i > 0 && (
             <span
-              className={`text-[9px] rounded-full ${
-                crumb.isLast
+              className={`text-[9px] rounded-full ${crumb.isLast
                   ? isBlack
                     ? "bg-foreground-light"
                     : "bg-white"
                   : isBlack
                     ? "bg-foreground-light/30"
                     : "bg-white/50"
-              }`}
+                }`}
             >
               <div className="w-[7px] h-[7px] "></div>
             </span>
@@ -70,45 +84,43 @@ const Breadcrumb = ({ variant = "white" }: BreadcrumbProps) => {
 
           {crumb.isLast || !crumb.clickable ? (
             <span
-  className={`text-[14px] md:text-16 text-description whitespace-nowrap overflow-hidden text-ellipsis ${
-    crumb.isLast
-      ? isBlack
-        ? "text-foreground-light"
-        : "text-white"
-      : isBlack
-        ? "text-foreground-light/30"
-        : "text-white/50"
-  }`}
->
+              className={`text-[14px] md:text-16 text-description whitespace-nowrap overflow-hidden text-ellipsis ${crumb.isLast
+                  ? isBlack
+                    ? "text-foreground-light"
+                    : "text-white"
+                  : isBlack
+                    ? "text-foreground-light/30"
+                    : "text-white/50"
+                }`}
+            >
               {/* mobile */}
-<span className="md:hidden">
-  {crumb.label.length > 15
-    ? crumb.label.slice(0, 15) + "..."
-    : crumb.label}
-</span>
+              <span className="md:hidden">
+                {crumb.label.length > 15
+                  ? crumb.label.slice(0, 15) + "..."
+                  : crumb.label}
+              </span>
 
-{/* md */}
-<span className="hidden md:inline 2xl:hidden">
-  {crumb.label.length > 25
-    ? crumb.label.slice(0, 50) + "..."
-    : crumb.label}
-</span>
+              {/* md */}
+              <span className="hidden md:inline 2xl:hidden">
+                {crumb.label.length > 25
+                  ? crumb.label.slice(0, 50) + "..."
+                  : crumb.label}
+              </span>
 
-{/* 2xl+ */}
-<span className="hidden 2xl:inline">
-  {crumb.label.length > 60
-    ? crumb.label.slice(0, 80) + "..."
-    : crumb.label}
-</span>
+              {/* 2xl+ */}
+              <span className="hidden 2xl:inline">
+                {crumb.label.length > 60
+                  ? crumb.label.slice(0, 80) + "..."
+                  : crumb.label}
+              </span>
             </span>
           ) : (
             <Link
               href={crumb.href}
-              className={`text-description transition-colors duration-300 ${
-                isBlack
+              className={`text-description transition-colors duration-300 ${isBlack
                   ? "text-foreground-light/30 hover:text-foreground-light/60"
                   : "text-white/50 hover:text-white/75"
-              }`}
+                }`}
             >
               {crumb.label}
             </Link>
