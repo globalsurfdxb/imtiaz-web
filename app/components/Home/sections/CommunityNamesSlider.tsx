@@ -503,17 +503,17 @@ export default function HeroFeatureSlider({
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
 
-  // const preloadImage = (src: string) =>
-  //   new Promise<void>((resolve) => {
-  //     const img = new window.Image();
-  //     img.src = src;
-  //     img.onload = () => resolve();
-  //     img.onerror = () => resolve();
-  //   });
+  const preloadImage = (src: string) =>
+    new Promise<void>((resolve) => {
+      const img = new window.Image();
+      img.src = src;
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+    });
 
   const switchBg = async (bg: string) => {
     if (!bg) return;
-    // await preloadImage(bg);
+    await preloadImage(bg);
     setPrevBg(bgBase);
     setBgBase(bg);
   };
