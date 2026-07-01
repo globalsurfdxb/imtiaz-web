@@ -1067,7 +1067,7 @@ export function useSectionSnap(
   const pendingSyncRef = useRef(false); // a syncTo/unlock was deferred because finger was down
   const pendingKillMomentumRef = useRef(false); // a killMomentum was deferred for the same reason
 
-  const DURATION = 1600;
+  const DURATION = 800;
 
   const easeInOutCubic = (t: number) =>
     t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
