@@ -850,7 +850,7 @@ export default function Index({
   // if (data?.page_show_section6 === "true") snapRefs.push(snapRef5);
   // if (data?.page_show_section7 === "true") snapRefs.push(snapRef6);
   // if (data?.page_show_section8 === "true") snapRefs.push(snapRef5);
-  if (data?.page_show_section9 === "true") snapRefs.push(snapRef5);
+  // if (data?.page_show_section9 === "true") snapRefs.push(snapRef5);
   if (footerReady) snapRefs.push(footerRef);
 
   useSectionSnap(snapRefs, snapEnabled && footerReady);
@@ -1019,7 +1019,7 @@ export default function Index({
         </div>
       )} */}
 
-      {data?.page_show_section9 === "true" && (
+      {/* {data?.page_show_section9 === "true" && (
         <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
           <AppSectionV2
             data={appSectionData}
@@ -1029,7 +1029,7 @@ export default function Index({
             description={data?.page_section9_caption}
           />
         </div>
-      )}
+      )} */}
     </>
   );
 }
