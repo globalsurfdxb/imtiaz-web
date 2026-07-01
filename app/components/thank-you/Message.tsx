@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { moveUp } from "@/app/components/motionVariants";
 import CustomOutlineButton from "../common/CustomOutlineButton";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 interface ThankYouSectionProps {
     onClose?: () => void;
@@ -36,8 +37,10 @@ export default function ThankYouSection({ onClose }: ThankYouSectionProps) {
     return (
         <section
             ref={sectionRef}
-            className="w-full light-section py-120 3xl:py-160 flex items-center justify-center opacity-0"
+            className="w-full h-screen light-section py-120 3xl:py-160 flex items-center justify-center opacity-0"
         >
+            <Image src={'/images/thank-you/bg.jpeg'} className="absolute inset-0" fill alt="bg-image"/>
+<div className="absolute inset-0 bg-black/50" />
             <div className="container flex items-center justify-center">
                 <div
                     ref={cardRef}
@@ -48,14 +51,14 @@ export default function ThankYouSection({ onClose }: ThankYouSectionProps) {
                         <button
                             onClick={onClose}
                             aria-label="Close"
-                            className="absolute right-[18px] top-[18px] flex h-[34px] w-[34px] items-center justify-center bg-[#F1EEEA] text-primary text-[16px] transition-colors duration-200 hover:bg-[#E6E0D8]"
+                            className="absolute right-[18px] top-[18px] flex h-[34px] w-[34px] items-center justify-center bg-[#F1EEEA] text-white text-[16px] transition-colors duration-200 hover:bg-[#E6E0D8]"
                         >
                             ✕
                         </button>
                     )}
 
                     {/* Check mark */}
-                    <div className="mx-auto mb-[22px] flex h-14 w-14 rounded-full items-center justify-center border-[1.5px] border-primary">
+                    {/* <div className="mx-auto mb-[22px] flex h-14 w-14 rounded-full items-center justify-center border-[1.5px] border-primary">
                         <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -67,15 +70,15 @@ export default function ThankYouSection({ onClose }: ThankYouSectionProps) {
                         >
                             <polyline points="4 12.5 9.5 18 20 6" />
                         </svg>
-                    </div>
+                    </div> */}
 
                     {/* Heading */}
-                    <h1 className="mb-[18px] text-heading text-[38px] font-semibold tracking-[0.03em] text-primary">
+                    <h1 className="mb-[18px] text-heading text-[38px] font-semibold tracking-[0.03em] text-white">
                         Thank You
                     </h1>
 
                     {/* Message */}
-                    <p className="mb-[30px] px-1.5 text-[15.5px] font-light leading-[1.7] text-[#5A5651]">
+                    <p className="mb-[30px] px-1.5 text-[15.5px] font-light leading-[1.7] text-white">
                         {type === "viewing" ? (
                             <>
                                 Your viewing request has been submitted successfully.
@@ -98,14 +101,14 @@ export default function ThankYouSection({ onClose }: ThankYouSectionProps) {
                     <p className="mb-[34px] text-[13.5px] tracking-[0.02em] text-[#8C857C]">
                         <a
                             href="tel:+971800468429"
-                            className="border-b border-[rgba(59,14,12,0.35)] text-primary no-underline"> For assistance, contact{" "}
+                            className="border-b border-[rgba(59,14,12,0.35)] text-white no-underline"> For assistance, contact{" "}
                             +971 800 IMTIAZ
                         </a>{" "}
 
                         or{" "}
 
                         <a href="mailto:info@imtiaz.ae"
-                            className="border-b border-[rgba(59,14,12,0.35)] text-primary no-underline"
+                            className="border-b border-[rgba(59,14,12,0.35)] text-white no-underline"
                         >
 
                             info@imtiaz.ae
@@ -123,9 +126,10 @@ export default function ThankYouSection({ onClose }: ThankYouSectionProps) {
                             <CustomOutlineButton
                                 text="Back To Home"
                                 variant="dark"
-                                borderColor="border-primary"
-                                textColor="text-primary"
+                                borderColor="white"
+                                textColor="text-black"
                                 px="px-10 xl:px-[37px] h-[44px] md:h-[50px] xl:h-[66px]"
+                                className="bg-white"
                                 readMore
                             />
                         </Link>

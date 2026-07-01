@@ -6,9 +6,9 @@ import Message from "./Message";
 const Index = () => {
   return (
     <>
-      <Banner 
+      {/* <Banner 
       {...bannerData}
-      maxTitle="max-w-[73ch]" maxW="max-w-[38ch]" /> 
+      maxTitle="max-w-[73ch]" maxW="max-w-[38ch]" />  */}
       <Message/>
     </>
   );
