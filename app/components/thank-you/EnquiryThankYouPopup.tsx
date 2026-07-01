@@ -58,19 +58,19 @@ export default function EnquiryThankYouPopup({ onClose, type="enquiry" }: Enquir
     >
       <div
         ref={modalRef}
-        className="relative w-full max-w-[480px] border border-[#3B0E0C] bg-white px-12 pb-11 pt-14 text-center shadow-[0_30px_60px_rgba(42,9,8,0.18)] md:px-12 opacity-0"
+        className="relative w-full max-w-[480px] border border-primary bg-white px-12 pb-11 pt-14 text-center shadow-[0_30px_60px_rgba(42,9,8,0.18)] md:px-12 opacity-0"
       >
         {/* Close button */}
         <button
           onClick={handleClose}
           aria-label="Close"
-          className="absolute right-[18px] top-[18px] flex h-[34px] w-[34px] items-center justify-center bg-[#F1EEEA] text-[#3B0E0C] text-[16px] transition-colors duration-200 hover:bg-[#E6E0D8]"
+          className="absolute right-[18px] top-[18px] flex h-[34px] w-[34px] items-center justify-center bg-[#F1EEEA] text-primary text-[16px] transition-colors duration-200 hover:bg-[#E6E0D8]"
         >
           ✕
         </button>
 
         {/* Check mark */}
-        <div className="mx-auto mb-[22px] flex h-14 w-14 items-center justify-center border-[1.5px] border-[#3B0E0C]">
+        <div className="mx-auto mb-[22px] flex h-14 w-14 items-center justify-center border-[1.5px] border-primary">
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -85,7 +85,7 @@ export default function EnquiryThankYouPopup({ onClose, type="enquiry" }: Enquir
         </div>
 
         {/* Heading */}
-        <h1 className="mb-[18px] font-serif text-[38px] font-semibold tracking-[0.03em] text-[#3B0E0C]">
+        <h1 className="mb-[18px] font-serif text-[38px] font-semibold tracking-[0.03em] text-primary">
           Thank You
         </h1>
 
@@ -114,14 +114,14 @@ export default function EnquiryThankYouPopup({ onClose, type="enquiry" }: Enquir
           For assistance, contact{" "}
           <a
             href="tel:+971800468429"
-            className="border-b border-[rgba(59,14,12,0.35)] text-[#3B0E0C] no-underline"
+            className="border-b border-[rgba(59,14,12,0.35)] text-primary no-underline"
           >
             +971 800 IMTIAZ
           </a>{" "}
           or{" "}
           <a
             href="mailto:info@imtiaz.ae"
-            className="border-b border-[rgba(59,14,12,0.35)] text-[#3B0E0C] no-underline"
+            className="border-b border-[rgba(59,14,12,0.35)] text-primary no-underline"
           >
             info@imtiaz.ae
           </a>
@@ -130,7 +130,7 @@ export default function EnquiryThankYouPopup({ onClose, type="enquiry" }: Enquir
         {/* CTA */}
         <button
           onClick={handleClose}
-          className="inline-block bg-[#3B0E0C] px-[46px] py-[15px] text-[13px] uppercase tracking-[0.16em] text-white transition-colors duration-200 hover:bg-[#2A0908]"
+          className="inline-block bg-primary px-[46px] py-[15px] text-[13px] uppercase tracking-[0.16em] text-white transition-colors duration-200 hover:bg-[#2A0908]"
         >
           Close
         </button>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Index from "@/app/components/pay-now/Index";
+import { headers } from "next/headers";
 export const dynamic = "force-dynamic";
 
 async function getPayNowData() {
@@ -15,10 +16,14 @@ async function getPayNowData() {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getPayNowData();
   const meta = data?.data;
+  const pathname = (await headers()).get("x-pathname") || "/";
 
   return {
     title: meta?.meta_title,
     description: meta?.meta_description,
+    alternates: {
+      canonical: pathname,
+    },
     openGraph: {
       title: meta?.meta_title,
       description: meta?.meta_description,
