@@ -1,5 +1,6 @@
 // import type { Metadata } from "next";
 import Index from '@/app/components/thank-you/Index'
+import { Suspense } from 'react'
 // import { headers } from "next/headers";
 
 // async function getThreeDTourData() {
@@ -35,7 +36,9 @@ const page = async () => {
 
   return (
     <>
+    <Suspense fallback={null}>
       <Index/>
+      </Suspense>
     </>
   )
 }
