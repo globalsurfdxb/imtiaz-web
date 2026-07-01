@@ -629,9 +629,6 @@
 
 
 
-
-
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -831,24 +828,13 @@ export default function Index({
   // ── wire snap ─────────────────────────────────────────────────────────────
   // Build the ordered list conditionally based on which sections are shown.
   // HeroSection is always shown. Others depend on page_show_sectionN flags.
-  // const snapRefs: React.RefObject<HTMLElement | null>[] = [snapRef1];
-  // if (data?.page_show_section1 === "true") snapRefs.push(snapRef2);
-  // if (data?.page_show_section2 === "true") snapRefs.push(snapRef3);
-  // if (data?.page_show_section3 === "true") snapRefs.push(snapRef4);
-  // if (data?.page_show_section5 === "true") snapRefs.push(snapRef5);
-  // if (data?.page_show_section6 === "true") snapRefs.push(snapRef6);
-  // if (data?.page_show_section7 === "true") snapRefs.push(snapRef7);
-  // if (data?.page_show_section8 === "true") snapRefs.push(snapRef8);
-  // if (data?.page_show_section9 === "true") snapRefs.push(snapRef9);
-  // if (footerReady) snapRefs.push(footerRef);
-
   const snapRefs: React.RefObject<HTMLElement | null>[] = [snapRef1];
   if (data?.page_show_section1 === "true") snapRefs.push(snapRef2);
   if (data?.page_show_section2 === "true") snapRefs.push(snapRef3);
-  if (data?.page_show_section7 === "true") snapRefs.push(snapRef4);
-  if (data?.page_show_section8 === "true") snapRefs.push(snapRef5);
-  if (data?.page_show_section9 === "true") snapRefs.push(snapRef6);
-  // if (data?.page_show_section7 === "true") snapRefs.push(snapRef7);
+  if (data?.page_show_section3 === "true") snapRefs.push(snapRef4);
+  if (data?.page_show_section5 === "true") snapRefs.push(snapRef5);
+  if (data?.page_show_section6 === "true") snapRefs.push(snapRef6);
+  if (data?.page_show_section7 === "true") snapRefs.push(snapRef7);
   // if (data?.page_show_section8 === "true") snapRefs.push(snapRef8);
   // if (data?.page_show_section9 === "true") snapRefs.push(snapRef9);
   if (footerReady) snapRefs.push(footerRef);
@@ -949,29 +935,9 @@ export default function Index({
         </div>
       )}
 
-            {data?.page_show_section7 === "true" && (
-        <div ref={snapRef4 as React.RefObject<HTMLDivElement>}>
-          <ProSliderV3
-            slides={heroSlides}
-            RightLabel="Featured Properties"
-            title={data?.page_section2_title}
-          />
-        </div>
-      )}
-
-            {data?.page_show_section8 === "true" && (
-        <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
-          <ProSliderV3
-            slides={heroSlides}
-            RightLabel="Featured Properties"
-            title={data?.page_section2_title}
-          />
-        </div>
-      )}
-
       {/* ── snap section 4: ProSliderComingSoonV3 ────────────────────────── */}
-      {data?.page_show_section9 === "true" && (
-        <div ref={snapRef6 as React.RefObject<HTMLDivElement>}>
+      {data?.page_show_section3 === "true" && (
+        <div ref={snapRef4 as React.RefObject<HTMLDivElement>}>
           <ProSliderComingSoonV3
             slides={heroSlidesComingSoon}
             video={data?.page_section3_video}
@@ -997,26 +963,24 @@ export default function Index({
       />}
       {data?.page_show_section8 === "true" && <SpotlightSlider data={spotlight} title={data?.page_section8_title} />}
       {data?.page_show_section9 === "true" && <AppSectionV2 data={appSectionData} appStore={data?.apple_store_link} playStore={data?.android_store_link} title={data?.page_section9_title} description={data?.page_section9_caption} />} */}
-      {/* {data?.page_show_section5 === "true" && (
+      {data?.page_show_section5 === "true" && (
         <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
           <CommunityNamesSlider
             slides={communityNamesData}
             title={data?.page_section5_title}
           />
         </div>
-      )} */}
+      )}
 
-
-      {/* {data?.page_show_section6 === "true" && (
-        <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
+      {data?.page_show_section6 === "true" && (
+        <div ref={snapRef6 as React.RefObject<HTMLDivElement>}>
           <ImtiazPropertiesSnap
             data={imtiazPropertiesData}
             title={data?.page_section6_title}
           />
         </div>
-      )} */}
-
-      {/* {data?.page_show_section7 === "true" && (
+      )}
+      {data?.page_show_section7 === "true" && (
         <div ref={snapRef7 as React.RefObject<HTMLDivElement>}>
           <ConstructionProgress2
             data={ConstructionProgressData}
@@ -1028,10 +992,9 @@ export default function Index({
             poster={data?.page_section7_poster}
           />
         </div>
-      )} */}
-
+      )}
       {/* {data?.page_show_section8 === "true" && (
-        <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
+        <div ref={snapRef8 as React.RefObject<HTMLDivElement>}>
           <SpotlightSliderSnap
             data={spotlight}
             title={data?.page_section8_title}
@@ -1040,7 +1003,7 @@ export default function Index({
       )} */}
 
       {/* {data?.page_show_section9 === "true" && (
-        <div ref={snapRef5 as React.RefObject<HTMLDivElement>}>
+        <div ref={snapRef9 as React.RefObject<HTMLDivElement>}>
           <AppSectionV2
             data={appSectionData}
             appStore={data?.apple_store_link}
