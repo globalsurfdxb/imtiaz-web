@@ -212,8 +212,8 @@ const ConstructionProgress: React.FC<ConstructionProgressProps> = ({
         {
           y: 0,
           opacity: 1,
-          duration: 1.2,
-          stagger: 0.65,
+          duration: 1,
+          stagger: 0.45,
           ease: "power3.out",
           scrollTrigger: {
             trigger: section,
