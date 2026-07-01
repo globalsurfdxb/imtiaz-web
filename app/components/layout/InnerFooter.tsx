@@ -100,7 +100,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
       className="w-full h-[100svh] flex flex-col justify-between make-header-black text-white bg-primary-2 relative z-10 overflow-hidden"
     >
       {/* ================= TOP HERO SECTION ================= */}
-      <div className="w-full overflow-hidden pt-[40px] pb-[30px] md:py-[40px] lg:py-120 3xl:py-150 bg-primary-2">
+      <div className="w-full overflow-hidden pt-[40px] pb-[30px] md:py-[40px] lg:py-120 min-[1500px]:py-60 min-[1600px]:py-120 3xl:py-150 bg-primary-2">
         <div className="z-[20] h-full container flex flex-col md:flex-row md:justify-between items-center shrink-0">
           {/* Logo */}
           <motion.div
