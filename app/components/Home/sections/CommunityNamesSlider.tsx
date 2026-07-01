@@ -453,12 +453,12 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { cubicBezier } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "../../animations/RevealOneByOneAnimation";
 import Link from "next/link";
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 /* ------------------------------
    Types for new data
@@ -498,30 +498,30 @@ export default function HeroFeatureSlider({
   );
   const [prevBg, setPrevBg] = useState<string | null>(null);
 
-  const bgRef = useRef<HTMLDivElement | null>(null);
-  const sectionRef = useRef<HTMLDivElement | null>(null);
+  // const bgRef = useRef<HTMLDivElement | null>(null);
+  // const sectionRef = useRef<HTMLDivElement | null>(null);
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
 
-  const preloadImage = (src: string) =>
-    new Promise<void>((resolve) => {
-      const img = new window.Image();
-      img.src = src;
-      img.onload = () => resolve();
-      img.onerror = () => resolve();
-    });
+  // const preloadImage = (src: string) =>
+  //   new Promise<void>((resolve) => {
+  //     const img = new window.Image();
+  //     img.src = src;
+  //     img.onload = () => resolve();
+  //     img.onerror = () => resolve();
+  //   });
 
   const switchBg = async (bg: string) => {
     if (!bg) return;
-    await preloadImage(bg);
+    // await preloadImage(bg);
     setPrevBg(bgBase);
     setBgBase(bg);
   };
 
-  const isHalfInView = useInView(sectionRef, {
-    margin: "-70% 0px -70% 0px",
-    once: true,
-  });
+  // const isHalfInView = useInView(sectionRef, {
+  //   margin: "-70% 0px -70% 0px",
+  //   once: true,
+  // });
 
   // const featureItem = {
   //   initial: { opacity: 0, y: 20 },
@@ -540,6 +540,8 @@ export default function HeroFeatureSlider({
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+
   const dropWrapper = {
     hidden: { opacity: 0, y: -60 },
     visible: {
@@ -578,7 +580,7 @@ export default function HeroFeatureSlider({
 
   return (
     <section
-      ref={sectionRef}
+      // ref={sectionRef}
       className="w-full relative overflow-hidden h-[100svh] md:max-h-full bg-white z-10"
     >
       {/* Nav Buttons */}
@@ -632,14 +634,14 @@ export default function HeroFeatureSlider({
       </div>
       {/* Background */}
       <div
-        ref={bgRef}
+        // ref={bgRef}
         className="absolute w-full h-full inset-0 -z-20 overflow-hidden scale-[1.08]"
       >
         {prevBg && (
           <motion.div
             key={`prev-${prevBg}`}
-            initial={{ opacity: 1, filter: "blur(0px)" }}
-            animate={{ opacity: 0.9, filter: "blur(1px)" }}
+            initial={{ opacity: 1}}
+            animate={{ opacity: 0.9}}
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full bg-cover bg-center scale-[1.1]"
             style={{ backgroundImage: `url('${prevBg}')` }}
@@ -648,8 +650,8 @@ export default function HeroFeatureSlider({
         {bgBase && (
           <motion.div
             key={`base-${bgBase}`}
-            initial={{ opacity: 0, filter: "blur(1px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
+            initial={{ opacity: 0}}
+            animate={{ opacity: 1}}
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full bg-cover bg-center scale-[1.1]"
             style={{ backgroundImage: `url('${bgBase}')` }}
@@ -682,7 +684,8 @@ export default function HeroFeatureSlider({
                 custom={0.23}
                 initial="initial"
                 whileInView="animate"
-                animate={isHalfInView ? "animate" : "initial"}
+                // animate={isHalfInView ? "animate" : "initial"}
+                animate="animate"
                 viewport={{ once: true }}
                 className="text-white font-[optima] text-heading "
               >
