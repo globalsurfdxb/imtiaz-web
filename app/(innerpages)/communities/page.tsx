@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Index from "@/app/components/community-new/Index";
+import { headers } from "next/headers";
 
 async function getCommunitiesData() {
   const response = await fetch(
@@ -14,10 +15,14 @@ async function getCommunitiesData() {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getCommunitiesData();
   const meta = data?.data;
+  const pathname = (await headers()).get("x-pathname") || "/";
 
   return {
     title: meta?.meta_title,
     description: meta?.meta_description,
+    alternates: {
+      canonical: pathname,
+    },
     openGraph: {
       title: meta?.meta_title,
       description: meta?.meta_description,

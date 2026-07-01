@@ -1,5 +1,6 @@
 import Index from "@/app/components/news-details/Index";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,10 +18,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const data = await getNewsDetailData(slug);
   const meta = data?.data;
+  const pathname = (await headers()).get("x-pathname") || "/";
 
   return {
     title: meta?.meta_title,
     description: meta?.meta_description,
+    alternates: {
+      canonical: pathname,
+    },
     openGraph: {
       title: meta?.meta_title,
       description: meta?.meta_description,

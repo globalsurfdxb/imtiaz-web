@@ -954,6 +954,7 @@ import {
   heroSlidesComingSoon,
   promotion,
 } from "../components/Home/data";
+import { headers } from "next/headers";
 
 async function getHomeData() {
   const response = await fetch(`${process.env.BASE_URL}/api/home.php?lang=en`, {
@@ -965,10 +966,14 @@ async function getHomeData() {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomeData();
   const meta = data?.data;
+  const pathname = (await headers()).get("x-pathname") || "/";
 
   return {
     title: meta?.meta_title,
     description: meta?.meta_description,
+    alternates: {
+      canonical: pathname,
+    },
     openGraph: {
       title: meta?.meta_title,
       description: meta?.meta_description,

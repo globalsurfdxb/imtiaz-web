@@ -21,6 +21,7 @@ import { submitContactLead } from "@/lib/submitContact";
 import EnquiryForm from "../../auth/EnquiryForm";
 import gsap from "gsap";
 import EnquiryThankYouPopup from "../../thank-you/EnquiryThankYouPopup";
+import { useRouter } from "next/navigation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -87,6 +88,7 @@ const FieldLine = ({ hasError }: { hasError: boolean }) => (
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryData }) {
+  const router = useRouter(); 
   const {
     register,
     handleSubmit,
@@ -132,8 +134,9 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
       console.log("Contact result:", result);
 
       if (result.success) {
-        setSubmitSuccess(true);
+        // setSubmitSuccess(true);
         reset();
+        router.push("/thank-you?type=enquiry");
       } else {
         setSubmitError("Submission failed. Please try again.");
       }
@@ -575,12 +578,6 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
           </div>
         </>
       )}
-
-      {/* Thank you popup after successful submit */}
-      {submitSuccess && (
-        <EnquiryThankYouPopup onClose={() => setSubmitSuccess(false)} />
-      )}
-
     </section>
   );
 }
