@@ -20,7 +20,19 @@ export type AppSectionData = {
   };
 };
 
-const AppSection = ({ data,title,description, appStore, playStore }: { data: AppSectionData,title:string,description:string, appStore:string, playStore:string }) => {
+const AppSection = ({
+  data,
+  title,
+  description,
+  appStore,
+  playStore,
+}: {
+  data: AppSectionData;
+  title: string;
+  description: string;
+  appStore: string;
+  playStore: string;
+}) => {
   const imageRef = useRef<HTMLDivElement>(null);
   const section5Ref = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -66,7 +78,7 @@ const AppSection = ({ data,title,description, appStore, playStore }: { data: App
     <section
       ref={section5Ref}
       // className="make-header-black w-full py-[70px] lg:py-120 3xl:py-[130px] bg-gray relative z-10"
-className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:py-[130px] flex items-start md:items-center justify-center bg-gray relative z-10 overflow-hidden"
+      className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 flex items-start md:items-center justify-center bg-gray relative z-10 overflow-hidden"
     >
       <div
         className="container"
@@ -77,7 +89,7 @@ className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:p
         <div className="flex flex-col md:flex-row justify-center items-center gap-30 lg:gap-150">
           {/* PHONE - hidden on mobile, shown on md+ (left column) */}
           <div className="hidden md:flex justify-center">
-            <div className="relative w-[316px] lg:w-[394px] h-[613px] lg:h-[761px] overflow-hidden phone-wrapper z-[100]">
+            <div className="relative w-[316px] lg:w-[350px] 3xl:w-[394px] h-[613px] lg:h-[680px] 3xl:h-[761px] overflow-hidden phone-wrapper z-[100]">
               <Image
                 className="absolute z-10 h-full w-full"
                 src={"/images/home/app/sa-4.png"}
@@ -93,7 +105,6 @@ className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:p
                   height={2000}
                   className="absolute w-full"
                 />
-                
               </div>
             </div>
           </div>
@@ -126,7 +137,7 @@ className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:p
               </motion.p>
             </div>
 
-                        <div className="md:hidden flex gap-[14px] justify-center mb-[10px]">
+            <div className="md:hidden flex gap-[14px] justify-center mb-[10px]">
               <motion.div
                 variants={fadeUp}
                 custom={0.23}
@@ -134,7 +145,10 @@ className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:p
                 whileInView="show"
                 viewport={{ once: true }}
               >
-                <a href={appStore} className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer">
+                <a
+                  href={appStore}
+                  className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer"
+                >
                   <Image
                     src="/images/home/app/appstore1.svg"
                     alt="Download on App Store"
@@ -152,7 +166,10 @@ className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:p
                 whileInView="show"
                 viewport={{ once: true }}
               >
-                <a href={playStore} className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer">
+                <a
+                  href={playStore}
+                  className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer"
+                >
                   <Image
                     src="/images/home/app/playstore1.svg"
                     alt="Get it on Google Play"
@@ -174,18 +191,17 @@ className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:p
                   width={900}
                   height={900}
                 />
-                <div className="left-[25px] right-[25px] absolute" >
+                <div className="left-[25px] right-[25px] absolute">
                   <Image
                     src={d.mobileImage}
                     alt="mobile"
                     width={1500}
                     height={2000}
                     className="absolute w-full"
-                  /> 
+                  />
                 </div>
               </div>
             </div>
-          
 
             <div className="hidden md:flex gap-[14px] justify-center">
               <motion.div
@@ -195,7 +211,10 @@ className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:p
                 whileInView="show"
                 viewport={{ once: true }}
               >
-                <a href={appStore} className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer">
+                <a
+                  href={appStore}
+                  className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer"
+                >
                   <Image
                     src="/images/home/app/appstore1.svg"
                     alt="Download on App Store"
@@ -213,7 +232,10 @@ className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 lg:py-120 3xl:p
                 whileInView="show"
                 viewport={{ once: true }}
               >
-                <a href={playStore} className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer">
+                <a
+                  href={playStore}
+                  className="inline-block bg-black rounded-[11px]  hover:-translate-y-[3px] transition-all duration-300 cursor-pointer"
+                >
                   <Image
                     src="/images/home/app/playstore1.svg"
                     alt="Get it on Google Play"
