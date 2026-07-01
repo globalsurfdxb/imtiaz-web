@@ -13,6 +13,7 @@ import { moveUp } from "../motionVariants";
 import Image from "next/image";
 import { useUtm } from "@/hooks/useUtm";
 import { submitOnboardingLead } from "@/lib/submitOnboarding";
+import { submitViewingLead } from "@/lib/submitViewing";
 
 type EnquiryValues = {
   firstName: string;
@@ -81,19 +82,25 @@ const TabButton = ({ label, isActive, onClick }: TabButtonProps) => {
 interface CareerFormProps {
   onClose: () => void;
   onSwitch: () => void;
-  onSuccess?:()=>void;
+  onSuccess?: () => void;
 }
 
-export default function EnquiryForm({ onClose, onSwitch,onSuccess }: CareerFormProps) {
+export default function EnquiryForm({ onClose, onSwitch, onSuccess }: CareerFormProps) {
   const [activeTab, setActiveTab] = useState<"enquiry" | "viewing">("enquiry");
   const backgroundRef = useRef<HTMLDivElement>(null);
   const whiteBoxRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [divHeight, setDivHeight] = useState(0);
   const { buildUtmPayload } = useUtm();
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const [enquiryLoading, setEnquiryLoading] = useState(false);
+  const [enquiryError, setEnquiryError] = useState<string | null>(null);
+  const [enquirySuccess, setEnquirySuccess] = useState(false);
+
+  const [viewingLoading, setViewingLoading] = useState(false);
+  const [viewingError, setViewingError] = useState<string | null>(null);
+  const [viewingSuccess, setViewingSuccess] = useState(false);
+
 
   useEffect(() => {
     if (backgroundRef.current) {
@@ -180,8 +187,8 @@ export default function EnquiryForm({ onClose, onSwitch,onSuccess }: CareerFormP
   }, [activeTab]);
 
   const onEnquirySubmit = async (data: EnquiryValues) => {
-    setSubmitLoading(true);
-    setSubmitError(null);
+    setEnquiryLoading(true);
+    setEnquiryError(null);
     try {
       const result = await submitOnboardingLead({
         firstName: data.firstName,
@@ -190,44 +197,52 @@ export default function EnquiryForm({ onClose, onSwitch,onSuccess }: CareerFormP
         mobile: `${data.countryCode}${data.phone}`,
         message: `${data.message}`,
         utm: buildUtmPayload(),
-        landingPageName:"enquiry"
+        landingPageName: "enquiry",
       });
 
-      console.log("Result",result)
-      
+      console.log("Result", result);
+
       if (result.success) {
-        setSubmitSuccess(true);
-        onSuccess ? onSuccess() : null
+        setEnquirySuccess(true);
+        onSuccess ? onSuccess() : null;
         enquiryForm.reset();
+      } else {
+        setEnquiryError("Submission failed. Please try again.");
       }
-      else setSubmitError("Submission failed. Please try again.");
     } catch {
-      setSubmitError("Something went wrong.");
+      setEnquiryError("Something went wrong.");
     } finally {
-      setSubmitLoading(false);
+      setEnquiryLoading(false);
     }
   };
 
   const onViewingSubmit = async (data: ViewingValues) => {
-    return;
-    setSubmitLoading(true);
-    setSubmitError(null);
+    setViewingLoading(true);
+    setViewingError(null);
     try {
-      const result = await submitOnboardingLead({
+      const result = await submitViewingLead({
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
-        mobile: "",
-        message: `[Book a Viewing] Requested: ${data.appointmentDateTime} - ${data.message}`,
+        mobile: `${data.countryCode}${data.phone}`,
+        message: data.message,
+        appointmentDateTime: data.appointmentDateTime,
         utm: buildUtmPayload(),
-        landingPageName:"book-a-veiwing"
+        landingPageName: "book-a-viewing",
       });
-      if (result.success) setSubmitSuccess(true);
-      else setSubmitError("Submission failed. Please try again.");
+
+      console.log("Viewing result:", result);
+
+      if (result.success) {
+        setViewingSuccess(true);
+        viewingForm.reset();
+      } else {
+        setViewingError("Submission failed. Please try again.");
+      }
     } catch {
-      setSubmitError("Something went wrong.");
+      setViewingError("Something went wrong.");
     } finally {
-      setSubmitLoading(false);
+      setViewingLoading(false);
     }
   };
 
@@ -454,15 +469,15 @@ export default function EnquiryForm({ onClose, onSwitch,onSuccess }: CareerFormP
 
                       {/* Submit */}
                       <div className="csmtst mt-40 w-fit mx-auto flex flex-col items-center gap-2">
-                        {submitError && (
-                          <p className="text-[12px] text-[#c0392b]">{submitError}</p>
+                        {enquiryError && (
+                          <p className="text-[12px] text-[#c0392b]">{enquiryError}</p>
                         )}
-                        {submitSuccess ? (
+                        {enquirySuccess ? (
                           <p className="text-[14px] text-primary">Thank you! We'll be in touch.</p>
                         ) : (
                           <CustomOutlineButton
                             px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px]"
-                            text={submitLoading ? "Submitting..." : "Submit"}
+                            text={enquiryLoading ? "Submitting..." : "Submit"}
                             borderColor="border-primary-2"
                             textColor="text-foreground-light"
                             variant="dark"
@@ -607,14 +622,21 @@ export default function EnquiryForm({ onClose, onSwitch,onSuccess }: CareerFormP
                       </label>
 
                       {/* Submit */}
-                      <div className="csmtst mt-40 w-fit mx-auto">
-                        <CustomOutlineButton
-                          px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px]"
-                          text="Submit"
-                          borderColor="border-primary-2"
-                          textColor="text-foreground-light"
-                          variant="dark"
-                        />
+                      <div className="csmtst mt-40 w-fit mx-auto flex flex-col items-center gap-2">
+                        {viewingError && (
+                          <p className="text-[12px] text-[#c0392b]">{viewingError}</p>
+                        )}
+                        {viewingSuccess ? (
+                          <p className="text-[14px] text-primary">Thank you! We'll be in touch.</p>
+                        ) : (
+                          <CustomOutlineButton
+                            px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px]"
+                            text={viewingLoading ? "Submitting..." : "Submit"}
+                            borderColor="border-primary-2"
+                            textColor="text-foreground-light"
+                            variant="dark"
+                          />
+                        )}
                       </div>
                     </form>
 
