@@ -635,7 +635,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "../../contexts/LenisContext";
-import { useSectionSnap } from "@/hooks/useSectionSnap";
+import { useSectionSnap } from "@/hooks/useSectionSnapV2";
 import ProSliderComingSoonV3 from "../../components/Home/sections/ProSliderComingSoonV3";
 import FpfSection from "../../components/Home/sections/FpfSection";
 import ProSliderV3 from "../../components/Home/sections/ProsliderV3";
@@ -835,8 +835,8 @@ export default function Index({
   if (data?.page_show_section5 === "true") snapRefs.push(snapRef5);
   if (data?.page_show_section6 === "true") snapRefs.push(snapRef6);
   if (data?.page_show_section7 === "true") snapRefs.push(snapRef7);
-  // if (data?.page_show_section8 === "true") snapRefs.push(snapRef8);
-  // if (data?.page_show_section9 === "true") snapRefs.push(snapRef9);
+  if (data?.page_show_section8 === "true") snapRefs.push(snapRef8);
+  if (data?.page_show_section9 === "true") snapRefs.push(snapRef9);
   if (footerReady) snapRefs.push(footerRef);
 
   useSectionSnap(snapRefs, snapEnabled && footerReady);
@@ -993,16 +993,16 @@ export default function Index({
           />
         </div>
       )}
-      {/* {data?.page_show_section8 === "true" && (
+      {data?.page_show_section8 === "true" && (
         <div ref={snapRef8 as React.RefObject<HTMLDivElement>}>
           <SpotlightSliderSnap
             data={spotlight}
             title={data?.page_section8_title}
           />
         </div>
-      )} */}
+      )}
 
-      {/* {data?.page_show_section9 === "true" && (
+      {data?.page_show_section9 === "true" && (
         <div ref={snapRef9 as React.RefObject<HTMLDivElement>}>
           <AppSectionV2
             data={appSectionData}
@@ -1012,7 +1012,7 @@ export default function Index({
             description={data?.page_section9_caption}
           />
         </div>
-      )} */}
+      )}
     </>
   );
 }
