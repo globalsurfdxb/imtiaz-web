@@ -662,7 +662,7 @@ export default function HeroFeatureSlider({
 
       {/* Top overlay */}
       <div
-        className="absolute inset-0 z-[1]"
+        className="absolute inset-0 z-[1] opacity-60 xl:opacity-100"
         style={{
           background:
             "linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%)",

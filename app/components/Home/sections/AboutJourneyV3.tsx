@@ -335,18 +335,33 @@ const AboutJourneyV3 = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setIsVisible(false);
-      }
+useEffect(() => {
+  function handleClickOutside(e: MouseEvent) {
+    if (
+      containerRef.current &&
+      !containerRef.current.contains(e.target as Node)
+    ) {
+      setIsVisible(false);
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }
+
+  function handleScrollClose() {
+    setIsVisible(false);
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  if (isVisible) {
+    window.addEventListener("wheel", handleScrollClose, { passive: true });
+    window.addEventListener("touchmove", handleScrollClose, { passive: true });
+  }
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+    window.removeEventListener("wheel", handleScrollClose);
+    window.removeEventListener("touchmove", handleScrollClose);
+  };
+}, [isVisible]);
 
   return (
     <>
@@ -471,6 +486,7 @@ const AboutJourneyV3 = ({
             </div>
           </div>
         </div>
+
       </section>
       <div
         className={`fixed -bottom-1 left-0 right-0 z-[9999] flex justify-center px-4 pb-6 transition-transform duration-500 ease-out ${
@@ -478,7 +494,7 @@ const AboutJourneyV3 = ({
         }`}
       >
         <div className="w-full " ref={containerRef}>
-          <PropertyFilterBar communitiesData={communitiesData} />
+          <PropertyFilterBar communitiesData={communitiesData} propertiesData={propertiesData} isSheetVisible={isVisible}/>
         </div>
       </div>
     </>

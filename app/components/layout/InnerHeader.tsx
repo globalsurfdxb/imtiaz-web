@@ -152,7 +152,7 @@ const InnerHeader = ({menuData}:{menuData:any}) => {
               />
 
               {/* LEFT — Hamburger */}
-              <div className="flex items-center  w-[40%] 2xl:w-[33.33%]">
+              <div className="flex items-center w-[35%] sm:w-[40%] 2xl:w-[33.33%]">
                 <button
                   className="flex items-center justify-center w-[40px] h-[40px] cursor-pointer"
                   onClick={() => setIsMenuOpen(true)}
@@ -168,7 +168,7 @@ const InnerHeader = ({menuData}:{menuData:any}) => {
               </div>
 
               {/* CENTER — Logo */}
-              <div className="absolute max-[380px]:left-[44%] left-1/2 -translate-x-1/2 flex flex-col items-center">
+              <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">
                 <Link href="/">
                   <Image
                     src="/images/logo-new.svg"
@@ -182,7 +182,7 @@ const InnerHeader = ({menuData}:{menuData:any}) => {
               </div>
 
               {/* RIGHT — Icons */}
-              <div className="w-[40%] 2xl:w-[33.33%] flex justify-end">
+              <div className="w-[35%] sm:w-[40%] 2xl:w-[33.33%] flex justify-end">
                 <div className="flex items-center gap-[5px] sm:gap-[10px] rgtbtn">
                   <button
                     onClick={() => setAuthView("login")}

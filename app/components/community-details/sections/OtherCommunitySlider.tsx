@@ -424,7 +424,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CustomOutlineButton from "../../common/CustomOutlineButton";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { useScrollFadeUp } from "../../../hooks/useScrollFadeUp";
+import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperType } from "swiper";
 import Link from "next/link";
+import "swiper/css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -472,6 +475,10 @@ export default function CommunitySlider({
   const goTo = useCallback((i: number) => setActive(mod(i, TOTAL)), []);
   const next = useCallback(() => goTo(active + 1), [active, goTo]);
   const prev = useCallback(() => goTo(active - 1), [active, goTo]);
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  const handlePrev = () => swiperRef.current?.slidePrev();
+  const handleNext = () => swiperRef.current?.slideNext();
 
   // desktop btn
   const desktopBtnRef = useScrollFadeUp({
@@ -547,7 +554,7 @@ export default function CommunitySlider({
     if (bp !== "mobile") return;
 
     const ctx = gsap.context(() => {
-      slides.forEach((_:any, i:number) => {
+      slides.forEach((_: any, i: number) => {
         const card = cardRefs.current[i];
         const img = imageRefs.current[i];
         const title = titleRefs.current[i];
@@ -654,9 +661,9 @@ export default function CommunitySlider({
         </div>
 
         {/* ── MOBILE LIST ── */}
-        {bp === "mobile" && (
+        {/* {bp === "mobile" && (
           <div className="flex flex-col gap-6">
-            {slides.map((slide:any, i:number) => (
+            {slides.map((slide: any, i: number) => (
               <div
                 key={i}
                 ref={(el) => {
@@ -664,7 +671,6 @@ export default function CommunitySlider({
                 }}
                 className="relative h-[380px] overflow-hidden"
               >
-                {/* image wrapper — animated separately */}
                 <div
                   ref={(el) => {
                     imageRefs.current[i] = el;
@@ -680,10 +686,8 @@ export default function CommunitySlider({
                   />
                 </div>
 
-                {/* gradient */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10 opacity-40 xl:opacity-100" />
 
-                {/* text + button */}
                 <div className="absolute inset-0 z-20 flex flex-col items-center justify-end mb-[30px] text-white text-center px-4">
                   <h2
                     ref={(el) => {
@@ -701,20 +705,124 @@ export default function CommunitySlider({
                     }}
                     style={{ opacity: 0 }}
                   >
-                    {/* <Link href={`${slide.slug}`}  > */}
-                    <CustomOutlineButton
-                      className="px-[30px] py-2 h-[44px] md:h-[50px]  xl:h-[66px]"
-                      text="View Community"
-                      borderColor="border-white/80"
-                      textColor="text-white"
-                      variant="dark"
-                    />
-                    {/* </Link> */}
+                    <Link href={`${slide.slug}`}>
+                      <CustomOutlineButton
+                        className="px-[30px] py-2 h-[44px] md:h-[50px]  xl:h-[66px]"
+                        text="View Community"
+                        borderColor="border-white/80"
+                        textColor="text-white"
+                        variant="dark"
+                      />
+                    </Link>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+        )} */}
+
+        {bp === "mobile" && (
+          <>
+            <Swiper
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              slidesPerView={1}
+              speed={600}
+              spaceBetween={20}
+              className="!w-full !overflow-hidden"
+            >
+              {slides.map((slide: any, i: number) => (
+                <SwiperSlide key={i}>
+                  <div
+                    ref={(el) => {
+                      cardRefs.current[i] = el;
+                    }}
+                    className="relative h-[380px] overflow-hidden w-full"
+                  >
+                    {/* image wrapper — animated separately */}
+                    <div
+                      ref={(el) => {
+                        imageRefs.current[i] = el;
+                      }}
+                      className="absolute inset-0"
+                      style={{ opacity: 0 }}
+                    >
+                      <Image
+                        src={slide.featured_image_desktop}
+                        alt={slide.featured_image_alt}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-10 opacity-30 xl:opacity-100" />
+
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-end mb-[30px] text-white text-center px-4">
+                      <h2
+                        ref={(el) => {
+                          titleRefs.current[i] = el;
+                        }}
+                        className="mb-20 text-25 font-[optima] tracking-[0.02em] text-white leading-[1.388]"
+                        style={{ opacity: 0 }}
+                      >
+                        {slide.title}
+                      </h2>
+
+                      <div
+                        ref={(el) => {
+                          btnRefs.current[i] = el;
+                        }}
+                        style={{ opacity: 0 }}
+                      >
+                        <Link href={`${slide.slug}`}>
+                          <CustomOutlineButton
+                            className="px-[30px] py-2 h-[44px] md:h-[50px] xl:h-[66px]"
+                            text="View Community"
+                            borderColor="border-white/80"
+                            textColor="text-white"
+                            variant="dark"
+                          />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <div className="flex items-center justify-center gap-4 mt-6">
+              <button
+                aria-label="Previous slide"
+                onClick={handlePrev}
+                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
+              >
+                <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
+                <Image
+                  src="/icons/left_arrow_slider_primary.svg"
+                  alt="Prev"
+                  width={28}
+                  height={28}
+                  className="relative z-10  object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
+                />
+              </button>
+
+              <button
+                aria-label="Next slide"
+                onClick={handleNext}
+                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
+              >
+                <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
+                <Image
+                  src="/icons/left_arrow_slider_primary.svg"
+                  alt="Next"
+                  width={28}
+                  height={28}
+                  className="relative z-10 rotate-180 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
+                />
+              </button>
+            </div>
+          </>
         )}
       </div>
 
@@ -788,13 +896,13 @@ export default function CommunitySlider({
                       {slide.title}
                     </h2>
                     <div>
-                      <Link href={`${slide.slug}`}  >
-                      <CustomOutlineButton
-                        className="2xl:!px-[41px] 2xl:!py-[22.5px]"
-                        text="View Community"
-                        borderColor="border-white/80"
-                        textColor="text-white"
-                      />
+                      <Link href={`${slide.slug}`}>
+                        <CustomOutlineButton
+                          className="2xl:!px-[41px] 2xl:!py-[22.5px]"
+                          text="View Community"
+                          borderColor="border-white/80"
+                          textColor="text-white"
+                        />
                       </Link>
                     </div>
                   </div>

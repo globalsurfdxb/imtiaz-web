@@ -383,7 +383,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
             >
               <button
                 onClick={() => swiperRef.current?.slidePrev()}
-                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
+                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-primary-2 rounded-[50px] flex items-center justify-center overflow-hidden"
               >
                 <span className="absolute right-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
                 <Image
