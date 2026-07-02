@@ -96,6 +96,7 @@ const Index = ({ data }: { data: AboutPageResponse['data'] }) => {
         title={data.page_banner_title}
         description={data.page_banner_caption}
         image={data.page_banner_desktop}
+        mobileImage={data.page_banner_mobile}
         maxW="max-w-[904px]" />
       {data?.show_vision_section == "true" && <VisionSection data={visionSectionData} />}
       {data?.show_chairman_section == "true" && <MessageSection data={chairmanMessageData} />}

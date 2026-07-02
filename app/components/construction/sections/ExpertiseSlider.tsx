@@ -15,6 +15,7 @@ export interface ExpertiseItem {
   title: string;
   description: string;
   image: string;
+  mobileImage:string;
 }
 
 export interface ExpertiseSection {
@@ -84,8 +85,16 @@ export default function ExpertiseSlider({data}:{data:ExpertiseSection}) {
                       src={slide.image}
                       alt={slide.title}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="hidden lg:block object-cover transition-transform duration-700 group-hover:scale-105"
                     />
+
+                    <Image
+                      src={slide.mobileImage ? slide.mobileImage : slide.image}
+                      alt={slide.title}
+                      fill
+                      className="lg:hidden object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+
                     <div
                       className={`absolute inset-0 transition-opacity duration-500 ${isActive ? "opacity-0" : "opacity-100"}`}
                       style={{

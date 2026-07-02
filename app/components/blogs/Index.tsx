@@ -10,6 +10,7 @@ const Index = ({data}:{data:BlogListingData}) => {
       title={data.page_banner_title}
       description={data.page_banner_caption}
       image={data.page_banner_desktop}
+      mobileImage={data.page_banner_mobile}
        maxW="max-w-[580px]" />
       <Suspense fallback={<div>Loading...</div>}>
         <BlogsSection data={data}/>

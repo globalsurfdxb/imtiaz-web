@@ -52,12 +52,24 @@ const LatestBlogSlider = ({ blogs }: { blogs: Blog[] }) => {
                 src={blog.image}
                 alt={blog.title}
                 fill
-                className="object-cover"
+                className="object-cover hidden lg:block"
                 priority={i === 0}
                 style={{
                   transform: `scale(${i === 0 ? 1.06 : 1.15}) translateY(${parallaxY}vh)`,
                 }}
               />
+
+              <Image
+                src={blog.mobileImage ? blog.mobileImage : blog.image}
+                alt={blog.title}
+                fill
+                className="object-cover lg:hidden"
+                priority={i === 0}
+                style={{
+                  transform: `scale(${i === 0 ? 1.06 : 1.15}) translateY(${parallaxY}vh)`,
+                }}
+              />
+
               <div
                 className="hidden md:block absolute inset-0"
                 style={{

@@ -11,6 +11,7 @@ const Index = ({data}:any) => {
     return {
       title:item?.title,
       image:item?.featured_image_desktop,
+      mobileImage:item?.featured_image_mobile,
       slug:item?.slug
     }
   })
@@ -18,7 +19,7 @@ const Index = ({data}:any) => {
   return (
     <>
       <Hero title={data?.page_banner_title}/>
-      <VideoSection image={data?.page_poster_desktop}/>
+      <VideoSection image={data?.page_poster_desktop} mobileImage={data?.page_poster_mobile}/>
       <Content content={data?.description} sourceUrl={data?.source_url}/>
       {data?.gallery && <ImageSlider images={data?.gallery}/>}
       {relatedItems && <RelatedInitiative data={relatedItems}/>}

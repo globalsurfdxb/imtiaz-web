@@ -6,6 +6,7 @@ export type NewLaunchItem = {
   featured_image_alt: string;
   property_status: string;
   banner_video_dektop: string;
+  banner_video_mobile:string;
   amenities: {
     icon_url: string;
     title: string;
@@ -102,6 +103,8 @@ export type HomePageResponse = {
     page_show_section7: string,
     page_show_section8: string,
     page_show_section9: string,
+    page_section1_video_mobile:string;
+    page_section1_poster_mobile:string;
 
     new_launches: NewLaunchItem[];
 

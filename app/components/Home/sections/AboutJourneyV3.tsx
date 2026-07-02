@@ -273,6 +273,8 @@ type Props = {
   title: string;
   poster: string;
   propertiesData: any;
+  mobileVideo:string;
+  posterMobile:string;
 };
 
 const AboutJourneyV3 = ({
@@ -283,6 +285,8 @@ const AboutJourneyV3 = ({
   title,
   poster,
   propertiesData,
+  mobileVideo,
+  posterMobile
 }: Props) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
@@ -353,8 +357,8 @@ const AboutJourneyV3 = ({
       >
         {/* VIDEO */}
         <video
-          src="/videos/abt-mobile.mp4"
-          poster={poster}
+          src={mobileVideo}
+          poster={posterMobile}
           autoPlay
           muted
           loop

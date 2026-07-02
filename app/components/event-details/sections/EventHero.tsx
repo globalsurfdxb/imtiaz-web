@@ -49,6 +49,19 @@ const EventHero = ({ event }: Props) => {
             style={{
               transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
             }}
+            className="hidden lg:block"
+          />
+
+          <Image
+            src={event.page_banner_mobile ? event.page_banner_mobile : event.page_banner_desktop}
+            alt={event.page_banner_title}
+            fill
+            priority
+            sizes="100vw"
+            style={{
+              transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
+            }}
+            className="lg:hidden"
           />
 
           {/* Gradient overlay */}

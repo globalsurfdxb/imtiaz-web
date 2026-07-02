@@ -43,6 +43,7 @@ export interface PressItem {
   id: number;
   title: string;
   image: string;
+  mobileImage:string;
   category: PressCategory;
   date: string;
   slug: string;
@@ -54,6 +55,7 @@ export const pressItems: PressItem[] = [
     id: 1,
     title: "Imtiaz Delivers Fifth Project of the Year with the Handover of Hyde Walk in Jumeirah Garden City",
     image: "/images/news/7.jpg",
+    mobileImage:"",
     category: "News",
     date: "2024-08-02",
     slug: "imtiaz-delivers-hyde-walk-jumeirah-garden-city",
@@ -62,6 +64,7 @@ export const pressItems: PressItem[] = [
     id: 2,
     title: "Imtiaz Developments Launches The Symphony, A DHI Billion Dollar Project",
     image: "/images/news/1.jpg",
+    mobileImage:"",
     category: "News",
     date: "2024-08-02",
     slug: "imtiaz-developments-launches-symphony",
@@ -70,6 +73,7 @@ export const pressItems: PressItem[] = [
     id: 3,
     title: "The Imtiaz Growth Story: Redefining Luxury",
     image: "/images/news/2.jpg",
+    mobileImage:"",
     category: "News",
     date: "2024-08-02",
     slug: "imtiaz-growth-story-redefining-luxury",
@@ -78,6 +82,7 @@ export const pressItems: PressItem[] = [
     id: 4,
     title: "Imtiaz and Zaha Hadid Architects Set the Stage",
     image: "/images/news/3.jpg",
+    mobileImage:"",
     category: "News",
     date: "2024-08-02",
     slug: "imtiaz-zaha-hadid-architects-set-the-stage",
@@ -86,6 +91,7 @@ export const pressItems: PressItem[] = [
     id: 5,
     title: "Imtiaz Developments Hands Over Pearl House II",
     image: "/images/news/4.jpg",
+    mobileImage:"",
     category: "News",
     date: "2024-05-02",
     slug: "imtiaz-hands-over-pearl-house-ii",
@@ -94,6 +100,7 @@ export const pressItems: PressItem[] = [
     id: 6,
     title: "Imtiaz Developments Announces Strategic Partnership",
     image: "/images/news/5.jpg",
+    mobileImage:"",
     category: "News",
     date: "2024-08-02",
     slug: "imtiaz-announces-strategic-partnership",
@@ -102,6 +109,7 @@ export const pressItems: PressItem[] = [
     id: 7,
     title: "Imtiaz Developments Appoints Otis for 41-Storey Tower",
     image: "/images/news/6.jpg",
+    mobileImage:"",
     category: "News",
     date: "2024-08-02",
     slug: "imtiaz-appoints-otis-41-storey-tower",

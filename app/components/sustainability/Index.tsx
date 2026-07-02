@@ -46,6 +46,7 @@ const spotlightData = (data?.spotlight || []).map((item, index) => ({
   title: item?.title || "",
   href: `/media-center/news/${item?.slug || ""}`,
   image: item?.featured_image_desktop || "",
+  mobileImage:item?.featured_image_mobile,
   alt: item?.featured_image_alt || "",
 }));
 
@@ -55,6 +56,7 @@ const spotlightData = (data?.spotlight || []).map((item, index) => ({
       title={data.page_banner_title}
       description={data.page_banner_caption}
       image={data.page_banner_desktop}
+      mobileImage={data.page_banner_mobile}
       maxW="max-w-[816px]" />
       {data?.show_reasons_section == "true" && <ImpactAreas data={impactAreas} />}
       {data?.show_appeal_section == "true" && <SustainablityMoments title={data.moments_title} description={data.moments_caption} data={data.moments}/>}

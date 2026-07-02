@@ -92,6 +92,19 @@ useEffect(() => {
             style={{
               transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
             }}
+            className="hidden lg:block"
+          />
+
+          <Image
+            src={blog.page_banner_mobile ? blog.page_banner_mobile : blog.page_banner_desktop}
+            alt={blog.page_banner_title}
+            fill
+            priority
+            sizes="100vw"
+            style={{
+              transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
+            }}
+            className="lg:hidden"
           />
         </div>
       </div>

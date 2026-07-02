@@ -10,6 +10,7 @@ const Index = ({data}:any) => {
     title: item.title,
     link: `${item.slug}`,
     image: item.featured_image_desktop,
+    mobileImage:item.featured_image_mobile
   })) || [];
 
   return (
@@ -17,6 +18,7 @@ const Index = ({data}:any) => {
       <InnerHeroBanner 
       title={data?.page_banner_title} 
       image={data?.page_banner_desktop}
+      mobileImage={data?.page_banner_mobile}
       description={data?.page_banner_caption} 
       maxW="max-w-[81ch]" />
       <Suspense fallback={<div>Loading...</div>}>

@@ -40,11 +40,16 @@ export default function HeroFeatureSlider({
   const [activeFeat, setActiveFeat] = useState<number>(initialActive);
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
+  const [bp, setBp] = useState<"mobile" | "desktop">("desktop");
+
+  const getImageForBp = (c: (typeof communities)[number]) =>
+    bp === "mobile"
+      ? c.featured_image_mobile || c.featured_image_desktop // fallback if mobile image missing
+      : c.featured_image_desktop;
+
   /* Background fade logic */
   const [bgBase, setBgBase] = useState<string | null>(
-    communities?.[initialActive]?.featured_image_desktop ??
-      communities?.[0]?.featured_image_desktop ??
-      null,
+    getImageForBp(communities?.[initialActive] ?? communities?.[0]) ?? null,
   );
   const [prevBg, setPrevBg] = useState<string | null>(null);
 
@@ -73,7 +78,9 @@ export default function HeroFeatureSlider({
     once: true,
   });
 
-  const [bp, setBp] = useState<"mobile" | "desktop">("desktop");
+
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -130,8 +137,8 @@ export default function HeroFeatureSlider({
 
   const handleMouseLeave = () => {
     const current = communities[activeFeat] ?? communities[0];
-    if (current?.featured_image_desktop)
-      switchBg(current.featured_image_desktop);
+    const img = getImageForBp(current);
+    if (img) switchBg(img);
   };
 
   useEffect(() => {
@@ -150,6 +157,13 @@ export default function HeroFeatureSlider({
   }, [swiper, prevRef.current, nextRef.current]);
 
   const gap = bp === "mobile" ? "20px" : "50px";
+
+  useEffect(() => {
+  const current = communities[activeFeat] ?? communities[0];
+  const img = getImageForBp(current);
+  if (img) switchBg(img);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [bp]);
 
   return (
     <section
@@ -280,7 +294,8 @@ export default function HeroFeatureSlider({
           onSlideChange={(s) => {
             const idx = s.realIndex;
             setActiveFeat(idx);
-            switchBg(communities[idx]?.featured_image_desktop);
+            const img = getImageForBp(communities[idx]);
+            if (img) switchBg(img);
           }}
           className="w-full"
         >
@@ -295,13 +310,13 @@ export default function HeroFeatureSlider({
                       className="relative flex-1 min-h-[360px] md:min-h-[420px] 3xl:h-[500px] flex justify-center items-end px-4 cursor-pointer"
                       onMouseEnter={() => {
                         setActiveFeat(i);
-                        switchBg(c.featured_image_desktop);
+                        const img = getImageForBp(c);
+                        if (img) switchBg(img);
                       }}
                     >
                       <div
-                        className={`absolute inset-0 transition-opacity duration-400 ${
-                          active ? "opacity-100" : "opacity-0"
-                        }`}
+                        className={`absolute inset-0 transition-opacity duration-400 ${active ? "opacity-100" : "opacity-0"
+                          }`}
                         style={{
                           background:
                             "linear-gradient(180deg, rgba(0,0,0,0) 7.68%, rgba(0,0,0,0.66) 100%)",
@@ -369,11 +384,10 @@ export default function HeroFeatureSlider({
                               <button
                                 key={i}
                                 // onClick={() => swiperRef.current?.slideToLoop(i)}
-                                className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${
-                                  i === activeFeat
-                                    ? "bg-white"
-                                    : "bg-transparent"
-                                }`}
+                                className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${i === activeFeat
+                                  ? "bg-white"
+                                  : "bg-transparent"
+                                  }`}
                               />
                             ))}
                           </div>

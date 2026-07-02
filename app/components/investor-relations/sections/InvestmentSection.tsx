@@ -78,10 +78,20 @@ export default function InvestmentSection({data}:{data:InvestmentAppealData}) {
             src={data.image.src}
             alt="bg-image-investment"
             fill
-            className="object-cover"
+            className="object-cover hidden lg:block"
             priority
             style={{ transform: `translateY(${parallaxY}vh)` }}
           />
+
+          <Image
+            src={data.image.mobileSrc ? data.image.mobileSrc : data.image.src}
+            alt="bg-image-investment"
+            fill
+            className="object-cover lg:hidden"
+            priority
+            style={{ transform: `translateY(${parallaxY}vh)` }}
+          />
+
         </div>
 
         {/* Overlay gradient */}

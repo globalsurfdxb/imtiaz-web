@@ -44,6 +44,7 @@ const faqData = {
       title={data.page_banner_title}
       description={data.page_banner_caption}
       image={data.page_banner_desktop}
+      mobileImage={data.page_banner_mobile}
       maxW="max-w-[805px]" />
       {data?.show_expertise_section == "true" && <ThinkingThatDelivers data={thinkingThatDelivers}/>}
       {data?.show_faq_section == "true" && <Faq data={faqData}/>}

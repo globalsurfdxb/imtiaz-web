@@ -467,6 +467,7 @@ export type Community = {
   id: string | number;
   name: string;
   bgImage: string;
+  // bgImageMobile:string;
   link?: string;
 };
 

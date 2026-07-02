@@ -93,6 +93,7 @@ const faqData = {
       title={data.page_banner_title}
       description={data.page_banner_caption}
       image={data.page_banner_desktop}
+      mobileImage={data.page_banner_mobile}
       maxW='max-w-[690px]' />
       {data?.show_reasons_section == "true" && <Reasons data={investReasonsData}/>}
       {data?.show_appeal_section == "true" && <InvestmentSection data={investmentAppealData}/>}
