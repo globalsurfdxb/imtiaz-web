@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
     }
   );
 
+
   const muleData = await muleRes.json().catch(() => ({}));
 
   console.log("send message")

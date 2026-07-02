@@ -11,6 +11,7 @@ type Initiative = {
   title: string;
   link: string;
   image: string;
+  mobileImage:string;
 }
 
 const ITEMS_PER_PAGE = 4;

@@ -517,6 +517,7 @@ export default function ProjectCard({
   isCommunity,
   enableParallax = true,
   imageClassName,
+  mobileImage
 }: ProjectCardType) {
   const { ref, parallaxY } = useParallax(enableParallax ? 2 : 0);
   const [isHovered, setIsHovered] = useState(false);
@@ -567,6 +568,18 @@ export default function ProjectCard({
       <div className="relative w-full aspect-[7.5/10] md:aspect-[9/13] xl:aspect-[9.3/11] min-[1500px]:aspect-[12/13] min-[1600px]:aspect-[9.8/11] 3xl:aspect-[9/13] overflow-hidden">
         <Image
           src={image}
+          alt={title}
+          fill
+  className={`object-cover ${imageClassName ?? ""} will-change-transform hidden`}
+  style={{
+    transform: enableParallax
+      ? `scale(1.02) translateY(${parallaxY}vh)`
+      : "scale(1.02)",
+  }}
+        />
+
+                <Image
+          src={mobileImage ? mobileImage : image}
           alt={title}
           fill
   className={`object-cover ${imageClassName ?? ""} will-change-transform`}

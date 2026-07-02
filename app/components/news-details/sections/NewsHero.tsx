@@ -103,7 +103,21 @@ const NewsHero = ({ news }: Props) => {
             style={{
               transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
             }}
+            className="lg:block hidden"
           />
+
+          <Image
+            src={news.page_banner_mobile}
+            alt={news.page_banner_title}
+            fill
+            priority
+            sizes="100vw"
+            style={{
+              transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
+            }}
+            className="lg:hidden"
+          />
+
         </div>
       </div>
     </section>

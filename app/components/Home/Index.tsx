@@ -476,6 +476,7 @@ export default function Index({
       id: (index + 1).toString(),
       name: community.title,
       bgImage: community.featured_image_desktop,
+      // bgImageMobile:community.featured_image_mobile,
       link: `/community/${community.slug}`,
     })),
   };
@@ -487,6 +488,7 @@ export default function Index({
       id: (index + 1).toString(),
       title: property.title,
       image: property.featured_image_desktop,
+      mobileImage:property.featured_image_mobile,
       link: `/property/${property.slug}`,
       location: property.property_community,
       hoverImage: property.brand_logo,
@@ -504,6 +506,7 @@ export default function Index({
       title: item.title,
       href: `/news/${item.slug}`,
       image: item.featured_image_desktop,
+      mobileImage:item.featured_image_mobile,
       alt: item.featured_image_alt,
     })),
   };
@@ -512,6 +515,7 @@ export default function Index({
     title: item.title,
     slug: item.slug,
     video: item.banner_video_dektop,
+    mobileVideo:item.banner_video_mobile,
     pillFeatures: {
       title: "/icons/pro_slider/sunset_bay.svg",
       features: item.amenities.slice(0, 4).map((feature) => ({
@@ -545,8 +549,10 @@ export default function Index({
             mobsearchRef={mobsearchRef}
             communitiesData={communitiesData}
             video={data?.page_section1_video}
+            mobileVideo={data?.page_section1_video_mobile}
             title={data?.page_section1_title}
             poster={data?.page_section1_poster}
+            posterMobile={data?.page_section1_poster_mobile}
             propertiesData={propertiesData}
           />
         </div>

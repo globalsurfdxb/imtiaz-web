@@ -16,6 +16,7 @@ interface InnerHeroProps {
   maxTitle?: string;
   buttonText: string;
   buttonLink: string;
+  mobileImage?:string;
 }
 
 const ZOOM_OUT_DURATION = 2.2;
@@ -37,6 +38,7 @@ const InnerHeroBanner = ({
   maxTitle,
   buttonText,
   buttonLink,
+  mobileImage
 }: InnerHeroProps) => {
   const imageWrapperRef = useRef<HTMLDivElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
@@ -139,10 +141,21 @@ const InnerHeroBanner = ({
           alt={title}
           fill
           sizes="100vw"
-          className="object-cover object-center 2xl:object-bottom"
+          className="object-cover object-center 2xl:object-bottom hidden lg:block"
           priority
           onLoad={handleImageLoad}
         />
+
+        <Image
+          src={mobileImage ? mobileImage : image}
+          alt={title}
+          fill
+          sizes="100vw"
+          className="object-cover object-center 2xl:object-bottom lg:hidden"
+          priority
+          onLoad={handleImageLoad}
+        />
+
       </div>
 
       {/* Static overlay */}

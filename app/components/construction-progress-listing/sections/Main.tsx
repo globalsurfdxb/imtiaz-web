@@ -145,7 +145,7 @@ const MainContent = ({data}:any) => {
           <div className="project-card-grid">
             {paginated.map((project, i) => (
               <Reveal variants={moveUpV2} key={i} delayRange={i * 0.11}>
-                <Cardconstruction image={project.featured_image_desktop} {...project} />
+                <Cardconstruction image={project.featured_image_desktop} mobileImage={project.featured_image_mobile} {...project} />
               </Reveal>
             ))}
           </div> 

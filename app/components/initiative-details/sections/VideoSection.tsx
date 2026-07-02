@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Image from "next/image";
 
-const VideoSection = ({ image }: { image: string }) => {
+const VideoSection = ({ image, mobileImage }: { image: string,mobileImage:string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -23,7 +23,19 @@ const VideoSection = ({ image }: { image: string }) => {
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover hidden lg:block"
+            style={{
+              transform: "scale(1.15) translateY(0vh)",
+              willChange: "transform",
+            }}
+          />
+          <Image
+            src={mobileImage}
+            alt="Gallery image"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover lg:hidden"
             style={{
               transform: "scale(1.15) translateY(0vh)",
               willChange: "transform",

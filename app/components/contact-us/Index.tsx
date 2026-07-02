@@ -87,6 +87,7 @@ const enquiryData = {
       title={data.page_banner_title}
       description={data.page_banner_caption}
       image={data.page_banner_desktop}
+      mobileImage={data.page_banner_mobile}
        maxTitle="max-w-[73ch]" maxW="max-w-[40ch]"/> 
       <Enquiry 
       enquiryData={enquiryData}

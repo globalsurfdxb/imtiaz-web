@@ -17,7 +17,18 @@ const EventCard = ({ item }: { item: EventItem }) => {
           alt={item.title}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
+          className="object-cover hidden lg:block"
+                    style={{
+            transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
+          }}
+        />
+
+        <Image
+          src={item.mobileImage ? item.mobileImage : item.image}
+          alt={item.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover lg:hidden"
                     style={{
             transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
           }}

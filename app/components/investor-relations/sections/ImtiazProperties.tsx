@@ -148,6 +148,8 @@ const ImtiazProperties = ({ data, title }: { data: InvestorRelationsPageResponse
 
                 image: item.featured_image_desktop,
 
+                mobileImage:item.featured_image_mobile,
+
                 hoverImage:
                   item.brand_logo || item.featured_image_mobile,
 

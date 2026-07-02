@@ -15,6 +15,7 @@ export type SpotlightCardItem = {
   title: string;
   href: string;
   image: string;
+  mobileImage:string;
   alt: string;
 };
 
@@ -25,7 +26,7 @@ function ImageTrack({
   className,
   pointerHandlers,
 }: {
-  slides: { image: string; alt: string }[];
+  slides: { image: string; alt: string; mobileImage:string; }[];
   targetRef: React.MutableRefObject<HTMLImageElement[]>;
   parallaxRef: React.MutableRefObject<HTMLDivElement | null>; // fix: allow null
   className: string;
@@ -45,7 +46,7 @@ function ImageTrack({
             ref={(el) => {
               if (el) targetRef.current[i] = el;
             }}
-            src={slide.image}
+            src={slide.mobileImage}
             alt={slide.alt}
             className="absolute inset-0 w-full h-full object-cover object-center"
             draggable={false}
