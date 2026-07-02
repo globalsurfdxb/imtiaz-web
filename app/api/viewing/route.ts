@@ -35,20 +35,24 @@ export async function POST(req: NextRequest) {
         Email: data.email,
         MobilePhone: data.mobile,
         Phone: data.mobile,
-        Follow_up_Date_Time__c: data.appointmentDateTime ? new Date(data.appointmentDateTime).toISOString() : "",
-        LeadSource: "Web",
-        Medium__c:  "",
-        Platform_Source__c: "",
-        Ad_Name__c: data.utm_adid || "",
+        Message__c: data.message || "",
+        Follow_up_Date_Time__c: data.appointmentDateTime
+            ? new Date(data.appointmentDateTime).toISOString()
+            : "",
+        LeadSource: "Digital", // confirm with client: constant, or should vary by utm_channel?
+        Medium__c: data.utm_medium || "",
+        Platform_Source__c: data.utm_source || "",
+        Ad_Name__c: data.utm_content || "", // confirm with client: utm_content vs utm_adid vs utm_adgroupname
         Campaign_Name__c: data.utm_campaign || "",
         Form_Name__c: "Book a Viewing",
         Ad_Set__c: data.utm_adgroupname || "",
+        Preferred_mode_of_contact__c: data.preferredContact || "",
         IP_Country__c: data.ip_country || "",
         IP_City__c: data.ip_city || "",
         IP_State_Region__c: data.ip_state || "",
         IP_Time_zone__c: data.ip_timezone || "",
         First_Page_Seen__c: data.website_url || "",
-        First_Referring_Site__c: data.utm_source || "",
+        First_Referring_Site__c: data.referrer || "",
     };
 
     console.log("Salesforce viewing payload:", payload);
