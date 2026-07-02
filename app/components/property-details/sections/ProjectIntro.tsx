@@ -45,7 +45,7 @@ function ProjectIntro({ title, description, brochure, fact_sheet, unit_layout, h
     {
       id: "unitlayout",
       image: unit_layout ?? "",
-      label: "Unit layout",
+      label: "Floor Plan",
       hidden: hide_button_unitlayout == "true"
     },
   ];

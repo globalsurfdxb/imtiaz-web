@@ -578,7 +578,7 @@ export default function GallerySlider({ data }: { data: any }) {
   return (
     <section
       ref={sectionRef}
-      className="gallery-slider-root relative w-full overflow-hidden h-[90vh] 2xl:h-screen bg-[#0e0e0e] cursor-grab"
+      className="gallery-slider-root relative w-full overflow-hidden h-[65vh] md:h-[90vh] 2xl:h-screen bg-[#0e0e0e] cursor-grab"
     >
       {/* ── Swiper layer ── */}
       <div ref={swiperWrapperRef} className="absolute inset-0">
@@ -656,7 +656,7 @@ export default function GallerySlider({ data }: { data: any }) {
       </div>
 
       {/* ── Bottom controls ── */}
-      <div className="absolute bottom-[70px] lg:bottom-120 3xl:bottom-130 inset-x-0 z-30 flex flex-col items-center gap-[30px]">
+      <div className="absolute bottom-[20px] md:bottom-[70px] lg:bottom-120 3xl:bottom-130 inset-x-0 z-30 flex flex-col items-center gap-[30px]">
         {/* Tab pill */}
         <div className="p-[6px] md:p-[8px] backdrop-blur-[30px] rounded-full">
           <div className="relative flex overflow-hidden 2xl:gap-[29.5px]">

@@ -77,7 +77,7 @@ export default function RegisterInterestForm({
 
   return (
     // Plain card — no fixed/backdrop wrapper. The portal scroll container handles centering + scroll.
-    <div className="relative w-full max-w-[1009px] mx-[15px] sm:mx-20 bg-white p-40">
+    <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-[1009px] mx-[15px] sm:mx-20 bg-white p-40">
       {/* Close button */}
       <button
         onClick={onClose}
@@ -89,7 +89,7 @@ export default function RegisterInterestForm({
           alt="Close"
           width={16}
           height={16}
-          className="w-auto h-[10px] sm:w-[16px] sm:h-[16px]"
+          className="w-auto h-[10px] sm:w-[16px] sm:h-[16px] invert brightness-0"
         />
       </button>
 

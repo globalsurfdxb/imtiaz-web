@@ -78,6 +78,52 @@
 
 
 
+// "use client";
+
+// import { useEffect } from "react";
+// import { useLenis } from "../../contexts/LenisContext";
+
+// export default function ScrollToTopReload() {
+//   const { lock } = useLenis();
+
+//   useEffect(() => { 
+//     lock(); // lock scroll on home page load
+
+//     if ("scrollRestoration" in history) {
+//       history.scrollRestoration = "manual";
+//     }
+
+//     const stopSave = () => {
+//       history.scrollRestoration = "manual";
+//       window.scrollTo(0, 0);
+//     };
+//     window.addEventListener("beforeunload", stopSave);
+
+//     requestAnimationFrame(() => {
+//       requestAnimationFrame(() => {
+//         window.scrollTo(0, 0);
+//       });
+//     });
+
+//     const onLoad = () => window.scrollTo(0, 0);
+//     window.addEventListener("load", onLoad);
+
+//     return () => {
+//       window.removeEventListener("beforeunload", stopSave);
+//       window.removeEventListener("load", onLoad);
+//     };
+//   }, []);
+
+//   return null;
+// }
+
+
+
+
+
+
+
+
 "use client";
 
 import { useEffect } from "react";
@@ -86,7 +132,7 @@ import { useLenis } from "../../contexts/LenisContext";
 export default function ScrollToTopReload() {
   const { lock } = useLenis();
 
-  useEffect(() => { 
+  useEffect(() => {
     lock(); // lock scroll on home page load
 
     if ("scrollRestoration" in history) {
@@ -104,13 +150,10 @@ export default function ScrollToTopReload() {
         window.scrollTo(0, 0);
       });
     });
-
-    const onLoad = () => window.scrollTo(0, 0);
-    window.addEventListener("load", onLoad);
+    
 
     return () => {
       window.removeEventListener("beforeunload", stopSave);
-      window.removeEventListener("load", onLoad);
     };
   }, []);
 

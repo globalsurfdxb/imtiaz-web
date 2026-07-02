@@ -115,7 +115,7 @@ const Index = ({
             property={data?.page_banner_title}
           />
         )}
-      <RegBtn />
+      {/* <RegBtn /> */}
     </>
   );
 };

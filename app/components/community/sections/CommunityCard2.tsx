@@ -287,7 +287,7 @@ for (let i = 1; i <= 3; i++) {
     <div className="grid lg:grid-cols-2 3xl:grid-cols-[1044px_1fr]"> 
     <div
       ref={ref}
-      className="relative w-full h-[199px] md:h-[400px] lg:h-[520px] 3xl:h-[579px] overflow-hidden  select-none"
+      className="relative w-full h-[370px] md:h-[400px] lg:h-[520px] 3xl:h-[579px] overflow-hidden  select-none"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleCardClick}
@@ -318,11 +318,11 @@ for (let i = 1; i <= 3; i++) {
     </div>
 
      {/* BELOW LG — always-visible state matching the image */}
-      <div className="max-lg:pt-10 bg-gray flex flex-col items-center justify-center pointer-events-none">
+      <div className="pt-4 lg:pt-10 bg-gray flex flex-col items-center justify-center pointer-events-none">
         {/* Title at top */}
          
         {/* Bottom section: pill + divider + CTA */}
-        <div className="w-full flex flex-col items-center justify-center gap-[50px]">
+        <div className="w-full flex flex-col items-center justify-center gap-6 md:gap-[50px]">
 
             <h3
           className="text-foreground font-[optima] text-24 leading-[35px] text-center px-10 md:px-4 uppercase"
@@ -336,7 +336,7 @@ for (let i = 1; i <= 3; i++) {
         </h3>
 
           {/* Tags pill — full width, flex wrap, centered */}
-          <div className="flex flex-wrap items-center justify-center gap-x-[50px] gap-y-[20px]  w-[80%] px-[1px] max-lg:pb-10">
+          <div className="flex flex-wrap items-center justify-center gap-x-[50px] gap-y-3 md:gap-y-[20px] w-[80%] px-[1px] pb-6 lg:pb-10">
             {tags.reverse().map((tag, i) => (
               <div key={i} className="flex items-center gap-[10px]">
                 <Image
@@ -355,7 +355,7 @@ for (let i = 1; i <= 3; i++) {
             ))}
                       
           {/* CTA button */}
-          <div className="min-w-full lg:mt-[30px]">
+          <div className="min-w-full mt-2 lg:mt-[30px]">
             <Link
             href={`/communities/${card.slug}`}
             className="pointer-events-auto"
