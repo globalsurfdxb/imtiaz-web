@@ -927,7 +927,7 @@ export default function SustainabilitySpotlight({
           </div>
 
           <div className="flex items-center justify-between w-full gap-30">
-            <Link href={data.viewAllHref}>
+            <Link href={`/media-center/${data.viewAllHref}`}>
               <CustomOutlineButton
                 variant="dark"
                 text="View All"
