@@ -488,6 +488,7 @@ useEffect(() => {
                       <ProjectCard
                         
                         image={project.featured_image_desktop}
+                        mobileImage={project.featured_image_mobile}
                         hoverImage={project.brand_logo}
                         subtitle={project.property_caption}
                         status={project.property_status}

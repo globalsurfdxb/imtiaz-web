@@ -36,6 +36,7 @@ const OtherEvents = ({ data }: { data: EventListingData }) => {
                 id: index + 1,
                 title: item.title,
                 image: item.featured_image_desktop,
+                mobileImage:item.featured_image_mobile,
                 category: item.category_name as EventCategory,
                 date: item.post_date
                   ? item.post_date.split("-").reverse().join("-")
@@ -87,6 +88,7 @@ const OtherEvents = ({ data }: { data: EventListingData }) => {
                 id: index + 1,
                 title: item.title,
                 image: item.featured_image_desktop,
+                mobileImage:item.featured_image_mobile,
                 category: item.category_name as EventCategory,
                 date: item.post_date
                   ? item.post_date.split("-").reverse().join("-")

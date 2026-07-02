@@ -127,7 +127,13 @@ const imgRefs = useRef<(HTMLDivElement | null)[]>([]);
                         src={service.image}
                         alt={service.alt}
                         fill
-                        className="object-cover object-center"
+                        className="object-cover object-center hidden lg:block"
+                      />
+                      <Image
+                        src={service.mobileImage ? service.mobileImage : service.image}
+                        alt={service.alt}
+                        fill
+                        className="object-cover object-center lg:hidden"
                       />
                     </div>
                   </div>

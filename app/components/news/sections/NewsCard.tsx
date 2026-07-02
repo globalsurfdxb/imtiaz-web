@@ -29,7 +29,19 @@ const EventCard = ({ item }: { item: PressItem }) => {
           alt={item.title}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
+          className="object-cover hidden lg:block"
+          style={{
+            transform: `scale(1.15) translateY(${parallaxY}vh)`,
+            willChange: "transform", // 👈 tell Safari to prep this layer
+          }}
+        />
+
+        <Image
+          src={item.mobileImage}
+          alt={item.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover lg:hidden"
           style={{
             transform: `scale(1.15) translateY(${parallaxY}vh)`,
             willChange: "transform", // 👈 tell Safari to prep this layer

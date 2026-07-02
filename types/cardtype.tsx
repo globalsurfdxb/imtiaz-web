@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 export type ProjectCardType = {
   id:string;
    image: string;
+   mobileImage?: string;
    hoverImage: string;
   status?: string;
   location?: string;

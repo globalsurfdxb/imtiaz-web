@@ -22,6 +22,7 @@ export interface CommunityCard {
   icon2_text:string;
   icon3_text:string;
   featured_image_desktop:string;
+  featured_image_mobile:string;
   featured_image_alt:string;
   slug:string;
 }

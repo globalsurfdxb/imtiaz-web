@@ -11,6 +11,7 @@ type Blog = {
   category: string;
   date: string;
   slug: string;
+  mobileImage:string;
 };
 
 interface BlogCardProps {
@@ -42,11 +43,23 @@ const BlogCard = ({ blog }: BlogCardProps) => {
           alt={blog.title}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
+          className=" hidden lg:block"
           style={{
             transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
           }}
         />
+
+        <Image
+          src={blog.mobileImage ? blog.mobileImage : blog.image}
+          alt={blog.title}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover lg:hidden"
+          style={{
+            transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
+          }}
+        />
+
         {/* Overlay */}
         <div
           className="hidden md:block absolute inset-0"

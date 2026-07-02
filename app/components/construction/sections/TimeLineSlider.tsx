@@ -22,6 +22,7 @@ type TimeLineSlider = {
     year:string;
     title:string;
     image:string;
+    mobileImage?:string;
   }[]
 }
 
@@ -146,7 +147,14 @@ export default function TimelineSlider({data}:{data:TimeLineSlider}) {
                     src={slide.image}
                     alt={slide.title}
                     fill
-                    className="object-cover"
+                    className="object-cover hidden lg:block"
+                  />
+
+                  <Image
+                    src={slide.mobileImage ? slide.mobileImage : slide.image}
+                    alt={slide.title}
+                    fill
+                    className="object-cover lg:hidden"
                   />
                   <div
                     className="absolute inset-0 transition-opacity duration-700 ease-in-out pointer-events-none"

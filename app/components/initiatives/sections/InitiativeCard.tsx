@@ -7,9 +7,10 @@ interface Initiative {
   title: string;
   link: string;
   image: string;
+  mobileImage:string;
 }
 
-export default function InitiativeCard({ title, link, image }: Initiative) {
+export default function InitiativeCard({ title, link, image, mobileImage }: Initiative) {
   const { ref, parallaxY } = useParallax(10);
   return (
     <div
@@ -21,7 +22,16 @@ export default function InitiativeCard({ title, link, image }: Initiative) {
           src={image}
           alt={title}
           fill
-          className="object-cover"
+          className="object-cover hidden lg:block"
+          style={{
+            transform: `scale(${1.10}) translateY(${parallaxY}vh)`,
+          }}
+        />
+        <Image
+          src={mobileImage ? mobileImage : image}
+          alt={title}
+          fill
+          className="object-cover lg:hidden"
           style={{
             transform: `scale(${1.10}) translateY(${parallaxY}vh)`,
           }}

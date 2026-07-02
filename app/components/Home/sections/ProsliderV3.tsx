@@ -352,6 +352,7 @@ export interface feats {
 export interface SlideData {
   title: string;
   video: string;
+  mobileVideo:string;
   slug: string;
   bgImage?: string; // optional per-slide fallback image shown during transition
   pillFeatures: {
@@ -526,8 +527,19 @@ export default function HeroSlider({
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover hidden lg:block"
                   />
+
+                  <video
+                    ref={(el) => setImgRef(el, index)}
+                    src={slide.mobileVideo ? slide.mobileVideo : slide.video}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover lg:hidden"
+                  />
+
                   <div
                     className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.5)_0%,rgba(0,0,0,0.5)_100%)]"
                     style={{

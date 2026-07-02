@@ -125,6 +125,7 @@ export type messageData = {
   designation: string;
   description: string;
   personImage: string;
+  personImageMobile?:string;
   bgImage: string;
   bgImageMobile: string;
 };

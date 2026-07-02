@@ -9,6 +9,7 @@ const Index = ({ data }: any) => {
 
 const bannerData = {
   video: data?.page_banner_video_desktop,
+  mobileVideo:data?.banner_video_mobile,
   title: data?.page_banner_title,
   description: data?.page_banner_caption,
   features: [
@@ -35,6 +36,7 @@ const timelineSectionData = {
       year: Number(item.year),
       title: item.title,
       image: item.image_desktop,
+      mobileImage:item.image_mobile
     })) || [],
 };
 
@@ -45,6 +47,7 @@ const timelineSectionData = {
     id: (index + 1).toString(),
     title: property.title,
     image: property.featured_image_desktop,
+    mobileImage:property.featured_image_mobile,
     link: `/property/${property.slug}`,
     location: property.property_community,
     hoverImage: property.brand_logo,
@@ -58,6 +61,7 @@ const coreExpertiseData = {
   slides:
     data?.expertises?.map((item:any) => ({
       image: item.image_desktop,
+      mobileImage:item.image_mobile,
       title: item.title,
       description: item.caption,
     })) || [],

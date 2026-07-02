@@ -575,6 +575,7 @@ export type SpotlightSlide = {
   title: string;
   href: string;
   image: string;
+  mobileImage:string;
   alt: string;
 };
 

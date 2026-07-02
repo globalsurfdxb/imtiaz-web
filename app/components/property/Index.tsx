@@ -6,7 +6,7 @@ import { Suspense } from "react";
 const Index = ({data}:{data:PropertiesPageData}) => {
   return (
     <>
-      <InnerHeroBanner image={data.page_banner_desktop} title={data.page_banner_title} description={data.page_banner_caption} maxW="max-w-[805px]" />
+      <InnerHeroBanner image={data.page_banner_desktop} mobileImage={data.page_banner_mobile} title={data.page_banner_title} description={data.page_banner_caption} maxW="max-w-[805px]" />
       <Suspense fallback={<div className="h-screen bg-white" />}>
         <Main data={data}/>
       </Suspense>

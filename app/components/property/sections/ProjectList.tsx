@@ -274,6 +274,7 @@ export default function FeaturedProjects({
                   >
                     <ProjectCard
                       image={project.featured_image_desktop}
+                      mobileImage={project.featured_image_mobile}
                       hoverImage={project.brand_logo}
                       subtitle={project.property_caption}
                       status={project.property_status}
@@ -314,6 +315,7 @@ export default function FeaturedProjects({
                         <PropertyCard
                           id={index.toString()}
                           image={project.featured_image_desktop}
+                          mobileImage={project.featured_image_mobile}
                           status={project.property_status}
                           location={project.property_location}
                           title={project.title}

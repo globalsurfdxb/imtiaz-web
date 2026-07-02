@@ -10,6 +10,7 @@ const Index = ({data}:any) => {
     <>
       <OffPlanBanner 
       image={data?.page_banner_desktop}
+      mobileImage={data?.page_banner_mobile}
       title={data?.banner_title}
       description={data?.banner_caption}
       buttonText={data?.button_text}

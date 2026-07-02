@@ -17,6 +17,7 @@ interface ContactBannerProps {
   title: string;
   description?: string;
   features?: Feature[];
+  mobileVideo?:string;
 }
 
 // ─── Animation constants ─────────────────────────────────────────────────────
@@ -43,6 +44,7 @@ const ConstructionBanner = ({
   title,
   description,
   features,
+  mobileVideo
 }: ContactBannerProps) => {
   const breadcrumbRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -113,8 +115,18 @@ const ConstructionBanner = ({
             loop
             muted
             playsInline
-            className="w-full h-full object-cover object-center 2xl:object-bottom"
+            className="w-full h-full object-cover object-center 2xl:object-bottom hidden lg:block"
           />
+
+          <video
+            src={mobileVideo ? mobileVideo : video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover object-center 2xl:object-bottom lg:hidden"
+          />
+
         </div>
         {/* ── Dark Overlay ── */}
         <div className="absolute inset-0 bg-black/50" />

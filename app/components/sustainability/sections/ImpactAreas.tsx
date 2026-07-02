@@ -17,6 +17,7 @@ type ImpactAreaItem = {
   title: string;
   description: string;
   image: string;
+  mobileImage: string;
 };
 
 type ImpactAreas = {
@@ -124,14 +125,21 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
   const fadeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const swiperRef = useRef<SwiperType | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const bgImageRef = useRef<HTMLImageElement>(null);
-  const bgPrevImageRef = useRef<HTMLImageElement>(null);
-  const bgCurrentWrapperRef = useRef<HTMLDivElement>(null); // only current fades
+  const bgImageDesktopRef = useRef<HTMLImageElement>(null);
+  const bgImageMobileRef = useRef<HTMLImageElement>(null);
+  const bgPrevImageDesktopRef = useRef<HTMLImageElement>(null);
+  const bgPrevImageMobileRef = useRef<HTMLImageElement>(null);
+  const bgCurrentWrapperRef = useRef<HTMLDivElement>(null); // only current 
+
+
+
 
   useEffect(() => {
     data.items.forEach((item) => {
       const img = new window.Image();
       img.src = item.image;
+      const mImg = new window.Image();
+      mImg.src = item.mobileImage;
     });
   }, []);
 
@@ -144,7 +152,7 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
       const y = progress * 15;
-      [bgImageRef, bgPrevImageRef].forEach((ref) => {
+      [bgImageDesktopRef, bgImageMobileRef, bgPrevImageDesktopRef, bgPrevImageMobileRef].forEach((ref) => {
         if (ref.current) {
           ref.current.style.transform = `scale(1.15) translateY(${y}vh)`;
         }
@@ -155,74 +163,82 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleEnter = (index: number) => {
+
+const swapImages = (index: number) => {
+  const nextSrc = data.items[index].image;
+  const nextMobileSrc = data.items[index].mobileImage;
+
+  const swap = () => {
+    if (bgPrevImageDesktopRef.current && bgImageDesktopRef.current) {
+      bgPrevImageDesktopRef.current.src = bgImageDesktopRef.current.src;
+    }
+    if (bgPrevImageMobileRef.current && bgImageMobileRef.current) {
+      bgPrevImageMobileRef.current.src = bgImageMobileRef.current.src;
+    }
+    if (bgImageDesktopRef.current) {
+      bgImageDesktopRef.current.src = nextSrc;
+    }
+    if (bgImageMobileRef.current) {
+      bgImageMobileRef.current.src = nextMobileSrc;
+    }
+    if (bgCurrentWrapperRef.current) {
+      bgCurrentWrapperRef.current.style.transition = "none";
+      bgCurrentWrapperRef.current.style.opacity = "0";
+      void bgCurrentWrapperRef.current.offsetHeight;
+      bgCurrentWrapperRef.current.style.transition = "opacity 0.6s ease";
+      bgCurrentWrapperRef.current.style.opacity = "1";
+    }
+  };
+
+  const preloadDesktop = new window.Image();
+  const preloadMobile = new window.Image();
+
+  let settled = 0;
+  let swapped = false;
+  const total = 2;
+
+  const trySwap = () => {
+    settled++;
+    // Fire as soon as both have settled — success OR failure — never hang forever
+    if (settled >= total && !swapped) {
+      swapped = true;
+      swap();
+    }
+  };
+
+  preloadDesktop.onload = trySwap;
+  preloadDesktop.onerror = trySwap; // don't let a broken image block the swap
+  preloadMobile.onload = trySwap;
+  preloadMobile.onerror = trySwap;
+
+  preloadDesktop.src = nextSrc;
+  preloadMobile.src = nextMobileSrc;
+
+  if (preloadDesktop.complete) trySwap();
+  if (preloadMobile.complete) trySwap();
+
+  // Safety net: if something weird happens and neither load nor error fires
+  // (e.g. request stalls indefinitely), force the swap after a short timeout
+  // rather than leaving the UI permanently stuck.
+  setTimeout(() => {
+    if (!swapped) {
+      swapped = true;
+      swap();
+    }
+  }, 800);
+
+  setCurrentIndex(index);
+  setActiveIndex(index);
+};
+
+    const handleEnter = (index: number) => {
     if (index === activeIndex) return;
     if (fadeTimer.current) clearTimeout(fadeTimer.current);
-
-    const nextSrc = data.items[index].image;
-
-    // Pre-load next image first, then crossfade instantly
-    const preload = new window.Image();
-    preload.src = nextSrc;
-
-    const swap = () => {
-      if (bgPrevImageRef.current && bgImageRef.current) {
-        bgPrevImageRef.current.src = bgImageRef.current.src;
-      }
-      if (bgImageRef.current) {
-        bgImageRef.current.src = nextSrc;
-      }
-      if (bgCurrentWrapperRef.current) {
-        bgCurrentWrapperRef.current.style.transition = "none";
-        bgCurrentWrapperRef.current.style.opacity = "0";
-        // Force a reflow so the browser registers opacity:0 before transitioning
-        void bgCurrentWrapperRef.current.offsetHeight;
-        bgCurrentWrapperRef.current.style.transition = "opacity 0.6s ease";
-        bgCurrentWrapperRef.current.style.opacity = "1";
-      }
-    };
-
-    if (preload.complete) {
-      swap();
-    } else {
-      preload.onload = swap;
-    }
-
-    setCurrentIndex(index);
-    setActiveIndex(index);
+    swapImages(index);
   };
 
   const handleSlideChange = (swiper: SwiperType) => {
-    const index = swiper.realIndex;
-    const nextSrc = data.items[index].image;
-
-    const preload = new window.Image();
-    preload.src = nextSrc;
-
-    const swap = () => {
-      if (bgPrevImageRef.current && bgImageRef.current) {
-        bgPrevImageRef.current.src = bgImageRef.current.src;
-      }
-      if (bgImageRef.current) {
-        bgImageRef.current.src = nextSrc;
-      }
-      if (bgCurrentWrapperRef.current) {
-        bgCurrentWrapperRef.current.style.transition = "none";
-        bgCurrentWrapperRef.current.style.opacity = "0";
-        void bgCurrentWrapperRef.current.offsetHeight;
-        bgCurrentWrapperRef.current.style.transition = "opacity 0.6s ease";
-        bgCurrentWrapperRef.current.style.opacity = "1";
-      }
-    };
-
-    if (preload.complete) {
-      swap();
-    } else {
-      preload.onload = swap;
-    }
-
-    setCurrentIndex(index);
-    setActiveIndex(index);
+    swapImages(swiper.realIndex);
   };
 
   return (
@@ -231,27 +247,45 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
       className="relative w-full h-screen overflow-hidden"
       data-header="light"
     >
-      <div className="absolute inset-0 bg-[#0a0a0a] z-0" />
+<div className="absolute inset-0 bg-[#0a0a0a] z-0" />
 
       <div className="absolute inset-0 z-[1]">
-        {/* Previous — never fades, always visible underneath */}
+        {/* Previous — desktop */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          ref={bgPrevImageRef}
+          ref={bgPrevImageDesktopRef}
           src={data.items[0].image}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className="absolute inset-0 w-full h-full object-cover object-center hidden lg:block"
+          style={{ transform: "scale(1.15) translateY(0vh)" }}
+        />
+        {/* Previous — mobile */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={bgPrevImageMobileRef}
+          src={data.items[0].mobileImage}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center lg:hidden"
           style={{ transform: "scale(1.15) translateY(0vh)" }}
         />
 
-        {/* Current — fades in/out on top of previous */}
         <div ref={bgCurrentWrapperRef} className="absolute inset-0">
+          {/* Current — desktop */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            ref={bgImageRef}
+            ref={bgImageDesktopRef}
             src={data.items[0].image}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-center hidden lg:block"
+            style={{ transform: "scale(1.15) translateY(0vh)" }}
+          />
+          {/* Current — mobile */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={bgImageMobileRef}
+            src={data.items[0].mobileImage}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center lg:hidden"
             style={{ transform: "scale(1.15) translateY(0vh)" }}
           />
         </div>
@@ -341,11 +375,10 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
             <button
               key={i}
               onClick={() => swiperRef.current?.slideToLoop(i)}
-              className={`w-[10px] h-[10px] rounded-full border transition-all cursor-pointer ${
-                activeIndex === i
-                  ? "bg-white border-white"
-                  : "border-white bg-transparent"
-              }`}
+              className={`w-[10px] h-[10px] rounded-full border transition-all cursor-pointer ${activeIndex === i
+                ? "bg-white border-white"
+                : "border-white bg-transparent"
+                }`}
             />
           ))}
         </div>

@@ -302,7 +302,7 @@ export default function MessageSection({ data }: Props) {
                   className="flex items-end justify-center h-full max-[640px]:w-[74%] w-[60%]"
                 >
                   <Image
-                    src={data.personImage}
+                    src={data.personImageMobile ? data.personImageMobile : data.personImage}
                     alt={data.name}
                     width={1200}
                     height={1000}

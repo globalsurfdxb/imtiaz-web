@@ -52,7 +52,17 @@ const LatestNewsSlider = ({ news }: { news: PressItem[] }) => {
                 src={item.image}
                 alt={item.title}
                 fill
-                className="object-cover"
+                className="object-cover hidden lg:block"
+                priority={i === 0}
+                style={{
+                  transform: `scale(1.15) translateY(${parallaxY}vh)`,
+                }}
+              />
+              <Image
+                src={item.mobileImage}
+                alt={item.title}
+                fill
+                className="object-cover lg:hidden"
                 priority={i === 0}
                 style={{
                   transform: `scale(1.15) translateY(${parallaxY}vh)`,

@@ -270,6 +270,7 @@ type ImtiazPropertiesData = {
       id: string;
       title: string;
       image: string;
+      mobileImage:string;
       link: string;
       hoverImage: string;
     }[];

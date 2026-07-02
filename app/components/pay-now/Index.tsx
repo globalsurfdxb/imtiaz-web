@@ -8,6 +8,7 @@ const Index = ({data}:{data:OnlinePaymentResponse['data']}) => {
     <InnerHeroBanner 
     title={data.page_banner_title}
     image={data.page_banner_desktop}
+    mobileImage={data.page_banner_mobile}
     description={data.page_banner_caption}
     maxW="max-w-[641px]" />
     {/* <PaymentForm 

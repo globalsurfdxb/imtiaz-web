@@ -31,7 +31,7 @@ const amenetiesData = {
 
   return (
     <>
-      <InnerHeroBanner image={data?.page_banner_desktop} title={data?.page_banner_title} description="" maxTitle="max-w-[73ch]" />
+      <InnerHeroBanner image={data?.page_banner_desktop} mobileImage={data?.page_banner_mobile} title={data?.page_banner_title} description="" maxTitle="max-w-[73ch]" />
       <DubaiResidence title={data?.basic_title} description={data?.basic_brief} subTitle={data?.basic_caption}/>
       <IconGrid data={everythingWithinData} bgClass="bg-gray" />
       <CommunitySlider images={data?.gallery} />

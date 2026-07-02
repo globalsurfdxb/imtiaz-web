@@ -23,13 +23,30 @@ type OtherPageSliderData = {
   }[];
 };
 
-export default function OtherPageSlider({data}:{data:OtherPageSliderData}) {
+export default function OtherPageSlider({ data }: { data: OtherPageSliderData }) {
   const slides = data.slides
   const [current, setCurrent] = useState(0);
   const currentRef = useRef(0);
   const transitioning = useRef(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const cooldownRef = useRef(false); // debounce guard
+
+  const [bp, setBp] = useState<"mobile" | "desktop">("desktop");
+
+  useEffect(() => {
+    const handleResize = () => {
+      setBp(window.innerWidth < 768 ? "mobile" : "desktop");
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getImageForBp = useCallback(
+    (slide: OtherPageSliderData["slides"][number]) =>
+      bp === "mobile" ? slide.bgImageMobile || slide.bgImage : slide.bgImage,
+    [bp],
+  );
 
   // Two canvas layers
   const layerARef = useRef<HTMLDivElement>(null);
@@ -46,11 +63,13 @@ export default function OtherPageSlider({data}:{data:OtherPageSliderData}) {
   // Preload all images on mount
   useEffect(() => {
     slides.forEach((slide) => {
-      if (!imageCache.current[slide.bgImage]) {
-        const img = new window.Image();
-        img.src = slide.bgImage;
-        imageCache.current[slide.bgImage] = img;
-      }
+      [slide.bgImage, slide.bgImageMobile].forEach((src) => {
+        if (src && !imageCache.current[src]) {
+          const img = new window.Image();
+          img.src = src;
+          imageCache.current[src] = img;
+        }
+      });
     });
   }, [slides]);
 
@@ -100,7 +119,7 @@ export default function OtherPageSlider({data}:{data:OtherPageSliderData}) {
     }, 4500);
   }, []); // goNextAuto defined below via ref to avoid stale closure
 
-  const goNextAutoRef = useRef<() => void>(() => {});
+  const goNextAutoRef = useRef<() => void>(() => { });
 
   const goTo = useCallback(
     (index: number, fromAuto = false) => {
@@ -114,7 +133,7 @@ export default function OtherPageSlider({data}:{data:OtherPageSliderData}) {
       const layerB = layerBRef.current!;
       const incoming = activeLayerRef.current === "A" ? layerB : layerA;
       const outgoing = activeLayerRef.current === "A" ? layerA : layerB;
-      setLayerBg(incoming, slides[index].bgImage);
+      setLayerBg(incoming, getImageForBp(slides[index]));
       gsap.set(incoming, { opacity: 0, zIndex: 10 });
       gsap.set(outgoing, { zIndex: 5 });
 
@@ -140,7 +159,7 @@ export default function OtherPageSlider({data}:{data:OtherPageSliderData}) {
         },
       });
     },
-    [slides],
+    [slides,getImageForBp],
   );
 
   const goPrev = useCallback(() => {
@@ -163,15 +182,23 @@ export default function OtherPageSlider({data}:{data:OtherPageSliderData}) {
   }, [goNextAuto]);
 
   // Init layer A with first slide
-  useEffect(() => {
-    if (layerARef.current) {
-      setLayerBg(layerARef.current, slides[0].bgImage);
-      gsap.set(layerARef.current, { opacity: 1, zIndex: 10 });
-    }
-    if (layerBRef.current) {
-      gsap.set(layerBRef.current, { opacity: 0, zIndex: 5 });
-    }
-  }, [slides]);
+useEffect(() => {
+  if (layerARef.current) {
+    setLayerBg(layerARef.current, getImageForBp(slides[0]));
+    gsap.set(layerARef.current, { opacity: 1, zIndex: 10 });
+  }
+  if (layerBRef.current) {
+    gsap.set(layerBRef.current, { opacity: 0, zIndex: 5 });
+  }
+}, [slides, getImageForBp]);
+
+useEffect(() => {
+  const activeRef = activeLayerRef.current === "A" ? layerARef : layerBRef;
+  if (activeRef.current) {
+    setLayerBg(activeRef.current, getImageForBp(slides[currentRef.current]));
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [bp]);
 
   // Initial autoplay
   useEffect(() => {
@@ -404,9 +431,8 @@ export default function OtherPageSlider({data}:{data:OtherPageSliderData}) {
                 goTo(i);
               }}
               style={{ cursor: "pointer" }}
-              className={`rounded-full transition-all duration-300 border border-white w-[10px] h-[10px] ${
-                i === current ? "bg-white" : "bg-transparent"
-              }`}
+              className={`rounded-full transition-all duration-300 border border-white w-[10px] h-[10px] ${i === current ? "bg-white" : "bg-transparent"
+                }`}
             />
           ))}
         </div>

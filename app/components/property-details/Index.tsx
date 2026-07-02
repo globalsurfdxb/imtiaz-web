@@ -42,7 +42,9 @@ const Index = ({
     <>
       <InnerHeroBanner
         video={data?.page_banner_video_desktop}
+        mobileVideo={data?.page_banner_video_mobile}
         image={data?.page_banner_desktop}
+        mobileImage={data?.page_banner_mobile}
         title={data?.page_banner_title}
         description=""
         maxTitle="max-w-[73ch]"
