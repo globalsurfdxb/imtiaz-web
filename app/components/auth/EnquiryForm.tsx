@@ -211,8 +211,8 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
         // setEnquirySuccess(true);
         onSuccess ? onSuccess() : null;
         enquiryForm.reset();
-        // onClose();
         router.push("/thank-you?type=enquiry");
+        onClose();
       } else {
         setEnquiryError("Submission failed. Please try again.");
       }
@@ -243,8 +243,8 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
       if (result.success) {
         // setViewingSuccess(true);
         viewingForm.reset();
-        // onClose();
         router.push("/thank-you?type=viewing");
+        onClose();
       } else {
         setViewingError("Submission failed. Please try again.");
       }
