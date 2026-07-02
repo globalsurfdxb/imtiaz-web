@@ -298,7 +298,18 @@ for (let i = 1; i <= 3; i++) {
         alt={card.featured_image_alt}
         fill
         sizes="100vw"
-        className="object-cover object-center"
+        className="object-cover object-center hidden lg:block"
+        style={{
+          transform: `scale(1.5) translateY(${parallaxY}vh)`,
+        }}
+      />
+
+      <Image
+        src={card.featured_image_mobile}
+        alt={card.featured_image_alt}
+        fill
+        sizes="100vw"
+        className="object-cover object-center lg:hidden"
         style={{
           transform: `scale(1.5) translateY(${parallaxY}vh)`,
         }}
