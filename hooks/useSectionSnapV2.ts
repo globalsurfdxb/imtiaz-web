@@ -116,25 +116,27 @@ export function useSectionSnap(
       rafIdRef.current = requestAnimationFrame(step);
     };
 
-    const snapToIndex = (index: number) => {
-      const targetEl = sectionRefs[index]?.current;
-      if (!targetEl) return;
+const snapToIndex = (index: number) => {
+  const targetEl = sectionRefs[index]?.current;
+  if (!targetEl) return;
 
-      const offset = Number(targetEl.dataset.snapOffset ?? 0);
+  const offset = Number(targetEl.dataset.snapOffset ?? 0);
+  const finalY = targetEl.offsetTop + offset;   // single source of truth
 
-      isAnimatingRef.current = true;
-      currentIndexRef.current = index;
+  isAnimatingRef.current = true;
+  currentIndexRef.current = index;
 
-      lock();
+  killMomentum();
+  lock();
 
-      animateTo(targetEl.offsetTop + offset, () => {
-        safeSyncTo(targetEl.offsetTop);
-        requestAnimationFrame(() => {
-          unlock();
-          isAnimatingRef.current = false;
-        });
-      });
-    };
+  animateTo(finalY, () => {
+    requestAnimationFrame(() => {
+      unlock();               // start Lenis first...
+      safeSyncTo(finalY);     // ...then sync it to the SAME target the animation landed on
+      isAnimatingRef.current = false;
+    });
+  });
+};
 
     const doSnap = (direction: 1 | -1) => {
       if (isAnimatingRef.current) return;

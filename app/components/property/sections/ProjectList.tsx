@@ -64,15 +64,16 @@ export default function FeaturedProjects({
   const [activeProject, setActiveProject] = useState<string>("");
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const markerRefs = useRef<Record<string, google.maps.marker.AdvancedMarkerElement>>({});
+  const markerRefs = useRef<
+    Record<string, google.maps.marker.AdvancedMarkerElement>
+  >({});
   const clustererRef = useRef<MarkerClusterer | null>(null);
 
   const [zoom, setZoom] = useState(15);
 
   const BASE_SIZE = 49;
-  const activeSize = zoom >= 15
-    ? BASE_SIZE
-    : Math.max(20, BASE_SIZE * (zoom / 15) * 0.9);
+  const activeSize =
+    zoom >= 15 ? BASE_SIZE : Math.max(20, BASE_SIZE * (zoom / 15) * 0.9);
   const innerSize = activeSize * 0.61;
 
   useEffect(() => {
@@ -152,6 +153,8 @@ export default function FeaturedProjects({
     return () => clearTimeout(timeout);
   }, [map, highlighted, activeProject]);
 
+
+
   const handleCameraChanged = (event: MapCameraChangedEvent) => {
     const { bounds } = event.detail || {};
     if (!bounds) return;
@@ -166,7 +169,7 @@ export default function FeaturedProjects({
 
     // Store indices instead of ids
     const visibleIndices = visibleProjectsInBounds.map((p) =>
-      projects.indexOf(p).toString()
+      projects.indexOf(p).toString(),
     );
 
     setVisibleProjects(visibleProjectsInBounds);
@@ -174,7 +177,9 @@ export default function FeaturedProjects({
 
     if (visibleProjectsInBounds.length > 0) {
       if (!visibleIndices.includes(activeProject)) {
-        setActiveProject(projects.indexOf(visibleProjectsInBounds[0]).toString());
+        setActiveProject(
+          projects.indexOf(visibleProjectsInBounds[0]).toString(),
+        );
       }
     } else {
       setActiveProject("");
@@ -190,9 +195,21 @@ export default function FeaturedProjects({
         { elementType: "labels.icon", stylers: [{ saturation: -100 }] },
         { elementType: "labels.text.fill", stylers: [{ saturation: -100 }] },
         { elementType: "labels.text.stroke", stylers: [{ saturation: -100 }] },
-        { featureType: "road", elementType: "geometry", stylers: [{ saturation: -100 }] },
-        { featureType: "water", elementType: "geometry", stylers: [{ saturation: -100 }] },
-        { featureType: "poi", elementType: "geometry", stylers: [{ saturation: -100 }] },
+        {
+          featureType: "road",
+          elementType: "geometry",
+          stylers: [{ saturation: -100 }],
+        },
+        {
+          featureType: "water",
+          elementType: "geometry",
+          stylers: [{ saturation: -100 }],
+        },
+        {
+          featureType: "poi",
+          elementType: "geometry",
+          stylers: [{ saturation: -100 }],
+        },
       ],
     });
   }, [map]);
@@ -218,20 +235,26 @@ export default function FeaturedProjects({
       map.panTo(newCenter);
     }
 
-    if (map.getZoom() !== 11) {
-      map.setZoom(11);
-    }
+    // if (map.getZoom() !== 11) {
+    //   map.setZoom(11);
+    // }
+    const initialZoom = isDesktop ? 11 : 8;
+if (map.getZoom() !== initialZoom) {
+  map.setZoom(initialZoom);
+}
 
     const idleListener = map.addListener("idle", () => {
       const bounds = map.getBounds();
       if (bounds) {
-        handleCameraChanged({ detail: { bounds: bounds.toJSON() } } as MapCameraChangedEvent);
+        handleCameraChanged({
+          detail: { bounds: bounds.toJSON() },
+        } as MapCameraChangedEvent);
       }
       google.maps.event.removeListener(idleListener);
     });
 
     return () => google.maps.event.removeListener(idleListener);
-  }, [map, projects]);
+}, [map, projects, isDesktop]);
 
   const handleEnter = () => {
     if (window.innerWidth >= 1280) lock();
@@ -281,7 +304,8 @@ export default function FeaturedProjects({
                       location={project.property_location}
                       startingFrom={project.icon1_text}
                       units={project.icon2_text}
-                      {...project} />
+                      {...project}
+                    />
                   </Reveal>
                 ))
               ) : (

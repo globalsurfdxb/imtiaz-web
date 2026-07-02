@@ -319,9 +319,6 @@
 //   );
 // }
 
-
-
-
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
@@ -343,6 +340,7 @@ import RegisterInterestForm from "@/app/components/Home/sections/RegisterInteres
 
 import { moveUpExit, moveUp } from "../../motionVariants";
 import Link from "next/link";
+import { useLenis } from "@/app/contexts/LenisContext";
 
 export interface feats {
   icon: string;
@@ -390,6 +388,8 @@ export default function HeroSlider({
   const [enquiryVisible, setEnquiryVisible] = useState(false);
   const backdropRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const { lock, unlock } = useLenis();
 
   const sectionRef = useRef(null);
   const startAnim = useInView(sectionRef, { once: true, amount: 0.3 });
@@ -461,9 +461,11 @@ export default function HeroSlider({
       duration: 0.5,
       ease: "power3.out",
       onComplete: () => {
-        setEnquiryVisible(false);
-        setEnquiryOpen(false);
-      },
+  setEnquiryVisible(false);
+  setEnquiryOpen(false);
+  unlock();
+  document.body.style.overflow = "";
+},
     });
   };
 
@@ -478,6 +480,12 @@ export default function HeroSlider({
     swiperInstance.animating = false;
     swiperInstance.slideNext(300);
   };
+
+  useEffect(() => {
+    if (!enquiryOpen) return;
+    lock();
+    document.body.style.overflow = "hidden";
+  }, [enquiryOpen]);
 
   return (
     <div className="w-full relative h-[100svh] bg-white" ref={sectionRef}>
@@ -783,7 +791,8 @@ export default function HeroSlider({
               <div className="h-full">
                 <div className="relative w-full h-full overflow-hidden pointer-events-none">
                   <div
-                    className="absolute inset-0 overflow-y-auto pointer-events-auto"
+                    className="absolute inset-0 overflow-y-auto pointer-events-auto overscroll-contain"
+                    style={{ touchAction: "pan-y" }}
                     onWheel={(e) => e.stopPropagation()}
                     onTouchMove={(e) => e.stopPropagation()}
                   >

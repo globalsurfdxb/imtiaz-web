@@ -12,7 +12,7 @@ import RegisterYourInterest from "./sections/RegisterYourInterest";
 
 // import { EverythingWithinData, amenitiesData } from "./data";
 const Index = ({data,communitiesData}:{data:CommunityPageData,communitiesData:any}) => {
-
+  
   const everythingWithinData = {
     title:data?.reach_title,
     description:data?.reach_caption,
