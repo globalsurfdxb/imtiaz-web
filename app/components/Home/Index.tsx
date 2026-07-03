@@ -254,9 +254,6 @@
 //   );
 // }
 
-
-
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -488,7 +485,7 @@ export default function Index({
       id: (index + 1).toString(),
       title: property.title,
       image: property.featured_image_desktop,
-      mobileImage:property.featured_image_mobile,
+      mobileImage: property.featured_image_mobile,
       link: `/property/${property.slug}`,
       location: property.property_community,
       hoverImage: property.brand_logo,
@@ -500,22 +497,24 @@ export default function Index({
   const spotlight = {
     title: "Press Spotlight",
     viewAllHref: "/news",
-    slides: data.news.map((item, index) => ({
-      id: `spotlight-${index + 1}`,
-      date: item.post_date,
-      title: item.title,
-      href: `/news/${item.slug}`,
-      image: item.featured_image_desktop,
-      mobileImage:item.featured_image_mobile,
-      alt: item.featured_image_alt,
-    })),
+    slides: data.news
+      .filter((item) => item.category_name?.toLowerCase() === "sustainability")
+      .map((item, index) => ({
+        id: `spotlight-${index + 1}`,
+        date: item.post_date,
+        title: item.title,
+        href: `/news/${item.slug}`,
+        image: item.featured_image_desktop,
+        mobileImage: item.featured_image_mobile,
+        alt: item.featured_image_alt,
+      })),
   };
 
   const heroSlides = data.new_launches.map((item) => ({
     title: item.title,
     slug: item.slug,
     video: item.banner_video_dektop,
-    mobileVideo:item.banner_video_mobile,
+    mobileVideo: item.banner_video_mobile,
     pillFeatures: {
       title: "/icons/pro_slider/sunset_bay.svg",
       features: item.amenities.slice(0, 4).map((feature) => ({
