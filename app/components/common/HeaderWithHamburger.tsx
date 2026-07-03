@@ -63,8 +63,6 @@
 //   //   return () => window.removeEventListener("scroll", handleScroll);
 //   // }, []);
 
-
-
 // useEffect(() => {
 //   let ticking = false;
 
@@ -588,15 +586,6 @@
 
 // export default HeaderWithHamburger;
 
-
-
-
-
-
-
-
-
-
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -616,7 +605,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 type AuthView = "login" | "signup";
 
-const HeaderWithHamburger = ({menuData}:{menuData:any}) => {
+const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [darkHeader, setDarkHeader] = useState(false);
@@ -645,71 +634,119 @@ const HeaderWithHamburger = ({menuData}:{menuData:any}) => {
     setMounted(true);
   }, []);
 
+  // useEffect(() => {
+  //   let ticking = false;
 
-useEffect(() => {
-  let ticking = false;
+  //   const handleScroll = () => {
+  //     const current = Math.max(window.scrollY, 0);
+  //     const delta = current - lastScroll.current;
 
-  const handleScroll = () => {
-    const current = Math.max(window.scrollY, 0);
-    const delta = current - lastScroll.current;
+  //     if (Math.abs(delta) > 5) {
+  //       if (delta > 0 && current > 300) {
+  //         setShowHeader(false);
+  //       } else if (delta < 0) {
+  //         setShowHeader(true);
+  //       }
+  //       lastScroll.current = current;
+  //     }
 
-    if (Math.abs(delta) > 5) {
-      if (delta > 0 && current > 300) {
-        setShowHeader(false);
-      } else if (delta < 0) {
-        setShowHeader(true);
-      }
-      lastScroll.current = current;
-    }
+  //     ticking = false;
+  //   };
 
-    ticking = false;
-  };
+  //   const onScroll = () => {
+  //     if (!ticking) {
+  //       ticking = true;
+  //       requestAnimationFrame(handleScroll);
+  //     }
+  //   };
 
-  const onScroll = () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(handleScroll);
-    }
-  };
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  return () => window.removeEventListener("scroll", onScroll);
-}, []);
+  //   window.addEventListener("scroll", onScroll, { passive: true });
+  //   return () => window.removeEventListener("scroll", onScroll);
+  // }, []);
 
   useEffect(() => {
-  const w = window.innerWidth;
-  const vh = window.innerHeight;
+    let ticking = false;
 
-  const getHeaderMetrics = (w: number) => {
-    if (w >= 1920) return { startH: "70px", endH: "40px", hdrcntsH: "80px" };
-    if (w >= 1024) return { startH: "65px", endH: "35px", hdrcntsH: "75px" };
-    if (w >= 768)  return { startH: "45px", endH: "30px", hdrcntsH: "65px" };
-    if (w >= 375)  return { startH: "40px", endH: "20px", hdrcntsH: "80px" };
-    return { startH: "39px", endH: "20px", hdrcntsH: "70px" };
-  };
+    const handleScroll = () => {
+      const current = Math.max(window.scrollY, 0);
 
-  const { startH, endH, hdrcntsH } = getHeaderMetrics(w);
+      // rubber-band guard: at/near top, always show, don't trust delta
+      if (current <= 0) {
+        setShowHeader(true);
+        lastScroll.current = 0;
+        ticking = false;
+        return;
+      }
 
-  // exact pixel height of the real viewport — no vh guessing, no clipping bug
-  gsap.set(".hdrcnts", { height: vh });
-  gsap.set(".hdrlgs svg", { height: startH });
+      const delta = current - lastScroll.current;
 
-  const tl = gsap.timeline();
+      if (Math.abs(delta) > 5) {
+        if (delta > 0 && current > 300) {
+          setShowHeader(false);
+        } else if (delta < 0) {
+          setShowHeader(true);
+        }
+        lastScroll.current = current;
+      }
 
-  tl.to(".group-1 path", { y: 0, opacity: 1, stagger: 0.15, duration: 0.8 })
-    .to(".hdrcnts", { height: hdrcntsH, duration: 0.5 })
-    .to(".hdrlgs svg", { height: endH, duration: 0.5 }, "<")
-    .to(".ovrlyabg", { opacity: "0", duration: 0.6 })
-    .to(".bckbg", { height: "100%", duration: 0.6 }, "-=2")
-    .to(".bckbg", { height: "100%", width: "100%", duration: 0.8 })
-    .to(".ovrlyabg", { opacity: "0", zIndex: "-1", height: "0%" })
-    .fromTo(".mnhmns button", { y: 40 }, { y: 0, opacity: 1, stagger: 0.2, duration: 1 }, "-=0.8")
-    .fromTo(".rgtbtn button", { y: 40 }, { y: 0, opacity: 1, stagger: 0.2, duration: 1 }, "<")
-    .add(() => {
-      gsap.set(".bckbg", { height: hdrcntsH }); // matches hdrcnts exactly, no drift
-      window.dispatchEvent(new Event("headerAnimationComplete"));
-    });
-}, []);
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(handleScroll);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const w = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const getHeaderMetrics = (w: number) => {
+      if (w >= 1920) return { startH: "70px", endH: "40px", hdrcntsH: "80px" };
+      if (w >= 1024) return { startH: "65px", endH: "35px", hdrcntsH: "75px" };
+      if (w >= 768) return { startH: "45px", endH: "30px", hdrcntsH: "65px" };
+      if (w >= 375) return { startH: "40px", endH: "20px", hdrcntsH: "80px" };
+      return { startH: "39px", endH: "20px", hdrcntsH: "70px" };
+    };
+
+    const { startH, endH, hdrcntsH } = getHeaderMetrics(w);
+
+    // exact pixel height of the real viewport — no vh guessing, no clipping bug
+    gsap.set(".hdrcnts", { height: vh });
+    gsap.set(".hdrlgs svg", { height: startH });
+
+    const tl = gsap.timeline();
+
+    tl.to(".group-1 path", { y: 0, opacity: 1, stagger: 0.15, duration: 0.8 })
+      .to(".hdrcnts", { height: hdrcntsH, duration: 0.5 })
+      .to(".hdrlgs svg", { height: endH, duration: 0.5 }, "<")
+      .to(".ovrlyabg", { opacity: "0", duration: 0.6 })
+      .to(".bckbg", { height: "100%", duration: 0.6 }, "-=2")
+      .to(".bckbg", { height: "100%", width: "100%", duration: 0.8 })
+      .to(".ovrlyabg", { opacity: "0", zIndex: "-1", height: "0%" })
+      .fromTo(
+        ".mnhmns button",
+        { y: 40 },
+        { y: 0, opacity: 1, stagger: 0.2, duration: 1 },
+        "-=0.8",
+      )
+      .fromTo(
+        ".rgtbtn button",
+        { y: 40 },
+        { y: 0, opacity: 1, stagger: 0.2, duration: 1 },
+        "<",
+      )
+      .add(() => {
+        gsap.set(".bckbg", { height: hdrcntsH }); // matches hdrcnts exactly, no drift
+        window.dispatchEvent(new Event("headerAnimationComplete"));
+      });
+  }, []);
 
   useEffect(() => {
     const check = () => {
@@ -802,7 +839,57 @@ useEffect(() => {
 
               {/* ------- CENTER LOGO ------- */}
               <div className="hdrlgs">
-                  <svg className="w-auto h-[60px]" id="eaSfcpdDOLI1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133.1 24.2" shapeRendering="geometricPrecision" textRendering="geometricPrecision" project-id="313d9f857086497caad8e8067c79b740" export-id="67da73b20e1c4d4d90724f34fead18dd" ><g clipPath="url(#eaSfcpdDOLI9)" className="logo-group group-1"><path d="M56.9,2.9c1,0,2.2,0,3.2,0c2.2,0,4.3.4,6.5.9L66.1,0L43,0l-.6,3.8c2.1-.5,4.3-.8,6.5-.9c1,0,2.2,0,3.2,0v16.8c0,1.4-.3,3.2-.6,4.5h6.1c-.3-1.3-.6-3.2-.6-4.5v-16.8h-.1Z" fill="#fff"/><path d="M71.1,4.5c0-1.4-.3-3.2-.6-4.5h6.1c-.3,1.3-.6,3.2-.6,4.5v15.1c0,1.4.3,3.2.6,4.5h-6.1c.3-1.3.6-3.2.6-4.5v-15.1Z" fill="#fff"/><path d="M89.4,14.4l3.8-8.6L97,14.4h-7.6Zm-1.3,3.8c.2-.3.5-.6.8-.7.2,0,.3,0,.4-.1.5,0,.8,0,1.3,0c.7,0,1.6,0,2.5,0s1.8,0,2.5,0c.5,0,.8,0,1.3,0c.1,0,.3,0,.5.1.3,0,.6.3.8.7.5,1,1.2,2.5,1.9,4.2c0,.2.1.4.1.5c0,.3-.2.5-.5.8-.2.2-.4.4-.5.5h8c-.8-.9-1.5-1.9-2.1-2.9-1.6-2.5-2.7-5.4-3.9-8.1s-2.4-5.4-3.6-8.1c-.3-.7-.6-1.4-.9-2.1-.4-.8-1-2.4-1.2-3h-5.8c.2.2.4.4.6.6s.4.4.5.6c.2.6,0,1.2-.2,1.7-2.7,6.4-7.2,16.7-7.6,17.6-.6,1.3-1.5,2.5-2.4,3.7h6.6c-.2-.2-.3-.4-.5-.5-.3-.3-.4-.4-.5-.8c0-.2,0-.4.1-.5.7-1.6,1.4-3.2,1.9-4.2" fill="#fff"/><path d="M35.3,8c0,0,5.6,14.4,5.7,14.5c0,.2,0,.4,0,.6c0,.4-.2.8-.2,1.1h6.7l-.3-.4c-.6-.9-1.1-1.7-1.6-2.5-.5-.9-1-1.9-1.5-2.9L36.3,0h-4.9l1.3,3.3v0c.4.9.4,2,0,3l-4.4,11L21.1,0h-5.2c0,0,1.5,3.5,1.6,3.5.2.5.3,1,.3,1.5c0,.4,0,.7-.1,1.1-1.1,3.2-2.4,6.5-3.9,10.2-.3.8-.8,1.9-1.1,2.6-.1.4-.3.8-.5,1.2-.4.9-.7,1.7-1.2,2.5-.3.6-.6,1-.9,1.6h5.6c0,0-.2-.3-.4-.6-.2-.4-.4-.9-.3-1.4c0,0,0,0,0,0c.2-.8.4-1.6.7-2.4C17.1,16.2,20,8.1,20.1,8L27,24.2h2.3L35.5,8h-.2Z" fill="#fff"/><path d="M0.6,4.5C0.6,3.2,0.3,1.3,0,0h6.1c-.3,1.3-.6,3.2-.6,4.5v15.1c0,1.4.3,3.2.6,4.5h-6.1c.3-1.3.6-3.2.6-4.5v-15.1Z" fill="#fff"/><path d="M132.2,24.2l.9-3.8c-2.4.6-4.8.9-7.3.9-2.4,0-6.7,0-9,0c1.8-2.4,14.4-18.7,16.3-21.3h-23.3l-.9,3.8c2.4-.6,4.8-.9,7.3-.9c2.4,0,6.6,0,9,0L109.1,24.2h23.1Z" fill="#fff"/><clipPath id="eaSfcpdDOLI9"><rect width="133.1" height="24.200001" rx="0" ry="0" transform="matrix(1.000003 0 0 1.000003 -0.0002 -0.000035)" fill="#d2dbed" strokeWidth="0"/></clipPath></g></svg>
+                <svg
+                  className="w-auto h-[60px]"
+                  id="eaSfcpdDOLI1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 133.1 24.2"
+                  shapeRendering="geometricPrecision"
+                  textRendering="geometricPrecision"
+                  project-id="313d9f857086497caad8e8067c79b740"
+                  export-id="67da73b20e1c4d4d90724f34fead18dd"
+                >
+                  <g
+                    clipPath="url(#eaSfcpdDOLI9)"
+                    className="logo-group group-1"
+                  >
+                    <path
+                      d="M56.9,2.9c1,0,2.2,0,3.2,0c2.2,0,4.3.4,6.5.9L66.1,0L43,0l-.6,3.8c2.1-.5,4.3-.8,6.5-.9c1,0,2.2,0,3.2,0v16.8c0,1.4-.3,3.2-.6,4.5h6.1c-.3-1.3-.6-3.2-.6-4.5v-16.8h-.1Z"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M71.1,4.5c0-1.4-.3-3.2-.6-4.5h6.1c-.3,1.3-.6,3.2-.6,4.5v15.1c0,1.4.3,3.2.6,4.5h-6.1c.3-1.3.6-3.2.6-4.5v-15.1Z"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M89.4,14.4l3.8-8.6L97,14.4h-7.6Zm-1.3,3.8c.2-.3.5-.6.8-.7.2,0,.3,0,.4-.1.5,0,.8,0,1.3,0c.7,0,1.6,0,2.5,0s1.8,0,2.5,0c.5,0,.8,0,1.3,0c.1,0,.3,0,.5.1.3,0,.6.3.8.7.5,1,1.2,2.5,1.9,4.2c0,.2.1.4.1.5c0,.3-.2.5-.5.8-.2.2-.4.4-.5.5h8c-.8-.9-1.5-1.9-2.1-2.9-1.6-2.5-2.7-5.4-3.9-8.1s-2.4-5.4-3.6-8.1c-.3-.7-.6-1.4-.9-2.1-.4-.8-1-2.4-1.2-3h-5.8c.2.2.4.4.6.6s.4.4.5.6c.2.6,0,1.2-.2,1.7-2.7,6.4-7.2,16.7-7.6,17.6-.6,1.3-1.5,2.5-2.4,3.7h6.6c-.2-.2-.3-.4-.5-.5-.3-.3-.4-.4-.5-.8c0-.2,0-.4.1-.5.7-1.6,1.4-3.2,1.9-4.2"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M35.3,8c0,0,5.6,14.4,5.7,14.5c0,.2,0,.4,0,.6c0,.4-.2.8-.2,1.1h6.7l-.3-.4c-.6-.9-1.1-1.7-1.6-2.5-.5-.9-1-1.9-1.5-2.9L36.3,0h-4.9l1.3,3.3v0c.4.9.4,2,0,3l-4.4,11L21.1,0h-5.2c0,0,1.5,3.5,1.6,3.5.2.5.3,1,.3,1.5c0,.4,0,.7-.1,1.1-1.1,3.2-2.4,6.5-3.9,10.2-.3.8-.8,1.9-1.1,2.6-.1.4-.3.8-.5,1.2-.4.9-.7,1.7-1.2,2.5-.3.6-.6,1-.9,1.6h5.6c0,0-.2-.3-.4-.6-.2-.4-.4-.9-.3-1.4c0,0,0,0,0,0c.2-.8.4-1.6.7-2.4C17.1,16.2,20,8.1,20.1,8L27,24.2h2.3L35.5,8h-.2Z"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M0.6,4.5C0.6,3.2,0.3,1.3,0,0h6.1c-.3,1.3-.6,3.2-.6,4.5v15.1c0,1.4.3,3.2.6,4.5h-6.1c.3-1.3.6-3.2.6-4.5v-15.1Z"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M132.2,24.2l.9-3.8c-2.4.6-4.8.9-7.3.9-2.4,0-6.7,0-9,0c1.8-2.4,14.4-18.7,16.3-21.3h-23.3l-.9,3.8c2.4-.6,4.8-.9,7.3-.9c2.4,0,6.6,0,9,0L109.1,24.2h23.1Z"
+                      fill="#fff"
+                    />
+                    <clipPath id="eaSfcpdDOLI9">
+                      <rect
+                        width="133.1"
+                        height="24.200001"
+                        rx="0"
+                        ry="0"
+                        transform="matrix(1.000003 0 0 1.000003 -0.0002 -0.000035)"
+                        fill="#d2dbed"
+                        strokeWidth="0"
+                      />
+                    </clipPath>
+                  </g>
+                </svg>
 
                 {/* <svg
                   className="w-auto"
@@ -1110,7 +1197,10 @@ useEffect(() => {
                   exit={{ y: "-100%" }}
                   transition={{ duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
                 >
-                  <NavPageV3 setIsMenuOpen={setIsMenuOpen} menuData={menuData}/>
+                  <NavPageV3
+                    setIsMenuOpen={setIsMenuOpen}
+                    menuData={menuData}
+                  />
                 </motion.div>
               </>
             )}
