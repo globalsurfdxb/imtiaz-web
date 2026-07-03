@@ -217,44 +217,63 @@ export default function FeaturedProjects({
   // Initial center/zoom + force a bounds calculation on first idle so
   // highlighted/visibleProjects (and therefore markers + clustering) populate
   // without requiring the user to pan/zoom first.
-  useEffect(() => {
-    if (!map || projects.length === 0) return;
+//   useEffect(() => {
+//     if (!map || projects.length === 0) return;
 
-    const firstProject = projects[0];
-    const newCenter = {
-      lat: parseFloat(firstProject.property_latitude),
-      lng: parseFloat(firstProject.property_longitude),
-    };
+//     const firstProject = projects[0];
+//     const newCenter = {
+//       lat: parseFloat(firstProject.property_latitude),
+//       lng: parseFloat(firstProject.property_longitude),
+//     };
 
-    const currentCenter = map.getCenter();
-    if (
-      !currentCenter ||
-      currentCenter.lat() !== newCenter.lat ||
-      currentCenter.lng() !== newCenter.lng
-    ) {
-      map.panTo(newCenter);
+//     const currentCenter = map.getCenter();
+//     if (
+//       !currentCenter ||
+//       currentCenter.lat() !== newCenter.lat ||
+//       currentCenter.lng() !== newCenter.lng
+//     ) {
+//       map.panTo(newCenter);
+//     }
+
+//     // if (map.getZoom() !== 11) {
+//     //   map.setZoom(11);
+//     // }
+//     const initialZoom = isDesktop ? 11 : 8;
+// if (map.getZoom() !== initialZoom) {
+//   map.setZoom(initialZoom);
+// }
+
+//     const idleListener = map.addListener("idle", () => {
+//       const bounds = map.getBounds();
+//       if (bounds) {
+//         handleCameraChanged({
+//           detail: { bounds: bounds.toJSON() },
+//         } as MapCameraChangedEvent);
+//       }
+//       google.maps.event.removeListener(idleListener);
+//     });
+
+//     return () => google.maps.event.removeListener(idleListener);
+// }, [map, projects, isDesktop]);
+
+
+useEffect(() => {
+  if (!map || projects.length === 0) return;
+
+  const idleListener = map.addListener("idle", () => {
+    const bounds = map.getBounds();
+    if (bounds) {
+      handleCameraChanged({
+        detail: { bounds: bounds.toJSON() },
+      } as MapCameraChangedEvent);
     }
+    google.maps.event.removeListener(idleListener);
+  });
 
-    // if (map.getZoom() !== 11) {
-    //   map.setZoom(11);
-    // }
-    const initialZoom = isDesktop ? 11 : 8;
-if (map.getZoom() !== initialZoom) {
-  map.setZoom(initialZoom);
-}
-
-    const idleListener = map.addListener("idle", () => {
-      const bounds = map.getBounds();
-      if (bounds) {
-        handleCameraChanged({
-          detail: { bounds: bounds.toJSON() },
-        } as MapCameraChangedEvent);
-      }
-      google.maps.event.removeListener(idleListener);
-    });
-
-    return () => google.maps.event.removeListener(idleListener);
+  return () => google.maps.event.removeListener(idleListener);
 }, [map, projects, isDesktop]);
+
+
 
   const handleEnter = () => {
     if (window.innerWidth >= 1280) lock();
@@ -262,6 +281,8 @@ if (map.getZoom() !== initialZoom) {
   const handleLeave = () => {
     if (window.innerWidth >= 1280) unlock();
   };
+
+
   useEffect(() => {
     const el = mapContainerRef.current;
     if (!el) return;
@@ -405,13 +426,18 @@ if (map.getZoom() !== initialZoom) {
             {/* Grayscale overlay - affects tiles only, not markers */}
             <div ref={mapContainerRef} className="w-full h-full relative">
               <Map
-                defaultCenter={{
-                  lat: parseFloat(projects[0]?.property_latitude),
-                  lng: parseFloat(projects[0]?.property_longitude),
-                }}
-                onZoomChanged={(e) => setZoom(e.detail.zoom)}
-                mapId="2567b86b459988d06657407f"
-                defaultZoom={11}
+                // defaultCenter={{
+                //   lat: parseFloat(projects[0]?.property_latitude),
+                //   lng: parseFloat(projects[0]?.property_longitude),
+                // }}
+                // onZoomChanged={(e) => setZoom(e.detail.zoom)}
+                // mapId="2567b86b459988d06657407f"
+                // defaultZoom={11}
+
+                  defaultCenter={{ lat: 25.15, lng: 55.27 }}
+  onZoomChanged={(e) => setZoom(e.detail.zoom)}
+  mapId="2567b86b459988d06657407f"
+  defaultZoom={isDesktop ? 11 : 9}
                 className="w-full h-full"
                 gestureHandling="cooperative"
                 onCameraChanged={handleCameraChanged}
