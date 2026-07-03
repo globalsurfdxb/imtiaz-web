@@ -50,25 +50,54 @@ const InnerHeader = ({menuData}:{menuData:any}) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (isProgrammaticScroll.current) return; // 👈 ignore lenis scrollTo
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (isProgrammaticScroll.current) return; // 👈 ignore lenis scrollTo
 
-      const currentY = window.scrollY;
-      const diff = currentY - lastScrollY.current;
-      if (diff > 0) {
-        y.set(-120);
-      } else {
-        y.set(0);
-      }
-      lastScrollY.current = currentY;
-    };
+  //     const currentY = window.scrollY;
+  //     const diff = currentY - lastScrollY.current;
+  //     if (diff > 0) {
+  //       y.set(-120);
+  //     } else {
+  //       y.set(0);
+  //     }
+  //     lastScrollY.current = currentY;
+  //   };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [y, isProgrammaticScroll]);
+  //   window.addEventListener("scroll", handleScroll, { passive: true });
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [y, isProgrammaticScroll]);
 
   // 👇 Only render portal after client mount
+  
+  useEffect(() => {
+  const handleScroll = () => {
+    if (isProgrammaticScroll.current) return;
+
+    // clamp — iOS can report negative values during rubber-band overscroll
+    const currentY = Math.max(window.scrollY, 0);
+
+    // near/at top: always force header visible, ignore delta entirely
+    if (currentY <= 0) {
+      y.set(0);
+      lastScrollY.current = 0;
+      return;
+    }
+
+    const diff = currentY - lastScrollY.current;
+    if (diff > 0) {
+      y.set(-120);
+    } else {
+      y.set(0);
+    }
+    lastScrollY.current = currentY;
+  };
+
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [y, isProgrammaticScroll]);
+  
+  
   useEffect(() => {
     setMounted(true);
   }, []);

@@ -78,6 +78,13 @@ export default function RegisterInterestForm({
   return (
     // Plain card — no fixed/backdrop wrapper. The portal scroll container handles centering + scroll.
     <div onClick={(e) => e.stopPropagation()} className="relative w-full max-w-[1009px] mx-[15px] sm:mx-20 bg-white p-40">
+        <style jsx>{`
+    @media (max-width: 550px) {
+      input, textarea, select {
+        font-size: 16px;
+      }
+    }
+  `}</style>
       {/* Close button */}
       <button
         onClick={onClose}
