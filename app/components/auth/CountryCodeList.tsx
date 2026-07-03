@@ -53,6 +53,13 @@ export default function CountryCodeSelect({
 
   return (
     <div ref={ref} className="relative flex-shrink-0">
+         <style jsx>{`
+      @media (max-width: 767px) {
+        input {
+          font-size: 16px;
+        }
+      }
+    `}</style>
       {/* Trigger */}
       <button
         type="button"
