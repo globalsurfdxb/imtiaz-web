@@ -467,7 +467,7 @@ export type Community = {
   id: string | number;
   name: string;
   bgImage: string;
-  // bgImageMobile:string;
+  bgImageMobile: string;
   link?: string;
 };
 
@@ -484,7 +484,7 @@ export default function HeroFeatureSlider({
   title
 }: {
   slides: CommunitySection;
-  title:string;
+  title: string;
 }) {
   const { heading, communities = [] } = slides || {};
 
@@ -493,9 +493,14 @@ export default function HeroFeatureSlider({
   const [activeFeat, setActiveFeat] = useState<number>(initialActive);
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
+  const [bp, setBp] = useState<"mobile" | "desktop">("desktop");
+
+  const getBg = (c?: Community) =>
+    bp === "mobile" && c?.bgImageMobile ? c.bgImageMobile : c?.bgImage;
+
   /* Background fade logic */
   const [bgBase, setBgBase] = useState<string | null>(
-    communities?.[initialActive]?.bgImage ?? communities?.[0]?.bgImage ?? null,
+    getBg(communities?.[initialActive]) ?? getBg(communities?.[0]) ?? null,
   );
   const [prevBg, setPrevBg] = useState<string | null>(null);
 
@@ -529,7 +534,7 @@ export default function HeroFeatureSlider({
   //   animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   // };
 
-  const [bp, setBp] = useState<"mobile" | "desktop">("desktop");
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -558,7 +563,7 @@ export default function HeroFeatureSlider({
 
   const handleMouseLeave = () => {
     const current = communities[activeFeat] ?? communities[0];
-    if (current?.bgImage) switchBg(current.bgImage);
+    if (current) switchBg(getBg(current)!);
   };
 
   useEffect(() => {
@@ -641,8 +646,8 @@ export default function HeroFeatureSlider({
         {prevBg && (
           <motion.div
             key={`prev-${prevBg}`}
-            initial={{ opacity: 1}}
-            animate={{ opacity: 0.9}}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0.9 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full bg-cover bg-center scale-[1.1]"
             style={{ backgroundImage: `url('${prevBg}')` }}
@@ -651,8 +656,8 @@ export default function HeroFeatureSlider({
         {bgBase && (
           <motion.div
             key={`base-${bgBase}`}
-            initial={{ opacity: 0}}
-            animate={{ opacity: 1}}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="absolute inset-0 w-full h-full bg-cover bg-center scale-[1.1]"
             style={{ backgroundImage: `url('${bgBase}')` }}
@@ -726,7 +731,7 @@ export default function HeroFeatureSlider({
           onSlideChange={(s) => {
             const idx = s.realIndex;
             setActiveFeat(idx);
-            switchBg(communities[idx]?.bgImage);
+            switchBg(getBg(communities[idx])!);
           }}
           className="w-full"
         >
@@ -741,13 +746,12 @@ export default function HeroFeatureSlider({
                       className="relative flex-1 min-h-[360px] md:min-h-[420px] 3xl:h-[500px] flex justify-center items-end px-4 cursor-pointer"
                       onMouseEnter={() => {
                         setActiveFeat(i);
-                        switchBg(c.bgImage);
+                        switchBg(getBg(c)!);
                       }}
                     >
                       <div
-                        className={`absolute inset-0 transition-opacity duration-400 ${
-                          active ? "opacity-100" : "opacity-0"
-                        }`}
+                        className={`absolute inset-0 transition-opacity duration-400 ${active ? "opacity-100" : "opacity-0"
+                          }`}
                         style={{
                           background:
                             "linear-gradient(180deg, rgba(0,0,0,0) 7.68%, rgba(0,0,0,0.66) 100%)",
@@ -814,9 +818,8 @@ export default function HeroFeatureSlider({
                               <button
                                 key={i}
                                 // onClick={() => swiperRef.current?.slideToLoop(i)}
-                                className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${
-                                  i === activeFeat ? "bg-white" : "bg-transparent"
-                                }`}
+                                className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${i === activeFeat ? "bg-white" : "bg-transparent"
+                                  }`}
                               />
                             ))}
                           </div>

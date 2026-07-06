@@ -848,6 +848,7 @@ export default function Index({
       id: (index + 1).toString(),
       name: community.title,
       bgImage: community.featured_image_desktop,
+      bgImageMobile: community.featured_image_mobile,
       link: `/community/${community.slug}`,
     })),
   };
