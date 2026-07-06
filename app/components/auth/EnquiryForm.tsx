@@ -275,6 +275,13 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
             ref={whiteBoxRef}
             className="w-full h-fit pt-16 justify-center bg-white w-[95%] lg:w-[800px] mx-auto  overflow-scroll relative flex flex-col self-center   p-7 px-5 md:p-10 items-center"
           >
+                    <style jsx>{`
+    @media (max-width: 550px) {
+      input, textarea, select {
+        font-size: 16px;
+      }
+    }
+  `}</style>
 
             <div ref={containerRef}  >
               <button
