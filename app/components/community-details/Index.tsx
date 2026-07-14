@@ -41,7 +41,7 @@ const amenetiesData = {
         geofenceCoordinates={data?.geofence_coordinates}
         relatedProperties={data?.related_property}
         />
-      <OtherCommunitySlider data={communitiesData} title={data?.other_communities_title}/>
+      <OtherCommunitySlider data={communitiesData} title={data?.other_communities_title} currentItem={data?.page_banner_title}/>
       <Faqsection title={data?.faq_title} description={data?.faq_caption} data={data?.faq}/>
       <RegisterYourInterest />
     </>

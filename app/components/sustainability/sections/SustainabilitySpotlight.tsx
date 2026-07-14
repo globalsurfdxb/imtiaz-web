@@ -121,65 +121,86 @@ export default function SustainabilitySpotlight({title,data}:{title:string;data:
   );
 
   // ── Core go() ─────────────────────────────────────────────────────────────────
-  const go = useCallback(
-    (nextIdx: number, forcedDir?: 1 | -1) => {
-      // Hard block: if animating, ignore ALL calls — no queuing, no interrupting.
-      // Autoplay, clicks, and drags all respect this. The animation always
-      // completes cleanly before the next one can start.
-      if (isAnimRef.current) return;
-      if (nextIdx === currentIdxRef.current) return;
+const dTlRef = useRef<gsap.core.Timeline | null>(null);
+const mTlRef = useRef<gsap.core.Timeline | null>(null);
+const transitionIdRef = useRef(0);
 
-      const prevIdx = currentIdxRef.current;
-      const dir: 1 | -1 = forcedDir ?? (nextIdx > prevIdx ? 1 : -1);
+const go = useCallback(
+  (nextIdx: number, forcedDir?: 1 | -1) => {
+    if (nextIdx === currentIdxRef.current) return;
 
-      currentIdxRef.current = nextIdx;
-      isAnimRef.current = true;
-      setCurrent(nextIdx);
+    const prevIdx = currentIdxRef.current;
+    const dir: 1 | -1 = forcedDir ?? (nextIdx > prevIdx ? 1 : -1);
 
-      const fromClip =
-        dir === 1 ? "inset(0% 0% 0% 100%)" : "inset(0% 100% 0% 0%)";
+    // Kill the actual timelines so their onComplete can never fire later
+    dTlRef.current?.kill();
+    mTlRef.current?.kill();
+    dTlRef.current = null;
+    mTlRef.current = null;
 
-      [dImgsRef.current[nextIdx], mImgsRef.current[nextIdx]].forEach((img) => {
-        if (img) gsap.set(img, { clipPath: fromClip, zIndex: 2, scale: 1.06 });
-      });
+    [...dImgsRef.current, ...mImgsRef.current].forEach((img) => {
+      if (img) gsap.killTweensOf(img);
+    });
+    settle(prevIdx);
 
-      let dDone = false;
-      let mDone = false;
+    currentIdxRef.current = nextIdx;
+    isAnimRef.current = true;
+    setCurrent(nextIdx);
 
-      const onBothDone = () => {
-        if (!dDone || !mDone) return;
-        settle(nextIdx);
-        isAnimRef.current = false;
-      };
+    // Any leftover callback from a previous, now-interrupted transition
+    // will see a mismatched id and no-op instead of clobbering state.
+    const myTransitionId = ++transitionIdRef.current;
 
-      const animate = (
-        img: HTMLImageElement | undefined,
-        onDone: () => void,
-      ) => {
-        if (!img) {
+    const fromClip =
+      dir === 1 ? "inset(0% 0% 0% 100%)" : "inset(0% 100% 0% 0%)";
+
+    [dImgsRef.current[nextIdx], mImgsRef.current[nextIdx]].forEach((img) => {
+      if (img) gsap.set(img, { clipPath: fromClip, zIndex: 2, scale: 1.06 });
+    });
+
+    let dDone = false;
+    let mDone = false;
+
+    const onBothDone = () => {
+      if (transitionIdRef.current !== myTransitionId) return; // stale
+      if (!dDone || !mDone) return;
+      settle(nextIdx);
+      isAnimRef.current = false;
+    };
+
+    const animate = (
+      img: HTMLImageElement | undefined,
+      onDone: () => void,
+      storeTl: (tl: gsap.core.Timeline) => void,
+    ) => {
+      if (!img) {
+        onDone();
+        return;
+      }
+      const tl = gsap.timeline({
+        onComplete: () => {
+          if (transitionIdRef.current !== myTransitionId) return; // stale
           onDone();
-          return;
-        }
-        const tl = gsap.timeline({ onComplete: onDone });
-        tl.to(img, {
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 1.7,
-          ease: "expo.inOut",
-        });
-        tl.to(img, { scale: 1, duration: 1.4, ease: "power2.out" }, "<");
-      };
+        },
+      });
+      storeTl(tl);
+      tl.to(img, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.7, ease: "expo.inOut" });
+      tl.to(img, { scale: 1, duration: 1.4, ease: "power2.out" }, "<");
+    };
 
-      animate(dImgsRef.current[nextIdx], () => {
-        dDone = true;
-        onBothDone();
-      });
-      animate(mImgsRef.current[nextIdx], () => {
-        mDone = true;
-        onBothDone();
-      });
-    },
-    [slides, settle],
-  );
+    animate(
+      dImgsRef.current[nextIdx],
+      () => { dDone = true; onBothDone(); },
+      (tl) => (dTlRef.current = tl),
+    );
+    animate(
+      mImgsRef.current[nextIdx],
+      () => { mDone = true; onBothDone(); },
+      (tl) => (mTlRef.current = tl),
+    );
+  },
+  [slides, settle],
+);
 
   const goPrev = useCallback(() => {
     const i =

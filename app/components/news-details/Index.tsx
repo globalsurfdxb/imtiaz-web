@@ -9,7 +9,7 @@ const Index = ({data,allNewsData}:{data:NewsDetailResponse['data'],allNewsData:N
     <>
       <NewsHero news={data} />
       <NewsContent content={data.description}/>
-      <RelatedNews data={allNewsData} />
+      <RelatedNews data={allNewsData} currentNews={data.page_banner_title}/>
     </>
   );
 };

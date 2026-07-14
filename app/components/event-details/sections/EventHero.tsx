@@ -49,7 +49,7 @@ const EventHero = ({ event }: Props) => {
             style={{
               transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
             }}
-            className="hidden lg:block"
+            className="hidden lg:block object-cover"
           />
 
           <Image
@@ -61,7 +61,7 @@ const EventHero = ({ event }: Props) => {
             style={{
               transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
             }}
-            className="lg:hidden"
+            className="lg:hidden object-cover"
           />
 
           {/* Gradient overlay */}
@@ -83,7 +83,7 @@ const EventHero = ({ event }: Props) => {
 
           {/* Meta bar */}
           <div className="absolute bottom-0 left-0 right-0 flex py-[25px] md:py-20 items-end justify-center bg-white/20 backdrop-blur-[30px]">
-            <div className="flex items-center gap-x-50">
+            <div className="flex items-center lg:gap-x-50 gap-x-2  sm:gap-x-10 md:gap-x-50">
               {/* Date */}
               <motion.div
                 variants={moveUp(0)}
@@ -104,7 +104,7 @@ const EventHero = ({ event }: Props) => {
                     Date
                   </span>
                 </div>
-                <span className="text-white/80  text-description leading-[1.54]">
+                <span className="text-white/80  text-description leading-[1.54]  max-md:text-center">
                   {formattedDate}
                 </span>
               </motion.div>
@@ -142,7 +142,7 @@ const EventHero = ({ event }: Props) => {
                     Location
                   </span>
                 </div>
-                <span className="text-white/80 text-description leading-[1.54]">
+                <span className="text-white/80 text-description leading-[1.54] max-md:text-center">
                   {event.event_location}
                 </span>
               </motion.div>

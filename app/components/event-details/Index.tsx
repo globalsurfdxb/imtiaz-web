@@ -11,7 +11,7 @@ const Index = ({data,allEventsData}:{data:EventDetailData,allEventsData:EventLis
       <EventHero event={data} />
       <EventContent content={data?.description} />
       {data.gallery && <SignatureMomentsSlider images={data?.gallery} title={data?.gallery_title}/>}
-      <OtherEvents data={allEventsData}/>
+      <OtherEvents data={allEventsData} currentItem={data.page_banner_title}/>
     </>
   );
 };

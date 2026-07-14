@@ -661,7 +661,7 @@ export default function GallerySlider({ data }: { data: any }) {
         <div className="p-[6px] md:p-[8px] backdrop-blur-[30px] rounded-full">
           <div className="relative flex overflow-hidden 2xl:gap-[29.5px]">
             <div
-              className="absolute top-0 h-full w-1/2 bg-white transition-transform duration-400 ease-in-out rounded-full"
+              className={`absolute top-0 h-full ${EXTERIOR_SLIDES.length == 0 || INTERIOR_SLIDES.length == 0 ? "w-full" : "w-1/2"} bg-white transition-transform duration-400 ease-in-out rounded-full`}
               style={{
                 transform:
                   activeTab === "interior"
@@ -669,18 +669,18 @@ export default function GallerySlider({ data }: { data: any }) {
                     : "translateX(100%)",
               }}
             />
-            <button
+            {INTERIOR_SLIDES.length > 0 && <button
               onClick={() => setActiveTab("interior")}
               className={`cursor-pointer uppercase tracking-[2%] relative z-10 text-25 leading-[1.4] px-[35px] md:px-[68px] py-3 md:py-[20px] 2xl:py-[21.6px] 2xl:px-[45px] 3xl:px-[60px] font-[optima] h-[57px] md:h-[75px] transition-colors duration-300 ${activeTab === "interior" ? "text-primary" : "text-white"}`}
             >
               Interior
-            </button>
-            <button
+            </button>}
+            {EXTERIOR_SLIDES.length > 0 && <button
               onClick={() => setActiveTab("exterior")}
               className={`cursor-pointer uppercase tracking-[2%] relative z-10 text-25 leading-[1.4] px-[35px] md:px-[68px] py-3 md:py-[20px] 2xl:py-[21.6px] 2xl:px-[45px] 3xl:px-[60px] font-[optima] h-[57px] md:h-[75px] transition-colors duration-300 ${activeTab === "exterior" ? "text-primary" : "text-white"}`}
             >
               Exterior
-            </button>
+            </button>}
           </div>
         </div>
 
