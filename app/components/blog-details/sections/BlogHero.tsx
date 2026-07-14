@@ -1,6 +1,6 @@
 "use client";
 
-  import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Breadcrumb from "../../common/Breadcrumb";
 import { BlogDetail, BlogDetailData, BlogListingItem } from "../data";
@@ -12,21 +12,28 @@ import { useParallax } from "@/app/hooks/useParallax";
 import { getReadingTime } from "@/app/utils/readingTime";
 
 
-const BlogHero = ({ blog }: {blog:BlogDetailData}) => {
+const BlogHero = ({ blog }: { blog: BlogDetailData }) => {
   const { ref, parallaxY } = useParallax(15);
   const readingTime = getReadingTime(blog.description);
 
-const [size, setSize] = useState(32);
+  const [size, setSize] = useState(32);
 
-useEffect(() => {
-  const handleResize = () => {
-    setSize(window.innerWidth < 768 ? 20 : 32);
+  useEffect(() => {
+    const handleResize = () => {
+      setSize(window.innerWidth < 768 ? 20 : 32);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleShare = () => {
+    const shareUrl = window.location.href;
+    const linkedinUrl = `http://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}`;
+    window.open(linkedinUrl, "_blank", "noopener,noreferrer,width=600,height=600");
   };
 
-  handleResize();
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
   return (
     <section className="w-full pt-[174px] md:pt-200" data-header="dark">
       <div className="container flex flex-col items-center container-spacing-details-page">
@@ -74,8 +81,9 @@ useEffect(() => {
             viewport={{ once: true }}
             className="text-foreground-light cursor-pointer hover:scale-110 transition-colors duration-300"
             aria-label="Share"
+            onClick={handleShare}
           >
-<GoShareAndroid size={size} />
+            <GoShareAndroid size={size} />
           </motion.button>
         </div>
         {/* Full-width Hero Image */}

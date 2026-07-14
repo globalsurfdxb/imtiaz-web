@@ -9,7 +9,7 @@ const Index = ({data,allBlogsData}:{data:BlogDetailData,allBlogsData:BlogListing
     <>
       <BlogHero blog={data} />
       <BlogContent content={data.description} />
-      <RelatedBlogs data={allBlogsData.listing}/>
+      <RelatedBlogs data={allBlogsData.listing} currentBlog={data.page_banner_title}/>
     </>
   );
 };

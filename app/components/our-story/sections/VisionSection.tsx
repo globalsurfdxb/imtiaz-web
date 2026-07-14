@@ -44,8 +44,7 @@ export default function VisionSection({data}:{data:VisionSectionData}) {
           <Image
             src={data.bgImage}
             alt={data.title}
-            width={1920}
-            height={942}
+            fill
             priority
             className="object-cover object-top h-full w-full absolute"
           />

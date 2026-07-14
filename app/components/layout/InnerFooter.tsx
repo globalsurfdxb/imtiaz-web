@@ -135,7 +135,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="w-full md:w-auto flex items-center gap-2 md:gap-8 xl:gap-15 rounded-[50px] p-[3px] md:p-[6px] border border-white relative overflow-hidden"
+              className="w-full md:w-auto footer-input-email flex items-center gap-2 md:gap-8 xl:gap-15 rounded-[50px] p-[3px] md:p-[6px] border border-white relative overflow-hidden"
             >
               <input
                 type="email"
@@ -145,7 +145,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
                   if (error) setError(""); // clear on typing
                 }}
                 placeholder={footerV2Data.top.placeholderEmail}
-                className="bg-transparent flex-1 pl-4 md:pl-5 xl:pl-9 font-[avenirBook] text-16 text-white placeholder-white/60 focus:outline-none"
+                className="bg-transparent  flex-1 pl-4 md:pl-5 xl:pl-9 font-[avenirBook] text-16 text-white placeholder-white/60 focus:outline-none"
               />
 
               <button

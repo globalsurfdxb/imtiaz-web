@@ -230,7 +230,7 @@ import {
   Polygon,
   useMap,
 } from "@vis.gl/react-google-maps";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface GeofenceCoordinate {
   latitude: string;
@@ -261,13 +261,15 @@ const FitBoundsToMarkers = ({
   properties: { lat: number; lng: number }[];
 }) => {
   const map = useMap();
-  console.log(properties, "properties");
+  const hasFitRef = useRef(false); // ← only fit once
 
   useEffect(() => {
-    if (!map) return;
+    if (!map || hasFitRef.current) return;
 
     const allPoints = [...communityCoordinates, ...properties];
     if (allPoints.length === 0) return;
+
+    hasFitRef.current = true;
 
     if (allPoints.length === 1) {
       map.setCenter(allPoints[0]);
@@ -277,7 +279,6 @@ const FitBoundsToMarkers = ({
 
     const bounds = new google.maps.LatLngBounds();
     allPoints.forEach((point) => bounds.extend(point));
-
     map.fitBounds(bounds, 60);
   }, [map, communityCoordinates, properties]);
 
@@ -324,11 +325,14 @@ const MapOriginal = ({
   geofenceCoordinates,
   relatedProperties,
 }: MapOriginalProps) => {
-  const communityCoordinates =
-    geofenceCoordinates?.map((coord) => ({
-      lat: Number(coord.latitude),
-      lng: Number(coord.longitude),
-    })) ?? [];
+  const communityCoordinates = useMemo(
+    () =>
+      geofenceCoordinates?.map((coord) => ({
+        lat: Number(coord.latitude),
+        lng: Number(coord.longitude),
+      })) ?? [],
+    [geofenceCoordinates],
+  );
 
   const [zoom, setZoom] = useState(15);
 
@@ -337,17 +341,20 @@ const MapOriginal = ({
     zoom >= 15 ? BASE_SIZE : Math.max(20, BASE_SIZE * (zoom / 15) * 0.9);
   const innerSize = markerSize * 0.61;
 
-  const properties =
-    relatedProperties
-      ?.filter((p) => p.property_latitude && p.property_longitude)
-      .map((property, index) => ({
-        id: index + 1,
-        name: property.property_name,
-        lat: Number(property.property_latitude),
-        lng: Number(property.property_longitude),
-        status: property.property_status,
-        image: property.featured_image_desktop,
-      })) ?? [];
+  const properties = useMemo(
+    () =>
+      relatedProperties
+        ?.filter((p) => p.property_latitude && p.property_longitude)
+        .map((property, index) => ({
+          id: index + 1,
+          name: property.property_name,
+          lat: Number(property.property_latitude),
+          lng: Number(property.property_longitude),
+          status: property.property_status,
+          image: property.featured_image_desktop,
+        })) ?? [],
+    [relatedProperties],
+  );
 
   const defaultCenter =
     communityCoordinates?.length > 0
@@ -357,9 +364,8 @@ const MapOriginal = ({
   return (
     <section
       data-header="dark"
-      className={`w-full ${
-        !pt ? "pt-0" : "pt-[70px] lg:pt-120 3xl:pt-160"
-      } pb-[70px] lg:pb-120 3xl:pb-160`}
+      className={`w-full ${!pt ? "pt-0" : "pt-[70px] lg:pt-120 3xl:pt-160"
+        } pb-[70px] lg:pb-120 3xl:pb-160`}
     >
       <div className="h-[488px] lg:h-[839px]">
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string}>

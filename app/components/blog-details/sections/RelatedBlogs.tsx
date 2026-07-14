@@ -17,7 +17,7 @@ import { useParallax } from "@/app/hooks/useParallax";
 import SliderArrowButton from "../../common/SliderNavigationButton";
 import Link from "next/link";
 
-const RelatedBlogs = ({ data }: { data: BlogListingData['listing'] }) => {
+const RelatedBlogs = ({ data, currentBlog }: { data: BlogListingData['listing'], currentBlog:string }) => {
 
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -31,7 +31,7 @@ const RelatedBlogs = ({ data }: { data: BlogListingData['listing'] }) => {
         />
         <div className="hidden md:block">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-40 mt-5 md:mt-50">
-            {data.map((item: any, index: number) => {
+            {data.filter((item)=>item.title !== currentBlog).map((item: any, index: number) => {
               const formattedItem = {
                 id: index + 1,
                 title: item.title,
@@ -83,7 +83,7 @@ const RelatedBlogs = ({ data }: { data: BlogListingData['listing'] }) => {
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             className="w-full h-full"
           >
-            {data.map((item: any, index: number) => {
+            {data.filter((item)=>item.title !== currentBlog).map((item: any, index: number) => {
               const formattedItem = {
                 id: index + 1,
                 title: item.title,

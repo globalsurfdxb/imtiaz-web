@@ -18,7 +18,7 @@ import SliderArrowButton from "../../common/SliderNavigationButton";
 import Link from "next/link";
 import { EventCategory, EventListingData } from "../../events/data";
 
-const OtherEvents = ({ data }: { data: EventListingData }) => {
+const OtherEvents = ({ data,currentItem }: { data: EventListingData, currentItem:string }) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const { ref, parallaxY } = useParallax(15);
@@ -31,7 +31,7 @@ const OtherEvents = ({ data }: { data: EventListingData }) => {
         />
         <div className="hidden md:block">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-40 mt-20 overflow-hidden">
-            {data?.listing?.slice(0,2).map((item, index) => {
+            {data?.listing?.filter((item)=>item.title !== currentItem).slice(0,2).map((item, index) => {
               const formattedItem = {
                 id: index + 1,
                 title: item.title,
@@ -83,7 +83,7 @@ const OtherEvents = ({ data }: { data: EventListingData }) => {
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             className="w-full h-full"
           >
-            {data?.listing?.map((item, index) => {
+            {data?.listing?.filter((item)=>item.title !== currentItem).map((item, index) => {
               const formattedItem = {
                 id: index + 1,
                 title: item.title,
