@@ -600,6 +600,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import AuthSlider from "../auth/AuthSlider";
 import SignupForm from "../auth/SignupForm";
 import LoginForm from "../auth/LoginForm";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -838,7 +839,7 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
               </div>
 
               {/* ------- CENTER LOGO ------- */}
-              <div className="hdrlgs">
+              <Link className="hdrlgs cursor-pointer" href={"/"}>
                 <svg
                   className="w-auto h-[60px]"
                   id="eaSfcpdDOLI1"
@@ -1008,7 +1009,7 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
                     </clipPath>
                   </g>
                 </svg> */}
-              </div>
+              </Link>
 
               {/* RIGHT — Icons */}
               <div className="w-[35%] 2xl:w-[33.33%] flex justify-end">

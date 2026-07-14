@@ -18,6 +18,8 @@ interface ContactBannerProps {
   description?: string;
   features?: Feature[];
   mobileVideo?:string;
+  poster?:string;
+  mobilePoster?:string;
 }
 
 // ─── Animation constants ─────────────────────────────────────────────────────
@@ -44,7 +46,9 @@ const ConstructionBanner = ({
   title,
   description,
   features,
-  mobileVideo
+  mobileVideo,
+  poster,
+  mobilePoster
 }: ContactBannerProps) => {
   const breadcrumbRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -112,6 +116,7 @@ const ConstructionBanner = ({
           <video
             src={video}
             autoPlay
+            poster={poster}
             loop
             muted
             playsInline
@@ -121,6 +126,7 @@ const ConstructionBanner = ({
           <video
             src={mobileVideo ? mobileVideo : video}
             autoPlay
+            poster={mobilePoster}
             loop
             muted
             playsInline

@@ -21,6 +21,12 @@ const BlogHero = ({ title }: { title: string }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleShare = () => {
+    const shareUrl = window.location.href;
+    const linkedinUrl = `http://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}`;
+    window.open(linkedinUrl, "_blank", "noopener,noreferrer,width=600,height=600");
+  };
+
 
   return (
     <section className="w-full pt-[174px] md:pt-200" data-header="dark">
@@ -51,6 +57,7 @@ const BlogHero = ({ title }: { title: string }) => {
             viewport={{ once: true }}
             className="text-foreground-light cursor-pointer hover:scale-110 transition-colors duration-300"
             aria-label="Share"
+            onClick={handleShare}
           >
             <GoShareAndroid size={size} />
           </motion.button>

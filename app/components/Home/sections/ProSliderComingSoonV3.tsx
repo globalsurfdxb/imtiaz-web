@@ -687,7 +687,7 @@ export default function HeroSlider({
             {/* Prev */}
             <button
               aria-label="Previous slide"
-              className="swiper-btn-prev relative w-[62px] group h-[62px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+              className="swiper-btn-prev cursor-pointer relative w-[62px] group h-[62px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
             >
               <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
               <Image
@@ -702,7 +702,7 @@ export default function HeroSlider({
             {/* Next */}
             <button
               aria-label="Next slide"
-              className="swiper-btn-next relative w-[62px] group h-[62px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+              className="swiper-btn-next cursor-pointer relative w-[62px] group h-[62px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
             >
               <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
               <Image

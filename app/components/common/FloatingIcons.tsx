@@ -415,7 +415,7 @@ export default function FloatingMobileIcons() {
       {/* ── Desktop — always visible */}
       <div
         ref={containerRef}
-        className="floating-icons hidden lg:flex fixed right-[6px] md:right-[12px] top-1/2 -translate-y-1/2 flex-col gap-[5px] md:gap-[9px] z-[900]"
+        className="floating-icons hidden lg:flex fixed right-[6px] md:right-[8px] 3xl:right-[12px]  top-1/2 -translate-y-1/2 flex-col gap-[5px] md:gap-[9px] z-[900]"
       >
         {icons.map(({ src, alt, onClick }) => (
           <div

@@ -757,9 +757,11 @@ const handleSuccess = async () => {
   const panelRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const { scrollTo } = useLenis();
 
+  console.log(activeUnit)
   const handleUnitClick = (unitId: number) => {
     const isCurrentlyActive = activeId === unitId;
-    setActiveId(isCurrentlyActive ? null : unitId);
+    console.log(isCurrentlyActive)
+    setActiveId(unitId);
 
     if (
       !isCurrentlyActive &&
@@ -848,7 +850,7 @@ const handleSuccess = async () => {
             <div
               ref={buttonsContainerRef}
               onWheel={(e) => e.stopPropagation()}
-              className="show-scrollbar grid grid-cols-2 gap-x-[10px] gap-y-[16px] lg:flex lg:flex-col lg:gap-[18px] max-h-[300px] lg:max-h-[500px] overflow-y-scroll pr-2"
+              className="show-scrollbar grid grid-cols-2 gap-x-[10px] gap-y-[16px] lg:flex lg:flex-col lg:gap-[18px] max-h-[300px] lg:max-h-[500px] overflow-y-auto pr-2"
             >
               {units.map((unit) => {
                 const isActive = activeId === unit.id;

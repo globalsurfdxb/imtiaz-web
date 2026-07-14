@@ -455,13 +455,15 @@ type PanelPos = "left" | "center" | "right";
 export default function CommunitySlider({
   data,
   title,
+  currentItem
 }: {
   title: string;
   data: any;
+  currentItem:string;
 }) {
   const slides = data.listing.map((item: any) => ({
     ...item,
-  }));
+  })).filter((item:{title:string})=>item.title !== currentItem);
 
   const TOTAL = slides.length;
   function mod(n: number, m: number) {
@@ -775,7 +777,7 @@ export default function CommunitySlider({
                         }}
                         style={{ opacity: 0 }}
                       >
-                        <Link href={`${slide.slug}`}>
+                        <Link href={`${slide.slug}`} onClick={(e) => e.stopPropagation()}>
                           <CustomOutlineButton
                             className="px-[30px] py-2 h-[44px] md:h-[50px] xl:h-[66px]"
                             text="View Community"
@@ -896,7 +898,7 @@ export default function CommunitySlider({
                       {slide.title}
                     </h2>
                     <div>
-                      <Link href={`${slide.slug}`}>
+                      <Link href={`${slide.slug}`} onClick={(e) => e.stopPropagation()}>
                         <CustomOutlineButton
                           className="2xl:!px-[41px] 2xl:!py-[22.5px]"
                           text="View Community"

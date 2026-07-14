@@ -17,9 +17,8 @@ import SliderArrowButton from "../../common/SliderNavigationButton";
 import { useParallax } from "@/app/hooks/useParallax";
 import Link from "next/link";
 
-const RelatedNews = ({ data }: { data: NewsListingResponse['data'] }) => {
+const RelatedNews = ({ data, currentNews }: { data: NewsListingResponse['data'], currentNews:string }) => {
 
-  console.log(data)
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const { ref, parallaxY } = useParallax(15);
@@ -33,6 +32,7 @@ const RelatedNews = ({ data }: { data: NewsListingResponse['data'] }) => {
         <div className="hidden md:block">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-25 mt-50">
             {(data?.listing || [])
+            .filter((item)=>item.title !== currentNews)
               .slice(0, 3)
               .map((item: any, index: number) => {
                 const formattedItem = {

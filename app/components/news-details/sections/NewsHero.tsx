@@ -103,7 +103,7 @@ const NewsHero = ({ news }: Props) => {
             style={{
               transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
             }}
-            className="lg:block hidden"
+            className="lg:block hidden object-cover"
           />
 
           <Image
@@ -115,7 +115,7 @@ const NewsHero = ({ news }: Props) => {
             style={{
               transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
             }}
-            className="lg:hidden"
+            className="lg:hidden object-cover"
           />
 
         </div>

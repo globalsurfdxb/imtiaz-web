@@ -119,7 +119,7 @@ html {
 }
 
 .show-scrollbar {
-  overflow-y: scroll; /* always reserve scrollbar space */
+  overflow-y: auto; /* always reserve scrollbar space */
   scrollbar-width: thin;
   scrollbar-color: var(--primary) rgba(255, 255, 255, 0.05);
 }
@@ -1143,4 +1143,15 @@ input:-webkit-autofill:active {
   .blog-content table {
     min-width: 500px;
   }
+}
+
+
+.footer-input-email input:-webkit-autofill,
+.footer-input-email input:-webkit-autofill:hover,
+.footer-input-email input:-webkit-autofill:focus,
+.footer-input-email input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  /* change to your text color */
+  transition: background-color 9999s ease-in-out 0s !important;
 }
