@@ -42,7 +42,7 @@ const EventCard = ({ item }: { item: EventItem }) => {
           style={{ background: "linear-gradient(182.34deg, rgba(0, 0, 0, 0) 15.48%, #000000 98.07%)" }}
         />
         <div className="absolute inset-0 flex flex-col justify-end items-center py-[30px] md:py-40 px-50 z-20">
-          <h3 className="text-white uppercase text-[18px] text-25 font-[optima] tracking-[2%] leading-[1.4] mb-5 md:mb-40 text-center line-clamp-2">
+          <h3 className="text-white uppercase text-25 font-[optima] tracking-[2%] leading-[1.4] mb-5 md:mb-40 text-center line-clamp-2">
             {item.title}
           </h3>
           <CustomOutlineButton text="Read More" px="px-[30px] md:px-[12px] lg:px-[20px] 3xl:px-[36.6px] h-[44px] md:h-[50px]  xl:h-[66px]"/>

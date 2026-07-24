@@ -1391,7 +1391,7 @@ function MobileMegaMenu({
           ]
           : [], // 👈 no data → truly empty, tab will hide
     }));
-  }, [menuData, propertyFilter]);
+  }, [menuData]);
 
   const regularItems = currentSubmenu.filter((item) => !item.isButton);
   const buttonItems = currentSubmenu.filter((item) => item.isButton);
@@ -1463,6 +1463,29 @@ function MobileMegaMenu({
     { label: "OFF PLAN", value: "Off Plan" },
     { label: "COMPLETED", value: "Completed" },
   ].filter((f) => f.value === "all" || availableStatuses.has(f.value));
+
+  useEffect(() => {
+    setPropertyFilter("all");
+  }, [expandedChild]);
+
+  const submenuScrollRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  // Scroll the expanded item into view/center whenever it changes
+  useEffect(() => {
+    if (!expandedChild) return;
+
+    // Wait for the accordion expand animation to actually add height
+    const timeout = setTimeout(() => {
+      const el = itemRefs.current[expandedChild];
+      el?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }, 300); // match/slightly exceed accordionVariants duration (0.28s)
+
+    return () => clearTimeout(timeout);
+  }, [expandedChild]);
 
   return (
     <div className="fixed w-full h-[100dvh] overflow-hidden flex flex-col md:hidden">
@@ -1623,6 +1646,7 @@ function MobileMegaMenu({
 
       {/* ── SUBMENU PANEL ── */}
       <motion.div
+        ref={submenuScrollRef}
         className="absolute inset-0 flex flex-col px-6 pt-16 pb-10 z-20 overflow-y-auto"
         animate={activeMenu ? "visible" : "hidden"}
         variants={subPanelVariants}
@@ -1664,6 +1688,7 @@ function MobileMegaMenu({
             return (
               <div
                 key={item.id}
+                ref={(el) => { itemRefs.current[item.id] = el; }}
                 className="border-b border-white/10 last:border-b-0"
               >
                 <div
@@ -1744,19 +1769,23 @@ function MobileMegaMenu({
                           </div>
                         )}
                         <div className="flex flex-col pb-3 pl-3 gap-0">
-                          {item.children!.map((child) => (
-                            <div
-                              key={child.id}
-                              className="py-[7px] cursor-pointer border-b border-white/5 last:border-b-0"
-                              onClick={() =>
-                                handleNavigate(child.href, child.newTab)
-                              }
-                            >
-                              <span className="text-white/70 font-[avenirRoman] uppercase text-[14px] tracking-wide hover:text-white transition-colors duration-200">
-                                {child.label}
-                              </span>
-                            </div>
-                          ))}
+                          {item.children!
+                            .filter((child: any) => {
+                              if (child.id.endsWith("-view-community")) return true; // never filter this one out
+                              if (!propertyFilter || propertyFilter === "all") return true;
+                              return child.status === propertyFilter;
+                            })
+                            .map((child) => (
+                              <div
+                                key={child.id}
+                                className="py-[7px] cursor-pointer border-b border-white/5 last:border-b-0"
+                                onClick={() => handleNavigate(child.href, child.newTab)}
+                              >
+                                <span className="text-white/70 font-[avenirRoman] uppercase text-[14px] tracking-wide hover:text-white transition-colors duration-200">
+                                  {child.label}
+                                </span>
+                              </div>
+                            ))}
                         </div>
                       </motion.div>
                     )}
