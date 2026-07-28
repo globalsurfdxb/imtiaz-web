@@ -164,7 +164,6 @@
 //     swiper.navigation.update();
 //   }, [swiper, prevRef.current, nextRef.current]);
 
-
 //   const gap = bp === "mobile" ? "20px" : "50px";
 
 //   return (
@@ -429,14 +428,6 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -453,16 +444,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { cubicBezier } from "framer-motion";
-// import gsap from "gsap";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "../../animations/RevealOneByOneAnimation";
 import Link from "next/link";
 
-// gsap.registerPlugin(ScrollTrigger);
-
-/* ------------------------------
-   Types for new data
-------------------------------- */
 export type Community = {
   id: string | number;
   name: string;
@@ -481,7 +465,7 @@ export type CommunitySection = {
 ------------------------------- */
 export default function HeroFeatureSlider({
   slides,
-  title
+  title,
 }: {
   slides: CommunitySection;
   title: string;
@@ -524,18 +508,6 @@ export default function HeroFeatureSlider({
     setBgBase(bg);
   };
 
-  // const isHalfInView = useInView(sectionRef, {
-  //   margin: "-70% 0px -70% 0px",
-  //   once: true,
-  // });
-
-  // const featureItem = {
-  //   initial: { opacity: 0, y: 20 },
-  //   animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  // };
-
-
-
   useEffect(() => {
     const handleResize = () => {
       setBp(window.innerWidth < 768 ? "mobile" : "desktop");
@@ -546,7 +518,6 @@ export default function HeroFeatureSlider({
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
 
   const dropWrapper = {
     hidden: { opacity: 0, y: -60 },
@@ -559,7 +530,6 @@ export default function HeroFeatureSlider({
       },
     },
   };
-
 
   const handleMouseLeave = () => {
     const current = communities[activeFeat] ?? communities[0];
@@ -581,6 +551,12 @@ export default function HeroFeatureSlider({
     swiper.navigation.update();
   }, [swiper, prevRef.current, nextRef.current]);
 
+  useEffect(() => {
+    communities.forEach((c) => {
+      if (c.bgImage) preloadImage(c.bgImage);
+      if (c.bgImageMobile) preloadImage(c.bgImageMobile);
+    });
+  }, [communities]);
 
   const gap = bp === "mobile" ? "20px" : "50px";
 
@@ -750,8 +726,9 @@ export default function HeroFeatureSlider({
                       }}
                     >
                       <div
-                        className={`absolute inset-0 transition-opacity duration-400 ${active ? "opacity-100" : "opacity-0"
-                          }`}
+                        className={`absolute inset-0 transition-opacity duration-400 ${
+                          active ? "opacity-100" : "opacity-0"
+                        }`}
                         style={{
                           background:
                             "linear-gradient(180deg, rgba(0,0,0,0) 7.68%, rgba(0,0,0,0.66) 100%)",
@@ -818,8 +795,11 @@ export default function HeroFeatureSlider({
                               <button
                                 key={i}
                                 onClick={() => swiper?.slideToLoop(i)}
-                                className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${i === activeFeat ? "bg-white" : "bg-transparent"
-                                  }`}
+                                className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${
+                                  i === activeFeat
+                                    ? "bg-white"
+                                    : "bg-transparent"
+                                }`}
                               />
                             ))}
                           </div>
