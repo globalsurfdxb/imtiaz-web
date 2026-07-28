@@ -241,12 +241,9 @@
 
 // export default ImtiazProperties;
 
-
-
-
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import CustomOutlineButton from "../../common/CustomOutlineButton";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -270,7 +267,7 @@ type ImtiazPropertiesData = {
       id: string;
       title: string;
       image: string;
-      mobileImage:string;
+      mobileImage: string;
       link: string;
       hoverImage: string;
     }[];
@@ -280,36 +277,20 @@ type ImtiazPropertiesData = {
 };
 
 const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
+  console.log(data, "ds");
   const swiperRef = useRef<SwiperType | null>(null);
 
-  // useEffect(() => {
-  //   const ctx = gsap.context(() => {
-  //     gsap.utils
-  //       .toArray<HTMLImageElement>(".imtiaz-parallax-image")
-  //       .forEach((image) => {
-  //         gsap.fromTo(
-  //           image,
-  //           { yPercent: -4 },
-  //           {
-  //             yPercent: 4,
-  //             ease: "none",
-  //             scrollTrigger: {
-  //               trigger: image.closest(".swiper-slide"),
-  //               start: "top bottom",
-  //               end: "bottom top",
-  //               scrub: true,
-  //             },
-  //           },
-  //         );
-  //       });
-  //   });
+  const handlePrev = () => {
+    const swiper = swiperRef.current;
+    if (!swiper || swiper.animating) return;
+    swiper.slidePrev();
+  };
 
-  //   requestAnimationFrame(() => {
-  //     ScrollTrigger.refresh();
-  //   });
-
-  //   return () => ctx.revert();
-  // }, []);
+  const handleNext = () => {
+    const swiper = swiperRef.current;
+    if (!swiper || swiper.animating) return;
+    swiper.slideNext();
+  };
 
   return (
     <section
@@ -343,9 +324,9 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               1700: { slidesPerView: 4 },
             }}
           >
-            {data.properties.map((project, i) => {
+            {data.properties.map((project) => {
               return (
-                <SwiperSlide key={i}>
+                <SwiperSlide key={project.id}>
                   <ProjectCard
                     {...project}
                     enableParallax={false}
@@ -382,7 +363,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               viewport={{ once: true }}
             >
               <button
-                onClick={() => swiperRef.current?.slidePrev()}
+                onClick={handlePrev}
                 className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-primary-2 rounded-[50px] flex items-center justify-center overflow-hidden"
               >
                 <span className="absolute right-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
@@ -402,7 +383,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               viewport={{ once: true }}
             >
               <button
-                onClick={() => swiperRef.current?.slideNext()}
+                onClick={handleNext}
                 className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
               >
                 <span className="absolute left-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
