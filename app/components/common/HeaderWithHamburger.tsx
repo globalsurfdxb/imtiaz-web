@@ -748,43 +748,74 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
       });
   }, []);
 
+  // useEffect(() => {
+  //   const check = () => {
+  //     const header = document.querySelector(".mnhdr") as HTMLElement;
+  //     if (!header) return;
+
+  //     const old = header.style.pointerEvents;
+  //     header.style.pointerEvents = "none";
+
+  //     const el = document.elementFromPoint(window.innerWidth / 2, 80);
+
+  //     header.style.pointerEvents = old;
+
+  //     if (!el) return;
+
+  //     let node: HTMLElement | null = el as HTMLElement;
+  //     let shouldBeBlack = false;
+
+  //     while (node && node !== document.body) {
+  //       if (node.classList.contains("make-header-black")) {
+  //         shouldBeBlack = true;
+  //         break;
+  //       }
+  //       node = node.parentElement;
+  //     }
+
+  //     setDarkHeader(shouldBeBlack);
+  //   };
+
+  //   window.addEventListener("scroll", check);
+  //   window.addEventListener("resize", check);
+  //   check();
+
+  //   return () => {
+  //     window.removeEventListener("scroll", check);
+  //     window.removeEventListener("resize", check);
+  //   };
+  // }, []);
+
+
   useEffect(() => {
-    const check = () => {
-      const header = document.querySelector(".mnhdr") as HTMLElement;
-      if (!header) return;
+  const targets = Array.from(
+    document.querySelectorAll<HTMLElement>(
+      ".make-header-black, [data-header='dark']",
+    ),
+  );
+  if (!targets.length) return;
 
-      const old = header.style.pointerEvents;
-      header.style.pointerEvents = "none";
+  const HEADER_LINE = 80;
 
-      const el = document.elementFromPoint(window.innerWidth / 2, 80);
+  const evaluate = () => {
+    const isDark = targets.some((el) => {
+      const rect = el.getBoundingClientRect();
+      return rect.top <= HEADER_LINE && rect.bottom >= HEADER_LINE;
+    });
+    setDarkHeader(isDark);
+  };
 
-      header.style.pointerEvents = old;
+  const observer = new IntersectionObserver(evaluate, {
+    threshold: [0, 0.01, 0.25, 0.5, 0.75, 1],
+  });
 
-      if (!el) return;
+  targets.forEach((el) => observer.observe(el));
 
-      let node: HTMLElement | null = el as HTMLElement;
-      let shouldBeBlack = false;
+  evaluate();
 
-      while (node && node !== document.body) {
-        if (node.classList.contains("make-header-black")) {
-          shouldBeBlack = true;
-          break;
-        }
-        node = node.parentElement;
-      }
+  return () => observer.disconnect();
+}, []);
 
-      setDarkHeader(shouldBeBlack);
-    };
-
-    window.addEventListener("scroll", check);
-    window.addEventListener("resize", check);
-    check();
-
-    return () => {
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
-    };
-  }, []);
 
   const [isMobile, setIsMobile] = useState(false);
 

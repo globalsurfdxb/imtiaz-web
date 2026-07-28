@@ -243,7 +243,7 @@
 
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import CustomOutlineButton from "../../common/CustomOutlineButton";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -277,8 +277,9 @@ type ImtiazPropertiesData = {
 };
 
 const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
-  console.log(data, "ds");
   const swiperRef = useRef<SwiperType | null>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   const handlePrev = () => {
     const swiper = swiperRef.current;
@@ -291,6 +292,10 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
     if (!swiper || swiper.animating) return;
     swiper.slideNext();
   };
+
+  const properties = data?.properties ?? [];
+
+  if (properties.length === 0) return null;
 
   return (
     <section
@@ -315,29 +320,32 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
             modules={[Navigation]}
             spaceBetween={28}
             slidesPerView={1}
-            loop
             speed={600}
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+              setIsBeginning(swiper.isBeginning);
+              setIsEnd(swiper.isEnd);
+            }}
+            onSlideChange={(swiper) => {
+              setIsBeginning(swiper.isBeginning);
+              setIsEnd(swiper.isEnd);
+            }}
             breakpoints={{
               640: { slidesPerView: 2 },
               1140: { slidesPerView: 3 },
               1700: { slidesPerView: 4 },
             }}
           >
-            {data.properties.map((project) => {
+            {properties.slice(0, 16).map((project) => {
               return (
                 <SwiperSlide key={project.id}>
-                  <ProjectCard
-                    {...project}
-                    enableParallax={false}
-                    // imageClassName="imtiaz-parallax-image"
-                  />
+                  <ProjectCard {...project} enableParallax={false} />
                 </SwiperSlide>
               );
             })}
           </Swiper>
         </div>
-        {/* BOTTOM BUTTONS */}
+
         <div className="flex items-center justify-between md:justify-center mt-[20px] sm:mt-50">
           <motion.div
             variants={moveUp(0.1)}
@@ -364,7 +372,8 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
             >
               <button
                 onClick={handlePrev}
-                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-primary-2 rounded-[50px] flex items-center justify-center overflow-hidden"
+                disabled={isBeginning}
+                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group border border-primary-2 rounded-[50px] flex items-center justify-center overflow-hidden disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 <span className="absolute right-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
                 <Image
@@ -372,7 +381,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
                   alt="Arrow Right"
                   width={28}
                   height={28}
-                  className="relative z-10  object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
+                  className="relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
                 />
               </button>
             </motion.div>
@@ -384,7 +393,8 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
             >
               <button
                 onClick={handleNext}
-                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
+                disabled={isEnd}
+                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 <span className="absolute left-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
                 <Image
