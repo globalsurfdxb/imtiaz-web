@@ -592,7 +592,6 @@ import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
 import Image from "next/image";
-import { ChevronDown } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import NavPageV3 from "./NavPageV3";
@@ -804,13 +803,13 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
       <div
         id="header"
         className={clsx(
-          "mnhdr fixed w-full z-[999] left-1/2 -translate-x-1/2 transition-all duration-500",
+          "mnhdr fixed w-full z-[999] left-1/2 -translate-x-1/2 transition-transform duration-500",
           showHeader
             ? "translate-y-0"
             : "-translate-y-full pointer-events-none",
         )}
       >
-        <div className="ovrlyabg bg-black/60 w-full h-screen z-0 absolute"></div>
+        <div className="ovrlyabg bg-black/60 w-full h-[100dvh] z-0 absolute"></div>
         {/* <header className="overflow-hidden w-full"> */}
         <header className="w-full">
           <div className="container   flex justify-center  lg:!px-[15px]">
