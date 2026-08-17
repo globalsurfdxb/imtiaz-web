@@ -83,7 +83,7 @@ const EventHero = ({ event }: Props) => {
 
           {/* Meta bar */}
           <div className="absolute bottom-0 left-0 right-0 flex py-[25px] md:py-20 items-end justify-center bg-white/20 backdrop-blur-[30px]">
-            <div className="flex items-center lg:gap-x-50 gap-x-2  sm:gap-x-10 md:gap-x-50">
+            <div className="grid grid-cols-[40%_60%] md:flex items-center lg:gap-x-50 gap-x-2 px-[10px] sm:gap-x-10 md:gap-x-50">
               {/* Date */}
               <motion.div
                 variants={moveUp(0)}
@@ -109,7 +109,7 @@ const EventHero = ({ event }: Props) => {
                 </span>
               </motion.div>
 
-              <div className="relative w-px h-[50px] lg:h-[72px] overflow-hidden">
+              <div className="hidden md:block relative w-px h-[50px] lg:h-[72px] overflow-hidden">
                 <motion.div
                   className="absolute inset-0 origin-center"
                   style={{

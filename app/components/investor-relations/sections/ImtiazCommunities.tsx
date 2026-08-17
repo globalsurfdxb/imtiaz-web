@@ -78,10 +78,6 @@ export default function HeroFeatureSlider({
     once: true,
   });
 
-
-
-
-
   useEffect(() => {
     const handleResize = () => {
       setBp(window.innerWidth < 768 ? "mobile" : "desktop");
@@ -159,11 +155,11 @@ export default function HeroFeatureSlider({
   const gap = bp === "mobile" ? "20px" : "50px";
 
   useEffect(() => {
-  const current = communities[activeFeat] ?? communities[0];
-  const img = getImageForBp(current);
-  if (img) switchBg(img);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [bp]);
+    const current = communities[activeFeat] ?? communities[0];
+    const img = getImageForBp(current);
+    if (img) switchBg(img);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bp]);
 
   return (
     <section
@@ -315,8 +311,9 @@ export default function HeroFeatureSlider({
                       }}
                     >
                       <div
-                        className={`absolute inset-0 transition-opacity duration-400 ${active ? "opacity-100" : "opacity-0"
-                          }`}
+                        className={`absolute inset-0 transition-opacity duration-400 ${
+                          active ? "opacity-100" : "opacity-0"
+                        }`}
                         style={{
                           background:
                             "linear-gradient(180deg, rgba(0,0,0,0) 7.68%, rgba(0,0,0,0.66) 100%)",
@@ -379,15 +376,17 @@ export default function HeroFeatureSlider({
                           </motion.div>
 
                           {/* Pagination (only below 1540px) */}
-                          <div className="flex md:hidden justify-center mt-[50px] gap-[10px] min-[1540px]:hidden">
+                          <div className="flex md:hidden justify-center mt-[50px] gap-[10px] min-[1540px]:hidden pointer-events-auto">
                             {communities.map((_, i) => (
                               <button
                                 key={i}
-                                // onClick={() => swiperRef.current?.slideToLoop(i)}
-                                className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${i === activeFeat
-                                  ? "bg-white"
-                                  : "bg-transparent"
-                                  }`}
+                                type="button"
+                                onClick={() => swiper?.slideToLoop(i)}
+                                className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${
+                                  i === activeFeat
+                                    ? "bg-white"
+                                    : "bg-transparent"
+                                }`}
                               />
                             ))}
                           </div>

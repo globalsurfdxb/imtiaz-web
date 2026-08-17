@@ -16,45 +16,55 @@ import { SectionDescription } from "../../animations/SectionDescription";
 import { moveLeft, moveRight } from "../../motionVariants";
 
 type TimeLineSlider = {
-  title:string;
-  description:string;
-  slides:{
-    year:string;
-    title:string;
-    image:string;
-    mobileImage?:string;
-  }[]
-}
+  title: string;
+  description: string;
+  slides: {
+    year: string;
+    title: string;
+    image: string;
+    mobileImage?: string;
+  }[];
+};
 
-export default function TimelineSlider({data}:{data:TimeLineSlider}) {
+export default function TimelineSlider({ data }: { data: TimeLineSlider }) {
   const { title, description, slides } = data;
 
   const [activeIndex, setActiveIndex] = useState(0);
   const mainSwiperRef = useRef<SwiperType | null>(null);
   const yearSwiperRef = useRef<SwiperType | null>(null);
-  const isSyncing = useRef(false);
 
   const syncTo = (source: "main" | "year", realIndex: number) => {
-    // Always update state — never block this
-    setActiveIndex(realIndex);
+  setActiveIndex(realIndex);
+  if (source === "main") {
+    yearSwiperRef.current?.slideToLoop(realIndex, 600);
+  } else {
+    mainSwiperRef.current?.slideToLoop(realIndex, 600);
+  }
+};
 
-    // Only block the cross-swiper call, not the state update
-    if (isSyncing.current) return;
-    isSyncing.current = true;
+const jumpToYear = (index: number) => {
+  setActiveIndex(index);
+  mainSwiperRef.current?.slideToLoop(index, 600);
+  yearSwiperRef.current?.slideToLoop(index, 600);
+};
 
-    if (source === "main") {
-      yearSwiperRef.current?.slideToLoop(realIndex, 600);
-    } else {
-      mainSwiperRef.current?.slideToLoop(realIndex, 600);
-    }
+  const goPrev = () => {
+    const swiper = mainSwiperRef.current;
+    if (!swiper || swiper.animating) return;
+    swiper.slidePrev();
+  };
 
-    setTimeout(() => {
-      isSyncing.current = false;
-    }, 650);
+  const goNext = () => {
+    const swiper = mainSwiperRef.current;
+    if (!swiper || swiper.animating) return;
+    swiper.slideNext();
   };
 
   return (
-    <section data-header="dark" className="w-full overflow-hidden bg-white py-120 2xl:pb-130">
+    <section
+      data-header="dark"
+      className="w-full overflow-hidden bg-white py-120 2xl:pb-130"
+    >
       <div className="w-full flex-col gap-20 items-center justify-center text-center mb-[30px] md:mb-50 container">
         <SectionHeading
           title={title}
@@ -76,7 +86,7 @@ export default function TimelineSlider({data}:{data:TimeLineSlider}) {
             <SliderArrowButton
               direction="prev"
               variant="dark"
-              onClick={() => mainSwiperRef.current?.slidePrev()}
+              onClick={goPrev}
             />
           </motion.div>
           <motion.div
@@ -89,7 +99,7 @@ export default function TimelineSlider({data}:{data:TimeLineSlider}) {
             <SliderArrowButton
               direction="next"
               variant="dark"
-              onClick={() => mainSwiperRef.current?.slideNext()}
+              onClick={goNext}
             />
           </motion.div>
         </div>
@@ -194,7 +204,7 @@ export default function TimelineSlider({data}:{data:TimeLineSlider}) {
             <SliderArrowButton
               direction="prev"
               variant="dark"
-              onClick={() => mainSwiperRef.current?.slidePrev()}
+              onClick={goPrev}
             />
           </motion.div>
           <motion.div
@@ -207,7 +217,7 @@ export default function TimelineSlider({data}:{data:TimeLineSlider}) {
             <SliderArrowButton
               direction="next"
               variant="dark"
-              onClick={() => mainSwiperRef.current?.slideNext()}
+              onClick={goNext}
             />
           </motion.div>
         </div>
@@ -251,16 +261,7 @@ export default function TimelineSlider({data}:{data:TimeLineSlider}) {
               <SwiperSlide
                 key={`year-${slide.year}-${index}`}
                 className="!w-[120px] sm:!w-[220px] lg:!w-[300px] 3xl:!w-[409px] cursor-pointer"
-                onClick={() => {
-                  setActiveIndex(index);
-                  if (isSyncing.current) return;
-                  isSyncing.current = true;
-                  mainSwiperRef.current?.slideToLoop(index, 600);
-                  yearSwiperRef.current?.slideToLoop(index, 600);
-                  setTimeout(() => {
-                    isSyncing.current = false;
-                  }, 650);
-                }}
+                onClick={() => jumpToYear(index)}
               >
                 <span
                   className={`block text-center font-normal transition-colors duration-300 text-heading ${isActive ? "text-primary" : "text-primary/30"}`}

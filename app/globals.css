@@ -712,18 +712,29 @@ body {
 .blog-content > * + * {
   margin-top: var(--space-20);
 }
- 
-/* Double enter — empty <p> becomes a spacer block */
-.blog-content p:empty,
+
+/* .blog-content p:empty,
 .blog-content p:has(> br:only-child) {
   display: block;
   height: var(--space-50);
   margin: 0 !important;
 }
  
-/* Cancel top margin on element immediately after the spacer */
 .blog-content p:empty + *,
 .blog-content p:has(> br:only-child) + * {
+  margin-top: 0 !important;
+} */
+
+
+/* Double enter — empty <p> becomes a spacer block */
+.blog-content p.blog-spacer-p {
+  display: block;
+  height: var(--space-50);
+  margin: 0 !important;
+}
+
+/* Cancel top margin on element immediately after the spacer */
+.blog-content p.blog-spacer-p + * {
   margin-top: 0 !important;
 }
  

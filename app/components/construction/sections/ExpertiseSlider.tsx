@@ -15,7 +15,7 @@ export interface ExpertiseItem {
   title: string;
   description: string;
   image: string;
-  mobileImage:string;
+  mobileImage: string;
 }
 
 export interface ExpertiseSection {
@@ -23,9 +23,11 @@ export interface ExpertiseSection {
   slides: ExpertiseItem[];
 }
 
-export default function ExpertiseSlider({data}:{data:ExpertiseSection}) {
+export default function ExpertiseSlider({ data }: { data: ExpertiseSection }) {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
 
   useEffect(() => {
     if (window.innerWidth < 1280) setActiveIndex(0);
@@ -47,7 +49,15 @@ export default function ExpertiseSlider({data}:{data:ExpertiseSection}) {
         <div className="w-full px-[10px]">
           <Swiper
             modules={[Autoplay]}
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+              setIsBeginning(swiper.isBeginning);
+              setIsEnd(swiper.isEnd);
+            }}
+            onSlideChange={(swiper) => {
+              setIsBeginning(swiper.isBeginning);
+              setIsEnd(swiper.isEnd);
+            }}
             onActiveIndexChange={(swiper) => {
               setActiveIndex(window.innerWidth >= 1280 ? -1 : swiper.realIndex);
             }}
@@ -145,11 +155,13 @@ export default function ExpertiseSlider({data}:{data:ExpertiseSection}) {
           <SliderArrowButton
             direction="prev"
             variant="dark"
+            disabled={isBeginning}
             onClick={() => swiperRef.current?.slidePrev()}
           />
           <SliderArrowButton
             direction="next"
             variant="dark"
+            disabled={isEnd}
             onClick={() => swiperRef.current?.slideNext()}
           />
         </div>

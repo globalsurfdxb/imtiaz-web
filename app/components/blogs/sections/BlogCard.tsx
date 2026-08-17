@@ -80,7 +80,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-end items-center py-[30px] md:py-40 px-50 z-30">
           <p className="text-white/80 font-[avenirBook] text-[14px] md:text-16 mb-20 leading-[1.54] capitalize">
-            {blog.category} - {formatted(blog.date)}
+            {blog.category} <span className={`${blog.category?.length > 0  ?  'block' : 'hidden'}`}>-</span> {formatted(blog.date)}
           </p>
           <h3 className="text-white uppercase text-[18px] md:text-25 leading-[1.5] md:leading-[1.4] mb-5 md:mb-40 text-center">
             {blog.title}
