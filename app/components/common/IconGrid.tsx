@@ -113,7 +113,7 @@ export default function IconGrid({ data, bgClass }: Props) {
         </div>
 
         {/* ── BELOW lg: 2 cards per slide ── */}
-        <div className="mt-[50px] lg:hidden">
+        <div className={`${pairedSlides?.length > 0 ? "mt-[50px]" : ""} lg:hidden `}>
           <Swiper
             modules={[Autoplay]}
             autoplay={{ delay: 4000, disableOnInteraction: false }}

@@ -9,10 +9,9 @@ import CustomOutlineButton from "../../common/CustomOutlineButton";
 import { moveUp, moveUpV2 } from "../../motionVariants";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
-import "swiper/css/effect-fade";
 import { useParallax } from "@/app/hooks/useParallax";
 import SliderArrowButton from "../../common/SliderNavigationButton";
 import Link from "next/link";
@@ -74,9 +73,9 @@ const RelatedBlogs = ({ data, currentBlog }: { data: BlogListingData['listing'],
           className="relative w-full  md:hidden mt-5  "
         >
           <Swiper
-            modules={[Autoplay, EffectFade]}
-            effect="fade"
-            fadeEffect={{ crossFade: true }}
+            modules={[Autoplay]}
+            speed={800}
+            spaceBetween={15}
             autoplay={{ delay: 5000, disableOnInteraction: false }}
             loop
             onSwiper={(swiper) => (swiperRef.current = swiper)}

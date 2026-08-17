@@ -17,8 +17,8 @@ interface InnerHeroProps {
   payment_plan: string;
   starting_price: string;
   delivery_date: string;
-  mobileImage?:string;
-  mobileVideo?:string;
+  mobileImage?: string;
+  mobileVideo?: string;
 }
 
 const ZOOM_OUT_DURATION = 2.2;
@@ -38,7 +38,7 @@ const InnerHeroBanner = ({
   starting_price,
   delivery_date,
   mobileImage,
-  mobileVideo
+  mobileVideo,
 }: InnerHeroProps) => {
   console.log(video, image, "video image");
   const imageWrapperRef = useRef<HTMLDivElement>(null);
@@ -145,47 +145,45 @@ const InnerHeroBanner = ({
       >
         {hasVideo ? (
           <>
-          <video
-            src={video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover object-center 2xl:object-bottom hidden lg:block"
-          />
+            <video
+              src={video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover object-center 2xl:object-bottom hidden lg:block"
+            />
 
-          <video
-            src={mobileVideo ? mobileVideo : video}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover object-center 2xl:object-bottom lg:hidden"
-          />
-
+            <video
+              src={mobileVideo ? mobileVideo : video}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover object-center 2xl:object-bottom lg:hidden"
+            />
           </>
         ) : image && image.trim().length > 0 ? (
           <>
-          <Image
-            src={image}
-            alt="title"
-            fill
-            sizes="100vw"
-            className="object-cover object-center 2xl:object-bottom hidden lg:block"
-            priority
-            onLoad={handleImageLoad}
-          />
+            <Image
+              src={image}
+              alt="title"
+              fill
+              sizes="100vw"
+              className="object-cover object-center 2xl:object-bottom hidden lg:block"
+              priority
+              onLoad={handleImageLoad}
+            />
 
-          <Image
-            src={mobileImage ? mobileImage : image}
-            alt="title"
-            fill
-            sizes="100vw"
-            className="object-cover object-center 2xl:object-bottom lg:hidden"
-            priority
-            onLoad={handleImageLoad}
-          />
-
+            <Image
+              src={mobileImage ? mobileImage : image}
+              alt="title"
+              fill
+              sizes="100vw"
+              className="object-cover object-center 2xl:object-bottom lg:hidden"
+              priority
+              onLoad={handleImageLoad}
+            />
           </>
         ) : null}
       </div>

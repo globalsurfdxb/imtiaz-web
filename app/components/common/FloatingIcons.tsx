@@ -254,11 +254,14 @@ import Image from "next/image";
 import EnquiryForm from "@/app/components/auth/EnquiryForm";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
+import { useLenis } from "@/app/contexts/LenisContext";
 
 export default function FloatingMobileIcons() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [enquiryOpen, setEnquiryOpen] = useState(false);
   const [enquiryVisible, setEnquiryVisible] = useState(false);
+
+  const { lock, unlock } = useLenis();
 
   const backdropRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -297,6 +300,36 @@ export default function FloatingMobileIcons() {
       );
     }, 50);
   }, [enquiryOpen]);
+
+  // ── Body/Lenis scroll lock while modal is open
+  useEffect(() => {
+    if (!enquiryOpen) return;
+
+    const scrollY = window.scrollY;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+    lock(); // stop Lenis raf-driven smooth scroll
+
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.paddingRight = "";
+      window.scrollTo(0, scrollY);
+
+      unlock(); // resume Lenis
+    };
+  }, [enquiryOpen, lock, unlock]);
 
   // ── Modal close animation
   const closeModal = () => {

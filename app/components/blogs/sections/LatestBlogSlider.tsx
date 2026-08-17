@@ -112,7 +112,7 @@ const LatestBlogSlider = ({ blogs }: { blogs: Blog[] }) => {
                   ease: [0.25, 0.1, 0.25, 1],
                 }}
               >
-                {activeBlog.category} · {formatted(activeBlog.date)}
+                {activeBlog.category} <span className={`${activeBlog.category?.length > 0  ?  'block' : 'hidden'}`}>·</span> {formatted(activeBlog.date)}
               </motion.p>
             </AnimatePresence>
 

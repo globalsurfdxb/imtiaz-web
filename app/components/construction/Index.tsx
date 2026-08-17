@@ -10,7 +10,7 @@ const Index = ({ data }: any) => {
 const bannerData = {
   video: data?.page_banner_video_desktop,
   poster:data?.page_banner_desktop,
-  mobilePoster:data?.page_banner_mobile,
+  mobilePoster:data?.page_banner_desktop,
   mobileVideo:data?.banner_video_mobile,
   title: data?.page_banner_title,
   description: data?.page_banner_caption,

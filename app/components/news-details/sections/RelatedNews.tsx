@@ -9,10 +9,9 @@ import Reveal from "../../animations/RevealOneByOneAnimation";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
-import "swiper/css/effect-fade";
 import SliderArrowButton from "../../common/SliderNavigationButton";
 import { useParallax } from "@/app/hooks/useParallax";
 import Link from "next/link";
@@ -79,11 +78,11 @@ const RelatedNews = ({ data, currentNews }: { data: NewsListingResponse['data'],
           className="relative w-full  md:hidden mt-5  "
         >
           <Swiper
-            modules={[Autoplay, EffectFade]}
-            effect="fade"
-            fadeEffect={{ crossFade: true }}
+            modules={[Autoplay]}
             autoplay={{ delay: 5000, disableOnInteraction: false }}
+            spaceBetween={15}
             loop
+            speed={800}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             className="w-full h-full"
