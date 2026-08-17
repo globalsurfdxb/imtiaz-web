@@ -114,10 +114,10 @@ import "swiper/css";
 import { useState } from "react";
 
 interface Stats {
-  location:string,
-  payment_plan:string,
-  starting_price:string,
-  delivery_date:string
+  location: string;
+  payment_plan: string;
+  starting_price: string;
+  delivery_date: string;
 }
 
 interface PropertyStatProps {
@@ -148,32 +148,34 @@ function PropertyStat({ label, value, icon }: PropertyStatProps) {
   );
 }
 
-
-
-export default function BannerDetails({location,payment_plan,starting_price,delivery_date}:Stats) {
-
+export default function BannerDetails({
+  location,
+  payment_plan,
+  starting_price,
+  delivery_date,
+}: Stats) {
   const stats = [
-  {
-    label: "Location",
-    value: location,
-    icon: "/images/projects/mark1.svg",
-  },
-  {
-    label: "Payment Plan",
-    value: payment_plan,
-    icon: "/images/projects/mark2.svg",
-  },
-  {
-    label: "Starting At",
-    value: starting_price,
-    icon: "/images/projects/mark3.svg",
-  },
-  {
-    label: "Delivery Date",
-    value: delivery_date,
-    icon: "/images/projects/mark4.svg",
-  },
-];
+    {
+      label: "Location",
+      value: location,
+      icon: "/images/projects/mark1.svg",
+    },
+    {
+      label: "Payment Plan",
+      value: payment_plan,
+      icon: "/images/projects/mark2.svg",
+    },
+    {
+      label: "Starting At",
+      value: starting_price,
+      icon: "/images/projects/mark3.svg",
+    },
+    {
+      label: "Delivery Date",
+      value: delivery_date,
+      icon: "/images/projects/mark4.svg",
+    },
+  ];
 
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -226,7 +228,7 @@ export default function BannerDetails({location,payment_plan,starting_price,deli
             {stats.map((_, i) => (
               <button
                 key={i}
-                onClick={() => swiper?.slideTo(i)}
+                onClick={() => swiper?.slideToLoop(i)}
                 className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${
                   i === activeIndex ? "bg-white" : "bg-transparent"
                 }`}

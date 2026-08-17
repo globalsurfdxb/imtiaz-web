@@ -26,7 +26,7 @@ const EventHero = ({title}:{title:string}) => {
 
         {/* Title */}
         <SectionHeading
-          title={title}
+          title={title ? title : "No construction progress found"}
           className="max-w-[32ch] text-foreground text-center uppercase mt-[40px] md:mt-100 tracking-[-0.03em] sm:-tracking-normal"
         />
  

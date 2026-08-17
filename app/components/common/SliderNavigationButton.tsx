@@ -7,10 +7,11 @@ type SliderArrowButtonProps = {
   onClick?: () => void;
   direction?: "prev" | "next";
   variant?: "dark" | "light";
+  disabled?: boolean;
 };
 
 const SliderArrowButton = forwardRef<HTMLButtonElement, SliderArrowButtonProps>(
-  ({ onClick, direction = "prev", variant = "dark" }, ref) => {
+  ({ onClick, direction = "prev", variant = "dark", disabled = false }, ref) => {
     const isNext = direction === "next";
     const isDark = variant === "dark";
 
@@ -18,7 +19,9 @@ const SliderArrowButton = forwardRef<HTMLButtonElement, SliderArrowButtonProps>(
       <button
         ref={ref}
         onClick={onClick}
-        className={`relative w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] cursor-pointer group rounded-[50px] flex items-center justify-center overflow-hidden ${isDark ? "border border-[#404040]" : "border border-white"}`}
+        disabled={disabled}
+        aria-disabled={disabled}
+        className={`relative w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group rounded-[50px] flex items-center justify-center overflow-hidden transition-opacity duration-300 ${isDark ? "border border-[#404040]" : "border border-white"} ${disabled ? "opacity-30 cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}
       >
         {/* Hover fill */}
         <span
