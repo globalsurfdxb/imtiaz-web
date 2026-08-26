@@ -32,7 +32,7 @@ const FooterAccordion = ({ latestProjects,latestCommunities }: { latestProjects:
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
   return (
-    <div className="sm:hidden bg-white/2">
+    <div className="lg:hidden bg-white/2">
       {footerV2Data.columns.map((col, i) => {
         const items = getColumnItems(col, latestProjects, latestCommunities);
         return (
@@ -82,7 +82,7 @@ const FooterAccordion = ({ latestProjects,latestCommunities }: { latestProjects:
 
 // ---- Grid (sm+) ----
 const FooterGrid = ({ latestProjects, latestCommunities }: { latestProjects: LatestProject[], latestCommunities:LatestProject[] }) => (
-  <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 xl:gap-10 container">
+  <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 xl:gap-10 container">
     {footerV2Data.columns.map((col, i) => {
       const items = getColumnItems(col, latestProjects, latestCommunities);
       return (
@@ -110,7 +110,8 @@ const FooterGrid = ({ latestProjects, latestCommunities }: { latestProjects: Lat
 // ---- Section wrapper (drop-in replacement) ----
 const FooterColumns = ({ latestProjects = [], latestCommunities = [] }: { latestProjects?: LatestProject[],latestCommunities?:LatestProject[] }) => {
   return (
-  <div className="pt-[30px] md:py-100 min-[1500px]:py-50 min-[1600px]:pt-100 3xl:py-100">
+  // <div className="pt-[30px] md:py-50">
+  <div className="">
     <div>
           <FooterAccordion latestProjects={latestProjects} latestCommunities={latestCommunities}/>
           <FooterGrid latestProjects={latestProjects} latestCommunities={latestCommunities}/>

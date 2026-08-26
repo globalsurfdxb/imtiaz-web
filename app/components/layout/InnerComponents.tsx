@@ -27,7 +27,7 @@ export default function InnerLayout({
     <>
       <InnerHeader menuData={menuData}/>
       {children}
-      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []} latestCommunities={communityData?.data?.listing?.slice(0, 6) ?? []}/>
+      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []} latestCommunities={communityData?.data?.listing?.slice(0, 8) ?? []}/>
     </>
   );
 }

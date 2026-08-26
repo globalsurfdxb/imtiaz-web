@@ -39,7 +39,7 @@ export default function RootLayout({
       <LenisUnlock />
       <HeaderWithHamburger menuData={menuData.data.listing} />
       {children}
-      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []} latestCommunities={communityData?.data?.listing?.slice(0, 6) ?? []}/>
+      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []} latestCommunities={communityData?.data?.listing?.slice(0, 8) ?? []}/>
     </>
   )
 }
