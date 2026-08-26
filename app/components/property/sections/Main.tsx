@@ -77,7 +77,7 @@ const EmptyState = () => (
   </div>
 );
 
-const Main = ({ data }: {data:PropertiesPageData}) => {
+const Main = ({ data, communitiesData }: {data:PropertiesPageData, communitiesData:any}) => {
 
   const propertyTypes = useMemo(() => {
     return [
@@ -99,15 +99,11 @@ const Main = ({ data }: {data:PropertiesPageData}) => {
     ];
   }, [data]);
 
-  const communities = useMemo(() => {
-    return [
-      ...new Set(
-        data.listing
-          .map((item: { property_community: string }) => item.property_community)
-          .filter(Boolean),
-      ),
-    ];
-  }, [data]);
+const communities = useMemo(() => {
+  return communitiesData.listing.map(
+    (item: { title: string }) => item.title,
+  );
+}, [communitiesData]);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -484,7 +480,7 @@ useEffect(() => {
               ) : (
                 <div className="project-card-grid">
                   {paginated.map((project, i) => (
-                    <Reveal variants={moveUpV2} key={i} delayRange={i * 0.11}>
+                    <Reveal variants={moveUpV2} key={i} delayRange={i * 0.08}>
                       <ProjectCard
                         
                         image={project.featured_image_desktop}

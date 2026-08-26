@@ -691,7 +691,7 @@ export default function ProjectCard({
                         strokeWidth="1.44"
                       />
                     </svg>
-                    <span className="text-white/80 text-description">
+                    <span className="text-white/80 text-description uppercase">
                       {location}
                     </span>
                   </>

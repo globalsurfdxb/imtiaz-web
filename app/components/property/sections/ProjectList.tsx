@@ -393,7 +393,7 @@ useEffect(() => {
                     <Reveal
                       variants={moveUpV2}
                       key={index}
-                      delayRange={index * 0.11}
+                      delayRange={index * 0.08}
                     >
                       <PropertyCard
                         id={index.toString()}
