@@ -72,7 +72,7 @@ export default function PropertyCard({
               strokeWidth="1.44"
             />
           </svg>
-          <span className="text-16 leading-[1.563]">{location}</span>
+          <span className="text-16 leading-[1.563] uppercase">{location}</span>
         </div>
 
         <div
