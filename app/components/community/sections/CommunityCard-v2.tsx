@@ -55,7 +55,7 @@ const CommunityCard = ({ card }: { card: CommunityCardType }) => {
   };
 
   return (
-    <div className="grid lg:grid-cols-2 3xl:grid-cols-[1044px_1fr]">
+    <div className="grid lg:grid-cols-[60%_1fr] xl:grid-cols-[70%_1fr] 2xl:grid-cols-[64%_1fr] min-[1900px]:grid-cols-[58.6517%_1fr]">
       <div
         className="relative w-full h-[370px] md:h-[400px] lg:h-[520px] 3xl:h-[579px] overflow-hidden  select-none"
         onMouseEnter={() => setIsHovered(true)}
