@@ -138,7 +138,7 @@ const InnerHeroBanner = ({
           src={image}
           alt={title}
           fill
-          className="object-cover object-center 2xl:object-bottom hidden lg:block"
+          className="object-cover object-center 2xl:object-top hidden lg:block"
           priority
           onLoad={handleImageLoad}
         />

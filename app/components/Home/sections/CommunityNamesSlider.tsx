@@ -428,6 +428,8 @@
 //   );
 // }
 
+
+
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -625,7 +627,7 @@ export default function HeroFeatureSlider({
             initial={{ opacity: 1 }}
             animate={{ opacity: 0.9 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute inset-0 w-full h-full bg-cover bg-center scale-[1.1]"
+            className="absolute inset-0 w-full h-full bg-cover bg-top"
             style={{ backgroundImage: `url('${prevBg}')` }}
           />
         )}
@@ -635,7 +637,7 @@ export default function HeroFeatureSlider({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="absolute inset-0 w-full h-full bg-cover bg-center scale-[1.1]"
+            className="absolute inset-0 w-full h-full bg-cover bg-top"
             style={{ backgroundImage: `url('${bgBase}')` }}
           />
         )}
