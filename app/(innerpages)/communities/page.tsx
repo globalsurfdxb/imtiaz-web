@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Index from "@/app/components/community-new/Index";
+import Index from "@/app/components/community-new-v2/IndexV2";
 import { headers } from "next/headers";
 
 async function getCommunitiesData() {
