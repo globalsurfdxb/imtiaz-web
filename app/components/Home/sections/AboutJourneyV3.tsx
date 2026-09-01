@@ -372,7 +372,8 @@ useEffect(() => {
       >
         {/* VIDEO */}
         <video
-          src={mobileVideo}
+          // src={mobileVideo}
+          src="/videos/combine-handover-9*16.mp4"
           poster={posterMobile}
           autoPlay
           muted
