@@ -69,6 +69,9 @@ export type HomePageResponse = {
     page_hero_poster_mobile: string;
     page_section1_video: string;
     page_section3_video: string;
+    page_section3_video_mobile: string;
+    page_section3_subtitle: string;
+    page_section3_caption: string;
     page_section4_video: string;
     page_section7_video: string;
     page_banner_title: string;

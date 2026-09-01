@@ -423,7 +423,10 @@ type HeroSliderProps = {
   slides: SlideData[];
   RightLabel?: string;
   video: string;
+  mobileVideo: string;
   title: string;
+  subtitle: string;
+  caption: string;
   buttonText: string;
   url: string;
 };
@@ -445,7 +448,10 @@ export default function HeroSlider({
   slides,
   RightLabel,
   video,
+  mobileVideo,
   title,
+  subtitle,
+  caption,
   buttonText,
   url,
 }: HeroSliderProps) {
@@ -550,7 +556,7 @@ export default function HeroSlider({
                   className="w-full h-full object-cover scale-[1.08] hidden md:block"
                 />
                 <video
-                  src={video}
+                  src={mobileVideo || video}
                   autoPlay
                   loop
                   muted
@@ -578,9 +584,34 @@ export default function HeroSlider({
                         custom={0.2}
                         initial="hidden"
                         animate={inView ? "show" : "hidden"}
-                        className="text-white  uppercase text-heading text-center"
+                        className="text-white  uppercase text-25 text-center"
                       >
                         {title}
+                      </motion.h1>
+                    </div>
+
+                    <div className="overflow-hidden mb-[11px] lg:mb-50">
+                      <motion.h1
+                        variants={fadeUp}
+                        // custom={0.3}
+                        custom={0.2}
+                        initial="hidden"
+                        animate={inView ? "show" : "hidden"}
+                        className="text-white  uppercase text-heading text-center"
+                      >
+                        {subtitle}
+                      </motion.h1>
+                    </div>
+                                        <div className="overflow-hidden">
+                      <motion.h1
+                        variants={fadeUp}
+                        // custom={0.3}
+                        custom={0.2}
+                        initial="hidden"
+                        animate={inView ? "show" : "hidden"}
+                        className="text-white text-description text-center max-w-[40ch] mx-auto"
+                      >
+                        {caption}
                       </motion.h1>
                     </div>
 
