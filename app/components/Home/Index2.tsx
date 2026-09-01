@@ -945,11 +945,14 @@ export default function Index({
       {data?.page_show_section3 === "true" && (
         <div ref={snapRef4 as React.RefObject<HTMLDivElement>}>
           <ProSliderComingSoonV3
+            mobileVideo={data?.page_section3_video_mobile}
             slides={heroSlidesComingSoon}
             video={data?.page_section3_video}
             title={data?.page_section3_title}
             buttonText={data?.page_section3_buttontext}
             url={data?.page_section3_buttonurl}
+            subtitle={data?.page_section3_subtitle}
+            caption={data?.page_section3_caption}
           />
         </div>
       )}
