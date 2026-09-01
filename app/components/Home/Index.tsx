@@ -574,7 +574,10 @@ export default function Index({
           <ProSliderComingSoonV3
             slides={heroSlidesComingSoon}
             video={data?.page_section3_video}
+            mobileVideo={data?.page_section3_video_mobile}
             title={data?.page_section3_title}
+            subtitle={data?.page_section3_subtitle}
+            caption={data?.page_section3_caption}
             buttonText={data?.page_section3_buttontext}
             url={data?.page_section3_buttonurl}
           />
