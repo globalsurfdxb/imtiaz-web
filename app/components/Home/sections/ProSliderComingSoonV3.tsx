@@ -550,7 +550,7 @@ export default function HeroSlider({
                   className="w-full h-full object-cover scale-[1.08] hidden md:block"
                 />
                 <video
-                  src={slide.mobileVideo}
+                  src={video}
                   autoPlay
                   loop
                   muted
@@ -617,7 +617,7 @@ export default function HeroSlider({
                         initial="hidden"
                         animate={inView ? "show" : "hidden"}
                       >
-                        <Link href={url}>
+                        <Link href={url} target="_blank">
                           <CustomOutlineButton
                             text={buttonText}
                             borderColor="border-white"
