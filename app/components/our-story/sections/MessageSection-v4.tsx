@@ -300,7 +300,7 @@ export default function MessageSection({ data }: Props) {
         <div className="content-spacing-mobile-padding">
           <SectionDescription
             text={data.description}
-            className="text-description max-mdtext-center text-foreground-light whitespace-pre-line mb-[50px] mt-12.5 sm:mt-0"
+            className="text-description max-md:text-center text-foreground-light whitespace-pre-line mb-[50px] mt-12.5 sm:mt-0"
           />
           <div className="min-[640px]:hidden mb-[50px] text-center">
             <motion.p
