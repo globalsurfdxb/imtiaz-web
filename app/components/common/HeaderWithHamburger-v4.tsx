@@ -194,7 +194,7 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
         {/* <header className="overflow-hidden w-full"> */}
         <header className="w-full">
           <div className="container flex justify-center  lg:!px-[15px]">
-            <div className="hdrcnts flex items-center justify-between md:rounded-[150px] md:py-[15px] md:px-20 xl:pl-30 w-full relative h-[100dvh]">
+            <div className="hdrcnts flex items-center justify-between md:rounded-[150px] md:py-[15px] md:px-20 xl:pl-30 w-full relative h-[100dvh] md:mt-5">
               <div
                 className={clsx(
                   // max-md:hidden removes the whole blurred pill below md — only icons + logo remain (a gradient stands in, see .hdrgrad)
