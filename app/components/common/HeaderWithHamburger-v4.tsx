@@ -206,7 +206,7 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
               {/* ------- LEFT MENU ------- */}
               <div className="flex items-center w-[35%] sm:w-[40%] 2xl:w-[33.33%] mnhmns">
                 <button
-                  className="flex items-center justify-center w-[40px] h-[40px] cursor-pointer opacity-0"
+                  className="flex items-center justify-start md:justify-center w-[40px] h-[40px] cursor-pointer opacity-0"
                   onClick={() => setIsMenuOpen(true)}
                 >
                   <Image
