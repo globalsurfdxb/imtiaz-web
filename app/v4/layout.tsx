@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
-import "../globals.css";
-import HeaderWithHamburger from "../components/common/HeaderWithHamburger";
+import "./v4-globals.css";
+import HeaderWithHamburger from "../components/common/HeaderWithHamburger-v4";
 import ScrollToTopReload from "../components/common/ScrollToTopReload";
 import LenisUnlock from "../components/common/LenisUnlock";
-import InnerFooter from "../components/layout/InnerFooter";
+import InnerFooter from "../components/layout/InnerFooter-v4";
 
 export const metadata: Metadata = {
   title: "IMTIAZ",

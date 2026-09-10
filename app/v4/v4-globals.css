@@ -212,8 +212,8 @@ html {
 /* 30px → 24px at 390px, 30px at 1810px */
 --text-30: clamp(24px, 0.81vw + 17.3px, 30px);
  
-/* 25px → 16px at 390px, 25px at 1810px */
---text-25: clamp(18px, 0.63vw + 13.5px, 25px);
+/* 16px at 390px, 25px at 1810px */
+--text-25: clamp(16px, 0.63vw + 13.5px, 25px);
  
 /* 19px → 13px at 390px, 19px at 1810px */
 --text-19: clamp(14.5px, 0.42vw + 11.4px, 19px);
@@ -222,7 +222,7 @@ html {
 --text-18: clamp(15px, 0.35vw + 11.6px, 18px);
  
 /* 16px → 12px at 390px, 16px at 1810px */
---text-16: clamp(14px, 14px + (100vw - 441px) * 999, 16px);
+--text-16: clamp(12px, calc(12px + (16 - 12) * ((100vw - 420px) / (1280 - 420))), 16px);
  
  
 /* 20px → 12px at 390px, 20px at 1810px */
@@ -341,11 +341,11 @@ html {
 }
  
 @utility text-heading {
-  @apply font-[optima] font-[550] uppercase leading-[1.252] md:leading-[1.36] lg:leading-[1.2] text-[24px] md:text-50;
+  @apply font-[optima] font-[550] uppercase leading-[1.252] md:leading-[1.36] lg:leading-[1.2] text-[25px] md:text-50;
 }
  
 @utility text-description {
-  @apply font-[avenirBook] text-16 leading-[1.9] md:leading-[1.54375];
+  @apply font-[avenirBook] text-16 leading-[1.6] md:leading-[1.54375];
 }
 
 .text-description {
@@ -445,6 +445,14 @@ body {
  
 @media (min-width: 1850px) {
   .container { max-width: 1810px; }
+}
+
+.content-spacing-mobile {
+  @apply mx-5 sm:mx-0
+}
+
+.content-spacing-mobile-padding {
+  @apply px-5 sm:px-0
 }
  
 /* Base: light text (over dark background) */

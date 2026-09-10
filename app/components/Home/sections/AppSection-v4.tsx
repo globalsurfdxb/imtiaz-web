@@ -78,7 +78,7 @@ const AppSection = ({
     <section
       ref={section5Ref}
       // className="make-header-black w-full py-[70px] lg:py-120 3xl:py-[130px] bg-gray relative z-10"
-      className="make-header-black w-full h-[100svh] pt-[40px] lg:pt-0 flex items-start md:items-center justify-center bg-gray relative z-10 overflow-hidden"
+      className="make-header-black w-full h-[100svh] pt-[100px] md:pt-0 flex items-start md:items-center justify-center bg-gray relative z-10 overflow-hidden"
     >
       <div
         className="container"
@@ -131,7 +131,7 @@ const AppSection = ({
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="text-description text-[#404040] mb-[30px] md:mb-50 max-w-[58ch] text-center"
+                className="text-description text-[#404040] mb-5 md:mb-50 max-w-[58ch] text-center content-spacing-mobile"
               >
                 {description}
               </motion.p>

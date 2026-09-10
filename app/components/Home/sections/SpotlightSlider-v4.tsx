@@ -5,8 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 // import { spotlight } from "../data";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
-import SliderArrowButton from "../../common/SliderNavigationButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import { moveUp, itemVariants } from "../../motionVariants";
 
 export type SpotlightSlide = {

@@ -360,7 +360,7 @@
 //                 alt="Next"
 //                 width={28}
 //                 height={28}
-//                 className="relative z-10 object-contain w-[28px] h-[28px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+//                 className="relative z-10 object-contain w-[28px] h-[28px] max-md:w-[14px] max-md:h-[14px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
 //               />
 //             </button>
 //             {/* Pagination Dots */}
@@ -375,7 +375,7 @@
 //                 alt="Next"
 //                 width={28}
 //                 height={28}
-//                 className="relative rotate-180 z-10 object-contain w-[28px] h-[28px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+//                 className="relative rotate-180 z-10 object-contain w-[28px] h-[28px] max-md:w-[14px] max-md:h-[14px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
 //               />
 //             </button>
 //           </div>
@@ -392,9 +392,9 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Navigation, Autoplay } from "swiper/modules";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { createPortal } from "react-dom";
-import RegisterInterestForm from "@/app/components/Home/sections/RegisterInterestForm";
+import RegisterInterestForm from "@/app/components/Home/sections/RegisterInterestForm-v4";
 // import type { Swiper as SwiperType } from "swiper";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -574,7 +574,7 @@ export default function HeroSlider({
                     initial="hidden"
                     animate={inView ? "show" : "hidden"}
                     exit="exit"
-                    className="flex flex-col justify-between items-center "
+                    className="flex flex-col justify-between items-center content-spacing-mobile-padding"
                   >
                     {/* Title */}
                     <div className="overflow-hidden">
@@ -590,14 +590,14 @@ export default function HeroSlider({
                       </motion.h1>
                     </div>
 
-                    <div className="overflow-hidden mb-[11px] lg:mb-5">
+                    <div className="overflow-hidden mb-5">
                       <motion.h1
                         variants={fadeUp}
                         // custom={0.3}
                         custom={0.2}
                         initial="hidden"
                         animate={inView ? "show" : "hidden"}
-                        className="text-white  uppercase text-heading text-center"
+                        className="text-white uppercase text-heading text-center"
                       >
                         {subtitle}
                       </motion.h1>
@@ -622,24 +622,6 @@ export default function HeroSlider({
                       exit="exit"
                       className="flex gap-4 mt-5 md:mt-15 font-[avenirRoman] overflow-hidden"
                     >
-                      {/* <motion.div
-                        variants={fadeUp}
-                        // custom={0.3}
-                        custom={0.23}
-                        initial="hidden"
-                        animate={inView ? "show" : "hidden"}
-                      >
-                        <CustomOutlineButton
-                          onClick={() => {
-                            setAuthView("enquiry");
-                            setIsModalVisible(true);
-                          }}
-                          text="Register Interest"
-                          borderColor="border-white"
-                          textColor="text-white"
-                          px="px-[30px] md:px-[25px] h-[44px] md:h-[50px]  xl:h-[66px] !leading-[1.58]"
-                        />
-                      </motion.div> */}
 
                       <motion.div
                         variants={fadeUp}
@@ -718,7 +700,7 @@ export default function HeroSlider({
             {/* Prev */}
             <button
               aria-label="Previous slide"
-              className="swiper-btn-prev cursor-pointer relative w-[62px] group h-[62px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+              className="swiper-btn-prev cursor-pointer relative w-[62px] group h-[62px] max-md:w-[32px] max-md:h-[32px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
             >
               <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
               <Image
@@ -726,14 +708,14 @@ export default function HeroSlider({
                 alt="Next"
                 width={28}
                 height={28}
-                className="relative z-10 object-contain w-[28px] h-[28px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+                className="relative z-10 object-contain w-[28px] h-[28px] max-md:w-[14px] max-md:h-[14px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
               />
             </button>
             {/* Pagination Dots */}
             {/* Next */}
             <button
               aria-label="Next slide"
-              className="swiper-btn-next cursor-pointer relative w-[62px] group h-[62px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+              className="swiper-btn-next cursor-pointer relative w-[62px] group h-[62px] max-md:w-[32px] max-md:h-[32px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
             >
               <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
               <Image
@@ -741,7 +723,7 @@ export default function HeroSlider({
                 alt="Next"
                 width={28}
                 height={28}
-                className="relative rotate-180 z-10 object-contain w-[28px] h-[28px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+                className="relative rotate-180 z-10 object-contain w-[28px] h-[28px] max-md:w-[14px] max-md:h-[14px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
               />
             </button>
           </div>

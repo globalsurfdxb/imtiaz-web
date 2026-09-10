@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { SectionHeading } from "@/app/components/animations/SectionHeading";
 import { SectionDescription } from "@/app/components/animations/SectionDescription";
 

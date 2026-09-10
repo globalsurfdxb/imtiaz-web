@@ -183,7 +183,7 @@
 //           >
 //             <button
 //               ref={prevRef}
-//               className="relative  md:w-[62px]  md:h-[62px] w-[50px] h-[50px]   group   border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+//               className="relative  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px]   group   border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
 //             >
 //               <span className="absolute right-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
 //               <Image
@@ -191,7 +191,7 @@
 //                 alt="Previous"
 //                 width={28}
 //                 height={28}
-//                 className="relative z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+//                 className="relative z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px] max-md:w-[14px] max-md:h-[14px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
 //               />
 //             </button>
 //           </motion.div>
@@ -206,7 +206,7 @@
 //           >
 //             <button
 //               ref={nextRef}
-//               className="relative  md:w-[62px]  md:h-[62px] w-[50px] h-[50px]    group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+//               className="relative  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px]    group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
 //             >
 //               <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
 //               <Image
@@ -214,7 +214,7 @@
 //                 alt="Next"
 //                 width={28}
 //                 height={28}
-//                 className="relative rotate-180 z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+//                 className="relative rotate-180 z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px] max-md:w-[14px] max-md:h-[14px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
 //               />
 //             </button>
 //           </motion.div>
@@ -438,7 +438,7 @@ import type { Swiper as SwiperType } from "swiper";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
 
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { motion, useInView } from "framer-motion";
 import { textFade, moveUp, moveUpV2 } from "../../motionVariants";
 
@@ -568,7 +568,7 @@ export default function HeroFeatureSlider({
       className="w-full relative overflow-hidden h-[100svh] md:max-h-full bg-white z-10"
     >
       {/* Nav Buttons */}
-      <div className="absolute w-full z-50 h-fit inset-0 flex justify-between top-1/2 -translate-y-1/2 mx-auto container items-center !px-[20px] md:!px-[15px] opacity-90">
+      <div className="absolute w-full z-50 h-fit inset-0 flex justify-between top-1/2 -translate-y-1/2 mx-auto container items-center md:!px-[15px] opacity-90">
         <div>
           {/* Prev Button */}
           <motion.div
@@ -579,7 +579,7 @@ export default function HeroFeatureSlider({
           >
             <button
               ref={prevRef}
-              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px]   group   border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px]   group   border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
             >
               <span className="absolute right-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
               <Image
@@ -587,7 +587,7 @@ export default function HeroFeatureSlider({
                 alt="Previous"
                 width={28}
                 height={28}
-                className="relative z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+                className="relative z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px] max-md:w-[14px] max-md:h-[14px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
               />
             </button>
           </motion.div>
@@ -602,7 +602,7 @@ export default function HeroFeatureSlider({
           >
             <button
               ref={nextRef}
-              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px]    group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px]    group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
             >
               <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
               <Image
@@ -610,7 +610,7 @@ export default function HeroFeatureSlider({
                 alt="Next"
                 width={28}
                 height={28}
-                className="relative rotate-180 z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
+                className="relative rotate-180 z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px] max-md:w-[14px] max-md:h-[14px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
               />
             </button>
           </motion.div>
@@ -653,7 +653,7 @@ export default function HeroFeatureSlider({
       />
 
       {/* Heading */}
-      <div className="container pt-[70px] md:pt-120 2xl:pt-[130px] relative z-10">
+      <div className="container pt-[130px] md:pt-120 2xl:pt-[130px] relative z-10">
         <motion.div className="flex items-center justify-center relative">
           <motion.div
             className="max-w-[1150px] w-full text center"
@@ -685,6 +685,28 @@ export default function HeroFeatureSlider({
         className="absolute bottom-0 w-full z-20 "
         onMouseLeave={handleMouseLeave}
       >
+        {/* Fixed bottom gradient (mobile) — stays put while slides change */}
+        <div
+          className="md:hidden absolute inset-x-0 bottom-0 h-[65%] z-[15] pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0) 7.68%, rgba(0,0,0,0.66) 100%)",
+          }}
+        />
+
+        {/* Fixed pagination (mobile) — stays put while slides change */}
+        <div className="flex md:hidden justify-center absolute inset-x-0 bottom-[70px] gap-[10px] z-30 min-[1540px]:hidden pointer-events-auto">
+          {communities.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => swiper?.slideToLoop(i)}
+              className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${
+                i === activeFeat ? "bg-white" : "bg-transparent"
+              }`}
+            />
+          ))}
+        </div>
+
         <Swiper
           modules={[Autoplay, Navigation, Pagination]}
           navigation={{
@@ -721,14 +743,14 @@ export default function HeroFeatureSlider({
                 <Reveal key={c.id} variants={moveUpV2}>
                   <div className="relative flex flex-1 ">
                     <div
-                      className="relative flex-1 min-h-[360px] md:min-h-[420px] 3xl:h-[500px] flex justify-center items-end px-4 cursor-pointer"
+                      className="relative flex-1 min-h-[360px] md:min-h-[420px] 3xl:h-[500px] flex justify-center items-end cursor-pointer"
                       onMouseEnter={() => {
                         setActiveFeat(i);
                         switchBg(getBg(c)!);
                       }}
                     >
                       <div
-                        className={`absolute inset-0 transition-opacity duration-400 ${
+                        className={`hidden md:block absolute inset-0 transition-opacity duration-400 ${
                           active ? "opacity-100" : "opacity-0"
                         }`}
                         style={{
@@ -737,7 +759,7 @@ export default function HeroFeatureSlider({
                         }}
                       />
                       <div className="relative z-20 w-full flex justify-center pointer-events-none">
-                        <div className="flex flex-col items-center absolute bottom-[70px] xl:bottom-22 3xl:bottom-[100px]">
+                        <div className="flex flex-col items-center absolute bottom-[130px] xl:bottom-22 3xl:bottom-[100px]">
                           <motion.h3
                             key={`feat-title-${i}-${active}`}
                             initial={{ y: 0 }}
@@ -790,21 +812,6 @@ export default function HeroFeatureSlider({
                               </Link>
                             </div>
                           </motion.div>
-
-                          {/* Pagination (only below 1540px) */}
-                          <div className="flex md:hidden justify-center mt-[50px] gap-[10px] min-[1540px]:hidden pointer-events-auto">
-                            {communities.map((_, i) => (
-                              <button
-                                key={i}
-                                onClick={() => swiper?.slideToLoop(i)}
-                                className={`w-[10px] h-[10px] rounded-full border border-white transition-all duration-300 cursor-pointer ${
-                                  i === activeFeat
-                                    ? "bg-white"
-                                    : "bg-transparent"
-                                }`}
-                              />
-                            ))}
-                          </div>
                         </div>
                       </div>
                     </div>
