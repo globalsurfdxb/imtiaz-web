@@ -50,10 +50,10 @@ export default function MessageSection({ data }: Props) {
 
         {/* Title */}
         <div className="relative z-10 w-fit mx-auto content-spacing-mobile-padding">
-          <div className="w-full text-center px-5 md:px-0 pt-[50px] sm:pt-120 3xl:pt-130 mb-20">
+          <div className="w-full text-center px-5 md:px-0 pt-[50px] sm:pt-120 3xl:pt-130 sm:mb-20">
             <SectionHeading title={data.title} className="uppercase" />
           </div>
-          <div className="mx-5 md:mx-0">
+          <div className="hidden sm:block mx-5 md:mx-0">
             <div
               className="relative w-full max-w-[527px] mx-auto overflow-hidden "
               style={{ height: "1px" }}
@@ -239,7 +239,7 @@ export default function MessageSection({ data }: Props) {
                       initial="hidden"
                       whileInView="show"
                       viewport={{ once: true }}
-                      className="font-[optima] uppercase tracking-[2%] text-primary text-25 min-[640px]:text-sm text-center min-[640px]:text-left leading-snug"
+                      className="font-[optima] uppercase tracking-[2%] text-primary text-25 text-center min-[640px]:text-left leading-snug"
                     >
                       {data.quote}
                     </motion.p>
