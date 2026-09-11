@@ -52,7 +52,7 @@ export default function AwardSection({
         <div className="relative z-10 flex flex-col items-center container pt-[50px] sm:pt-120 3xl:pt-130 mb-250 3xl:mb-[384px]">
           <SectionHeading
             title={title}
-            className="max-[640px]:font-normal max-[640px]:!text-[29px] max-w-[45ch] text-center mb-5"
+            className="max-[640px]:font-normal max-w-[45ch] text-center mb-5"
           />
 
           {/* Divider line */}

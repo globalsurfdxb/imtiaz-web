@@ -115,7 +115,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
                 alt="logo"
                 width={295}
                 height={70}
-                className="w-auto max-w-[291px] 3xl:w-[291px] h-[30px] md:h-[50px] xl:h-[60px] shrink-0 invert brightness-0"
+                className="w-auto max-w-[291px] 3xl:w-[291px] h-[20px] sm:h-[30px] md:h-[50px] xl:h-[60px] shrink-0 invert brightness-0"
               />
             </motion.div>
             {/* Stay Updated */}
