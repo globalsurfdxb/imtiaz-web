@@ -214,7 +214,7 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
                     alt="menu"
                     width={22}
                     height={22}
-                    className="w-[18px] h-[16px] md:w-auto md:h-[15.13px]"
+                    className="w-[20px] h-[19px] md:w-auto md:h-[15.13px]"
                   />
                 </button>
               </div>
@@ -279,14 +279,14 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
                 <div className="flex items-center gap-[5px] sm:gap-[10px] rgtbtn">
                   <button
                     onClick={() => setAuthView("login")}
-                    className="flex group items-center justify-center w-[24px] h-[24px] sm:w-[32px] sm:h-[32px] bg-white/25 backdrop-blur-[30px] rounded-full cursor-pointer opacity-0"
+                    className="flex group items-center justify-center w-7 h-7 sm:w-[32px] sm:h-[32px] bg-white/25 backdrop-blur-[30px] rounded-full cursor-pointer opacity-0"
                   >
                     <Image
                       src="/images/account.svg"
                       alt="account"
                       width={14}
                       height={15}
-                      className="invert w-[10px] h-[12px] sm:h-[15.16px] sm:w-[14px] w-auto group-hover:scale-110 transition-all duration-400"
+                      className="invert h-[14px] sm:h-[15.16px] w-[14px] w-auto group-hover:scale-110 transition-all duration-400"
                     />
                   </button>
                 </div>

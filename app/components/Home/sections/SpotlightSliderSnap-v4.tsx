@@ -359,8 +359,8 @@ const go = useCallback(
                   <CustomOutlineButton
                     variant="dark"
                     text="Read More"
-                    borderColor="border-primary-2"
-                    textColor="text-primary-2"
+                    borderColor="border-foreground"
+                    textColor="text-foreground"
                     px="px-[12px] lg:px-[20px] 3xl:px-[36.6px]"
                   />
                 </Link>
@@ -400,8 +400,8 @@ const go = useCallback(
               <CustomOutlineButton
                 variant="dark"
                 text="View All"
-                borderColor="border-primary-2"
-                textColor="text-primary-2"
+                borderColor="border-foreground"
+                textColor="text-foreground"
                 px="px-10 md:px-[30px] lg:px-[26px] h-[44px] md:h-[50px]  xl:h-[66px]"
               />
             </Link>
@@ -413,6 +413,7 @@ const go = useCallback(
                 }}
                 direction="prev"
                 variant="dark"
+                arrowColor="dark"
               />
               <SliderArrowButton
                 onClick={() => {
@@ -421,6 +422,7 @@ const go = useCallback(
                 }}
                 direction="next"
                 variant="dark"
+                arrowColor="dark"
               />
             </div>
           </div>

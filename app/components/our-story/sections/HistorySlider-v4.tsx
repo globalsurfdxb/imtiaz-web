@@ -185,6 +185,7 @@ function CardsSlider({
           <SliderArrowButton
             direction="prev"
             variant="dark"
+            arrowColor="dark"
             onClick={() => swiperRef.current?.slidePrev()}
           />
         </div>
@@ -192,6 +193,7 @@ function CardsSlider({
         <div style={{ paddingRight: paddingInset }} className="max-lg:!pr-0">
           <SliderArrowButton
             direction="next"
+            arrowColor="dark"
             variant="dark"
             onClick={() => swiperRef.current?.slideNext()}
           />

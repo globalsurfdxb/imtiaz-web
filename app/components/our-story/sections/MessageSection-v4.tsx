@@ -230,7 +230,7 @@ export default function MessageSection({ data }: Props) {
                         alt="quote"
                         width={50}
                         height={38}
-                        className="object-contain w-auto h-[32px] scale-x-[-1]"
+                        className="object-contain w-auto h-[32px] scale-x-[-1] max-sm:brightness-0"
                         priority
                       />
                     </motion.div>
@@ -239,7 +239,7 @@ export default function MessageSection({ data }: Props) {
                       initial="hidden"
                       whileInView="show"
                       viewport={{ once: true }}
-                      className="font-[optima] uppercase tracking-[2%] text-primary text-25 text-center min-[640px]:text-left leading-snug"
+                      className="font-[optima] uppercase tracking-[2%] text-25 text-center min-[640px]:text-left leading-snug"
                     >
                       {data.quote}
                     </motion.p>
@@ -308,7 +308,7 @@ export default function MessageSection({ data }: Props) {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="font-[optima] leading-[1.4] uppercase tracking-[2%] text-primary text-25 mb-1.5"
+              className="font-[optima] leading-[1.4] uppercase tracking-[2%] text-primary text-25"
             >
               {data.name}
             </motion.p>
