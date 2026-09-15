@@ -15,12 +15,14 @@ const SliderArrowButton = forwardRef<HTMLButtonElement, SliderArrowButtonProps>(
   ({ onClick, direction = "prev", variant = "dark", disabled = false, arrowColor = "light" }, ref) => {
     const isNext = direction === "next";
     const isDark = variant === "dark";
-    const arrowIconClass =
-      arrowColor === "dark"
-        ? "brightness-0"
-        : isDark
-          ? "group-hover:invert group-hover:brightness-0"
-          : "invert brightness-0 group-hover:invert-0 group-hover:brightness-100";
+const arrowIconClass =
+  arrowColor === "dark"
+    ? isDark
+      ? "brightness-0 sm:brightness-100 sm:group-hover:invert sm:group-hover:brightness-0"
+      : "brightness-0 sm:invert sm:group-hover:invert-0 sm:group-hover:brightness-100"
+    : isDark
+      ? "group-hover:invert group-hover:brightness-0"
+      : "invert brightness-0 group-hover:invert-0 group-hover:brightness-100";
 
     return (
       <button

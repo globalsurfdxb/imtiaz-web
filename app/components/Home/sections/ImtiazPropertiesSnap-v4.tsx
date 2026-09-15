@@ -116,8 +116,8 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               <CustomOutlineButton
                 text="View All"
                 variant="dark"
-                borderColor="border-foreground"
-                textColor="text-foreground"
+                borderColor="border-foreground sm:border-primary-2"
+                textColor="text-foreground sm:text-primary-2"
                 px="px-10 xl:px-[37px] h-[44px] md:h-[50px]  xl:h-[66px]"
               />
             </Link>
