@@ -8,12 +8,19 @@ type SliderArrowButtonProps = {
   direction?: "prev" | "next";
   variant?: "dark" | "light";
   disabled?: boolean;
+  arrowColor?: "dark" | "light";
 };
 
 const SliderArrowButton = forwardRef<HTMLButtonElement, SliderArrowButtonProps>(
-  ({ onClick, direction = "prev", variant = "dark", disabled = false }, ref) => {
+  ({ onClick, direction = "prev", variant = "dark", disabled = false, arrowColor = "light" }, ref) => {
     const isNext = direction === "next";
     const isDark = variant === "dark";
+    const arrowIconClass =
+      arrowColor === "dark"
+        ? "brightness-0"
+        : isDark
+          ? "group-hover:invert group-hover:brightness-0"
+          : "invert brightness-0 group-hover:invert-0 group-hover:brightness-100";
 
     return (
       <button
@@ -34,7 +41,7 @@ const SliderArrowButton = forwardRef<HTMLButtonElement, SliderArrowButtonProps>(
           alt={isNext ? "Next" : "Previous"}
           width={28}
           height={28}
-          className={`relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] max-md:w-[14px] max-md:h-[14px] transition-all duration-300 ${isNext ? "rotate-180" : ""} ${isDark ? "group-hover:invert group-hover:brightness-0" : "invert brightness-0 group-hover:invert-0 group-hover:brightness-100"}`}
+          className={`relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] max-md:w-[14px] max-md:h-[14px] transition-all duration-300 ${isNext ? "rotate-180" : ""} ${arrowIconClass}`}
         />
       </button>
     );
