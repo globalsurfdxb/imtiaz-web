@@ -24,7 +24,7 @@ export default function AwardSection({
       className="relative w-full overflow-hidden flex flex-col max-[640px]:h-[955px]"
     >
       {/* Background Image */}
-      <div className="absolute top-0 left-0 right-0 bottom-[110px] sm:inset-0 z-0 overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 bottom-[140px] sm:inset-0 z-0 overflow-hidden">
         <Image
           src={bgImage}
           alt="background"
@@ -40,7 +40,7 @@ export default function AwardSection({
       </div>
 
       {/* Bottom spacer — mobile only */}
-      <div className="absolute bottom-0 inset-x-0 h-[110px] bg-[#111316] z-0 min-[640px]:hidden" />
+      <div className="absolute bottom-0 inset-x-0 h-[140px] bg-[#111316] z-0 min-[640px]:hidden" />
 
       <div
         className="absolute inset-0 w-full"
@@ -74,14 +74,14 @@ export default function AwardSection({
         </div>
 
         {/* Description block — bottom */}
-        <div className="relative z-20 w-full flex items-end h-[471px] max-[640px]:h-auto max-[640px]:pb-5 min-[641px]:max-md:pb-5 md:pb-50">
+        <div className="relative z-20 w-full flex items-end h-[471px] max-[640px]:h-auto pb-[50px]">
           {/* Dark overlay for text legibility — capped above the spacer on mobile so the spacer keeps its exact color */}
           <div
             style={{
               background:
                 "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 90%)",
             }}
-            className="absolute inset-0 max-[640px]:bottom-[110px]"
+            className="absolute inset-0 max-[640px]:bottom-[140px]"
           />
 
           <div className="relative mx-auto text-center container">
