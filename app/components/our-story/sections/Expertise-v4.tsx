@@ -26,9 +26,9 @@ const Expertise = ({
           <Link href={buttonLink}>
             <CustomOutlineButton
               text={buttonText}
-              borderColor="border-primary"
+              borderColor="border-foreground"
               variant="dark"
-              textColor="text-primary"
+              textColor="text-foreground"
               className="h-[44px] md:h-[50px]  xl:h-[66px]"
               px="px-[30px] min-w-[142px] lg:w-auto"
             />

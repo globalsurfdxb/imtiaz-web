@@ -3,11 +3,11 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
 import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import ProjectCard from "../../common/ProjectCard-v4";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import "swiper/css";
 import "swiper/css/navigation";
 import type { Swiper as SwiperType } from "swiper";
@@ -116,8 +116,8 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               <CustomOutlineButton
                 text="View All"
                 variant="dark"
-                borderColor="border-primary"
-                textColor="text-primary"
+                borderColor="border-foreground"
+                textColor="text-foreground"
                 px="px-10 xl:px-[37px] h-[44px] md:h-[50px]  xl:h-[66px]"
               />
             </Link>
@@ -129,20 +129,12 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               whileInView="show"
               viewport={{ once: true }}
             >
-              <button
+              <SliderArrowButton
                 onClick={handlePrev}
                 disabled={isBeginning}
-                className="relative cursor-pointer w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px] 3xl:w-[62px] 3xl:h-[62px] group border border-primary-2 rounded-[50px] flex items-center justify-center overflow-hidden disabled:opacity-30 disabled:cursor-not-allowed"
-              >
-                <span className="absolute right-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                <Image
-                  src="/icons/left_arrow_slider_primary.svg"
-                  alt="Arrow Right"
-                  width={28}
-                  height={28}
-                  className="relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] max-md:w-[14px] max-md:h-[14px] w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                />
-              </button>
+                direction="prev"
+                arrowColor="dark"
+              />
             </motion.div>
             <motion.div
               variants={moveUp(0.22)}
@@ -150,20 +142,12 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               whileInView="show"
               viewport={{ once: true }}
             >
-              <button
+              <SliderArrowButton
                 onClick={handleNext}
                 disabled={isEnd}
-                className="relative cursor-pointer w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px] 3xl:w-[62px] 3xl:h-[62px] group border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden disabled:opacity-30 disabled:cursor-not-allowed"
-              >
-                <span className="absolute left-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                <Image
-                  src="/icons/left_arrow_slider_primary.svg"
-                  alt="Arrow Right"
-                  width={28}
-                  height={28}
-                  className="relative z-10 rotate-180 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] max-md:w-[14px] max-md:h-[14px] w-[20px] h-[20px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                />
-              </button>
+                direction="next"
+                arrowColor="dark"
+              />
             </motion.div>
           </div>
         </div>

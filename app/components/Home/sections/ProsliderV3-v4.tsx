@@ -273,7 +273,7 @@ export default function HeroSlider({
                 )}
 
                 {/* TOP AREA */}
-                <div className="container px-4 md:px-6 lg:px-10 w-full lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2   min-[450px]:pb-0">
+                <div className="container px-4 md:px-6 lg:px-10 w-full absolute top-0 inset-x-0 pt-[130px] lg:pt-0 lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2   min-[450px]:pb-0">
                   <motion.div
                     key={`top-${activeIndex}`}
                     initial="hidden"
@@ -281,7 +281,7 @@ export default function HeroSlider({
                     className="flex flex-col justify-between items-center"
                   >
                     {/* Right Label */}
-                    <div className="overflow-hidden mb-5 lg:mb-50 content-spacing-mobile-padding">
+                    <div className="overflow-hidden mb-4.5 lg:mb-50 content-spacing-mobile-padding">
                       <motion.div
                         variants={moveUp(0.25)}
                         initial="hidden"
@@ -308,7 +308,7 @@ export default function HeroSlider({
                 </div>
 
                 {/* PILL SECTION */}
-                <div className="lg:absolute w-full pb-[30px] lg:pb-0  lg:bottom-[67px]">
+                <div className="lg:absolute w-full pb-[60px] lg:pb-0  lg:bottom-[67px]">
                   <motion.div
                     variants={moveUp(1.2)}
                     initial="hidden"

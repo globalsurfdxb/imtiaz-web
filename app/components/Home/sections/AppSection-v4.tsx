@@ -118,7 +118,7 @@ const AppSection = ({
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="mb-[20px] text-heading uppercase text-primary-2 text-center"
+                className="mb-[20px] text-heading uppercase text-foreground text-center"
               >
                 {title}
               </motion.h2>
@@ -137,7 +137,7 @@ const AppSection = ({
               </motion.p>
             </div>
 
-            <div className="md:hidden flex gap-[14px] justify-center mb-[10px]">
+            <div className="md:hidden flex gap-2 sm:gap-[14px] justify-center mb-[20px]">
               <motion.div
                 variants={fadeUp}
                 custom={0.23}
@@ -154,7 +154,7 @@ const AppSection = ({
                     alt="Download on App Store"
                     width={194}
                     height={65}
-                    className="w-auto h-[55px] lg:w-[194px] lg:h-[65px] "
+                    className="w-auto h-10 sm:h-[55px] lg:w-[194px] lg:h-[65px] "
                   />
                 </a>
               </motion.div>
@@ -175,7 +175,7 @@ const AppSection = ({
                     alt="Get it on Google Play"
                     width={194}
                     height={65}
-                    className="w-auto h-[55px] lg:w-[194px] lg:h-[65px]"
+                    className="w-auto h-10 sm:h-[55px] lg:w-[194px] lg:h-[65px]"
                   />
                 </a>
               </motion.div>
