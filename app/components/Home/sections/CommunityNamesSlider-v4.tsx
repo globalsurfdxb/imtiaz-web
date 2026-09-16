@@ -579,7 +579,7 @@ export default function HeroFeatureSlider({
           >
             <button
               ref={prevRef}
-              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[34px] max-md:h-[34px]   group   border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[36px] max-md:h-[36px]   group   border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
             >
               <span className="absolute right-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
               <Image
@@ -602,7 +602,7 @@ export default function HeroFeatureSlider({
           >
             <button
               ref={nextRef}
-              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[34px] max-md:h-[34px]    group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
+              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[36px] max-md:h-[36px]    group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
             >
               <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
               <Image
