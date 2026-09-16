@@ -31,7 +31,7 @@ const arrowIconClass =
         disabled={disabled}
         aria-disabled={disabled}
         // v4: below `md` the round nav button is locked to 32px. `md` and up unchanged.
-        className={`relative w-[50px] h-[50px] max-md:w-[36px] max-md:h-[36px] 3xl:w-[62px] 3xl:h-[62px] group rounded-[50px] flex items-center justify-center overflow-hidden transition-opacity duration-300 ${isDark ? "border border-[#404040]" : "border border-white"} ${disabled ? "opacity-30 cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}
+        className={`relative w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px] 3xl:w-[62px] 3xl:h-[62px] group rounded-[50px] flex items-center justify-center overflow-hidden transition-opacity duration-300 ${isDark ? "border border-[#404040]" : "border border-white"} ${disabled ? "opacity-30 cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}
       >
         {/* Hover fill */}
         <span
