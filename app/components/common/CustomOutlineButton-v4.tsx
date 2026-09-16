@@ -43,7 +43,7 @@ const CustomOutlineButton = ({
       // v4: below `md` the button is locked to 32px height / 16px horizontal
       // padding via `max-md:` overrides. `md` and up stay identical to the
       // original CustomOutlineButton.
-      className={`cursor-pointer flex items-center justify-center group relative transition-all duration-300 overflow-hidden ${px} py-[14px] lg:py-4 2xl:py-[19px] 3xl:py-[20.62px] max-md:h-[34px] max-md:py-0 max-md:px-[18px] rounded-full border ${borderColor} ${textColor} font-[avenirBook] leading-[100%] ${className} ${readMore ? "text-[12px] md:text-[16px]" : "text-[12px] md:text-[16px] md:text-[19px]" }`}
+      className={`cursor-pointer flex items-center justify-center group relative transition-all duration-300 overflow-hidden ${px} py-[14px] lg:py-4 2xl:py-[19px] 3xl:py-[20.62px] max-md:h-[36px] max-md:py-0 max-md:px-[20px] rounded-full border ${borderColor} ${textColor} font-[avenirBook] leading-[100%] ${className} ${readMore ? "text-[12px] md:text-[16px]" : "text-[12px] md:text-[16px] md:text-[19px]" }`}
       style={{ transform: pressed ? "scale(0.95)" : "scale(1)" }}
     >
       {/* Left fill */}
