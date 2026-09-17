@@ -166,7 +166,7 @@ export const footerV2Data: FooterV2Data = {
     },
     {
       heading: "TRENDING SEARCHES",
-      items: [{ label: "Off Plan Properties", link: "/off-plan-properties" }],
+      items: [{ label: "Off Plan Properties", link: "/off-plan-properties" }, { label: "Studio Apartments", link: "/studio-apartments" }],
     },
   ],
 

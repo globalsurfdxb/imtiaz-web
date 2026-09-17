@@ -1,0 +1,43 @@
+export type OffPlanListing = {
+  id: string;
+  slug: string;
+  brand_logo: string;
+  title: string;
+  featured_image_desktop: string;
+  featured_image_mobile: string;
+  featured_image_alt: string;
+  icon1_url: string;
+  icon1_text: string;
+  icon2_url: string;
+  icon2_text: string;
+  property_caption: string;
+  property_type: string;
+  property_community: string;
+  property_location: string;
+  property_latitude: string;
+  property_longitude: string;
+  property_status: string;
+};
+
+export type OffPlanPageData = {
+  meta_title: string;
+  meta_description: string | null;
+  page_banner_desktop: string;
+  page_banner_mobile: string;
+  banner_image_alt: string | null;
+  title: string;
+  banner_title: string;
+  banner_caption: string;
+  button_text: string;
+  button_url: string;
+  page_title: string;
+  page_caption: string;
+  why_title: string;
+  why_caption: string;
+  faq_title: string;
+  faq_caption: string;
+  show_why_section: string;
+  show_faq_section: string;
+  properties: OffPlanListing[];
+  faq: { title: string; caption: string }[];
+};
