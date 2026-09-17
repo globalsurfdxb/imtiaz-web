@@ -1,6 +1,6 @@
 import StudioBanner from "./sections/StudioBanner";
 import StudioFaq from "./sections/StudioFaq";
-import WhyInvest from "./sections/StudioDesc";
+import StudioDesc from "./sections/StudioDesc";
 import Main from "./sections/Main";
 import { Suspense } from "react";
 
@@ -25,7 +25,7 @@ const Index = ({ data }: any) => {
         <Main data={data} />
       </Suspense>
 
-      <WhyInvest />
+      <StudioDesc />
       <StudioFaq />
     </>
   );
