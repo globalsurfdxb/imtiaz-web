@@ -351,6 +351,11 @@ html {
 .text-description {
   opacity: 100 !important;
 }
+
+@utility text-subtitle {
+  @apply font-[optima] font-[550] uppercase leading-[1.66666] text-18 tracking-[0.02em];
+}
+
  
 @utility container-spacing-details-page {
   @apply xl:!px-200 3xl:!px-250;
@@ -1166,3 +1171,54 @@ input:-webkit-autofill:active {
   /* change to your text color */
   transition: background-color 9999s ease-in-out 0s !important;
 }
+
+/* .studio-content > * + * {
+  margin-top: var(--space-20);
+}
+
+.studio-content h2,
+.studio-content h3 {
+  margin-top: var(--space-40) !important;
+} */
+
+.studio-content h2 {
+  @apply text-heading text-foreground uppercase;
+}
+
+.studio-content p {
+  @apply text-description text-foreground-light;
+}
+
+.studio-content a {
+  @apply text-primary-2 underline;
+  text-underline-offset: 2px;
+}
+
+.studio-content h2 {
+  @apply text-25 text-foreground leading-[1.4] font-[optima] uppercase mb-2.5;
+}
+
+.studio-content h2:not(:first-of-type)::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: var(--space-50) 0;
+  background: linear-gradient(90deg, rgba(73, 9, 5, 0) 0%, #490905 50%, rgba(73, 9, 5, 0) 100%);
+}
+
+.studio-content ul {
+  padding: 0;
+  margin: 0;
+}
+
+.studio-content li {
+  @apply text-subtitle text-foreground flex items-start gap-2 lg:gap-[10px] mb-2 mt-5 lg:mt-[30px];
+  list-style: none;
+}
+
+  .studio-content li::before {
+    content: "";
+    @apply inline-block w-2 h-2 lg:w-[10px] lg:h-[10px] lg:min-w-[10px] mt-1.5 lg:mt-2 rounded-full;
+    background-color: var(--primary-2);
+  }
