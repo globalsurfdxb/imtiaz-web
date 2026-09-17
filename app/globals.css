@@ -351,6 +351,11 @@ html {
 .text-description {
   opacity: 100 !important;
 }
+
+@utility text-subtitle {
+  @apply font-[optima] font-[550] uppercase leading-[1.66666] text-18 tracking-[0.02em];
+}
+
  
 @utility container-spacing-details-page {
   @apply xl:!px-200 3xl:!px-250;
@@ -1165,4 +1170,45 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: #ffffff !important;
   /* change to your text color */
   transition: background-color 9999s ease-in-out 0s !important;
+}
+
+/* .studio-content > * + * {
+  margin-top: var(--space-20);
+}
+
+.studio-content h2,
+.studio-content h3 {
+  margin-top: var(--space-40) !important;
+} */
+
+.studio-content h2 {
+  @apply text-heading text-foreground uppercase;
+}
+
+.studio-content p {
+  @apply text-description text-foreground-light;
+}
+
+.studio-content a {
+  @apply text-primary-2 underline;
+  text-underline-offset: 2px;
+}
+
+.studio-content h2 {
+  @apply text-25 text-foreground leading-[1.4] font-[optima] uppercase mb-2.5;
+}
+
+.studio-content h3 {
+  @apply text-subtitle text-foreground flex items-start gap-[10px] mb-2 mt-30;
+}
+
+.studio-content h3::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background-color: var(--primary-2);
 }
