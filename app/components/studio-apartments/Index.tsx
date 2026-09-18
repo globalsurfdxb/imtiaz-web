@@ -5,17 +5,14 @@ import Main from "./sections/Main";
 import { Suspense } from "react";
 
 const Index = ({ data }: any) => {
+  console.log("Studio Apartments Data:", data); // Log the data to the console for debugging
   return (
     <>
       <StudioBanner
-        // image={data?.page_banner_desktop}
-        image={"/images/studio-apartments/banner.jpg"}
-        // mobileImage={data?.page_banner_mobile}
-        mobileImage={"/images/studio-apartments/banner.jpg"}
-        // title={data?.banner_title}
-        title={"Studio Apartments in Dubai"}
-        // description={data?.banner_caption}
-        description={"Lorem Ipsum is simply dummy text of the printing and typesetting industry"}
+        image={data?.page_banner_desktop}
+        mobileImage={data?.page_banner_mobile || data?.page_banner_desktop}
+        title={data?.banner_title}
+        description={data?.banner_caption}
         buttonText={data?.button_text}
         buttonLink={data?.button_url}
         maxW="max-w-[352px]"
@@ -25,8 +22,8 @@ const Index = ({ data }: any) => {
         <Main data={data} />
       </Suspense>
 
-      <StudioDesc />
-      <StudioFaq />
+      <StudioDesc data={data} />
+      <StudioFaq data={data} />
     </>
   );
 };
