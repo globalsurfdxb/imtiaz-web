@@ -1,11 +1,15 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { faqData } from "../data";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
 import Reveal from "../../animations/RevealOneByOneAnimation";
 import { moveUpV2 } from "../../motionVariants";
+
+type FaqItem = {
+  title: string;
+  caption: string | null;
+};
 
 function AccordionItem({
   item,
@@ -13,7 +17,7 @@ function AccordionItem({
   onToggle,
   isLast,
 }: {
-  item: (typeof faqData.items)[0];
+  item: FaqItem;
   isOpen: boolean;
   onToggle: () => void;
   isLast: boolean;
@@ -25,19 +29,20 @@ function AccordionItem({
     if (contentRef.current) {
       setHeight(contentRef.current.scrollHeight);
     }
-  }, [item.answer]);
+  }, [item.caption]);
+
+  if (!item.caption) return null;
 
   return (
     <div>
       {/* Question Row */}
       <button
         onClick={onToggle}
-        // className={`${isOpen ? "2xl:pb-20" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-40 ${!isOpen ? "pb-30" : ""}` : "py-40"} text-left group focus:outline-none`}
         className={`${isOpen ? "pb-[10px] md:pb-20" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-5 md:pt-40` : "py-5 md:py-40"} text-left group focus:outline-none`}
         aria-expanded={isOpen}
       >
         <span className="text-[18px] md:text-25 uppercase text-foreground pr-2 leading-[1.4] font-[optima] font-[400]">
-          {item.question}
+          {item.title}
         </span>
         <span className="flex-shrink-0 select-none">
           <svg
@@ -80,8 +85,10 @@ function AccordionItem({
         }}
       >
         <div ref={contentRef}>
-          <p className={`text-description text-foreground-light max-w-[846px] ${!isLast ? "pb-30" : ""}`}>
-            {item.answer}
+          <p
+            className={`text-description text-foreground-light max-w-[846px] ${!isLast ? "pb-30" : ""}`}
+          >
+            {item.caption}
           </p>
         </div>
       </div>
@@ -100,37 +107,48 @@ function AccordionItem({
   );
 }
 
-export default function StudioFaq() {
-  const [openId, setOpenId] = useState<string | null>(faqData.items[0].id);
+export default function StudioFaq({ data }: any) {
+  // only faq entries with a real caption are shown/openable
+  const faqItems: FaqItem[] = (data?.faq ?? []).filter(
+    (item: FaqItem) => !!item.caption
+  );
 
-  const toggle = (id: string) => {
-    setOpenId((prev) => (prev === id ? null : id));
+  const [openIndex, setOpenIndex] = useState<number | null>(
+    faqItems.length > 0 ? 0 : null
+  );
+
+  const toggle = (index: number) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
   };
 
+  if (faqItems.length === 0) return null;
+
   return (
-    <section
-      className="w-full bg-white py-120 3xl:py-160"
-      data-header="dark"
-    >
+    <section className="w-full bg-white py-120 3xl:py-160" data-header="dark">
       <div className="container">
         {/* Header */}
         <div className="w-full flex flex-col items-center text-center  mb-[20px] md:mb-[10px]">
-          <SectionHeading title={faqData.title} className="mb-20 text-foreground" />
-          <SectionDescription text={faqData.subtitle} className="shrink-0 max-w-[407px] text-foreground-light" />
+          <SectionHeading
+            title={data?.faq_title}
+            className="mb-20 text-foreground"
+          />
+          <SectionDescription
+            text={data?.faq_caption}
+            className="shrink-0 max-w-[407px] text-foreground-light"
+          />
         </div>
 
         {/* Accordion */}
         <div className="max-w-[973px] mx-auto">
-          {faqData.items.map((item, index) => (
-            <Reveal variants={moveUpV2} key={item.id} >
-
-            <AccordionItem
-              item={item}
-              isOpen={openId === item.id}
-              onToggle={() => toggle(item.id)}
-              isLast={index === faqData.items.length - 1}
+          {faqItems.map((item, index) => (
+            <Reveal variants={moveUpV2} key={item.title}>
+              <AccordionItem
+                item={item}
+                isOpen={openIndex === index}
+                onToggle={() => toggle(index)}
+                isLast={index === faqItems.length - 1}
               />
-              </Reveal>
+            </Reveal>
           ))}
         </div>
       </div>
