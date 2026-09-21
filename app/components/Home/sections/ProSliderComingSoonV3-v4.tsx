@@ -577,6 +577,7 @@ export default function HeroSlider({
                     className="flex flex-col justify-between items-center content-spacing-mobile-padding"
                   >
                     {/* Title */}
+                    <div className="flex gap-2 lg:flex-col lg:gap-0">
                     <div className="overflow-hidden">
                       <motion.h1
                         variants={fadeUp}
@@ -601,6 +602,7 @@ export default function HeroSlider({
                       >
                         {subtitle}
                       </motion.h1>
+                    </div>
                     </div>
                                         <div className="overflow-hidden">
                       <motion.h1
