@@ -584,7 +584,7 @@ export default function HeroSlider({
                         custom={0.2}
                         initial="hidden"
                         animate={inView ? "show" : "hidden"}
-                        className="text-white  uppercase text-25 text-center"
+                        className="text-white  uppercase text-heading text-center"
                       >
                         {title}
                       </motion.h1>

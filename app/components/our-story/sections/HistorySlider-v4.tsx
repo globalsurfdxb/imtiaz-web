@@ -256,7 +256,7 @@ function HistoryCard({
       {/* Image */}
       <div
         ref={ref}
-        className="flex-shrink-0 w-full lg:w-[51.84%] h-[211px] sm:h-[250px] md:h-[300px] lg:h-full overflow-hidden"
+        className="flex-shrink-0 w-full lg:w-[51.84%] h-[350px] sm:h-[250px] md:h-[300px] lg:h-full overflow-hidden"
       >
         <Image
           width={800}
@@ -271,8 +271,8 @@ function HistoryCard({
       </div>
 
       {/* Content */}
-      <div className="flex flex-col justify-between p-30 flex-1 h-full bg-gray">
-        <span className="text-heading text-primary mb-50">{card.year}</span>
+      <div className="flex flex-col gap-1 p-30 flex-1 h-full bg-gray">
+        <span className="text-heading text-primary lg:mb-50">{card.year}</span>
 
         <div className="mb-[10px]">
           <h3 className="text-25 font-[optima] text-foreground-light uppercase mb-[10px]">

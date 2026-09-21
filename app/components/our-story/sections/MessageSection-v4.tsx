@@ -50,7 +50,7 @@ export default function MessageSection({ data }: Props) {
 
         {/* Title */}
         <div className="relative z-10 w-fit mx-auto content-spacing-mobile-padding">
-          <div className="w-full text-center px-5 md:px-0 pt-[50px] sm:pt-120 3xl:pt-130 sm:mb-20">
+          <div className="w-full text-center px-5 md:px-0 pt-[65px] sm:pt-120 3xl:pt-130 sm:mb-20">
             <SectionHeading title={data.title} className="uppercase" />
           </div>
           <div className="hidden sm:block mx-5 md:mx-0">
