@@ -263,6 +263,8 @@ html {
  
 /* 120px → 50px at 390px, 120px at 1810px */
 --space-120: clamp(60px, 4.93vw + 30.8px, 120px);
+
+--space-125: clamp(80px, 4.93vw + 30.8px, 120px);
  
 /* 130px → 52px at 390px, 130px at 1810px */
 --space-130: clamp(52px, 5.49vw + 30.6px, 130px);
@@ -330,6 +332,7 @@ html {
   --spacing-90: var(--space-90);
   --spacing-100: var(--space-100);
   --spacing-120: var(--space-120);
+  --spacing-125: var(--space-125);
   --spacing-130: var(--space-130);
   --spacing-140: var(--space-140);
   --spacing-150: var(--space-150);
