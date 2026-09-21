@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
 import Reveal from "../../animations/RevealOneByOneAnimation";
@@ -22,15 +22,6 @@ function AccordionItem({
   onToggle: () => void;
   isLast: boolean;
 }) {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setHeight(contentRef.current.scrollHeight);
-    }
-  }, [item.caption]);
-
   if (!item.caption) return null;
 
   return (
@@ -75,16 +66,17 @@ function AccordionItem({
         </span>
       </button>
 
-      {/* Answer — animates to exact height */}
+      {/* Answer — grid 0fr→1fr animates to the real content height, no JS measuring */}
       <div
         style={{
-          height: isOpen ? height : 0,
-          overflow: "hidden",
-          transition: "height 0.4s ease, opacity 0.4s ease",
+          display: "grid",
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
+          transition: "grid-template-rows 0.4s ease, opacity 0.4s ease",
           opacity: isOpen ? 1 : 0,
         }}
+        aria-hidden={!isOpen}
       >
-        <div ref={contentRef}>
+        <div className="min-h-0 overflow-hidden">
           <p
             className={`text-description text-foreground-light max-w-[846px] ${!isLast ? "pb-30" : ""}`}
           >
@@ -112,6 +104,7 @@ export default function StudioFaq({ data }: any) {
   const faqItems: FaqItem[] = (data?.faq ?? []).filter(
     (item: FaqItem) => !!item.caption
   );
+
 
   const [openIndex, setOpenIndex] = useState<number | null>(
     faqItems.length > 0 ? 0 : null
