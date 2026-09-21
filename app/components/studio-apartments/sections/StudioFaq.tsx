@@ -105,7 +105,6 @@ export default function StudioFaq({ data }: any) {
     (item: FaqItem) => !!item.caption
   );
 
-
   const [openIndex, setOpenIndex] = useState<number | null>(
     faqItems.length > 0 ? 0 : null
   );
