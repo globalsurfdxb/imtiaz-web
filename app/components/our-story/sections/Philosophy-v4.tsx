@@ -57,10 +57,29 @@ const Philosophy = ({title,description}:{title:string,description:string}) => {
 
       <div className="relative z-20 container mx-auto">
         <div className="flex flex-col items-center content-spacing-mobile-padding">
-          <SectionHeading
+          {/* <SectionHeading
             title={title}
             className="text-white mb-20 text-center"
-          />
+          /> */}
+          <h2 className="text-heading text-white mb-20 text-center">
+            {title?.split("\n").map((line, i) => {
+              const idx = line.toLowerCase().indexOf("exactly right");
+              return (
+                <span key={i} className="block">
+                  {idx > 0 ? (
+                    <>
+                      {line.slice(0, idx)}
+                      {/* mobile only: push "exactly right…" to the second line */}
+                      <br className="lg:hidden" />
+                      {line.slice(idx)}
+                    </>
+                  ) : (
+                    line
+                  )}
+                </span>
+              );
+            })}
+          </h2>
           <SectionDescription
             text={description}
             className="text-white/80 max-w-[82ch] lg:max-w-[102ch] 3xl:max-w-[140ch] text-center lg:whitespace-pre-line"
