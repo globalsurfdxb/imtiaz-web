@@ -596,7 +596,7 @@ export default function WynwoodProgress({
             </div>
 
             {/* Bottom — Sub-stats - until md */}
-            <div className="flex md:hidden  justify-between gap-y-8 gap-x-1 md:gap-x-4">
+            <div className="flex flex-wrap md:hidden justify-between gap-y-8 gap-x-1 md:gap-x-4">
               {stats.map((stat, i) => (
                 <Reveal key={i} variants={moveUpV2} delayRange={i * 0.12}>
                   <div className="3xl:px-[20.4px]">

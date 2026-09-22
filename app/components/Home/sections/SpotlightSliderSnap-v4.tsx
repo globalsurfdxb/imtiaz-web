@@ -17,7 +17,7 @@ export type SpotlightSlide = {
   image: string;
   mobileImage:string;
   alt: string;
-};
+}
 
 export type SpotlightData = {
   title: string;

@@ -69,7 +69,7 @@ type FormValues = {
 // ─── Shared Field Components ──────────────────────────────────────────────────
 
 const ErrorSlot = ({ msg }: { msg?: string }) => (
-  <p className={`pt-[5px] h-20 ${msg ? "text-[#c0392b] text-[14px]" : ""}`}>
+  <p className={`pt-[2px] h-20 ${msg ? "text-[#c0392b] text-[14px]" : ""}`}>
     {msg ?? "\u00A0"}
   </p>
 );
@@ -337,18 +337,22 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                         dropdownWidth={phoneRowWidth}
                         variant="dark"
                       />
-                      <input
-                        id="phone"
-                        type="number"
-                        className="flex-1 pl-[100px] pb-[5px] outline-none bg-transparent text-description text-foreground-light"
-                        {...register("phone", {
-                          required: "Phone number is required",
-                          pattern: {
-                            value: /^[0-9]{7,15}$/,
-                            message: "Invalid phone number",
-                          },
-                        })}
-                      />
+<input
+  id="phone"
+  type="text"
+  inputMode="numeric"
+  className="flex-1 pl-[100px] pb-[5px] outline-none bg-transparent text-description text-foreground-light"
+  {...register("phone", {
+    required: "Phone number is required",
+    pattern: {
+      value: /^[0-9]{7,15}$/,
+      message: "Invalid phone number",
+    },
+    onChange: (e) => {
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    },
+  })}
+/>
                     </div>
                     <FieldLine hasError={!!errors.phone} />
                     <ErrorSlot msg={errors.phone?.message} />
