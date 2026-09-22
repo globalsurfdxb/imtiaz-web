@@ -5,7 +5,6 @@ import Main from "./sections/Main";
 import { Suspense } from "react";
 
 const Index = ({ data }: any) => {
-  console.log("Studio Apartments Data:", data); // Log the data to the console for debugging
   return (
     <>
       <StudioBanner
