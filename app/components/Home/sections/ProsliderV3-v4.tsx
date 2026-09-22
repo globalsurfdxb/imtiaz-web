@@ -332,6 +332,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 import { useInView } from "framer-motion";
 import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import CarouselSlider from "./CarouselSlider";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -505,23 +506,19 @@ export default function HeroSlider({
         <div className="absolute inset-0 bg-black" />
 
         {/* Right Label */}
-
       </div>
 
-
-{/* Heading */}
+      {/* Heading */}
       <div className="container pt-[130px] md:pt-120 2xl:pt-[130px] relative z-20">
         <motion.div className="flex items-center justify-center relative">
           <motion.div
             className="max-w-[1150px] w-full text center"
-            
             initial="hidden"
             whileInView="visible"
           >
             <div className="overflow-hidden text-center">
               <motion.h1
                 key={`title-communities`}
-                
                 custom={0.23}
                 initial="initial"
                 whileInView="animate"
@@ -536,7 +533,6 @@ export default function HeroSlider({
           </motion.div>
         </motion.div>
       </div>
-
 
       {/* ── Swiper with per-slide videos (z-10) ──────────────────────────────── */}
       <div className="absolute inset-0 z-10">
@@ -594,34 +590,16 @@ export default function HeroSlider({
                 {slides.length > 1 && (
                   <motion.div className="block lg:hidden absolute left-0 top-1/2 -translate-y-1/2 w-full opacity-60">
                     <div className="container flex items-center justify-between w-full">
-                      <button
-                        aria-label="Previous slide"
+                      <SliderArrowButton
                         onClick={handlePrev}
-                        className="relative w-[50px] h-[50px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
-                      >
-                        <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-                        <Image
-                          src="/icons/left_arrow_slider_primary.svg"
-                          alt="Prev"
-                          width={28}
-                          height={28}
-                          className="relative z-10 object-contain w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-                        />
-                      </button>
-                      <button
-                        aria-label="Next slide"
+                        direction="prev"
+                        variant="light"
+                      />
+                      <SliderArrowButton
                         onClick={handleNext}
-                        className="relative w-[50px] h-[50px] group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
-                      >
-                        <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-                        <Image
-                          src="/icons/left_arrow_slider_primary.svg"
-                          alt="Next"
-                          width={28}
-                          height={28}
-                          className="relative rotate-180 z-10 object-contain w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-                        />
-                      </button>
+                        direction="next"
+                        variant="light"
+                      />
                     </div>
                   </motion.div>
                 )}
@@ -768,11 +746,7 @@ export default function HeroSlider({
                               />
                             ))}
                           </div>
-
                         </motion.div>
-
-                        
-
                       </motion.div>
                     </div>
                   </motion.div>
