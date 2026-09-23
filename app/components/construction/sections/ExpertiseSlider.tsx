@@ -90,7 +90,7 @@ export default function ExpertiseSlider({ data }: { data: ExpertiseSection }) {
                   key={i}
                   onClick={() => swiperRef.current?.slideTo(i)}
                 >
-                  <div className="group relative aspect-[3/4] 3xl:aspect-auto 3xl:h-[545px] overflow-hidden cursor-pointer">
+                  <div className="group relative aspect-[3/4] 3xl:aspect-auto 3xl:h-[545px] overflow-hidden">
                     <Image
                       src={slide.image}
                       alt={slide.title}

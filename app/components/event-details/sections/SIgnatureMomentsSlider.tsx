@@ -181,7 +181,7 @@ const SignatureMomentsSlider = ({ images, title }: { images: {featured_image_des
         </motion.div>}
 
         {/* next button — z-30 above gradient, pointer-events-auto */}
-        {images.length > 0 && <motion.div
+        {images.length > 1 && <motion.div
           variants={moveUp(0.3)}
           initial="hidden"
           whileInView="show"

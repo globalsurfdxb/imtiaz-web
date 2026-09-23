@@ -370,6 +370,7 @@ const go = useCallback(
           </AnimatePresence>
 
           <div className="w-full relative">
+          {slides.length > 1 && (
           <div className=" absolute bottom-0 left-0 right-0 z-10 flex items-center justify-center gap-[10px] mb-[40px] lg:mb-50">
             {slides.map((_, i) => (
               <button
@@ -386,6 +387,7 @@ const go = useCallback(
               />
             ))}
           </div>
+          )}
             <ImageTrack
               slides={slides}
               targetRef={mImgsRef}
@@ -405,6 +407,7 @@ const go = useCallback(
                 px="px-10 md:px-[30px] lg:px-[26px] h-[44px] md:h-[50px]  xl:h-[66px]"
               />
             </Link>
+            {slides.length > 1 && (
             <div className="flex items-center gap-[15px]">
               <SliderArrowButton
                 onClick={() => {
@@ -425,6 +428,7 @@ const go = useCallback(
                 arrowColor="dark"
               />
             </div>
+            )}
           </div>
         </div>
 
@@ -498,6 +502,7 @@ const go = useCallback(
                   </motion.div>
                 </AnimatePresence>
 
+                {slides.length > 1 && (
                 <div className="flex items-center gap-[10px] mt-80">
                   {slides.map((_, i) => (
                     <button
@@ -514,6 +519,7 @@ const go = useCallback(
                     />
                   ))}
                 </div>
+                )}
               </div>
             </div>
 
@@ -545,6 +551,7 @@ const go = useCallback(
                   />
                 </Link>
               </motion.div>
+              {slides.length > 1 && (
               <div className="flex items-center gap-[10px] 3xl:gap-[15px]">
                 <motion.div
                   variants={moveUp(0.1)}
@@ -579,6 +586,7 @@ const go = useCallback(
                   />
                 </motion.div>
               </div>
+              )}
             </div>
           </div>
         </div>

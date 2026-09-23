@@ -36,12 +36,14 @@ export default function IconGrid({ data, bgClass }: Props) {
   // Below lg: 2 cards per slide
   const [activeIndexPaired, setActiveIndexPaired] = useState(0);
   const [slidesPerViewPaired, setSlidesPerViewPaired] = useState(1);
+  const [dotCountPaired, setDotCountPaired] = useState(0);
   const swiperPairedRef = useRef<SwiperType | null>(null);
   const [innerIndicesPaired, setInnerIndicesPaired] = useState<Set<number>>(new Set());
 
   // At lg+: 1 card per slide
   const [activeIndexSingle, setActiveIndexSingle] = useState(0);
   const [slidesPerViewSingle, setSlidesPerViewSingle] = useState(1);
+  const [dotCountSingle, setDotCountSingle] = useState(0);
   const swiperSingleRef = useRef<SwiperType | null>(null);
   const [innerIndicesSingle, setInnerIndicesSingle] = useState<Set<number>>(new Set());
 
@@ -57,8 +59,8 @@ export default function IconGrid({ data, bgClass }: Props) {
   const totalPaired = pairedSlides?.length;
   const totalSingle = singleSlides?.length;
 
-  const showPaginationPaired = slidesPerViewPaired < totalPaired;
-  const showPaginationSingle = slidesPerViewSingle < totalSingle;
+  const showPaginationPaired = dotCountPaired > 1;
+  const showPaginationSingle = dotCountSingle > 1;
 
   useEffect(() => {
     const check = () => {
@@ -118,7 +120,7 @@ export default function IconGrid({ data, bgClass }: Props) {
             modules={[Autoplay]}
             autoplay={{ delay: 4000, disableOnInteraction: false }}
             speed={700}
-            loop={showPaginationPaired}
+            rewind={true}
             grabCursor={true}
             slidesPerView={1}
             breakpoints={{
@@ -128,15 +130,19 @@ export default function IconGrid({ data, bgClass }: Props) {
               swiperPairedRef.current = s;
               computeInnerIndicesPaired(s);
               setActiveIndexPaired(s.realIndex);
+              setDotCountPaired(s.snapGrid.length);
             }}
             onSlideChange={(s) => {
               computeInnerIndicesPaired(s);
               setActiveIndexPaired(s.realIndex);
             }}
+            onReachEnd={(s) => setActiveIndexPaired(s.snapGrid.length - 1)}
             onBreakpoint={(s) => {
               computeInnerIndicesPaired(s);
               setActiveIndexPaired(s.realIndex);
+              setDotCountPaired(s.snapGrid.length);
             }}
+            onResize={(s) => setDotCountPaired(s.snapGrid.length)}
           >
             {pairedSlides.map((pair, slideIndex) => (
               <SwiperSlide key={slideIndex}>
@@ -191,7 +197,7 @@ export default function IconGrid({ data, bgClass }: Props) {
 
           {showPaginationPaired && (
             <div className="flex justify-center mt-[40px] gap-[10px]">
-              {pairedSlides.map((_, i) => (
+              {Array.from({ length: dotCountPaired }, (_, i) => (
                 <button
                   key={i}
                   onClick={() => swiperPairedRef.current?.slideToLoop(i)}
@@ -210,7 +216,7 @@ export default function IconGrid({ data, bgClass }: Props) {
             modules={[Autoplay]}
             autoplay={{ delay: 4000, disableOnInteraction: false }}
             speed={700}
-            loop={showPaginationSingle}
+            rewind={true}
             grabCursor={true}
             slidesPerView={3}
             breakpoints={{
@@ -220,22 +226,27 @@ export default function IconGrid({ data, bgClass }: Props) {
               swiperSingleRef.current = s;
               computeInnerIndicesSingle(s);
               setActiveIndexSingle(s.realIndex);
+              setDotCountSingle(s.snapGrid.length);
             }}
             onSlideChange={(s) => {
               computeInnerIndicesSingle(s);
               setActiveIndexSingle(s.realIndex);
             }}
+            onReachEnd={(s) => setActiveIndexSingle(s.snapGrid.length - 1)}
             onBreakpoint={(s) => {
               computeInnerIndicesSingle(s);
               setActiveIndexSingle(s.realIndex);
+              setDotCountSingle(s.snapGrid.length);
             }}
+            onResize={(s) => setDotCountSingle(s.snapGrid.length)}
+            className="!overflow-visible [&_.swiper-wrapper]:!items-stretch [&_.swiper-slide]:!h-auto"
           >
             {singleSlides?.map(([card], slideIndex) => {
               const showVerticalLine = innerIndicesSingle.has(slideIndex);
 
               return (
-                <SwiperSlide key={slideIndex}>
-                  <div className="relative flex flex-col">
+                <SwiperSlide key={slideIndex} className="h-full">
+                  <div className="relative flex flex-col h-full">
                     <div className="flex flex-col items-center justify-start px-4 py-40 text-center">
                       <div className="w-[70px] h-[70px] xl:w-[80px] xl:h-[80px] rounded-full flex items-center justify-center bg-primary/5 mb-20">
                         {card.icon_url && <Image
@@ -271,7 +282,7 @@ export default function IconGrid({ data, bgClass }: Props) {
 
           {showPaginationSingle && (
             <div className="flex justify-center mt-50 gap-[10px]">
-              {singleSlides.map((_, i) => (
+              {Array.from({ length: dotCountSingle }, (_, i) => (
                 <button
                   key={i}
                   onClick={() => swiperSingleRef.current?.slideToLoop(i)}

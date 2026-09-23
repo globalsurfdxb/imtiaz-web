@@ -34,6 +34,7 @@ const LINE_GRADIENT_V =
 export default function Reasons({data}:{data:InvestReasonsData}) {
   const { sectionTitle, sectionDescription, reasons } = data;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [dotCount, setDotCount] = useState(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const swiperRef = useRef<SwiperType | null>(null);
 
@@ -107,19 +108,25 @@ export default function Reasons({data}:{data:InvestReasonsData}) {
           modules={[Autoplay]}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           speed={700}
-          loop={true}
+          // loop={true}
           watchSlidesProgress={true}
           slidesPerView={1}
           onSwiper={(s) => {
             swiperRef.current = s;
             computeInnerIndices(s);
             setActiveIndex(s.realIndex);
+            setDotCount(s.snapGrid.length);
           }}
           onSlideChange={(s) => {
             computeInnerIndices(s);
             setActiveIndex(s.realIndex);
           }}
-          onBreakpoint={(s) => computeInnerIndices(s)}
+          onReachEnd={(s) => setActiveIndex(s.snapGrid.length - 1)}
+          onBreakpoint={(s) => {
+            computeInnerIndices(s);
+            setDotCount(s.snapGrid.length);
+          }}
+          onResize={(s) => setDotCount(s.snapGrid.length)}
           breakpoints={{
             728: { slidesPerView: 2 },
             1280: { slidesPerView: 3 },
@@ -208,7 +215,7 @@ export default function Reasons({data}:{data:InvestReasonsData}) {
         </Swiper>
         {/* Pagination (only below 1540px) */}
         <div className="flex justify-center mt-[40px] md:mt-50 gap-[10px] min-[1540px]:hidden">
-          {slides.map((_, i) => (
+          {Array.from({ length: dotCount }, (_, i) => (
             <button
               key={i}
               onClick={() => swiperRef.current?.slideToLoop(i)}

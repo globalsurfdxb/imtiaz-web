@@ -129,10 +129,7 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
   const bgImageMobileRef = useRef<HTMLImageElement>(null);
   const bgPrevImageDesktopRef = useRef<HTMLImageElement>(null);
   const bgPrevImageMobileRef = useRef<HTMLImageElement>(null);
-  const bgCurrentWrapperRef = useRef<HTMLDivElement>(null); // only current 
-
-
-
+  const bgCurrentWrapperRef = useRef<HTMLDivElement>(null); // only current
 
   useEffect(() => {
     data.items.forEach((item) => {
@@ -152,7 +149,12 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
       const vh = window.innerHeight;
       const progress = (vh / 2 - (rect.top + rect.height / 2)) / vh;
       const y = progress * 15;
-      [bgImageDesktopRef, bgImageMobileRef, bgPrevImageDesktopRef, bgPrevImageMobileRef].forEach((ref) => {
+      [
+        bgImageDesktopRef,
+        bgImageMobileRef,
+        bgPrevImageDesktopRef,
+        bgPrevImageMobileRef,
+      ].forEach((ref) => {
         if (ref.current) {
           ref.current.style.transform = `scale(1.15) translateY(${y}vh)`;
         }
@@ -163,75 +165,74 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const swapImages = (index: number) => {
+    const nextSrc = data.items[index].image;
+    const nextMobileSrc = data.items[index].mobileImage;
 
-const swapImages = (index: number) => {
-  const nextSrc = data.items[index].image;
-  const nextMobileSrc = data.items[index].mobileImage;
+    const swap = () => {
+      if (bgPrevImageDesktopRef.current && bgImageDesktopRef.current) {
+        bgPrevImageDesktopRef.current.src = bgImageDesktopRef.current.src;
+      }
+      if (bgPrevImageMobileRef.current && bgImageMobileRef.current) {
+        bgPrevImageMobileRef.current.src = bgImageMobileRef.current.src;
+      }
+      if (bgImageDesktopRef.current) {
+        bgImageDesktopRef.current.src = nextSrc;
+      }
+      if (bgImageMobileRef.current) {
+        bgImageMobileRef.current.src = nextMobileSrc;
+      }
+      if (bgCurrentWrapperRef.current) {
+        bgCurrentWrapperRef.current.style.transition = "none";
+        bgCurrentWrapperRef.current.style.opacity = "0";
+        void bgCurrentWrapperRef.current.offsetHeight;
+        bgCurrentWrapperRef.current.style.transition = "opacity 0.6s ease";
+        bgCurrentWrapperRef.current.style.opacity = "1";
+      }
+    };
 
-  const swap = () => {
-    if (bgPrevImageDesktopRef.current && bgImageDesktopRef.current) {
-      bgPrevImageDesktopRef.current.src = bgImageDesktopRef.current.src;
-    }
-    if (bgPrevImageMobileRef.current && bgImageMobileRef.current) {
-      bgPrevImageMobileRef.current.src = bgImageMobileRef.current.src;
-    }
-    if (bgImageDesktopRef.current) {
-      bgImageDesktopRef.current.src = nextSrc;
-    }
-    if (bgImageMobileRef.current) {
-      bgImageMobileRef.current.src = nextMobileSrc;
-    }
-    if (bgCurrentWrapperRef.current) {
-      bgCurrentWrapperRef.current.style.transition = "none";
-      bgCurrentWrapperRef.current.style.opacity = "0";
-      void bgCurrentWrapperRef.current.offsetHeight;
-      bgCurrentWrapperRef.current.style.transition = "opacity 0.6s ease";
-      bgCurrentWrapperRef.current.style.opacity = "1";
-    }
+    const preloadDesktop = new window.Image();
+    const preloadMobile = new window.Image();
+
+    let settled = 0;
+    let swapped = false;
+    const total = 2;
+
+    const trySwap = () => {
+      settled++;
+      // Fire as soon as both have settled — success OR failure — never hang forever
+      if (settled >= total && !swapped) {
+        swapped = true;
+        swap();
+      }
+    };
+
+    preloadDesktop.onload = trySwap;
+    preloadDesktop.onerror = trySwap; // don't let a broken image block the swap
+    preloadMobile.onload = trySwap;
+    preloadMobile.onerror = trySwap;
+
+    preloadDesktop.src = nextSrc;
+    preloadMobile.src = nextMobileSrc;
+
+    if (preloadDesktop.complete) trySwap();
+    if (preloadMobile.complete) trySwap();
+
+    // Safety net: if something weird happens and neither load nor error fires
+    // (e.g. request stalls indefinitely), force the swap after a short timeout
+    // rather than leaving the UI permanently stuck.
+    setTimeout(() => {
+      if (!swapped) {
+        swapped = true;
+        swap();
+      }
+    }, 800);
+
+    setCurrentIndex(index);
+    setActiveIndex(index);
   };
 
-  const preloadDesktop = new window.Image();
-  const preloadMobile = new window.Image();
-
-  let settled = 0;
-  let swapped = false;
-  const total = 2;
-
-  const trySwap = () => {
-    settled++;
-    // Fire as soon as both have settled — success OR failure — never hang forever
-    if (settled >= total && !swapped) {
-      swapped = true;
-      swap();
-    }
-  };
-
-  preloadDesktop.onload = trySwap;
-  preloadDesktop.onerror = trySwap; // don't let a broken image block the swap
-  preloadMobile.onload = trySwap;
-  preloadMobile.onerror = trySwap;
-
-  preloadDesktop.src = nextSrc;
-  preloadMobile.src = nextMobileSrc;
-
-  if (preloadDesktop.complete) trySwap();
-  if (preloadMobile.complete) trySwap();
-
-  // Safety net: if something weird happens and neither load nor error fires
-  // (e.g. request stalls indefinitely), force the swap after a short timeout
-  // rather than leaving the UI permanently stuck.
-  setTimeout(() => {
-    if (!swapped) {
-      swapped = true;
-      swap();
-    }
-  }, 800);
-
-  setCurrentIndex(index);
-  setActiveIndex(index);
-};
-
-    const handleEnter = (index: number) => {
+  const handleEnter = (index: number) => {
     if (index === activeIndex) return;
     if (fadeTimer.current) clearTimeout(fadeTimer.current);
     swapImages(index);
@@ -247,7 +248,7 @@ const swapImages = (index: number) => {
       className="relative w-full h-screen overflow-hidden"
       data-header="light"
     >
-<div className="absolute inset-0 bg-[#0a0a0a] z-0" />
+      <div className="absolute inset-0 bg-[#0a0a0a] z-0" />
 
       <div className="absolute inset-0 z-[1]">
         {/* Previous — desktop */}
@@ -307,7 +308,7 @@ const swapImages = (index: number) => {
       </div>
 
       {/* Desktop (md+) */}
-      <div className="absolute left-0 bottom-0 right-0 z-20 hidden md:grid md:grid-cols-3">
+      <div className="absolute left-0 bottom-0 right-0 z-20 hidden lg:grid lg:grid-cols-3">
         {data.items.map((item, i) => (
           <Reveal key={item.id} variants={moveUpV2}>
             <ColItem
@@ -322,7 +323,7 @@ const swapImages = (index: number) => {
       </div>
 
       {/* Mobile nav buttons */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 z-30 flex justify-between px-30 pointer-events-none md:hidden">
+      <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 z-30 flex justify-between px-30 pointer-events-none lg:hidden">
         {data.items.length > 1 && (
           <>
             <div className="pointer-events-auto">
@@ -344,7 +345,7 @@ const swapImages = (index: number) => {
       </div>
 
       {/* Mobile (below md) */}
-      <div className="absolute left-0 bottom-0 right-0 z-20 md:hidden">
+      <div className="absolute left-0 bottom-0 right-0 z-20 lg:hidden">
         <Swiper
           modules={[Autoplay]}
           slidesPerView={1}
@@ -375,10 +376,11 @@ const swapImages = (index: number) => {
             <button
               key={i}
               onClick={() => swiperRef.current?.slideToLoop(i)}
-              className={`w-[10px] h-[10px] rounded-full border transition-all cursor-pointer ${activeIndex === i
-                ? "bg-white border-white"
-                : "border-white bg-transparent"
-                }`}
+              className={`w-[10px] h-[10px] rounded-full border transition-all cursor-pointer ${
+                activeIndex === i
+                  ? "bg-white border-white"
+                  : "border-white bg-transparent"
+              }`}
             />
           ))}
         </div>
