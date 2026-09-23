@@ -16,7 +16,7 @@ interface Props {
 }
 
 const NewsHero = ({ news }: Props) => {
-  const { ref, parallaxY } = useParallax(15);
+  const { ref, parallaxY } = useParallax(6);
     const readingTime = getReadingTime(news.description);
 
   const [size, setSize] = useState(32);
@@ -101,7 +101,7 @@ const NewsHero = ({ news }: Props) => {
             priority
             sizes="100vw"
             style={{
-              transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
+              transform: `scale(${1.06}) translateY(${parallaxY}vh)`,
             }}
             className="lg:block hidden object-cover"
           />
@@ -113,7 +113,7 @@ const NewsHero = ({ news }: Props) => {
             priority
             sizes="100vw"
             style={{
-              transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
+              transform: `scale(${1.06}) translateY(${parallaxY}vh)`,
             }}
             className="lg:hidden object-cover"
           />

@@ -204,7 +204,6 @@ export default function BannerDetails({
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           breakpoints={{
             528: { slidesPerView: 2 },
-            800: { slidesPerView: 3 },
           }}
           onSwiper={(s) => {
             setSwiper(s);

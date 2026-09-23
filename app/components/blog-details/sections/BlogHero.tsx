@@ -11,7 +11,6 @@ import { moveDown, moveUp } from "../../motionVariants";
 import { useParallax } from "@/app/hooks/useParallax";
 import { getReadingTime } from "@/app/utils/readingTime";
 
-
 const BlogHero = ({ blog }: { blog: BlogDetailData }) => {
   const { ref, parallaxY } = useParallax(15);
   const readingTime = getReadingTime(blog.description);
@@ -31,7 +30,11 @@ const BlogHero = ({ blog }: { blog: BlogDetailData }) => {
   const handleShare = () => {
     const shareUrl = window.location.href;
     const linkedinUrl = `http://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}`;
-    window.open(linkedinUrl, "_blank", "noopener,noreferrer,width=600,height=600");
+    window.open(
+      linkedinUrl,
+      "_blank",
+      "noopener,noreferrer,width=600,height=600",
+    );
   };
 
   return (
@@ -64,10 +67,10 @@ const BlogHero = ({ blog }: { blog: BlogDetailData }) => {
           >
             <div>
               <span>{blog.category_name}</span>
-              <span> - </span>
+              {blog.category_name && <span> - </span>}
               <span>{blog.post_date}</span>
             </div>
-            <span>|</span>
+            {blog.post_date && <span>|</span>}
             <div>
               <span>Reading Time: {readingTime}</span>
             </div>
@@ -104,7 +107,11 @@ const BlogHero = ({ blog }: { blog: BlogDetailData }) => {
           />
 
           <Image
-            src={blog.page_banner_mobile ? blog.page_banner_mobile : blog.page_banner_desktop}
+            src={
+              blog.page_banner_mobile
+                ? blog.page_banner_mobile
+                : blog.page_banner_desktop
+            }
             alt={blog.page_banner_title}
             fill
             priority

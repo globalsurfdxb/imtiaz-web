@@ -577,6 +577,7 @@ export default function GallerySlider({ data }: { data: any }) {
 
   return (
     <section
+    data-header="dark"
       ref={sectionRef}
       className="gallery-slider-root relative w-full overflow-hidden h-[65vh] md:h-[90vh] 2xl:h-screen bg-[#0e0e0e] cursor-grab"
     >

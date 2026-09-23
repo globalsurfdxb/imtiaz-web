@@ -63,6 +63,9 @@ export default function IconSlider({data}:{data:IconSliderData}) {
           onSlideChange={(swiper) => {
             setActiveSnap(swiper.snapIndex);
           }}
+          onReachEnd={(swiper) => {
+            setActiveSnap(swiper.snapGrid.length - 1);
+          }}
           modules={[Autoplay]}
           slidesPerView={1.2}
           spaceBetween={0}

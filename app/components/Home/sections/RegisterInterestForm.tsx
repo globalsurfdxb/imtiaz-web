@@ -126,7 +126,7 @@ export default function RegisterInterestForm({
               type="text"
               placeholder=""
               className={inputClass}
-              {...register("firstName", { required: "Required" })}
+              {...register("firstName", { required: "First name is required" })}
             />
             <FieldLine hasError={!!errors.firstName} />
             <ErrorSlot msg={errors.firstName?.message} />
@@ -140,7 +140,7 @@ export default function RegisterInterestForm({
               id="lastName"
               type="text"
               className={inputClass}
-              {...register("lastName", { required: "Required" })}
+              {...register("lastName", { required: "Last name is required" })}
             />
             <FieldLine hasError={!!errors.lastName} />
             <ErrorSlot msg={errors.lastName?.message} />

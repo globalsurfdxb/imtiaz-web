@@ -26,20 +26,6 @@ interface ContactBannerProps {
 const CONTENT_DELAY = 0.6;
 const FEATURES_DELAY = CONTENT_DELAY + 0.3;
 
-// ─── Separator ───────────────────────────────────────────────────────────────
-const GradientSeparator = () => (
-  <div
-    className="w-px self-stretch"
-    style={{
-      border: "none",
-      background:
-        "linear-gradient(180deg, rgba(255,255,255,0) 0%, #FFFFFF 50%, rgba(255,255,255,0) 100%)",
-      width: "1px",
-      minHeight: "60px",
-    }}
-  />
-);
-
 // ─── Component ───────────────────────────────────────────────────────────────
 const ConstructionBanner = ({
   video,
@@ -138,7 +124,7 @@ const ConstructionBanner = ({
         <div className="absolute inset-0 bg-black/50" />
         {/* ── Main Content (title + description + breadcrumb) ── */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <div>
+          <div ref={contentRef} className="opacity-0">
             <AnimatedHeading
               title={title}
               className="mb-[8px] md:mb-20 text-white"
@@ -167,14 +153,6 @@ const ConstructionBanner = ({
           )}
         </div>
       </div>
-
-      {features && features.length > 0 && (
-        <div className="absolute bottom-0 left-0 right-0">
-          <div ref={featuresRef} className="opacity-0">
-            <FeatureSlider features={features} />
-          </div>
-        </div>
-      )}
     </section>
   );
 };

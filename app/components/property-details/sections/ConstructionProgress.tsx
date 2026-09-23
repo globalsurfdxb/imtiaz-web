@@ -515,7 +515,7 @@ export default function WynwoodProgress({
         </div>
         <div className="w-full flex flex-col lg:flex-row 3xl:grid 3xl:grid-cols-[auto_920px] overflow-hidden bg-gray">
           {/* LEFT — Building Image */}
-          <div ref={ref} className="relative w-full h-[275px] lg:h-auto overflow-hidden">
+          <div ref={ref} className="relative w-full h-[275px] sm:h-[300px] md:h-[380px] lg:h-auto overflow-hidden">
             <Image
               src={image}
               alt={title}

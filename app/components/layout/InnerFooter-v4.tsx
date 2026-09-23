@@ -96,7 +96,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
   return (
     <footer
       data-header="dark"
-      className="w-full h-[100svh] flex flex-col justify-between make-header-black text-white bg-primary-2 relative z-10 overflow-hidden"
+      className="w-full min-h-[100svh] lg:h-[100svh] flex flex-col justify-between make-header-black text-white bg-primary-2 relative z-10 overflow-visible lg:overflow-hidden"
     >
       <div className="flex flex-col justify-evenly h-full">
         {/* ================= TOP HERO SECTION ================= */}
@@ -110,56 +110,55 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
               whileInView="show"
               viewport={{ once: true }}
             >
-              <Image
-                src="/images/logo-new.svg"
-                alt="logo"
-                width={295}
-                height={70}
-                className="w-auto max-w-[291px] 3xl:w-[291px] h-[20px] sm:h-[30px] md:h-[50px] xl:h-[60px] shrink-0 invert brightness-0"
-              />
+              <Link href="/" >
+                <Image
+                  src="/images/logo-new.svg"
+                  alt="logo"
+                  width={295}
+                  height={70}
+                  className="w-auto max-w-[291px] 3xl:w-[291px] h-[20px] sm:h-[30px] md:h-[50px] xl:h-[60px] shrink-0 invert brightness-0"
+                />
+              </Link>
             </motion.div>
             {/* Stay Updated */}
-            <div className="w-full md:w-auto flex flex-col mt-12 md:mt-0 md:flex-row gap-5 xl:gap-10 items-center">
+            {/* xl:pb-50 reserves room below the row (without affecting items-center inside it)
+                so the absolutely-positioned error message isn't clipped by this section's overflow-hidden */}
+            <div className="w-full md:w-auto flex flex-col mt-12 md:mt-0 md:flex-row gap-5 xl:gap-10 items-center xl:pb-50">
               <motion.p
-                variants={moveUp(0.1)}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
                 className="text-19 font-[avenirBook] text-white uppercase leading-[1.5]"
               >
                 STAY UPDATED
               </motion.p>
-              <motion.div
-                variants={moveUp(0.15)}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="w-full md:w-auto footer-input-email flex items-center gap-2 md:gap-8 xl:gap-15 rounded-[50px] p-[3px] md:p-[6px] border border-white relative overflow-hidden"
-              >
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (error) setError(""); // clear on typing
-                  }}
-                  placeholder={footerV2Data.top.placeholderEmail}
-                  className="bg-transparent  flex-1 pl-4 md:pl-5 xl:pl-9 font-[avenirBook] text-16 text-white placeholder-white/60 focus:outline-none"
-                />
-                <button
-                  onClick={handleSubmit}
-                  disabled={submitLoading}
-                  className="bg-white/10 cursor-pointer backdrop-blur-[30px] px-8 md:px-7 xl:px-[44px] py-[16px] rounded-[50px] text-16 text-white disabled:opacity-60"
+              <div className="w-full md:w-auto flex flex-col relative">
+                <motion.div
+                  className="w-full md:w-auto footer-input-email flex items-center gap-2 md:gap-8 xl:gap-15 rounded-[50px] p-[3px] md:p-[6px] border border-white relative"
                 >
-                  {subscribed ? "Subscribed!" : submitLoading ? "Sending..." : footerV2Data.top.sendText}
-                </button>
-                {/* ✅ Error message */}
-                {error && (
-                  <p className="text-[14px] text-red-400 absolute -bottom-50 3xl:-bottom-30 left-[27px] xl:left-[42px]">
-                    {error}
-                  </p>
-                )}
-              </motion.div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (error) setError(""); // clear on typing
+                    }}
+                    placeholder={footerV2Data.top.placeholderEmail}
+                    className="bg-transparent  flex-1 pl-4 md:pl-5 xl:pl-9 font-[avenirBook] text-16 text-white placeholder-white/60 focus:outline-none"
+                  />
+                  <button
+                    onClick={handleSubmit}
+                    disabled={submitLoading}
+                    className="bg-white/10 cursor-pointer backdrop-blur-[30px] px-8 md:px-7 xl:px-[44px] py-[16px] rounded-[50px] text-16 text-white disabled:opacity-60"
+                  >
+                    {subscribed ? "Subscribed!" : submitLoading ? "Sending..." : footerV2Data.top.sendText}
+                  </button>
+                </motion.div>
+                <p
+                  className={`text-[14px] text-red-400 mt-2 pl-[27px] min-h-[17px] xl:mt-0 xl:min-h-0 xl:pl-0 xl:absolute xl:left-[42px] xl:-bottom-50 3xl:-bottom-30 transition-opacity duration-200 ${
+                    error ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  {error || " "}
+                </p>
+              </div>
             </div>
           </div>
         </div>

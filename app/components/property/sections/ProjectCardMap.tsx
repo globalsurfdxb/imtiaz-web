@@ -99,7 +99,7 @@ const parts = title.split(new RegExp(`(${breakWord})`, "i"));
           <div className={`absolute top-0 left-0 right-0 flex justify-center flex-col items-center transition-opacity duration-500 ${show ? "opacity-100 sm:opacity-0 delay-0" : "opacity-100 delay-100"}`}>
             {status && (
               <div className="bg-white/30 backdrop-blur-[30px] px-[15px] py-[1.5px] rounded-full h-[28px] flex items-center justify-center">
-                <p className="text-white/80 text-description  uppercase h-[18px] lg:h-[22px]">
+                <p className="text-white/80 text-description  uppercase h-[22px]">
                   {status}
                 </p>
               </div>
