@@ -79,9 +79,8 @@ function AccordionItem({
         <div className="min-h-0 overflow-hidden">
           <p
             className={`text-description text-foreground-light max-w-[846px] ${!isLast ? "pb-30" : ""}`}
-          >
-            {item.caption}
-          </p>
+            dangerouslySetInnerHTML={{ __html: item.caption }}
+            />
         </div>
       </div>
 

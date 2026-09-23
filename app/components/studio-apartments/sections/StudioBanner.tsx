@@ -40,6 +40,7 @@ const InnerHeroBanner = ({
   buttonLink,
   mobileImage
 }: InnerHeroProps) => {
+  console.log(description);
   const imageWrapperRef = useRef<HTMLDivElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const breadcrumbRef = useRef<HTMLDivElement>(null);
@@ -128,7 +129,7 @@ const InnerHeroBanner = ({
 
   return (
     <section
-      className="relative w-full h-[75vh] 2xl:h-[89.5dvh] overflow-hidden"
+      className="relative w-full h-[89.5dvh] overflow-hidden"
       data-header="light"
     >
       <div
@@ -177,9 +178,7 @@ const InnerHeroBanner = ({
               ref={descRef}
               style={{ opacity: 0 }}
               className={`text-white/80 text-description ${maxW} mx-auto text-center flex items-center justify-center px-30 xl:px-0 whitespace-pre-line`}
-            >
-              {description}
-            </p>
+              dangerouslySetInnerHTML={{ __html: description }} />
           )}
           <div
             ref={btnRef}
