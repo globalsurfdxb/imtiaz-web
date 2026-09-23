@@ -1210,17 +1210,13 @@ input:-webkit-autofill:active {
   background: linear-gradient(90deg, rgba(73, 9, 5, 0) 0%, #490905 50%, rgba(73, 9, 5, 0) 100%);
 }
 
-.studio-content ul {
-  padding: 0;
-  margin: 0;
-}
 
-.studio-content li {
+.studio-content h3 {
   @apply text-subtitle text-foreground flex items-start gap-2 lg:gap-[10px] mb-2 mt-5 lg:mt-[30px];
   list-style: none;
 }
 
-  .studio-content li::before {
+  .studio-content h3::before {
     content: "";
     @apply inline-block w-2 h-2 lg:w-[10px] lg:h-[10px] lg:min-w-[10px] mt-1.5 lg:mt-2 rounded-full;
     background-color: var(--primary-2);
