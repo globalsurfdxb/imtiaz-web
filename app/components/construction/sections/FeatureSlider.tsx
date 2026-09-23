@@ -38,7 +38,12 @@ const separatorStyle = {
 // ─── Component ────────────────────────────────────────────────────────────────
 const FeatureSlider = ({ features }: FeatureSliderProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [dotCount, setDotCount] = useState(features.length);
   const swiperRef = useRef<SwiperType | null>(null);
+
+  const syncDotCount = (swiper: SwiperType) => {
+    setDotCount(swiper.snapGrid.length || features.length);
+  };
 
   return (
     <div className="overflow-hidden bg-white/10 backdrop-blur-[30px]">
@@ -77,8 +82,13 @@ const FeatureSlider = ({ features }: FeatureSliderProps) => {
             }}
             autoplay={{ delay: 2500, disableOnInteraction: false }}
             centeredSlides={false}
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+              syncDotCount(swiper);
+            }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+            onBreakpoint={(swiper) => syncDotCount(swiper)}
+            onResize={(swiper) => syncDotCount(swiper)}
             className="w-full"
           >
             {features.map((feat, idx) => (
@@ -107,7 +117,7 @@ const FeatureSlider = ({ features }: FeatureSliderProps) => {
 
         {/* ── Pagination dots (below lg only) ── */}
         <div className="flex justify-center sm:pt-20 lg:pt-0 pb-[14px] gap-[10px]">
-          {features.map((_, i) => (
+          {Array.from({ length: dotCount }, (_, i) => (
             <button
               key={i}
               onClick={() => swiperRef.current?.slideTo(i)}

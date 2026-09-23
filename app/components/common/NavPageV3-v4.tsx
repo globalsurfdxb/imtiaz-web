@@ -1544,7 +1544,7 @@ function MobileMegaMenu({
 
       {/* Close button — always on top */}
       <button
-        className="absolute top-6 right-6 z-50 bg-white/25 text-white rounded-full w-[30px] h-[30px] flex items-center justify-center cursor-pointer"
+        className="absolute top-4 right-6 z-50 bg-white/25 text-white rounded-full w-[30px] h-[30px] flex items-center justify-center cursor-pointer"
         onClick={() => setIsMenuOpen?.(false)}
         aria-label="Close menu"
       >
@@ -1694,40 +1694,74 @@ function MobileMegaMenu({
                 ref={(el) => { itemRefs.current[item.id] = el; }}
                 className="border-b border-white/10 last:border-b-0"
               >
-                <div
-                  className="flex items-center justify-between py-3 cursor-pointer group"
-                  onClick={() => {
-                    if (hasChildren) {
-                      setExpandedChild(isExpanded ? null : item.id);
-                    } else {
-                      handleNavigate(item.href, item.newTab);
-                    }
-                  }}
-                >
-                  <span className="text-white font-[avenirRoman] uppercase text-[16px] tracking-wide group-active:opacity-60 transition-opacity duration-150">
-                    {item.label}
-                  </span>
-                  {hasChildren && (
-                    <motion.div
-                      animate={{ rotate: isExpanded ? 180 : 0 }}
-                      transition={{ duration: 0.25, ease: "easeInOut" }}
-                    >
-                      <svg
-                        className="w-4 h-4 text-white/50"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
+                <>
+                  <div
+                    className="flex items-center justify-between py-3 cursor-pointer group"
+                    onClick={() => {
+                      if (hasChildren) {
+                        setExpandedChild(isExpanded ? null : item.id);
+                      } else {
+                        handleNavigate(item.href, item.newTab);
+                      }
+                    }}
+                  >
+                    <span className="text-white font-[avenirRoman] uppercase text-[16px] tracking-wide group-active:opacity-60 transition-opacity duration-150">
+                      {item.label}
+                    </span>
+                    {hasChildren && (
+                      <motion.div
+                        animate={{ rotate: isExpanded ? 180 : 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </motion.div>
+                        <svg
+                          className="w-4 h-4 text-white/50"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M19 9l-7 7-7-7"
+                          />
+                        </svg>
+                      </motion.div>
+                    )}
+                  </div>
+
+                  {isExpanded && propertyFilterOptions.length > 1 && (
+                    <div className="flex gap-6 py-[7px] pl-3">
+                      {propertyFilterOptions.map((filter) => {
+                        const isActive = propertyFilter === filter.value;
+                        return (
+                          <button
+                            key={filter.value}
+                            onClick={() =>
+                              setPropertyFilter(
+                                isActive ? null : (filter.value as "off-plan" | "completed")
+                              )
+                            }
+                            className={`
+            relative text-[12px] uppercase tracking-[1px]
+            transition-all duration-300 pb-1 cursor-pointer
+            ${isActive ? "text-white" : "text-white/60 hover:text-white"}
+          `}
+                          >
+                            {filter.label}
+                            <span
+                              className={`
+              absolute left-0 bottom-0 h-[1px] bg-white
+              transition-all duration-300
+              ${isActive ? "w-full opacity-100" : "w-0 opacity-0"}
+            `}
+                            />
+                          </button>
+                        );
+                      })}
+                    </div>
                   )}
-                </div>
+                </>
 
                 {(
                   <AnimatePresence initial={false}>
@@ -1740,38 +1774,11 @@ function MobileMegaMenu({
                         exit="collapsed"
                         className="overflow-hidden"
                       >
-                        {propertyFilterOptions.length > 1 && (
-                          <div className="flex gap-6 py-[7px] pl-3">
-                            {propertyFilterOptions.map((filter) => {
-                              const isActive = propertyFilter === filter.value;
-                              return (
-                                <button
-                                  key={filter.value}
-                                  onClick={() =>
-                                    setPropertyFilter(
-                                      isActive ? null : (filter.value as "off-plan" | "completed")
-                                    )
-                                  }
-                                  className={`
-            relative text-[12px] uppercase tracking-[1px]
-            transition-all duration-300 pb-1 cursor-pointer
-            ${isActive ? "text-white" : "text-white/60 hover:text-white"}
-          `}
-                                >
-                                  {filter.label}
-                                  <span
-                                    className={`
-              absolute left-0 bottom-0 h-[1px] bg-white
-              transition-all duration-300
-              ${isActive ? "w-full opacity-100" : "w-0 opacity-0"}
-            `}
-                                  />
-                                </button>
-                              );
-                            })}
-                          </div>
-                        )}
-                        <div className="flex flex-col pb-3 pl-3 gap-0">
+                        <div
+                          onWheel={(e) => e.stopPropagation()}
+                          onTouchMove={(e) => e.stopPropagation()}
+                          className="flex flex-col pb-3 pl-3 gap-0 max-h-[80vh] overflow-y-auto overscroll-contain menu-scrollbar pr-2"
+                        >
                           {item.children!
                             .filter((child: any) => {
                               if (child.id.endsWith("-view-community")) return true; // never filter this one out
@@ -1810,6 +1817,7 @@ function MobileMegaMenu({
                     borderColor="border-white"
                     textColor="text-white"
                     px="px-[18px] h-[50px] !leading-[1.58]"
+                    className="!text-[12px] lg:!text-[19px]"
                   />
                 </div>
               ))}
@@ -2110,7 +2118,7 @@ function DesktopMegaMenu({
         {/* CONTENT WRAPPER */}
         <div className="relative z-20 flex h-full w-full container pt-120">
           {/* LEFT MENU */}
-          <div className="w-1/2 lg:w-1/3 2xl:w-1/4 flex flex-col justify-between xl:mr-4">
+          <div className="w-1/2 sm:w-1/3 lg:w-1/3 2xl:w-1/4 flex flex-col justify-between xl:mr-4">
             <div className="flex flex-col justify-center gap-[22px] w-full text-white relative mb-120">
               {visibleMenuItems.map((item, index) => {
                 const isActive = activeMenu.id === item.id;
@@ -2271,12 +2279,16 @@ function DesktopMegaMenu({
 
           {/* RIGHT SUBMENU */}
           <div
-            className="flex gap-[60px] self-start pt-50"
+            className="flex gap-[30px] lg:gap-[60px] self-start pt-50"
             onMouseLeave={() => setActiveCategory(null)}
           >
 
             {/* FIRST COLUMN */}
-            <div className="flex flex-col gap-2 lg:gap-4 text-white w-1/2 sm:w-1/3 xl:w-fit">
+            <div
+              className={`flex flex-col gap-2 lg:gap-4 text-white flex-shrink-0 ${
+                activeMenu.id === "properties" && activeCategory ? "w-[160px] xl:w-fit" : "w-fit"
+              }`}
+            >
               {regularItems.map((item) => (
                 <div key={item.id} className="relative flex flex-col">
                   <div
@@ -2330,7 +2342,7 @@ function DesktopMegaMenu({
                           {item.label}
                         </Link>
                       ) : (
-                        <div className="text-description md:text-18 leading-[2.2] uppercase cursor-pointer">
+                        <div className="text-description md:text-18 leading-[1.9] 2xl:leading-[2.2] uppercase cursor-pointer">
                           {item.label}
                         </div>
                       )}
@@ -2350,7 +2362,8 @@ function DesktopMegaMenu({
                         text={item.label}
                         borderColor="border-white"
                         textColor="text-white"
-                        px="px-[18px] sm:px-[20px] md:px-[36px] h-[44px] md:h-[50px] xl:h-[66px] !leading-[1.58]"
+                        px="px-[18px] sm:px-[20px] 2xl:px-[36px] h-[44px] 2xl:h-[50px] xl:h-[66px] !leading-[1.58]"
+                        className="!text-[12px] lg:!text-[19px]"
                       />
                     </div>
                   ))}
@@ -2358,9 +2371,10 @@ function DesktopMegaMenu({
               )}
             </div>
 
-            {/* SECOND COLUMN */}
+            {/* SECOND COLUMN — properties only, and only once a community is selected */}
+            {activeMenu.id === "properties" && activeCategory && (
             <div>
-              {activeMenu.id === "properties" && activeCategory && propertyFilterOptions.length > 1 && (
+              {propertyFilterOptions.length > 1 && (
                 <div className="flex gap-6 mb-6 border-b border-white/20">
                   {propertyFilterOptions.map((filter) => {
                     const isActive = propertyFilter === filter.value;
@@ -2427,11 +2441,13 @@ function DesktopMegaMenu({
                     onClick={() => setIsMenuOpen?.(false)}
                     borderColor="border-white"
                     textColor="text-white"
-                    px="px-[18px] sm:px-[20px] md:px-[36px] h-[44px] md:h-[50px] xl:h-[66px] !leading-[1.58]"
+                    px="px-[18px] sm:px-[20px] 2xl:px-[36px] h-[44px] md:h-[50px] xl:h-[66px] !leading-[1.58]"
+                    className="!text-[12px] lg:!text-[19px]"
                   />
                 </Link>}
               </div>
             </div>
+            )}
           </div>
 
           {/* CLOSE BTN */}

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
 import FilterDropdown from "../../common/FilterDropdown";
+import CustomOutlineButton from "../../common/CustomOutlineButton";
 import CareerCard from "./CareerCard";
 // import { careersData, vacanciesConfig } from "../data";
 import Reveal from "../../animations/RevealOneByOneAnimation";
@@ -112,6 +113,12 @@ export default function VacanciesSection({careersData, vacanciesConfig}:{careers
     [pathname, router],
   );
 
+  const hasFilter = Boolean(selectedDepartment || selectedJobType);
+
+  const clearFilters = useCallback(() => {
+    router.replace(`${pathname}?page=1`, { scroll: false });
+  }, [pathname, router]);
+
   const filtered = useMemo(() => {
     return careersData.filter((career) => {
       const matchDept =
@@ -158,7 +165,7 @@ export default function VacanciesSection({careersData, vacanciesConfig}:{careers
         />
 
         {/* Filters */}
-        <div className="flex items-center justify-center gap-[10px]">
+        <div className="flex flex-wrap items-center justify-center gap-[10px]">
           <motion.div
             className="w-[170px] sm:w-auto"
             variants={moveUp(0)}
@@ -189,6 +196,23 @@ export default function VacanciesSection({careersData, vacanciesConfig}:{careers
               onChange={(val) => updateParam("jobType", val)}
             />
           </motion.div>
+          {hasFilter && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+            >
+              <CustomOutlineButton
+                text="Clear Filter"
+                onClick={clearFilters}
+                variant="dark"
+                px="px-60"
+                borderColor="border-primary-2"
+                textColor="text-foreground-light"
+                className="w-full md:w-auto !py-[17px] md:!py-5 h-[50px] lg:h-[66px] uppercase"
+              />
+            </motion.div>
+          )}
         </div>
       </div>
 

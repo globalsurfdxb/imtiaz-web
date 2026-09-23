@@ -436,9 +436,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import Image from "next/image";
 
 import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import { motion, useInView } from "framer-motion";
 import { textFade, moveUp, moveUpV2 } from "../../motionVariants";
 
@@ -577,19 +577,7 @@ export default function HeroFeatureSlider({
             whileInView="show"
             viewport={{ once: true }}
           >
-            <button
-              ref={prevRef}
-              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px]   group   border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
-            >
-              <span className="absolute right-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-              <Image
-                src="/icons/left_arrow_slider_primary.svg"
-                alt="Previous"
-                width={28}
-                height={28}
-                className="relative z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px] max-md:w-[14px] max-md:h-[14px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-              />
-            </button>
+            <SliderArrowButton ref={prevRef} direction="prev" variant="light" />
           </motion.div>
         </div>
         <div>
@@ -600,19 +588,7 @@ export default function HeroFeatureSlider({
             whileInView="show"
             viewport={{ once: true }}
           >
-            <button
-              ref={nextRef}
-              className="relative cursor-pointer  md:w-[62px]  md:h-[62px] w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px]    group border border-white rounded-[50px] flex items-center justify-center overflow-hidden"
-            >
-              <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-              <Image
-                src="/icons/left_arrow_slider_primary.svg"
-                alt="Next"
-                width={28}
-                height={28}
-                className="relative rotate-180 z-10 object-contain md:w-[28px] md:h-[28px] w-[20px] h-[20px] max-md:w-[14px] max-md:h-[14px]   invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-              />
-            </button>
+            <SliderArrowButton ref={nextRef} direction="next" variant="light" />
           </motion.div>
         </div>
       </div>
@@ -718,12 +694,12 @@ export default function HeroFeatureSlider({
             clickable: true,
           }}
           slidesPerView={4}
+          initialSlide={initialActive}
           loop={true}
           speed={600}
           breakpoints={{
             0: { slidesPerView: 1 },
             640: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
             1024: { slidesPerView: 4 },
             1580: { slidesPerView: 5 },
           }}

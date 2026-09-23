@@ -49,7 +49,7 @@ const FieldLine = ({ hasError }: { hasError: boolean }) => (
 );
 
 const inputClass =
-  "w-full mt-[4.8px] md:mt-[10px] md:pb-[5px] text-description text-foreground-light bg-transparent outline-none p-0 h-auto";
+  "w-full mt-[4.8px] md:mt-[10px] md:pb-[5px] text-description text-foreground-light bg-transparent outline-none p-0 h-auto cursor-pointer";
 
 const labelClass =
   "block text-description 2xl:leading-[1.75] text-foreground-light/50 transition-colors group-focus-within:text-foreground-light";
@@ -269,11 +269,11 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
   return (
     <>
       {/* Close btn */}
-      <div className="px-3 py-7  md:px-60 3xl:px-0 h-full w-full">
-        <div className="flex h-full overflow-y-auto items-center justify-center">
+      <div className="px-3 py-7  md:px-60 3xl:px-0 h-[100dvh] w-full">
+        <div data-lenis-prevent className="flex h-full overflow-y-auto overscroll-contain items-center justify-center">
           <div
             ref={whiteBoxRef}
-            className="w-full h-fit pt-16 justify-center bg-white w-[95%] lg:w-[800px] mx-auto  overflow-scroll relative flex flex-col self-center   p-7 px-5 md:p-10 items-center"
+            className="w-full h-fit pt-16 justify-center bg-white w-[95%] lg:w-[800px] mx-auto my-auto  overflow-scroll relative flex flex-col self-center   p-7 px-5 md:p-10 items-center"
           >
                     <style jsx>{`
     @media (max-width: 550px) {
@@ -352,7 +352,7 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
                             type="text"
                             className={inputClass}
                             {...enquiryForm.register("firstName", {
-                              required: "Required",
+                              required: "First name is required",
                             })}
                           />
                           <FieldLine hasError={!!enquiryForm.formState.errors.firstName} />
@@ -369,7 +369,7 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
                             type="text"
                             className={inputClass}
                             {...enquiryForm.register("lastName", {
-                              required: "Required",
+                              required: "Last name is required",
                             })}
                           />
                           <FieldLine hasError={!!enquiryForm.formState.errors.lastName} />
@@ -436,7 +436,7 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
                       <div>
                         <label
                           htmlFor="applyPosition"
-                          className="group cursor-text md:mt-30 block"
+                          className="group cursor-pointer md:mt-30 block"
                         >
                           <span className={labelClass}>Country*</span>
                           <select
@@ -515,7 +515,7 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
                             id="firstName"
                             type="text"
                             className={inputClass}
-                            {...viewingForm.register("firstName", { required: "Required" })}
+                            {...viewingForm.register("firstName", { required: "First name is required" })}
                           />
                           <FieldLine hasError={!!viewingForm.formState.errors.firstName} />
                           <ErrorSlot msg={viewingForm.formState.errors.firstName?.message} />
@@ -527,7 +527,7 @@ export default function EnquiryForm({ onClose, onSwitch, onSuccess, initialTab =
                             id="lastName"
                             type="text"
                             className={inputClass}
-                            {...viewingForm.register("lastName", { required: "Required" })}
+                            {...viewingForm.register("lastName", { required: "Last name is required" })}
                           />
                           <FieldLine hasError={!!viewingForm.formState.errors.lastName} />
                           <ErrorSlot msg={viewingForm.formState.errors.lastName?.message} />
