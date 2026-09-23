@@ -3,9 +3,13 @@ export const dynamic = "force-dynamic";
 import Index from "@/app/components/studio-apartments/Index";
 import { headers } from "next/headers";
 
-async function getStudioApartmentsData() {
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+async function getStudioApartmentsData(slug: string) {
   const response = await fetch(
-    `${process.env.BASE_URL}/api/trending_search_detail.php?slug=studio-apartments`,
+    `${process.env.BASE_URL}/api/trending_search_detail.php?slug=${encodeURIComponent(slug)}`,
     {
       next: { revalidate: 60 },
     },
@@ -13,8 +17,9 @@ async function getStudioApartmentsData() {
   return response.json();
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const data = await getStudioApartmentsData();
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await getStudioApartmentsData(slug);
   const meta = data?.data;
   const pathname = (await headers()).get("x-pathname") || "/";
 
@@ -31,8 +36,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const page = async () => {
-  const data = await getStudioApartmentsData();
+const page = async ({ params }: Props) => {
+  const { slug } = await params;
+  const data = await getStudioApartmentsData(slug);
 
   return (
     <>

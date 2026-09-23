@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         destination: "/communities",
         permanent: true,
       },
+            {
+        source: "/studio-apartments",
+        destination: "/apartments-for-sale-in-dubai/studio-apartments",
+        permanent: true,
+      },
     ];
   },
 };
