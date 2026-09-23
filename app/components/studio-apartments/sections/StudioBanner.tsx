@@ -129,7 +129,7 @@ const InnerHeroBanner = ({
 
   return (
     <section
-      className="relative w-full h-[89.5dvh] overflow-hidden"
+      className="relative w-full lg:h-[89.5dvh] overflow-hidden"
       data-header="light"
     >
       <div
@@ -162,7 +162,7 @@ const InnerHeroBanner = ({
       {/* Static overlay */}
       <div className="absolute inset-0 bg-black/54" />
 
-      <div className="container absolute inset-0 flex items-center justify-center">
+      <div className="container relative lg:absolute lg:inset-0 flex items-center justify-center py-[120px] lg:py-0">
         <div className="w-full text-center">
           {/* delay prop fires blade animation after zoom-out nearly finishes */}
           <div className={`${maxTitle} mx-auto`}>

@@ -1212,12 +1212,25 @@ input:-webkit-autofill:active {
 
 
 .studio-content h3 {
-  @apply text-subtitle text-foreground flex items-start gap-2 lg:gap-[10px] mb-2 mt-5 lg:mt-[30px];
+  @apply text-subtitle text-foreground flex items-start gap-2 lg:gap-[10px] mb-2 mt-5 lg:mt-[30px] ;
   list-style: none;
 }
 
   .studio-content h3::before {
     content: "";
-    @apply inline-block w-2 h-2 lg:w-[10px] lg:h-[10px] lg:min-w-[10px] mt-1.5 lg:mt-2 rounded-full;
+    @apply inline-block w-2 h-2 lg:w-[10px] lg:h-[10px] lg:min-w-[10px] mt-1.5 lg:mt-2 rounded-full shrink-0;
     background-color: var(--primary-2);
   }
+
+
+.studio-content ul {
+  @apply list-disc pl-6 sm:pl-10 mb-2.5;
+}
+
+.studio-content ul li::marker {
+  color: var(--primary-2);
+}
+
+.studio-content ol {
+  @apply list-decimal pl-6 sm:pl-10 mb-2.5;
+}
