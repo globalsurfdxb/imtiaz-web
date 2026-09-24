@@ -560,7 +560,7 @@ export default function HeroFeatureSlider({
     });
   }, [communities]);
 
-  const gap = bp === "mobile" ? "20px" : "50px";
+  const gap = bp === "mobile" ? "24px" : "50px";
 
   return (
     <section
@@ -747,7 +747,7 @@ export default function HeroFeatureSlider({
                               ease: [0.25, 0.46, 0.45, 0.94],
                               delay: active && bp !== "mobile" ? 0.08 : 0, // 👈 also remove delay on mobile
                             }}
-                            className="text-white font-[optima] uppercase text-center text-[25px] leading-[1.4] px-4 text-trim mb-1"
+                            className="text-white font-[optima] uppercase text-center text-[25px] leading-[1.4] px-4 text-trim"
                           >
                             {c.name}
                           </motion.h3>
