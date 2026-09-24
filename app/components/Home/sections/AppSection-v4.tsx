@@ -118,7 +118,7 @@ const AppSection = ({
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
-                className="mb-[20px] text-heading uppercase text-foreground sm:text-primary-2 text-center text-trim"
+                className="mb-6 text-heading uppercase text-foreground sm:text-primary-2 text-center text-trim"
               >
                 {title}
               </motion.h2>

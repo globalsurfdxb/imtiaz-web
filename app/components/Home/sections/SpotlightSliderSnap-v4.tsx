@@ -314,7 +314,7 @@ const go = useCallback(
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="uppercase text-heading text-foreground mb-5 md:mb-50 text-center content-spacing-mobile text-trim"
+            className="uppercase text-heading text-foreground mb-6 md:mb-50 text-center content-spacing-mobile text-trim"
           >
             {title}
           </motion.h2>

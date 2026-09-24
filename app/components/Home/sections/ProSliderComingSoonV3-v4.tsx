@@ -591,7 +591,7 @@ export default function HeroSlider({
                         </motion.h1>
                       </div>
 
-                      <div className="overflow-hidden mb-5">
+                      <div className="overflow-hidden mb-6">
                         <motion.h1
                           variants={fadeUp}
                           // custom={0.3}

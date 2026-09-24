@@ -59,16 +59,16 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
   return (
     <section
       data-header="dark"
-      className={`make-header-black w-full h-[100svh] bg-white z-10 relative flex items-center justify-center`}
+      className={`make-header-black w-full h-[100svh] bg-white z-10 relative flex items-start sm:items-center justify-center`}
     >
-      <div className="container">
+      <div className="container max-sm:pt-[130px]">
         <div className="">
           <motion.h2
             variants={moveUp(0.2)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="text-center text-heading mb-5 sm:mb-50 text-trim"
+            className="text-center text-heading mb-6 sm:mb-50 text-trim"
           >
             {title}
           </motion.h2>

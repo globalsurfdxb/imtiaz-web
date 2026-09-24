@@ -18,7 +18,7 @@ const Expertise = ({
     <section data-header="dark" className="w-full py-[50px] sm:py-120 3xl:pt-140 3xl:pb-160">
       <div className="container mx-auto">
         <div className="flex flex-col items-center content-spacing-mobile-padding">
-          <SectionHeading title={title} className="text-foreground mb-5" />
+          <SectionHeading title={title} className="text-foreground mb-6" />
           <SectionDescription
             text={description}
             className="text-foreground-light max-w-[720px] text-center whitespace-pre-line mb-[50px]"

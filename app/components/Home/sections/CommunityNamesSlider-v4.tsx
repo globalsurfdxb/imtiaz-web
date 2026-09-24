@@ -560,7 +560,7 @@ export default function HeroFeatureSlider({
     });
   }, [communities]);
 
-  const gap = bp === "mobile" ? "20px" : "50px";
+  const gap = bp === "mobile" ? "24px" : "50px";
 
   return (
     <section

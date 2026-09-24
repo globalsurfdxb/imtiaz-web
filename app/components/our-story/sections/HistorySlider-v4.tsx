@@ -116,7 +116,7 @@ export default function HistorySection({
       {/* ── Header ── */}
       <div className="container text-center mb-[90px] max-md:mb-0 md:mb-150 lg:mb-50">
         <div className="content-spacing-mobile">
-          <SectionHeading title={title} className="mb-5 uppercase" />
+          <SectionHeading title={title} className="mb-6 uppercase" />
           <SectionDescription
             text={description}
             className="max-w-[870px] text-foreground-light mx-auto text-center text-trim"
@@ -179,7 +179,7 @@ function CardsSlider({
         }}
         className="hidden lg:block absolute w-200 right-0 top-0 h-full z-10"
       />
-      <div className="max-md:static max-md:mt-[20px] md:absolute md:-top-[70px] lg:top-1/2 lg:-translate-y-1/2 z-30 flex gap-3 min-w-full justify-center lg:justify-between">
+      <div className="max-md:static max-md:mt-[25px] md:absolute md:-top-[70px] lg:top-1/2 lg:-translate-y-1/2 z-30 flex gap-3 min-w-full justify-center lg:justify-between">
         {/* ── Prev btn ── */}
         <div style={{ paddingLeft: paddingInset }} className="max-lg:!pl-0">
           <SliderArrowButton
@@ -199,7 +199,7 @@ function CardsSlider({
           />
         </div>
       </div>
-      <div className="relative w-full max-md:mt-[20px]">
+      <div className="relative w-full max-md:mt-[25px]">
         <Swiper
           modules={[Navigation, Autoplay]}
           loop={true}
