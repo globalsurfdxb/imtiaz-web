@@ -59,7 +59,7 @@ const Philosophy = ({title,description}:{title:string,description:string}) => {
         <div className="flex flex-col items-center content-spacing-mobile-padding">
           <SectionHeading
             title={title}
-            className="text-white mb-20 text-center"
+            className="text-white mb-6 text-center"
           />
           {/* <h2 className="text-heading text-white mb-20 text-center ">
             {title?.split("\n").map((line, i) => {

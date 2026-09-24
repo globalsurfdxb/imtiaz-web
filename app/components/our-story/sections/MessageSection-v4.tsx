@@ -206,7 +206,7 @@ export default function MessageSection({ data }: Props) {
             </div>
 
             {/* ── MOBILE/TABLET (below lg): stacked layout ── */}
-            <div className="lg:hidden flex  mt-5 md:mt-80 flex-col-reverse sm:flex-col">
+            <div className="lg:hidden flex  mt-6 md:mt-80 flex-col-reverse sm:flex-col">
               <div className="max-[640]:hidden min-[820]:hidden">
                 <SectionDescription
                   text={data.description}
@@ -218,7 +218,7 @@ export default function MessageSection({ data }: Props) {
                 className={`${data?.id === "chairman" ? "max-[640px]:flex-col flex-row" : "max-[640px]:flex-col flex-row-reverse"} flex justify-between max-[640px]:items-center min-[820px]:items-end`}
               >
                 <div className="flex min-[640px]:w-[40%] flex-col h-hull justify-between content-spacing-mobile-padding">
-                  <div className="flex flex-col max-[640px]:mb-[50px] gap-5 max-[640px]:items-center">
+                  <div className="flex flex-col max-[640px]:mb-[50px] gap-6 max-[640px]:items-center">
                     <motion.div
                       variants={moveUp(0)}
                       initial="hidden"
