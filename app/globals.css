@@ -1234,3 +1234,11 @@ input:-webkit-autofill:active {
 .studio-content ol {
   @apply list-decimal pl-6 sm:pl-10 mb-2.5;
 }
+
+
+@media (max-width: 640px) {
+  .text-trim {
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
+}

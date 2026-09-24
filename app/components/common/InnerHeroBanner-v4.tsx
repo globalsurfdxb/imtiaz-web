@@ -163,7 +163,7 @@ const InnerHeroBanner = ({
           <div className={`${maxTitle} mx-auto`}>
             <AnimatedHeading
               title={title}
-              className="mb-5 text-white"
+              className="mb-5 text-white text-trim"
               mode="blade"
               delay={HEADING_DELAY}
             />
@@ -172,7 +172,7 @@ const InnerHeroBanner = ({
             <p
               ref={descRef}
               style={{ opacity: 0 }}
-              className={`text-white/80 text-description ${maxW} mx-auto text-center flex items-center justify-center md:px-30 xl:px-0 whitespace-pre-line`}
+              className={`text-white/80 text-description ${maxW} mx-auto text-center text-trim md:px-30 xl:px-0 whitespace-pre-line`}
             >
               {description}
             </p>

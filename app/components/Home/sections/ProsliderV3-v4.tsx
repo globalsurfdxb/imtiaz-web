@@ -631,7 +631,7 @@ export default function HeroSlider({
                         variants={moveUp(0.2)}
                         initial="hidden"
                         animate={startAnim ? "show" : "hidden"}
-                        className="text-white uppercase text-heading text-center"
+                        className="text-white uppercase text-heading text-center text-trim"
                       >
                         {slide.title}
                       </motion.h1>

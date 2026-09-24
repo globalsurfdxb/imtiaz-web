@@ -119,7 +119,7 @@ export default function HistorySection({
           <SectionHeading title={title} className="mb-5 uppercase" />
           <SectionDescription
             text={description}
-            className="max-w-[870px] text-foreground-light mx-auto text-center"
+            className="max-w-[870px] text-foreground-light mx-auto text-center text-trim"
           />
         </div>
       </div>
@@ -272,13 +272,13 @@ function HistoryCard({
 
       {/* Content */}
       <div className="flex flex-col gap-1 p-30 flex-1 h-full bg-gray">
-        <span className="text-heading text-primary lg:mb-50">{card.year}</span>
+        <span className="text-heading text-primary lg:mb-50 text-trim mb-5">{card.year}</span>
 
         <div className="mb-[10px]">
-          <h3 className="text-25 font-[optima] text-foreground-light uppercase mb-[10px]">
+          <h3 className="text-25 font-[optima] text-foreground-light uppercase mb-[10px] text-trim">
             {card.title}
           </h3>
-          <p className="text-description">{card.description}</p>
+          <p className="text-description text-trim">{card.description}</p>
         </div>
       </div>
     </div>

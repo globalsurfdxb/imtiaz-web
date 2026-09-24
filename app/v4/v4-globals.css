@@ -1174,3 +1174,10 @@ input:-webkit-autofill:active {
   /* change to your text color */
   transition: background-color 9999s ease-in-out 0s !important;
 }
+
+@media (max-width: 640px) {
+  .text-trim {
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
+}
