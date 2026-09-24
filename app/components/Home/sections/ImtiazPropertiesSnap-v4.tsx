@@ -62,7 +62,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
       className={`make-header-black w-full h-[100svh] bg-white z-10 relative flex items-center justify-center`}
     >
       <div className="container">
-        <div className="overflow-hidden">
+        <div className="">
           <motion.h2
             variants={moveUp(0.2)}
             initial="hidden"
