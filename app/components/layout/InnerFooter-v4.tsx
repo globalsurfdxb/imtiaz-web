@@ -125,7 +125,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
                 so the absolutely-positioned error message isn't clipped by this section's overflow-hidden */}
             <div className="w-full md:w-auto flex flex-col mt-12 md:mt-0 md:flex-row gap-5 xl:gap-10 items-center xl:pb-50">
               <motion.p
-                className="text-19 font-[avenirBook] text-white uppercase leading-[1.5]"
+                className="text-19 font-[avenirBook] text-white uppercase leading-[1.5] text-trim"
               >
                 STAY UPDATED
               </motion.p>
@@ -197,7 +197,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="lg:hidden flex gap-[5px] lg:gap-2 justify-center lg:justify-start xl:justify-end w-full z-10 overflow-hidden py-4 lg:py-0"
+          className="lg:hidden flex gap-[5px] lg:gap-2 justify-center lg:justify-start xl:justify-end w-full z-10 overflow-hidden py-5 lg:py-0"
         >
           {footerV2Data.bottom.icons.map((icon, i) => (
             <Link
@@ -238,9 +238,9 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
             {footerV2Data.bottom.left.map((item, i) => (
               <span
                 key={i}
-                className="text-white/45 hover:text-white/70 leading-[1.56] transition-colors duration-300 cursor-pointer"
+                className="text-white/45 hover:text-white/70 leading-[1.56] transition-colors duration-300 cursor-pointer text-trim"
               >
-                <Link href={item.href}>{item.label}</Link>
+                <Link className="text-trim" href={item.href}>{item.label}</Link>
               </span>
             ))}
           </motion.div>
@@ -251,7 +251,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="text-white/45 text-16 leading-[1.56] text-center w-full mb-[50px] md:mb-0"
+            className="text-white/45 text-16 leading-[1.56] text-center w-full mb-[50px] md:mb-0 text-trim"
           >
             ©{new Date().getFullYear()} Imtiaz Development. All Rights Reserved
           </motion.div>

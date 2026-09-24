@@ -55,7 +55,7 @@ export default function AwardSection({
         <div className="relative z-10 flex flex-col items-center container pt-[50px] sm:pt-120 3xl:pt-130 mb-250 3xl:mb-[384px]">
           <SectionHeading
             title={title}
-            className="max-[640px]:font-normal max-w-[45ch] text-center mb-5"
+            className="max-[640px]:font-normal max-w-[45ch] text-center min-[450px]:mb-20"
           />
 
           {/* Divider line */}
@@ -64,7 +64,7 @@ export default function AwardSection({
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="w-full max-w-[527px] mx-auto"
+            className="w-full max-w-[527px] mx-auto max-sm:hidden"
             style={{
               height: "1px",
               background:
@@ -90,7 +90,7 @@ export default function AwardSection({
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="content-spacing-mobile-padding  award-description awd mx-auto max-w-[1301px] font-[avenirBook] text-16 leading-[1.54375] text-white/95 lg:text-white/70"
+              className="text-trim content-spacing-mobile-padding  award-description awd mx-auto max-w-[1301px] font-[avenirBook] text-16 leading-[1.54375] text-white/95 lg:text-white/70"
               dangerouslySetInnerHTML={{ __html: descriptions }}
             />
           </div>

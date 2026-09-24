@@ -57,12 +57,12 @@ const ConstructionProgress: React.FC<ConstructionProgressProps> = ({
         className="relative z-[5] text-center max-w-[900px] container content-spacing-mobile"
       >
         <div className="overflow-hidden">
-          <h2 className="anim-item text-white   text-heading mb-5 max-w-[20ch] uppercase mx-auto">
+          <h2 className="anim-item text-white   text-heading mb-5 max-w-[20ch] uppercase mx-auto text-trim">
             {title}
           </h2>
         </div>
         <div className="overflow-hidden">
-          <p className="anim-item text-white  text-description max-w-[60ch] mx-auto mb-5 sm:mb-[50px]">
+          <p className="anim-item text-white  text-description max-w-[60ch] mx-auto mb-5 sm:mb-[50px] text-trim">
             {description}
           </p>
         </div>

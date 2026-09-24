@@ -314,7 +314,7 @@ const go = useCallback(
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="uppercase text-heading text-foreground mb-5 md:mb-50 text-center content-spacing-mobile"
+            className="uppercase text-heading text-foreground mb-5 md:mb-50 text-center content-spacing-mobile text-trim"
           >
             {title}
           </motion.h2>
@@ -330,7 +330,7 @@ const go = useCallback(
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-[11px] sm:text-16 font-[avenirBook] text-foreground-light mb-5 md:mb-[30px] lg:mb-20"
+                className="text-[11px] sm:text-16 font-[avenirBook] text-foreground-light mb-5 md:mb-[30px] lg:mb-20 text-trim"
               >
                 {slide.date}
               </motion.span>
@@ -340,7 +340,7 @@ const go = useCallback(
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-25 font-[optima] uppercase text-foreground line-clamp-2 leading-[1.2] mb-5 md:mb-[30px] lg:mb-50 max-w-[598px]"
+                className="text-25 font-[optima] uppercase text-foreground line-clamp-2 leading-[1.2] mb-5 md:mb-[30px] lg:mb-50 max-w-[598px] text-trim"
               >
                 {slide.title}
               </motion.h3>

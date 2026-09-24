@@ -32,9 +32,9 @@ function AccordionItem({
         className={`${isOpen ? "pb-[10px] md:pb-20" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-5 md:pt-40` : "py-5 md:py-40"} text-left group focus:outline-none`}
         aria-expanded={isOpen}
       >
-        <span className="text-[18px] md:text-25 uppercase text-foreground pr-2 leading-[1.4] font-[optima] font-[400]">
+        <h3 className="text-[18px] md:text-25 uppercase text-foreground pr-2 leading-[1.4] font-[optima] font-[400]">
           {item.title}
-        </span>
+        </h3>
         <span className="flex-shrink-0 select-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"

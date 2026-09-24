@@ -35,7 +35,7 @@ export default function VisionSection({data}:{data:VisionSectionData}) {
             />
             <SectionDescription
               text={data.description}
-              className="max-w-[870px] mx-auto text-foreground-light whitespace-pre-line"
+              className="max-w-[870px] mx-auto text-foreground-light whitespace-pre-line text-trim"
             />
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function VisionSection({data}:{data:VisionSectionData}) {
         />
 
         {/* Content */}
-        <div className="relative z-10 pt-120 3xl:pt-130 pb-4 xl:pb-50 text-center flex flex-col justify-end md:justify-between items-center h-full container">
+        <div className="relative z-10 pt-[50px] md:pt-120 3xl:pt-130 pb-4 xl:pb-50 text-center flex flex-col justify-end md:justify-between items-center h-full container">
           {/* Title and Description */}
           <div className="hidden md:block md:-mt-10 lg:-mt-8 2xl:-mt-5">
             <div>

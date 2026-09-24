@@ -578,6 +578,32 @@ export default function HeroSlider({
                   >
                     {/* Title */}
                     <div className="flex gap-2 lg:flex-col lg:gap-0">
+                      <div className="overflow-hidden">
+                        <motion.h1
+                          variants={fadeUp}
+                          // custom={0.3}
+                          custom={0.2}
+                          initial="hidden"
+                          animate={inView ? "show" : "hidden"}
+                          className="text-white  uppercase text-heading text-center text-trim"
+                        >
+                          {title}
+                        </motion.h1>
+                      </div>
+
+                      <div className="overflow-hidden mb-5">
+                        <motion.h1
+                          variants={fadeUp}
+                          // custom={0.3}
+                          custom={0.2}
+                          initial="hidden"
+                          animate={inView ? "show" : "hidden"}
+                          className="text-white uppercase text-heading text-center text-trim"
+                        >
+                          {subtitle}
+                        </motion.h1>
+                      </div>
+                    </div>
                     <div className="overflow-hidden">
                       <motion.h1
                         variants={fadeUp}
@@ -585,33 +611,7 @@ export default function HeroSlider({
                         custom={0.2}
                         initial="hidden"
                         animate={inView ? "show" : "hidden"}
-                        className="text-white  uppercase text-heading text-center"
-                      >
-                        {title}
-                      </motion.h1>
-                    </div>
-
-                    <div className="overflow-hidden mb-5">
-                      <motion.h1
-                        variants={fadeUp}
-                        // custom={0.3}
-                        custom={0.2}
-                        initial="hidden"
-                        animate={inView ? "show" : "hidden"}
-                        className="text-white uppercase text-heading text-center"
-                      >
-                        {subtitle}
-                      </motion.h1>
-                    </div>
-                    </div>
-                                        <div className="overflow-hidden">
-                      <motion.h1
-                        variants={fadeUp}
-                        // custom={0.3}
-                        custom={0.2}
-                        initial="hidden"
-                        animate={inView ? "show" : "hidden"}
-                        className="text-white text-description text-center max-w-[40ch] mx-auto"
+                        className="text-white text-description text-center max-w-[40ch] mx-auto text-trim"
                       >
                         {caption}
                       </motion.h1>
@@ -624,7 +624,6 @@ export default function HeroSlider({
                       exit="exit"
                       className="flex gap-4 mt-5 md:mt-15 font-[avenirRoman] overflow-hidden"
                     >
-
                       <motion.div
                         variants={fadeUp}
                         // custom={0.3}

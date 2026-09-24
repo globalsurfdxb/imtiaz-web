@@ -747,7 +747,7 @@ export default function HeroFeatureSlider({
                               ease: [0.25, 0.46, 0.45, 0.94],
                               delay: active && bp !== "mobile" ? 0.08 : 0, // 👈 also remove delay on mobile
                             }}
-                            className="text-white font-[optima] uppercase text-center text-[25px] leading-[1.4] px-4"
+                            className="text-white font-[optima] uppercase text-center text-[25px] leading-[1.4] px-4 text-trim"
                           >
                             {c.name}
                           </motion.h3>

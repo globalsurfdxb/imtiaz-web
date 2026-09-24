@@ -59,7 +59,7 @@ export function SectionDescription({
           HTMLParagraphElement & HTMLSpanElement & HTMLDivElement
         >
       }
-      className={`text-description ${className}`}
+      className={`text-description text-trim ${className}`}
     >
       {text}
     </Tag>

@@ -1,16 +1,61 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 interface SectionHeadingProps {
+  // Rendered as HTML (e.g. "Our <span class='text-primary'>Story</span>"); "\n" becomes a line break
   title: string;
   className?: string;
   as?: "h1" | "h2" | "h3" | "h4";
   delay?: number;
+}
+
+// Wraps every word/char inside the element's text nodes (keeps the HTML tags as-is)
+function splitHtmlChars(root: HTMLElement) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const textNodes: Text[] = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode as Text);
+
+  textNodes.forEach((node) => {
+    const text = node.textContent ?? "";
+    if (!text.trim()) return;
+
+    const frag = document.createDocumentFragment();
+    text.split(/(\s+)/).forEach((part) => {
+      if (!part) return;
+      if (/^\s+$/.test(part)) {
+        frag.appendChild(document.createTextNode(part));
+        return;
+      }
+
+      const word = document.createElement("span");
+      Object.assign(word.style, {
+        display: "inline-block",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        lineHeight: "inherit",
+        verticalAlign: "top",
+        paddingBottom: "0.2em",
+        marginBottom: "-0.2em",
+      });
+
+      part.split("").forEach((char) => {
+        const c = document.createElement("span");
+        c.setAttribute("data-char", "");
+        c.style.display = "inline-block";
+        c.textContent = char;
+        word.appendChild(c);
+      });
+
+      frag.appendChild(word);
+    });
+
+    node.replaceWith(frag);
+  });
 }
 
 export function SectionHeading({
@@ -21,9 +66,26 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const ref = useRef<HTMLHeadingElement | null>(null);
 
+  const html = useMemo(
+    () =>
+      (title ?? "")
+        .split("\n")
+        .map((line) => line.trim())
+        .join("<br/>"),
+    [title],
+  );
+
+  // Stable object: React 19 re-applies innerHTML whenever this object changes,
+  // which would wipe the split chars on every parent re-render (e.g. parallax on scroll)
+  const htmlProp = useMemo(() => ({ __html: html }), [html]);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // reset first so a re-run (StrictMode / delay change) doesn't split already-split chars
+    el.innerHTML = html;
+    splitHtmlChars(el);
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -52,42 +114,14 @@ export function SectionHeading({
     }, el);
 
     return () => ctx.revert();
-  }, [title, delay]);
+  }, [html, delay]);
 
-  // Split into lines first, then words within each line
-  const lines = title?.split("\n");
-
- return (
-    <Tag ref={ref} className={`text-heading ${className}`}>
-      {lines?.map((line, lineIndex) => (
-        <span key={lineIndex} style={{ display: "block" }}>
-          {line.trim().split(" ").map((word, wordIndex) => (
-            <span
-              key={`${lineIndex}-${wordIndex}-${word}`}
-              style={{
-                display: "inline-block",
-                whiteSpace: "nowrap",
-                marginRight: "0.25em",
-                overflow: "hidden",
-                lineHeight: "inherit",
-                verticalAlign: "top",
-                paddingBottom: "0.2em",
-                marginBottom: "-0.2em",
-              }}
-            >
-              {word.split("").map((char, charIndex) => (
-                <span
-                  key={`${lineIndex}-${wordIndex}-${charIndex}`}
-                  data-char
-                  style={{ display: "inline-block" }}
-                >
-                  {char}
-                </span>
-              ))}
-            </span>
-          ))}
-        </span>
-      ))}
-    </Tag>
+  return (
+    <Tag
+      key={html}
+      ref={ref}
+      className={`text-heading text-trim ${className}`}
+      dangerouslySetInnerHTML={htmlProp}
+    />
   );
 }
