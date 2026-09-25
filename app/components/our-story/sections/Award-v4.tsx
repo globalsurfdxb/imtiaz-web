@@ -57,6 +57,7 @@ export default function AwardSection({
             title={title}
             className="max-w-[45ch] text-center min-[450px]:mb-20"
           />
+          {/* <h2 className="text-heading text-center text-trim" dangerouslySetInnerHTML={{ __html: title }} /> */}
 
           {/* Divider line */}
           <motion.div

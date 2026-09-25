@@ -12,7 +12,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import type { Swiper as SwiperType } from "swiper";
 import { motion } from "framer-motion";
-import { moveUp } from "../../motionVariants";
+import { moveUp, moveUpLow } from "../../motionVariants";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
@@ -107,7 +107,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
 
         <div className="flex items-center justify-between md:justify-center mt-5 sm:mt-50">
           <motion.div
-            variants={moveUp(0.1)}
+            variants={moveUpLow(0.1)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
@@ -124,7 +124,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
           </motion.div>
           <div className="flex gap-[15px] ml-[30px]">
             <motion.div
-              variants={moveUp(0.16)}
+              variants={moveUpLow(0.16)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
@@ -137,7 +137,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               />
             </motion.div>
             <motion.div
-              variants={moveUp(0.22)}
+              variants={moveUpLow(0.22)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}

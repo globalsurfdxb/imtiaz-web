@@ -33,12 +33,13 @@ function splitHtmlChars(root: HTMLElement) {
       }
 
       const word = document.createElement("span");
+      // clip-path (not overflow:hidden) keeps the text baseline, so words sit on the line
+      // like plain text; overflow:hidden + vertical-align:top breaks text-box-trim in WebKit
       Object.assign(word.style, {
         display: "inline-block",
         whiteSpace: "nowrap",
-        overflow: "hidden",
+        clipPath: "inset(0)",
         lineHeight: "inherit",
-        verticalAlign: "top",
         paddingBottom: "0.2em",
         marginBottom: "-0.2em",
       });
