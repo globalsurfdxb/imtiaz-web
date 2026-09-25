@@ -24,7 +24,7 @@ export default function MessageSection({ data }: Props) {
         className="relative h-auto lg:min-h-screen w-full overflow-hidden flex flex-col"
       >
         {/* Background Image */}
-        <div ref={ref} className="hidden sm:block absolute inset-0 z-0 overflow-hidden">
+        {/* <div ref={ref} className="hidden sm:block absolute inset-0 z-0 overflow-hidden">
           <Image
             src={data.bgImage}
             alt="background"
@@ -34,9 +34,9 @@ export default function MessageSection({ data }: Props) {
               transform: `scale(${1.15}) translateY(${parallaxY}vh)`,
             }}
           />
-        </div>
+        </div> */}
 
-        <div ref={mobileRef} className="sm:hidden absolute inset-0 z-0 overflow-hidden">
+        {/* <div ref={mobileRef} className="sm:hidden absolute inset-0 z-0 overflow-hidden">
           <Image
             src={data.bgImageMobile}
             alt="background"
@@ -46,7 +46,9 @@ export default function MessageSection({ data }: Props) {
               transform: `scale(${1.15}) translateY(${parallaxYMobile}vh)`,
             }}
           />
-        </div>
+        </div> */}
+
+        <div ref={ref} className="absolute inset-0 z-0 overflow-hidden bg-[#eaeaea]" />
 
         {/* Title */}
         <div className="relative z-10 w-fit mx-auto content-spacing-mobile-padding">
