@@ -1188,7 +1188,7 @@ input:-webkit-autofill:active {
   @apply text-heading text-foreground uppercase;
 }
 
-.studio-content p {
+.studio-content p, .studio-content li {
   @apply text-description text-foreground-light;
 }
 
