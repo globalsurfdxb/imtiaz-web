@@ -35,7 +35,7 @@ export default function VisionSection({data}:{data:VisionSectionData}) {
             />
             <SectionDescription
               text={data.description}
-              className="max-w-[870px] mx-auto text-foreground-light whitespace-pre-line text-trim"
+              className="max-w-[870px] mx-auto text-foreground-light text-trim"
             />
           </div>
         </div>
