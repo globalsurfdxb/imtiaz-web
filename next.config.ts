@@ -20,6 +20,16 @@ const nextConfig: NextConfig = {
         destination: "/apartments-for-sale-in-dubai/studio-apartments",
         permanent: true,
       },
+                  {
+        source: "/v4",
+        destination: "/",
+        permanent: true,
+      },
+                        {
+        source: "/v4/about/our-story",
+        destination: "/about/our-story",
+        permanent: true,
+      },
     ];
   },
 };

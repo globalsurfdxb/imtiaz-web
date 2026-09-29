@@ -4,6 +4,7 @@ import { useMemo, useEffect, useState, useRef, useCallback } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import FilterDropdown from "../../common/FilterDropdown";
 import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButtonV4 from "../../common/CustomOutlineButton-v4";
 import { properties, PropertiesPageData } from "../data";
 import ListMapToggle from "../../common/ListMapToggle";
 import ProjectCard from "../../common/ProjectCard";
@@ -274,10 +275,10 @@ useEffect(() => {
   }, [filtered, currentPage, itemsPerPage]);
 
   return (
-    <section className="w-full bg-white pt-[20px] md:pt-70" data-header="dark">
+    <section className="w-full bg-white pt-[50px] md:pt-70" data-header="dark">
       <div className="w-full container">
         {/* ── Mobile: collapsible filter (below lg) ── */}
-        <div className="lg:hidden mb-[20px] lg:mb-70">
+        <div className="lg:hidden mb-4">
           <motion.div
             variants={moveUp(0.12)}
             initial="hidden"
@@ -286,7 +287,7 @@ useEffect(() => {
           >
             <button
               onClick={() => setFiltersOpen((prev) => !prev)}
-              className="flex text-[12px] md:text-16 items-center justify-between w-full px-6 py-4 rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
+              className="flex text-[12px] md:text-16 items-center justify-between w-full px-6 py-4 max-md:h-[32px] max-md:py-0 max-md:px-[16px] rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
             >
               <span>Filters</span>
               <span
@@ -295,7 +296,7 @@ useEffect(() => {
                   transform: filtersOpen ? "rotate(45deg)" : "rotate(0deg)",
                 }}
               >
-                <Plus size={20} />
+                <Plus size={20} className="max-md:w-[18px] max-md:h-[18px]" />
               </span>
             </button>
             <div
@@ -309,39 +310,42 @@ useEffect(() => {
               <div className="flex flex-col gap-3 pt-4">
                 {/* Search inside mobile collapsible */}
                 <CustomSearch
-                  className="!py-[17px] md:!py-5 h-[50px] lg:h-[66px]"
+                  className="max-md:!py-0 md:!py-5 max-md:h-[32px] md:h-[50px] lg:h-[66px] max-md:!pl-[16px] max-md:gap-[10px] max-md:[&_img]:h-[14px] max-md:[&_input]:text-[12px]"
                   borderColor="border-primary-2"
                   textColor="text-foreground-light"
                   value={searchQuery}
                   onChange={setSearchQuery}
                 />
                 <FilterDropdown
+                  compactMobile
                   placeholder="Properties Type"
                   options={propertyTypes}
                   value={selectedPropertyType}
                   onChange={(val) => updateParam("propertyType", val)}
                 />
                 <FilterDropdown
+                  compactMobile
                   placeholder="Status"
                   options={propertyStatuses}
                   value={selectedStatus}
                   onChange={(val) => updateParam("status", val)}
                 />
                 <FilterDropdown
+                  compactMobile
                   placeholder="Community"
                   options={communities}
                   value={selectedCommunity}
                   onChange={(val) => updateParam("community", val)}
                 />
                 {hasFilter && (
-                  <CustomOutlineButton
+                  <CustomOutlineButtonV4
                     text="Clear Filter"
                     onClick={clearFilters}
                     variant="dark"
                     px="px-60"
                     borderColor="border-primary-2"
                     textColor="text-foreground-light"
-                    className="w-full md:w-auto !py-[17px] md:!py-5 h-[44px] md:h-[50px]  xl:h-[66px] uppercase"
+                    className="w-full md:w-auto md:!py-5 h-[44px] md:h-[50px] xl:h-[66px] uppercase"
                   />
                 )}
               </div>
@@ -352,7 +356,7 @@ useEffect(() => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="flex lg:hidden justify-center mt-40"
+            className="flex lg:hidden justify-center mt-[18px] md:mt-40"
           >
             <ListMapToggle view={view} setView={setView} />
           </motion.div>
@@ -457,10 +461,10 @@ useEffect(() => {
         </div>
 
         {/* ── Divider ── */}
-        <div className="w-full mb-[30px] md:mb-50">
+        <div className="w-full mb-5 md:mb-50">
           <div className="relative w-full h-px overflow-hidden">
             <motion.div
-              className="absolute inset-0 bg-foreground-light/50 md:bg-black/10 origin-center"
+              className="absolute inset-0 bg-black/10 origin-center"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}

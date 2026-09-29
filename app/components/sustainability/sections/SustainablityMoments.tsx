@@ -55,7 +55,15 @@ function GalleryCard({
   );
 }
 
-export default function ScrollingGallery({title,description,data}:{title:string;description:string;data:{moment_caption:string,moment_url:string}[]}) {
+export default function ScrollingGallery({
+  title,
+  description,
+  data,
+}: {
+  title: string;
+  description: string;
+  data: { moment_caption: string; moment_url: string }[];
+}) {
   const slides = data;
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
@@ -68,14 +76,14 @@ export default function ScrollingGallery({title,description,data}:{title:string;
       className="w-full py-120 3xl:py-160 overflow-hidden"
       data-header="dark"
     >
-      <div className="container text-center mb-[40px] md:mb-60">
+      <div className="container text-center mb-[50px] md:mb-60">
         <SectionHeading
           title={title}
-          className="uppercase text-foreground mb-20"
+          className="uppercase text-foreground mb-6 md:mb-20 content-spacing-mobile-padding"
         />
         <SectionDescription
           text={description}
-          className="text-description text-foreground-light max-w-[86ch] mx-auto whitespace-pre-line"
+          className="text-description text-foreground-light max-w-[86ch] mx-auto whitespace-pre-line content-spacing-mobile-padding"
         />
       </div>
 

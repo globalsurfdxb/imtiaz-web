@@ -8,8 +8,14 @@ const Index = ({ data }: any) => {
   return (
     <>
       <StudioBanner
-        image={data?.page_banner_desktop || "/images/studio-apartments/banner.jpg"}
-        mobileImage={data?.page_banner_mobile || data?.page_banner_desktop || "/images/studio-apartments/banner.jpg"}
+        image={
+          data?.page_banner_desktop || "/images/studio-apartments/banner.jpg"
+        }
+        mobileImage={
+          data?.page_banner_mobile ||
+          data?.page_banner_desktop ||
+          "/images/studio-apartments/banner.jpg"
+        }
         title={data?.banner_title}
         description={data?.banner_caption}
         buttonText={data?.button_text}

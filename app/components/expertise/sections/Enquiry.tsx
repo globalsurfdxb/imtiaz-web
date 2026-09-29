@@ -8,7 +8,7 @@ import Link from "next/link";
 import ContainerAnchor from "../../layout/ContainerAnchor";
 import { useContainerInset } from "@/app/hooks/useContainerInset";
 import { enquiryData } from "../data";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { SearchableDropdown } from "../../pay-now/CountryNameList";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
@@ -35,7 +35,7 @@ type FormValues = {
 // ─── Shared Field Components ──────────────────────────────────────────────────
 
 const ErrorSlot = ({ msg }: { msg?: string }) => (
-  <p className={`pt-[5px] h-20 ${msg ? "text-[#c0392b] text-[14px]" : ""}`}>
+  <p className={`pt-[5px] h-20 ${msg ? "text-[#c0392b] text-[12px] md:text-[14px]" : ""}`}>
     {msg ?? "\u00A0"}
   </p>
 );
@@ -179,47 +179,49 @@ export default function EnquirySection() {
                 className="w-auto h-[200px] sm:h-[225px] md:h-[300px] lg:h-[500px] z-[1] select-none pointer-events-none"
               />
             </motion.div>
-            <div className="relative z-20">
-              <SectionHeading
-                title={enquiryData.heading}
-                className="text-white mb-20"
-              />
-              <SectionDescription
-                text={enquiryData.subheading}
-                className="text-white/80 max-w-[47ch] mb-[40px] xl:mb-[40px]"
-              />
-              <div className="flex flex-col gap-5 md:gap-40">
-                {enquiryData.contacts.map((c) => (
-                  <Reveal variants={moveUpV2} key={c.id}>
-                    <Link
-                      key={c.id}
-                      href={c.href}
-                      className="flex items-center gap-20 group"
-                    >
-                      <div className="w-[50px] h-[50px] lg:w-[79px] lg:h-[79px] rounded-full border border-white/40 flex items-center justify-center text-white/80 group-hover:border-white group-hover:text-white transition-colors duration-300 flex-shrink-0">
-                        {c.icon === "phone" ? <Image
-                src="/images/icons/call01.svg"
-                alt="overimg"
-                width={32}
-                height={32}
-                className=" w-[20px] h-[20px] lg:w-[32px] lg:h-[32px]  "
-                
-              /> : 
-              <Image
-                src="/images/icons/sms.svg"
-                alt="overimg"
-                width={32}
-                height={32}
-                className="w-[24px] h-[24px] lg:w-[32px] lg:h-[32px]  "
-                
-              />}
-                      </div>
-                      <span className="text-white text-25 uppercase font-[avenirBook] leading-[1.2]">
-                        {c.label}
-                      </span>
-                    </Link>
-                  </Reveal>
-                ))}
+            <div className="content-spacing-mobile-padding">
+              <div className="relative z-20 px-[5px] md:px-0">
+                <SectionHeading
+                  title={enquiryData.heading}
+                  className="text-white mb-6 md:mb-20"
+                />
+                <SectionDescription
+                  text={enquiryData.subheading}
+                  className="text-white/80 max-w-[47ch] mb-[50px] xl:mb-[40px]"
+                />
+                <div className="flex flex-col gap-5 md:gap-40">
+                  {enquiryData.contacts.map((c) => (
+                    <Reveal variants={moveUpV2} key={c.id}>
+                      <Link
+                        key={c.id}
+                        href={c.href}
+                        className="flex items-center gap-20 group"
+                      >
+                        <div className="w-[50px] h-[50px] lg:w-[79px] lg:h-[79px] rounded-full border border-white/40 flex items-center justify-center text-white/80 group-hover:border-white group-hover:text-white transition-colors duration-300 flex-shrink-0">
+                          {c.icon === "phone" ? <Image
+                  src="/images/icons/call01.svg"
+                  alt="overimg"
+                  width={32}
+                  height={32}
+                  className=" w-[20px] h-[20px] lg:w-[32px] lg:h-[32px]  "
+              
+                /> :
+                <Image
+                  src="/images/icons/sms.svg"
+                  alt="overimg"
+                  width={32}
+                  height={32}
+                  className="w-[24px] h-[24px] lg:w-[32px] lg:h-[32px]  "
+              
+                />}
+                        </div>
+                        <span className="text-white text-25 uppercase font-[avenirBook] leading-[1.2]">
+                          {c.label}
+                        </span>
+                      </Link>
+                    </Reveal>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -250,17 +252,17 @@ export default function EnquirySection() {
 
             {/* Form */}
             <div
-              className="relative z-10 w-full"
+              className="relative z-10 w-full px-[5px] md:px-0"
               style={{ "--field-line-color": "white" } as React.CSSProperties}
             >
-              <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <form onSubmit={handleSubmit(onSubmit)} className="content-spacing-mobile-padding" noValidate>
                 {/* Row 1 — First + Last name */}
                 <motion.div
                   variants={moveUp(0)}
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="grid grid-cols-1 lg:grid-cols-2 gap-x-100 mb-40"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-x-100 gap-y-[10px] mb-[10px] md:mb-40"
                 >
                   <div className="group">
                     <label htmlFor="firstName" className={labelClass}>
@@ -300,7 +302,7 @@ export default function EnquirySection() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-x-100 mb-40"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-x-100 gap-y-[10px] mb-[10px] md:mb-40"
                 >
                   <div className="group">
                     <label htmlFor="email" className={labelClass}>
@@ -322,7 +324,7 @@ export default function EnquirySection() {
                     <ErrorSlot msg={errors.email?.message} />
                   </div>
 
-                  <div className="group mt-40 md:mt-0">
+                  <div className="group">
                     <label htmlFor="phone" className={labelClass}>
                       Enter Phone no*
                     </label>
@@ -360,7 +362,7 @@ export default function EnquirySection() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="group mb-5 md:mb-40"
+                  className="group mb-[10px] md:mb-40"
                 >
                   <div className="group relative flex flex-col self-end">
                     <Image
@@ -398,14 +400,14 @@ export default function EnquirySection() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="group mb-5 md:mb-40"
+                  className="group md:mb-40"
                 >
                   <label htmlFor="message" className={labelClass}>
                     Type your message here...*
                   </label>
                   <input
                     id="message"
-                    className="w-full text-description mt-[52px] md:mt-40 pb-[5px] text-white bg-transparent outline-none p-0 resize-none"
+                    className="w-full text-description mt-10 md:mt-[52px] md:mt-40 pb-[5px] text-white bg-transparent outline-none p-0 resize-none"
                     {...register("message", {
                       required: "Message is required",
                     })}
@@ -415,7 +417,7 @@ export default function EnquirySection() {
                 </motion.div>
 
                 {/* Preferred Mode of Contact */}
-                <div className="flex gap-2 md:gap-90 flex-col md:flex-row lg:flex-col lg:gap-0 items-start pt-[10px] md:pt-0">
+                <div className="flex md:gap-90 flex-col md:flex-row lg:flex-col lg:gap-0 items-start pt-[10px] md:pt-0">
                   <div className="mb-5 md:mb-30">
                     <motion.p
                       variants={moveUp(0.2)}
@@ -459,7 +461,7 @@ export default function EnquirySection() {
                     />
                   </div>
                   {/* Checkboxes */}
-                  <div className="flex flex-col 2xl:flex-row 2xl:items-center items-start justify-between 3xl:justify-start gap-20 3xl:gap-90 mb-[30px] md:mb-80 2xl:mb-40 ">
+                  <div className="flex flex-col 2xl:flex-row 2xl:items-center items-start justify-between 3xl:justify-start gap-1 sm:gap-20 3xl:gap-90 mb-5 md:mb-80 2xl:mb-40 ">
                     <motion.div
                       variants={moveUp(0.2)}
                       initial="hidden"
@@ -545,7 +547,7 @@ export default function EnquirySection() {
                           </label>
                         )}
                       />
-                      <div className="absolute top-7 left-0 w-full text-[#c0392b] text-[14px]">
+                      <div className="absolute top-7 left-0 w-full text-[#c0392b] text-[12px] md:text-[14px]">
                         {errors.privacy?.message}
                       </div>
                     </motion.div>

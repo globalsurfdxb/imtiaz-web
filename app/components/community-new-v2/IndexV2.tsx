@@ -1,4 +1,4 @@
-import InnerHeroBanner from "../common/InnerHeroBanner";
+import InnerHeroBanner from "../common/InnerHeroBanner-v4";
 // import { bannerData } from './data'
 import CommunitiesSectionV2 from "../community/sections/CommunitySection-v2";
 

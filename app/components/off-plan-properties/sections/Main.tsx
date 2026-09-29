@@ -529,6 +529,7 @@ import { useMemo, useEffect, useState, useRef, useCallback } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import FilterDropdown from "../../common/FilterDropdown";
 import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButtonV4 from "../../common/CustomOutlineButton-v4";
 import ListMapToggle from "../../common/ListMapToggle";
 import ProjectCard from "../../common/ProjectCard";
 import { motion } from "framer-motion";
@@ -750,10 +751,10 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
   console.log("offPlanListings", offPlanListings);
 
   return (
-    <section className="w-full bg-white pt-5 md:pt-70" data-header="dark">
+    <section className="w-full bg-white pt-[50px] md:pt-70" data-header="dark">
       <div className="w-full container">
         {/* ── Mobile: collapsible filter (below lg) ── */}
-        <div className="lg:hidden mb-[23px] md:mb-70">
+        <div className="lg:hidden mb-4">
           <motion.div
             variants={moveUp(0.12)}
             initial="hidden"
@@ -762,7 +763,7 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
           >
             <button
               onClick={() => setFiltersOpen((prev) => !prev)}
-              className="flex text-[12px] md:text-16 items-center justify-between w-full px-6 py-4 rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
+              className="flex text-[12px] md:text-16 items-center justify-between w-full px-6 py-4 max-md:h-[32px] max-md:py-0 max-md:px-[16px] rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
             >
               <span>Filters</span>
               <span
@@ -771,7 +772,7 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
                   transform: filtersOpen ? "rotate(45deg)" : "rotate(0deg)",
                 }}
               >
-                <Plus size={20} />
+                <Plus size={20} className="max-md:w-[18px] max-md:h-[18px]" />
               </span>
             </button>
             <div
@@ -784,33 +785,35 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
             >
               <div className="flex flex-col gap-3 pt-4">
                 <CustomSearch
-                  className="!py-[17px] md:!py-5 h-[50px] lg:h-[66px]"
+                  className="max-md:!py-0 md:!py-5 max-md:h-[32px] md:h-[50px] lg:h-[66px] max-md:!pl-[16px] max-md:gap-[10px] max-md:[&_img]:h-[14px] max-md:[&_input]:text-[12px]"
                   borderColor="border-primary-2"
                   textColor="text-foreground-light"
                   value={searchQuery}
                   onChange={setSearchQuery}
                 />
                 <FilterDropdown
+                  compactMobile
                   placeholder="Properties Type"
                   options={propertyTypes}
                   value={selectedPropertyType}
                   onChange={(val) => updateParam("propertyType", val)}
                 />
                 <FilterDropdown
+                  compactMobile
                   placeholder="Community"
                   options={communities}
                   value={selectedCommunity}
                   onChange={(val) => updateParam("community", val)}
                 />
                 {hasFilter && (
-                  <CustomOutlineButton
+                  <CustomOutlineButtonV4
                     text="Clear Filter"
                     onClick={clearFilters}
                     variant="dark"
                     px="px-60"
                     borderColor="border-primary-2"
                     textColor="text-foreground-light"
-                    className="w-full md:w-auto !py-[17px] md:!py-5 h-[44px] md:h-[50px] xl:h-[66px] uppercase"
+                    className="w-full md:w-auto md:!py-5 h-[44px] md:h-[50px] xl:h-[66px] uppercase"
                   />
                 )}
               </div>
@@ -821,7 +824,7 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className={`flex lg:hidden justify-center mt-[23px] md:mt-40`}
+            className="flex lg:hidden justify-center mt-[18px] md:mt-40"
           >
             <ListMapToggle view={view} setView={setView} />
           </motion.div>
@@ -914,7 +917,7 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
           </motion.div>
         </div>
 
-        <div className="w-full mb-[70px] md:mb-50">
+        <div className="w-full mb-5 md:mb-50">
           <div className="relative w-full h-px overflow-hidden">
             <motion.div
               className="absolute inset-0 bg-black/10 origin-center"
@@ -928,13 +931,13 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
       </div>
 
       {/* ── Heading ── */}
-      <div className="container mb-50 text-center" id="properties-list">
+      <div className="container mb-6 md:mb-50 text-center content-spacing-mobile-padding" id="properties-list">
         <SectionHeading
           title="Available Off Plan Properties"
-          className="mb-20 text-foreground"
+          className="mb-6 md:mb-20 text-foreground"
         />
         <SectionDescription
-          className="text-description text-foreground-light"
+          className="text-description text-foreground-light content-spacing-mobile-padding"
           text={
             filtered.length !== 0
               ? `Showing ${(currentPage - 1) * itemsPerPage + 1}–${Math.min(currentPage * itemsPerPage, filtered.length)} of ${filtered.length} premium developments`

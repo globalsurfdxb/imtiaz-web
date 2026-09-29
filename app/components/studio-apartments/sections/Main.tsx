@@ -4,6 +4,7 @@ import { useMemo, useEffect, useState, useRef, useCallback } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import FilterDropdown from "../../common/FilterDropdown";
 import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButtonV4 from "../../common/CustomOutlineButton-v4";
 import ListMapToggle from "../../common/ListMapToggle";
 import ProjectCard from "../../common/ProjectCard";
 import { motion } from "framer-motion";
@@ -27,7 +28,7 @@ const getItemsPerPage = () =>
   typeof window !== "undefined" && window.innerWidth >= 1600 ? 8 : 6;
 
 const EmptyState = () => (
-  <div className="col-span-full flex flex-col items-center justify-center gap-6 text-center">
+  <div className="col-span-full flex flex-col items-center justify-center gap-6 text-center content-spacing-mobile-padding">
     <motion.div
       variants={moveUp(0)}
       initial="hidden"
@@ -37,13 +38,13 @@ const EmptyState = () => (
     >
       <SearchX size={32} className="text-primary" />
     </motion.div>
-    <div className="flex flex-col gap-2 font-[avenirBook]">
+    <div className="flex flex-col gap-5 md:gap-2 font-[avenirBook]">
       <motion.p
         variants={moveUp(0.1)}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="text-25 text-foreground"
+        className="text-25 text-foreground text-trim"
       >
         No Properties found
       </motion.p>
@@ -53,7 +54,7 @@ const EmptyState = () => (
         whileInView="show"
         viewport={{ once: true }}
         animate="show"
-        className="text-description text-foreground-light max-w-xs"
+        className="text-description text-foreground-light max-w-xs text-trim"
       >
         No results match your current filters. Try adjusting or clearing your
         selection.
@@ -225,10 +226,10 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
   console.log("offPlanListings", offPlanListings);
 
   return (
-    <section className="w-full bg-white pt-5 md:pt-70" data-header="dark">
+    <section className="w-full bg-white pt-[50px] md:pt-70" data-header="dark">
       <div className="w-full container">
         {/* ── Mobile: collapsible filter (below lg) ── */}
-        <div className="lg:hidden mb-[23px] md:mb-70">
+        <div className="lg:hidden mb-6 md:mb-70">
           <motion.div
             variants={moveUp(0.12)}
             initial="hidden"
@@ -237,7 +238,7 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
           >
             <button
               onClick={() => setFiltersOpen((prev) => !prev)}
-              className="flex text-[12px] md:text-16 items-center justify-between w-full px-6 py-4 rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
+              className="flex text-[12px] md:text-16 items-center justify-between w-full px-6 py-4 max-md:h-[32px] max-md:py-0 max-md:px-[16px] rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
             >
               <span>Filters</span>
               <span
@@ -246,7 +247,7 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
                   transform: filtersOpen ? "rotate(45deg)" : "rotate(0deg)",
                 }}
               >
-                <Plus size={20} />
+                <Plus size={20} className="max-md:w-[18px] max-md:h-[18px]" />
               </span>
             </button>
             <div
@@ -259,33 +260,35 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
             >
               <div className="flex flex-col gap-3 pt-4">
                 <CustomSearch
-                  className="!py-[17px] md:!py-5 h-[50px] lg:h-[66px]"
+                  className="max-md:!py-0 md:!py-5 max-md:h-[32px] md:h-[50px] lg:h-[66px] max-md:!pl-[16px] max-md:gap-[10px] max-md:[&_img]:h-[14px] max-md:[&_input]:text-[12px]"
                   borderColor="border-primary-2"
                   textColor="text-foreground-light"
                   value={searchQuery}
                   onChange={setSearchQuery}
                 />
                 <FilterDropdown
+                  compactMobile
                   placeholder="Properties Type"
                   options={propertyTypes}
                   value={selectedPropertyType}
                   onChange={(val) => updateParam("propertyType", val)}
                 />
                 <FilterDropdown
+                  compactMobile
                   placeholder="Community"
                   options={communities}
                   value={selectedCommunity}
                   onChange={(val) => updateParam("community", val)}
                 />
                 {hasFilter && (
-                  <CustomOutlineButton
+                  <CustomOutlineButtonV4
                     text="Clear Filter"
                     onClick={clearFilters}
                     variant="dark"
                     px="px-60"
                     borderColor="border-primary-2"
                     textColor="text-foreground-light"
-                    className="w-full md:w-auto !py-[17px] md:!py-5 h-[44px] md:h-[50px] xl:h-[66px] uppercase"
+                    className="w-full md:w-auto md:!py-5 h-[44px] md:h-[50px] xl:h-[66px] uppercase"
                   />
                 )}
               </div>
@@ -389,7 +392,7 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
           </motion.div>
         </div>
 
-        <div className="w-full mb-[70px] md:mb-50">
+        <div className="w-full mb-[50px] md:mb-50">
           <div className="relative w-full h-px overflow-hidden">
             <motion.div
               className="absolute inset-0 bg-black/10 origin-center"
@@ -406,7 +409,7 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
       <div className="container mb-50 text-center" id="properties-list">
         <SectionHeading
           title="Available studio apartments "
-          className="mb-20 text-foreground"
+          className="mb-6 md:mb-20 text-foreground"
         />
         <SectionDescription
           className="text-description text-foreground-light"

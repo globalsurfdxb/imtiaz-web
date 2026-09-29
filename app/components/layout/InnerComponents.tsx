@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useLenis } from "../../contexts/LenisContext";
-import InnerHeader from "../../components/layout/InnerHeader";
-import InnerFooter from "../../components/layout/InnerFooter";
+import InnerHeader from "../../components/layout/InnerHeader-v4";
+import InnerFooter from "../../components/layout/InnerFooter-v4";
 
 export default function InnerLayout({
   children,

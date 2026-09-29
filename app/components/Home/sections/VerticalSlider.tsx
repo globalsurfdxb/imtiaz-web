@@ -53,7 +53,7 @@ const CoastalParadise = () => {
             <h2 className="text-primary text-[50px] font-[optima] font-[400] mb-[32px] uppercase leading-[1]">
               a coastal paradise
             </h2>
-            <p className="text-black/80 font-[avenir] font-[300] text-[20px] mb-6 max-w-[75ch] leading-[1.1]">
+            <p className="text-black/80 font-[avenir] font-[300] text-[20px] mb-6 md:mb-20 max-w-[75ch] leading-[1.1]">
               Dubai Islands features 20 km of coastline to explore, offering a
               unique metropolitan lifestyle surrounded by nature. The
               fast-growing location is set to become the premier entertainment,

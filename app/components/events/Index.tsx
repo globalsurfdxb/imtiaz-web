@@ -1,4 +1,4 @@
-import InnerHeroBanner from '../common/InnerHeroBanner'
+import InnerHeroBanner from '../common/InnerHeroBanner-v4'
 import { bannerData, EventListingData } from './data'
 import EventsSection from './sections/EventsSection'
 import { Suspense } from 'react'

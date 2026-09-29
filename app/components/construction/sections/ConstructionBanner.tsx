@@ -123,15 +123,15 @@ const ConstructionBanner = ({
         {/* ── Dark Overlay ── */}
         <div className="absolute inset-0 bg-black/50" />
         {/* ── Main Content (title + description + breadcrumb) ── */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <div ref={contentRef} className="opacity-0">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center container">
+          <div ref={contentRef} className="opacity-0 content-spacing-mobile-padding">
             <AnimatedHeading
               title={title}
-              className="mb-[8px] md:mb-20 text-white"
+              className="mb-6 md:mb-20 text-white"
               mode="blade"
             />
             {description && (
-              <p className="text-white/80 text-description mx-auto text-center flex items-center justify-center max-w-[760px] whitespace-pre-line">
+              <p className="text-white/80 text-description mx-auto text-center flex items-center justify-center max-w-[760px] whitespace-pre-line content-spacing-mobile-padding">
                 {description}
               </p>
             )}
@@ -142,7 +142,7 @@ const ConstructionBanner = ({
         <div className="absolute bottom-0 left-0 right-0">
           <div
             ref={breadcrumbRef}
-            className="opacity-0 flex justify-center mb-60 3xl:mb-[64px]"
+            className="opacity-0 flex justify-center mb-[50px] 3xl:mb-[64px]"
           >
             <Breadcrumb />
           </div>

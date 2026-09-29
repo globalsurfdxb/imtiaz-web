@@ -33,10 +33,10 @@ function AccordionItem({
       <button
         onClick={onToggle}
         // className={`${isOpen ? "2xl:pb-20" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-40 ${!isOpen ? "pb-30" : ""}` : "py-40"} text-left group focus:outline-none`}
-        className={`${isOpen ? "pb-[10px] md:pb-20" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-5 md:pt-40` : "py-5 md:py-40"} text-left group focus:outline-none`}
+        className={`${isOpen ? "pb-4.5" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-5 md:pt-40` : "py-5 md:py-40"} text-left group focus:outline-none`}
         aria-expanded={isOpen}
       >
-        <span className="text-[18px] md:text-25 uppercase text-foreground pr-2 leading-[1.4] font-[optima] font-[400]">
+        <span className="text-[18px] md:text-25 uppercase text-foreground pr-2 leading-[1.4] font-[optima] font-[400] text-trim">
           {item.question}
         </span>
         <span className="flex-shrink-0 select-none">
@@ -114,13 +114,13 @@ export default function OffPlanBanner() {
     >
       <div className="container">
         {/* Header */}
-        <div className="w-full flex flex-col items-center text-center  mb-[20px] md:mb-[10px]">
-          <SectionHeading title={faqData.title} className="mb-20 text-foreground" />
+        <div className="w-full flex flex-col items-center text-center  mb-[30px] md:mb-[10px] content-spacing-mobile-padding">
+          <SectionHeading title={faqData.title} className="mb-6 md:mb-20 text-foreground" />
           <SectionDescription text={faqData.subtitle} className="shrink-0 max-w-[407px] text-foreground-light" />
         </div>
 
         {/* Accordion */}
-        <div className="max-w-[973px] mx-auto">
+        <div className="max-w-[973px] mx-auto content-spacing-mobile-padding">
           {faqData.items.map((item, index) => (
             <Reveal variants={moveUpV2} key={item.id} >
 

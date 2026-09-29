@@ -43,10 +43,10 @@ function AccordionItem({
       {/* Question Row */}
       <button
         onClick={onToggle}
-        className={`${isOpen ? "pb-[10px] md:pb-20" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-20 md:pt-40` : "py-20 md:py-40"} text-left group focus:outline-none`}
+        className={`${isOpen ? "pb-4.5" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-20 md:pt-40` : "py-20 md:py-40"} text-left group focus:outline-none`}
         aria-expanded={isOpen}
       >
-        <span className="text-25 uppercase text-foreground pr-2 leading-[1.4] font-[optima] font-[400]">
+        <span className="text-25 uppercase text-foreground pr-2 leading-[1.4] font-[optima] font-[400] text-trim">
           {item.question}
         </span>
         <span className="flex-shrink-0 select-none">
@@ -120,13 +120,13 @@ export default function InvestorFaq({data}:{data:FAQData}) {
   };
 
   return (
-    <section className="w-full bg-gray py-[70px] lg:py-120 3xl:py-130" data-header="dark">
+    <section className="w-full bg-gray py-120 3xl:py-130" data-header="dark">
       <div className="container">
         {/* Header */}
-        <div className="w-full flex flex-col items-center text-center mb-[30px] lg:mb-[10px]">
+        <div className="w-full flex flex-col items-center text-center mb-[30px] lg:mb-[10px] content-spacing-mobile-padding">
           <SectionHeading
             title={data.title}
-            className="mb-20 text-foreground"
+            className="mb-6 md:mb-20 text-foreground"
           />
           <SectionDescription
             text={data.subtitle}
@@ -135,7 +135,7 @@ export default function InvestorFaq({data}:{data:FAQData}) {
         </div>
 
         {/* Accordion */}
-        <div className="max-w-[973px] mx-auto">
+        <div className="max-w-[973px] mx-auto content-spacing-mobile-padding">
           {data.items.map((item, index) => (
             <Reveal variants={moveUpV2} key={item.id}>
               <AccordionItem

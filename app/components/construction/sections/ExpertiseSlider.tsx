@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
 // import { coreExpertiseData } from "../data";
-import SliderArrowButton from "../../common/SliderNavigationButton";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 
 import "swiper/css";
 import { SectionHeading } from "../../animations/SectionHeading";
@@ -42,7 +42,7 @@ export default function ExpertiseSlider({ data }: { data: ExpertiseSection }) {
         <div className="w-full flex items-center justify-center text-center">
           <SectionHeading
             title={data.title}
-            className="mb-[30px] md:mb-50 text-foreground max-w-[35ch]"
+            className="mb-6 md:mb-50 text-foreground max-w-[35ch] content-spacing-mobile-padding"
           />
         </div>
 
@@ -118,8 +118,8 @@ export default function ExpertiseSlider({ data }: { data: ExpertiseSection }) {
                         background: "linear-gradient(0deg, #000000, #000000)",
                       }}
                     />
-                    <div className="absolute inset-0 flex flex-col justify-end p-[30px] text-white">
-                      <p className="text-[18px] md:text-25 leading-[1.5] md:leading-[1.4] mb-0 tracking-[-0.02em]">
+                    <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-[30px] text-white">
+                      <p className="text-[18px] md:text-25 leading-[1.5] md:leading-[1.4] mb-0 tracking-[-0.02em] text-trim">
                         {slide.title}
                       </p>
                       <div
@@ -129,7 +129,7 @@ export default function ExpertiseSlider({ data }: { data: ExpertiseSection }) {
                             : "grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 group-hover:mt-20"
                         }`}
                       >
-                        <div className="overflow-hidden">
+                        <div>
                           <div
                             className="w-full mb-20"
                             style={{
@@ -138,7 +138,7 @@ export default function ExpertiseSlider({ data }: { data: ExpertiseSection }) {
                                 "linear-gradient(90deg, #FFFFFF 49.22%, rgba(255, 255, 255, 0) 100%)",
                             }}
                           />
-                          <p className="text-description">
+                          <p className="text-description text-trim">
                             {slide.description}
                           </p>
                         </div>
@@ -151,7 +151,7 @@ export default function ExpertiseSlider({ data }: { data: ExpertiseSection }) {
           </Swiper>
         </div>
 
-        <div className="flex items-center justify-center gap-3 mt-[30px] md:mt-50">
+        <div className="flex items-center justify-center gap-3 mt-5 md:mt-[30px] md:mt-50">
           <SliderArrowButton
             direction="prev"
             variant="dark"

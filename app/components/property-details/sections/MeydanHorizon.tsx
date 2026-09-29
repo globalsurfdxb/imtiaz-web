@@ -1,6 +1,6 @@
 "use client";
 import { communitySectionData } from "../data";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
 import { useScrollFadeUp } from "../../../hooks/useScrollFadeUp";
@@ -22,14 +22,14 @@ const MeydanHorizon = ({title,description,subTitle,slug}:Props) => {
   });
 
   return (
-    <section className="w-full py-[70px] lg:py-120 3xl:py-160"
+    <section className="w-full py-120 3xl:py-160"
       data-header="dark">
       <div className="container flex flex-col justify-center">
         {/* Header */}
-        <div className="text-center ">
+        <div className="text-center content-spacing-mobile-padding">
           {title && <SectionHeading
             title={title}
-            className="text-heading  text-foreground mb-[40px] max-w-[666px] mx-auto"
+            className="text-heading  text-foreground mb-6 md:mb-[40px] max-w-[666px] mx-auto"
           />}
 
           {/* {subTitle && <SectionDescription

@@ -377,6 +377,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { moveUp } from "@/app/components/motionVariants";
+import SliderArrowButton from "@/app/components/common/SliderNavigationButton-v4";
 import SwiperModal from "./SwiperModal";
 
 // Types
@@ -497,8 +498,8 @@ const TabButton = ({ year, isActive, onClick }: TabButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`min-w-[96px] md:min-w-[136px] min-h-[50px] md:min-h-[58px] cursor-pointer flex items-center justify-center group relative transition-all duration-300 undefined overflow-hidden px-[12px] sm:px-[26px]
-    xl:px-[37px] py-[14px] lg:py-4 2xl:py-[19px] 3xl:py-[20.62px] rounded-full border  text-foreground-light font-[avenirBook] text-16 md:text-[19px] leading-[100%]  ${
+      className={` md:min-w-[136px] min-h-[50px] md:min-h-[58px] cursor-pointer flex items-center justify-center group relative transition-all duration-300 undefined overflow-hidden px-[16px] sm:px-[26px]
+    xl:px-[37px] py-[14px] lg:py-4 2xl:py-[19px] 3xl:py-[20.62px] max-md:min-h-[32px] max-md:h-[32px] max-md:py-0 max-md:px-[16px] max-md:text-[12px] rounded-full border  text-foreground-light font-[avenirBook] text-16 md:text-[19px] leading-[100%]  ${
       isActive ? "border-white" : "border-primary"
     }`}
     >
@@ -618,18 +619,10 @@ const MonthCard = ({ monthData, index }: MonthCardProps) => {
               className="absolute left-20 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <button
-                className={`swiper-prev-${index} cursor-pointer group w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px]   border border-white rounded-[50px] flex items-center justify-center overflow-hidden relative`}
-              >
-                <span className="absolute right-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-                <Image
-                  src="/icons/left_arrow_slider_primary.svg"
-                  alt="Previous"
-                  width={28}
-                  height={28}
-                  className="relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-                />
-              </button>
+              {/* Swiper binds navigation to this wrapper's class */}
+              <div className={`swiper-prev-${index}`}>
+                <SliderArrowButton direction="prev" variant="light" />
+              </div>
             </motion.div>
 
             {/* Next button */}
@@ -641,18 +634,9 @@ const MonthCard = ({ monthData, index }: MonthCardProps) => {
               className="absolute right-20 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <button
-                className={`swiper-next-${index} cursor-pointer group w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px]   border border-white rounded-[50px] flex items-center justify-center overflow-hidden relative`}
-              >
-                <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-                <Image
-                  src="/icons/left_arrow_slider_primary.svg"
-                  alt="Next"
-                  width={28}
-                  height={28}
-                  className="relative rotate-180 z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-                />
-              </button>
+              <div className={`swiper-next-${index}`}>
+                <SliderArrowButton direction="next" variant="light" />
+              </div>
             </motion.div>
 
             {/* Pagination */}
@@ -663,7 +647,7 @@ const MonthCard = ({ monthData, index }: MonthCardProps) => {
 
           {/* Month Info */}
           <div className="mt-[10px] md:mt-20 flex justify-between md:items-center">
-            <h3 className="text-25 text-foreground leading-[1.4]">
+            <h3 className="text-25 text-foreground leading-[1.25]">
               {/* Mobile: First two words stacked */}
               <span className="block md:hidden">
                 <div>{monthData.date.split(" ")[0]}</div>
@@ -699,7 +683,7 @@ export default function ConstructionProgress({data}:{data:YearData[]}) {
 
   return (
     <section
-      className="w-full  pt-[40px] md:pt-120 pb-[70px] md:pb-120 3xl:pb-160 3xl:pt-100"
+      className="w-full py-120 3xl:pb-160 3xl:pt-100"
       data-header="dark"
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -708,7 +692,7 @@ export default function ConstructionProgress({data}:{data:YearData[]}) {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex justify-center gap-20 md:gap-4 mb-[40px] lg:mb-50 py-20 border-b border-t border-black/10"
+          className="flex justify-center gap-20 md:gap-4 mb-5 md:mb-[40px] lg:mb-50 py-20 border-b border-t border-black/10"
         >
           {data.map((year) => (
             <TabButton
@@ -729,7 +713,7 @@ export default function ConstructionProgress({data}:{data:YearData[]}) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 md:grid-cols-2  gap-x-50 gap-y-20 gap-y-50 3xl:gap-y-70"
+              className="grid grid-cols-1 md:grid-cols-2 gap-x-50 gap-y-6 md:gap-y-50 3xl:gap-y-70"
             >
               {currentYearData?.months.map((month, idx) => (
                 <MonthCard

@@ -5,22 +5,18 @@ import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
 import CountryCodeSelect from "@/app/components/auth/CountryCodeList";
 import Link from "next/link";
-import ContainerAnchor from "../../layout/ContainerAnchor";
 import { useContainerInset } from "@/app/hooks/useContainerInset";
-// import { enquiryData } from "../data";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
-import { SearchableDropdown } from "../sections/CountryNameList";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
 import Reveal from "../../animations/RevealOneByOneAnimation";
-import { moveLeft, moveUp, moveUpV2 } from "../../motionVariants";
+import { moveUp, moveUpV2 } from "../../motionVariants";
 import { motion } from "framer-motion";
 import { useParallax } from "@/app/hooks/useParallax";
 import { useUtm } from "@/hooks/useUtm";
 import { submitContactLead } from "@/lib/submitContact";
 import EnquiryForm from "../../auth/EnquiryForm";
 import gsap from "gsap";
-import EnquiryThankYouPopup from "../../thank-you/EnquiryThankYouPopup";
 import { useRouter } from "next/navigation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -69,7 +65,9 @@ type FormValues = {
 // ─── Shared Field Components ──────────────────────────────────────────────────
 
 const ErrorSlot = ({ msg }: { msg?: string }) => (
-  <p className={`pt-[2px] h-20 ${msg ? "text-[#c0392b] text-[14px]" : ""}`}>
+  <p
+    className={`pt-[5px] md:pt-[2px] h-20 ${msg ? "text-[#c0392b] text-[12px] md:text-[14px]" : ""}`}
+  >
     {msg ?? "\u00A0"}
   </p>
 );
@@ -77,18 +75,23 @@ const ErrorSlot = ({ msg }: { msg?: string }) => (
 const FieldLine = ({ hasError }: { hasError: boolean }) => (
   <div className="relative h-px w-full bg-foreground-light/30">
     <div
-      className={`absolute inset-y-0 left-0 transition-all duration-[420ms] ease-out ${hasError
-        ? "bg-[#c0392b] w-full"
-        : "w-0 group-focus-within:w-full bg-black"
-        }`}
+      className={`absolute inset-y-0 left-0 transition-all duration-[420ms] ease-out ${
+        hasError
+          ? "bg-[#c0392b] w-full"
+          : "w-0 group-focus-within:w-full bg-black"
+      }`}
     />
   </div>
 );
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryData }) {
-  const router = useRouter(); 
+export default function EnquirySection({
+  enquiryData,
+}: {
+  enquiryData: EnquiryData;
+}) {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -164,7 +167,7 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
   }, []);
 
   const inputClass =
-    "w-full mt-[5px] md:mt-20 text-description pb-[5px] text-foreground-light bg-transparent outline-none p-0 h-auto placeholder-transparent";
+    "w-full mt-[2px] md:mt-20 text-description pb-[5px] text-foreground-light bg-transparent outline-none p-0 h-auto placeholder-transparent";
   const labelClass =
     "block text-description text-foreground-light/50 transition-colors group-focus-within:text-black";
 
@@ -175,26 +178,43 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
     return () => window.removeEventListener("resize", check);
   }, []);
 
-
   // Animate in after visible
   useEffect(() => {
     if (!enquiryVisible) return;
     setTimeout(() => {
       if (!backdropRef.current || !modalRef.current) return;
-      gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" });
+      gsap.fromTo(
+        backdropRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: "power2.out" },
+      );
       gsap.fromTo(
         modalRef.current,
         { opacity: 0, scale: 1.08, filter: "blur(8px)" },
-        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }
+        {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.55,
+          ease: "power3.out",
+        },
       );
     }, 50);
   }, [enquiryVisible]);
 
   const closeModal = () => {
     if (!backdropRef.current || !modalRef.current) return;
-    gsap.to(backdropRef.current, { opacity: 0, duration: 0.3, ease: "power2.in" });
+    gsap.to(backdropRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+    });
     gsap.to(modalRef.current, {
-      opacity: 0, scale: 1.06, filter: "blur(16px)", duration: 0.5, ease: "power3.out",
+      opacity: 0,
+      scale: 1.06,
+      filter: "blur(16px)",
+      duration: 0.5,
+      ease: "power3.out",
       onComplete: () => setEnquiryVisible(false),
     });
   };
@@ -205,34 +225,38 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
       data-header="dark"
     >
       <div className="container">
-        <div className="flex flex-col lg:flex-row gap-[40px] sm:gap-12 lg:gap-0">
+        <div className="flex flex-col lg:flex-row gap-[50px] sm:gap-12 lg:gap-0">
           {/* ── Left Panel ── */}
-          <div className="w-full lg:w-[43.7%] flex-shrink-0 flex flex-col">
+          <div className="w-full lg:w-[43.7%] flex-shrink-0 flex flex-col content-spacing-mobile-padding">
             <SectionHeading
               title={enquiryData.heading}
-              className="text-foreground mb-20 lg:max-w-[17ch]"
+              className="text-foreground mb-6 md:mb-20 lg:max-w-[17ch]"
             />
             <SectionDescription
               text={enquiryData.subheading}
-              className="text-foreground-light/80 max-w-[473px] mb-50"
+              className="text-foreground-light/80 max-w-[473px] mb-[50px]"
             />
-            <div className="flex flex-col gap-[30px] xl:gap-[40px]">
+            <div className="flex flex-col gap-y-3.5 md:gap-[30px] xl:gap-[40px]">
               {enquiryData.contactInfo.map((item, index) => (
-                <div key={index} className=" group w-fit" onClick={() => index == 0 ? setEnquiryVisible(true) : null}>
+                <div
+                  key={index}
+                  className=" group w-fit"
+                  onClick={() => (index == 0 ? setEnquiryVisible(true) : null)}
+                >
                   <Link href={index !== 0 ? item.href : "#"}>
                     <div
-                      className={`flex gap-[15px]   cursor-pointer ${item.alignment ? "items-center" : ""}`}
+                      className={`flex gap-[15px] cursor-pointer ${item.alignment ? "items-center" : ""}`}
                     >
-                      <div>
+                      <div className="shrink-0">
                         <Image
                           src={item.icon}
                           alt="video call"
                           width={30}
                           height={30}
-                          className="w-[30px] h-30"
+                          className="w-[30px] h-30 shrink-0"
                         />
                       </div>
-                      <div className="max-w-[40ch] ">
+                      <div className="max-w-[40ch]">
                         <span className="text-description text-foreground uppercase text-19 font-bold group-hover:text-primary ">
                           {item.text}
                         </span>
@@ -245,13 +269,15 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
             </div>
           </div>
 
-          <div className="w-full lg:hidden h-[1px] bg-black/10 mb-[30px]" />
+          <div className="content-spacing-mobile-padding">
+            <div className="w-full lg:hidden h-[1px] bg-black/10 md:mb-[30px]" />
+          </div>
 
           {/* ── Right Panel ── */}
           <div className="flex-1 relative flex items-center lg:w-[57.26%] justify-center   overflow-hidden ">
             {/* Form */}
             <div
-              className="relative z-10 w-full"
+              className="relative z-10 w-full content-spacing-mobile-padding"
               style={{ "--field-line-color": "black" } as React.CSSProperties}
             >
               <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -261,7 +287,7 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-[20px] md:gap-70 3xl:gap-90"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-y-[10px] max-md:mb-[10px] md:gap-70 3xl:gap-90"
                 >
                   <div className="group">
                     <label htmlFor="firstName" className={labelClass}>
@@ -301,7 +327,7 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-x-100 mb-1  md:mb-40"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-x-100 gap-y-[10px] mb-[10px] md:mb-40"
                 >
                   <div className="group">
                     <label htmlFor="email" className={labelClass}>
@@ -323,7 +349,7 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                     <ErrorSlot msg={errors.email?.message} />
                   </div>
 
-                  <div className="group mt-[20px] md:mt-0">
+                  <div className="group">
                     <label htmlFor="phone" className={labelClass}>
                       Enter Phone no*
                     </label>
@@ -337,22 +363,25 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                         dropdownWidth={phoneRowWidth}
                         variant="dark"
                       />
-<input
-  id="phone"
-  type="text"
-  inputMode="numeric"
-  className="flex-1 pl-[100px] pb-[5px] outline-none bg-transparent text-description text-foreground-light"
-  {...register("phone", {
-    required: "Phone number is required",
-    pattern: {
-      value: /^[0-9]{7,15}$/,
-      message: "Invalid phone number",
-    },
-    onChange: (e) => {
-      e.target.value = e.target.value.replace(/[^0-9]/g, "");
-    },
-  })}
-/>
+                      <input
+                        id="phone"
+                        type="text"
+                        inputMode="numeric"
+                        className="flex-1 pl-[100px] pb-[5px] outline-none bg-transparent text-description text-foreground-light"
+                        {...register("phone", {
+                          required: "Phone number is required",
+                          pattern: {
+                            value: /^[0-9]{7,15}$/,
+                            message: "Invalid phone number",
+                          },
+                          onChange: (e) => {
+                            e.target.value = e.target.value.replace(
+                              /[^0-9]/g,
+                              "",
+                            );
+                          },
+                        })}
+                      />
                     </div>
                     <FieldLine hasError={!!errors.phone} />
                     <ErrorSlot msg={errors.phone?.message} />
@@ -410,7 +439,7 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                   </label>
                   <input
                     id="message"
-                    className="w-full text-description mt-[55px] md:mt-40 pb-[5px] text-foreground-light bg-transparent outline-none p-0 resize-none"
+                    className="w-full text-description mt-10 md:mt-[52px] md:mt-40 pb-[5px] text-foreground-light bg-transparent outline-none p-0 resize-none"
                     {...register("message", {
                       required: "Message is required",
                     })}
@@ -420,8 +449,8 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                 </motion.div>
 
                 {/* Preferred Mode of Contact */}
-                <div className="flex gap-2 md:gap-90 flex-col md:flex-row lg:flex-col lg:gap-0 items-start">
-                  <div className="mb-60">
+                <div className="flex md:gap-90 flex-col md:flex-row lg:flex-col lg:gap-0 items-start">
+                  <div className="mb-5 md:mb-60">
                     <motion.p
                       variants={moveUp(0.2)}
                       initial="hidden"
@@ -443,10 +472,11 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                                 onClick={() => field.onChange(mode)}
                               >
                                 <span
-                                  className={`w-[20px] h-[20px] rounded-full border flex items-center justify-center transition-colors duration-200 mb-1 ${field.value === mode
-                                    ? "border-foreground-light"
-                                    : "border-foreground-light"
-                                    }`}
+                                  className={`w-[20px] h-[20px] rounded-full border flex items-center justify-center transition-colors duration-200 mb-1 ${
+                                    field.value === mode
+                                      ? "border-foreground-light"
+                                      : "border-foreground-light"
+                                  }`}
                                 >
                                   {field.value === mode && (
                                     <span className="w-[14px] h-[14px] rounded-full bg-foreground-light block" />
@@ -463,7 +493,7 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                     />
                   </div>
                   {/* Checkboxes */}
-                  <div className="flex flex-col 2xl:flex-row 2xl:items-center items-start justify-between 3xl:justify-start gap-20 3xl:gap-90 mb-80 2xl:mb-40 ">
+                  <div className="flex flex-col 2xl:flex-row 2xl:items-center items-start justify-between 3xl:justify-start gap-1 sm:gap-20 3xl:gap-90 mb-5 md:mb-80 2xl:mb-40 ">
                     <motion.div
                       variants={moveUp(0.2)}
                       initial="hidden"
@@ -479,10 +509,11 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                             onClick={() => field.onChange(!field.value)}
                           >
                             <span
-                              className={`w-5 mb-1 h-5 border border-foreground-light flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${field.value
-                                ? "text-foreground-light border-foreground-light"
-                                : "border-foreground-light"
-                                }`}
+                              className={`w-5 mb-1 h-5 border border-foreground-light flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${
+                                field.value
+                                  ? "text-foreground-light border-foreground-light"
+                                  : "border-foreground-light"
+                              }`}
                             >
                               {field.value && (
                                 <svg
@@ -522,12 +553,13 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                             onClick={() => field.onChange(!field.value)}
                           >
                             <span
-                              className={`w-5 h-5 mb-1 border flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${field.value
-                                ? "text-foreground-light border-foreground-light"
-                                : errors.privacy
-                                  ? "border-[#c0392b]"
-                                  : "border-foreground-light"
-                                }`}
+                              className={`w-5 h-5 mb-1 border flex items-center justify-center transition-colors duration-200 flex-shrink-0 ${
+                                field.value
+                                  ? "text-foreground-light border-foreground-light"
+                                  : errors.privacy
+                                    ? "border-[#c0392b]"
+                                    : "border-foreground-light"
+                              }`}
                             >
                               {field.value && (
                                 <svg
@@ -547,7 +579,7 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
                           </label>
                         )}
                       />
-                      <div className="absolute top-7 left-0 w-full text-[#c0392b] text-[14px]">
+                      <div className="absolute top-7 left-0 w-full text-[#c0392b] text-[12px] md:text-[14px]">
                         {errors.privacy?.message}
                       </div>
                     </motion.div>
@@ -574,10 +606,21 @@ export default function EnquirySection({ enquiryData }: { enquiryData: EnquiryDa
       {/* Enquiry Modal */}
       {enquiryVisible && (
         <>
-          <div ref={backdropRef} className="fixed inset-0 z-[1000] bg-black/80 backdrop-blur-[6px] opacity-0" onClick={closeModal} />
-          <div ref={modalRef} className="fixed inset-0 z-[1001] flex items-center justify-center opacity-0 pointer-events-none">
+          <div
+            ref={backdropRef}
+            className="fixed inset-0 z-[1000] bg-black/80 backdrop-blur-[6px] opacity-0"
+            onClick={closeModal}
+          />
+          <div
+            ref={modalRef}
+            className="fixed inset-0 z-[1001] flex items-center justify-center opacity-0 pointer-events-none"
+          >
             <div className="pointer-events-auto w-full">
-              <EnquiryForm onClose={closeModal} initialTab="viewing" onSwitch={() => { }} />
+              <EnquiryForm
+                onClose={closeModal}
+                initialTab="viewing"
+                onSwitch={() => {}}
+              />
             </div>
           </div>
         </>

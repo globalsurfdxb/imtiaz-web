@@ -252,7 +252,7 @@ export default function MessageSection({ data }: Props) {
                     />
                   </div>
 
-                  <div className="hidden sm:block lg:hidden mb-6">
+                  <div className="hidden sm:block lg:hidden mb-6 md:mb-20">
                     <motion.p
                       variants={moveUp(0)}
                       initial="hidden"

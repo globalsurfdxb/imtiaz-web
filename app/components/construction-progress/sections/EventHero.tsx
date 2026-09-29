@@ -1,18 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import Breadcrumb from "../../common/Breadcrumb"; 
+import Breadcrumb from "../../common/Breadcrumb";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { motion } from "framer-motion";
 import { moveDown, moveUp } from "../../motionVariants";
 import { useParallax } from "@/app/hooks/useParallax";
 
- 
-
-const EventHero = ({title}:{title:string}) => { 
-
+const EventHero = ({ title }: { title: string }) => {
   return (
-    <section className="w-full pt-[170px] lg:!pt-200" data-header="dark">
+    <section className="w-full pt-[145px] lg:!pt-200" data-header="dark">
       <div className="container flex flex-col items-center shrink-0">
         {/* Breadcrumb */}
         <motion.div
@@ -20,6 +17,7 @@ const EventHero = ({title}:{title:string}) => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
+          className="content-spacing-mobile-padding"
         >
           <Breadcrumb variant="black" />
         </motion.div>
@@ -27,9 +25,8 @@ const EventHero = ({title}:{title:string}) => {
         {/* Title */}
         <SectionHeading
           title={title ? title : "No construction progress found"}
-          className="max-w-[32ch] text-foreground text-center uppercase mt-[40px] md:mt-100 tracking-[-0.03em] sm:-tracking-normal"
+          className="max-w-[32ch] text-foreground text-center uppercase mt-[40px] md:mt-100 tracking-[-0.03em] sm:-tracking-normal content-spacing-mobile-padding"
         />
- 
       </div>
     </section>
   );

@@ -14,7 +14,7 @@ import LatestBlogSlider from "./LatestBlogSlider";
 import BlogCard from "./BlogCard";
 import Pagination from "../../common/Pagination";
 import FilterDropdown from "../../common/FilterDropdown";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { motion } from "framer-motion";
 import {
   containerStagger,
@@ -216,24 +216,25 @@ const blogTopics = useMemo(() => {
 
   return (
     <section
-      className="w-full bg-white pt-5 md:pt-70 pb-120 3xl:pb-160"
+      className="w-full bg-white pt-[50px] md:pt-70 pb-120 3xl:pb-160"
       data-header="dark"
     >
       <div className="container">
         {/* Filters Row */}
         <motion.div
-          className="flex flex-col md:flex-row gap-30 items-center justify-between mb-[30px] md:mb-70"
+          className="flex flex-col md:flex-row gap-30 items-center justify-between mb-5 md:mb-[30px] md:mb-70"
           variants={containerStagger}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
         >
           <motion.div
-            className="flex flex-col md:flex-row items-center gap-5 gap-30 w-full md:w-auto"
+            className="flex flex-col md:flex-row items-center gap-2.5 md:gap-30 w-full md:w-auto"
             variants={containerStagger}
           >
             <motion.div className="w-full md:w-auto" variants={moveUp(0)}>
               <FilterDropdown
+                compactMobile
                 placeholder="Topic"
                 options={blogTopics}
                 value={selectedTopic}
@@ -242,6 +243,7 @@ const blogTopics = useMemo(() => {
             </motion.div>
             <motion.div className="w-full md:w-auto" variants={moveUp(0.15)}>
               <FilterDropdown
+                compactMobile
                 placeholder="Categories"
                 options={blogCategories}
                 value={selectedCategory}
@@ -265,13 +267,13 @@ const blogTopics = useMemo(() => {
                 px="px-60"
                 borderColor="border-primary-2"
                 textColor="text-foreground-light"
-                className="w-full md:w-auto !py-[17px] md:!py-5 h-[44px] md:h-[50px]  xl:h-[66px] uppercase"
+                className="w-full md:w-auto md:!py-5 h-[44px] md:h-[50px] xl:h-[66px] uppercase"
               />
             </motion.div>
           )}
         </motion.div>
 
-        <div className="w-full mb-[30px] md:mb-50">
+        <div className="w-full mb-5 md:mb-[30px] lg:mb-50">
           <div className="relative w-full h-px overflow-hidden">
             <motion.div
               className="absolute inset-0 bg-black/10 origin-center"
@@ -302,7 +304,7 @@ const blogTopics = useMemo(() => {
             <LatestBlogSlider blogs={sortedBlogs.slice(0, 3)} />
           </motion.div>
           {/* Divider */}
-          <div className="w-full my-[40px] my-50">
+          <div className="w-full mt-[50px] mb-5 md:my-[40px] lg:my-50">
             <div className="relative w-full h-px overflow-hidden">
               <motion.div
                 className="absolute inset-0 bg-black/10 origin-center"

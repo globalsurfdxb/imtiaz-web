@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Index from "@/app/components/our-story/Index";
+import Index from "@/app/components/our-story/Index-v4";
 import { headers } from "next/headers";
 
 async function getOurStoryData() {

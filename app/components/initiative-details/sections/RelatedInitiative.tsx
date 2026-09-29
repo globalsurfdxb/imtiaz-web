@@ -1,7 +1,7 @@
 "use client";
 
 import ItemCard from "./ItemCard";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { motion } from "framer-motion";
 import { moveUp, moveUpV2 } from "@/app/components/motionVariants";
 import Reveal from "../../animations/RevealOneByOneAnimation";
@@ -28,7 +28,7 @@ const RelatedInitiative = ({ data }: { data: any }) => {
         <div className="container">
           <SectionHeading
             title="Related Initiatives"
-            className="text-center mb-5 md:mb-50 text-foreground"
+            className="text-center mb-6 md:mb-50 text-foreground content-spacing-mobile-padding"
           />
         </div>
 

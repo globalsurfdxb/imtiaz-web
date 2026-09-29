@@ -1,5 +1,4 @@
 import ConstructionBanner from "./sections/ConstructionBanner";
-import { bannerData } from "./data";
 import TimelineSlider from "./sections/TimeLineSlider";
 import ExpertiseSlider from "./sections/ExpertiseSlider";
 import ImtiazProperties from "../../components/Home/sections/ImtiazPropsSlider";

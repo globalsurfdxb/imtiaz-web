@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import CountryCodeSelect from "@/app/components/auth/CountryCodeList";
-import CustomOutlineButton from "@/app/components/common/CustomOutlineButton";
+import CustomOutlineButton from "@/app/components/common/CustomOutlineButton-v4";
 import { useRef, useEffect, useState } from "react";
 import { SectionHeading } from "@/app/components/animations/SectionHeading";
 import { SectionDescription } from "@/app/components/animations/SectionDescription";
@@ -84,15 +84,15 @@ export default function RegisterYourInterest() {
 
   return (
     <section
-      className="w-full py-[70px] lg:py-120 3xl:py-130 bg-gray dark-section-2"
+      className="w-full py-120 3xl:py-130 bg-gray dark-section-2"
       data-header="dark"
     >
-      <div className="container flex flex-col lg:flex-row gap-10 sm:gap-10 lg:gap-50 2xl:gap-0">
+      <div className="container flex flex-col lg:flex-row gap-[50px] sm:gap-10 lg:gap-50 2xl:gap-0">
         {/* Left col — 49% */}
-        <div className="w-full lg:w-[47.865%] flex-shrink-0 flex flex-col items-center lg:items-start">
+        <div className="w-full lg:w-[47.865%] flex-shrink-0 flex flex-col items-center lg:items-start content-spacing-mobile-padding">
           <SectionHeading
             title="Register your interest"
-            className="text-foreground mb-20 max-w-[17ch] text-center lg:text-left"
+            className="text-foreground mb-6 md:mb-20 max-w-[17ch] text-center lg:text-left"
           />
           <SectionDescription
             text="Imtiaz Developments crafts more than buildings we create experiences. Register your interest and be part of our legacy."
@@ -101,7 +101,7 @@ export default function RegisterYourInterest() {
         </div>
 
         {/* Right col — 51% */}
-        <div className="w-full lg:w-[52.135%] flex flex-col justify-center">
+        <div className="w-full lg:w-[52.135%] flex flex-col justify-center content-spacing-mobile-padding">
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             {/* Row 1 — First + Last name */}
             <motion.div
@@ -109,7 +109,7 @@ export default function RegisterYourInterest() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              className="grid sm:grid-cols-2 gap-[26px] sm:gap-70 3xl:gap-90"
+              className="grid sm:grid-cols-2 gap-y-[10px] sm:gap-70 3xl:gap-90"
             >
               <div className="group">
                 <label
@@ -160,7 +160,7 @@ export default function RegisterYourInterest() {
               <div className="group">
                 <label
                   htmlFor="email"
-                  className="block text-description mt-40 text-foreground-light/50 transition-colors group-focus-within:text-foreground-light"
+                  className="block text-description mt-[10px] md:mt-40 text-foreground-light/50 transition-colors group-focus-within:text-foreground-light"
                 >
                   Enter Your Email*
                 </label>
@@ -182,7 +182,7 @@ export default function RegisterYourInterest() {
               <div className="group">
                 <label
                   htmlFor="phone"
-                  className="block text-description mt-40 text-foreground-light/50 transition-colors group-focus-within:text-foreground-light"
+                  className="block text-description mt-[10px] md:mt-40 text-foreground-light/50 transition-colors group-focus-within:text-foreground-light"
                 >
                   Enter Phone no*
                 </label>
@@ -225,7 +225,7 @@ export default function RegisterYourInterest() {
             >
               <label
                 htmlFor="message"
-                className="block !leading-[1.75] text-description mt-40 text-foreground-light/50 transition-colors group-focus-within:text-foreground-light"
+                className="block !leading-[1.75] text-description mt-[10px] md:mt-40 text-foreground-light/50 transition-colors group-focus-within:text-foreground-light"
               >
                 Type your message here...
               </label>

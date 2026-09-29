@@ -38,14 +38,18 @@ export default function IconGrid({ data, bgClass }: Props) {
   const [slidesPerViewPaired, setSlidesPerViewPaired] = useState(1);
   const [dotCountPaired, setDotCountPaired] = useState(0);
   const swiperPairedRef = useRef<SwiperType | null>(null);
-  const [innerIndicesPaired, setInnerIndicesPaired] = useState<Set<number>>(new Set());
+  const [innerIndicesPaired, setInnerIndicesPaired] = useState<Set<number>>(
+    new Set(),
+  );
 
   // At lg+: 1 card per slide
   const [activeIndexSingle, setActiveIndexSingle] = useState(0);
   const [slidesPerViewSingle, setSlidesPerViewSingle] = useState(1);
   const [dotCountSingle, setDotCountSingle] = useState(0);
   const swiperSingleRef = useRef<SwiperType | null>(null);
-  const [innerIndicesSingle, setInnerIndicesSingle] = useState<Set<number>>(new Set());
+  const [innerIndicesSingle, setInnerIndicesSingle] = useState<Set<number>>(
+    new Set(),
+  );
 
   // Paired slides (2 cards each) — used below lg
   const pairedSlides: (typeof data.cards)[] = [];
@@ -54,7 +58,9 @@ export default function IconGrid({ data, bgClass }: Props) {
   }
 
   // Single slides (1 card each) — used at lg+
-  const singleSlides: (typeof data.cards)[] = data?.cards?.map((card) => [card]);
+  const singleSlides: (typeof data.cards)[] = data?.cards?.map((card) => [
+    card,
+  ]);
 
   const totalPaired = pairedSlides?.length;
   const totalSingle = singleSlides?.length;
@@ -99,23 +105,29 @@ export default function IconGrid({ data, bgClass }: Props) {
   return (
     <section
       data-header="dark"
-      className={`w-full py-[70px] lg:py-120 3xl:py-130 ${bgClass ?? ""}`}
+      className={`w-full py-120 3xl:py-130 overflow-hidden ${bgClass ?? ""}`}
     >
       <div className="container flex flex-col justify-center">
         {/* Header */}
-        <div className="text-center">
-          {data.title && <SectionHeading
-            title={data.title}
-            className="text-heading leading-[1.4] mb-20 max-w-[45ch] mx-auto"
-          />}
-          {data.description && <SectionDescription
-            text={data.description}
-            className="text-description text-foreground-light max-w-[60ch] mx-auto"
-          />}
+        <div className="text-center content-spacing-mobile-padding">
+          {data.title && (
+            <SectionHeading
+              title={data.title}
+              className="text-heading leading-[1.4] mb-6 md:mb-20 max-w-[45ch] mx-auto"
+            />
+          )}
+          {data.description && (
+            <SectionDescription
+              text={data.description}
+              className="text-description text-foreground-light max-w-[60ch] mx-auto"
+            />
+          )}
         </div>
 
         {/* ── BELOW lg: 2 cards per slide ── */}
-        <div className={`${pairedSlides?.length > 0 ? "mt-[50px]" : ""} lg:hidden `}>
+        <div
+          className={`${pairedSlides?.length > 0 ? "mt-[30px] md:mt-[50px]" : ""} lg:hidden`}
+        >
           <Swiper
             modules={[Autoplay]}
             autoplay={{ delay: 4000, disableOnInteraction: false }}
@@ -155,20 +167,26 @@ export default function IconGrid({ data, bgClass }: Props) {
                       <div key={cardIndex} className="relative flex flex-col">
                         <div className="flex flex-col items-center justify-start px-4 sm:px-8 py-[20px] md:py-40 text-center">
                           <div className="w-[50px] h-[50px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center bg-primary/5 mb-20">
-                            {card.icon_url && <Image
-                              src={card.icon_url}
-                              alt={card.caption}
-                              width={20}
-                              height={20}
-                            />}
+                            {card.icon_url && (
+                              <Image
+                                src={card.icon_url}
+                                alt={card.caption}
+                                width={20}
+                                height={20}
+                              />
+                            )}
                           </div>
-                          {card.title && <p
-                            className="text-foreground font-[optima] text-25 leading-[1.4] uppercase mb-2"
-                            dangerouslySetInnerHTML={{ __html: card.title }}
-                          />}
-                          {card.caption && <p className="text-description text-foreground-light">
-                            {card.caption}
-                          </p>}
+                          {card.title && (
+                            <p
+                              className="text-foreground font-[optima] text-25 leading-[1.4] uppercase mb-2.5 text-trim"
+                              dangerouslySetInnerHTML={{ __html: card.title }}
+                            />
+                          )}
+                          {card.caption && (
+                            <p className="text-description text-foreground-light">
+                              {card.caption}
+                            </p>
+                          )}
                         </div>
 
                         {!isLastCard && (
@@ -249,20 +267,26 @@ export default function IconGrid({ data, bgClass }: Props) {
                   <div className="relative flex flex-col h-full">
                     <div className="flex flex-col items-center justify-start px-4 py-40 text-center">
                       <div className="w-[70px] h-[70px] xl:w-[80px] xl:h-[80px] rounded-full flex items-center justify-center bg-primary/5 mb-20">
-                        {card.icon_url && <Image
-                          src={card.icon_url}
-                          alt={card.caption}
-                          width={isXL ? 34 : 20}
-                          height={isXL ? 34 : 20}
-                        />}
+                        {card.icon_url && (
+                          <Image
+                            src={card.icon_url}
+                            alt={card.caption}
+                            width={isXL ? 34 : 20}
+                            height={isXL ? 34 : 20}
+                          />
+                        )}
                       </div>
-                      {card.title && <p
-                        className="text-foreground font-[optima] text-25 leading-[1.4] uppercase mb-2"
-                        dangerouslySetInnerHTML={{ __html: card.title }}
-                      />}
-                      {card.caption && <p className="text-description text-foreground-light">
-                        {card.caption}
-                      </p>}
+                      {card.title && (
+                        <p
+                          className="text-foreground font-[optima] text-25 leading-[1.4] uppercase mb-2"
+                          dangerouslySetInnerHTML={{ __html: card.title }}
+                        />
+                      )}
+                      {card.caption && (
+                        <p className="text-description text-foreground-light">
+                          {card.caption}
+                        </p>
+                      )}
                     </div>
 
                     <div

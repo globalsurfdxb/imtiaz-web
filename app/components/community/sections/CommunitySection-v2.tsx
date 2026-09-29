@@ -28,14 +28,14 @@ const CommunitiesSection = ({title,description,items}:{title:string,description:
   // const { title, description, cards } = communitySectionData;
 
   return (
-    <section className="w-full py-[70px] lg:py-120 3xl:py-160" data-header="dark">
+    <section className="w-full py-120 3xl:py-160" data-header="dark">
       <div className="container flex flex-col justify-center">
         {/* Header */}
-        <div className="text-center mb-50">
+        <div className="text-center mb-[50px] content-spacing-mobile-padding">
           <SectionHeading
             title={title}
             as="h2"
-            className="text-foreground mb-[20px] max-w-[685px] mx-auto"
+            className="text-foreground mb-6 md:mb-[20px] max-w-[685px] mx-auto"
           />
 
           <SectionDescription

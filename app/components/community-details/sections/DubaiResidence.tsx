@@ -9,17 +9,17 @@ const DubaiResidence = ({title,description,subTitle}:{title:string,description:s
   // const { title, description, subtitle } = communitySectionData;
 
   return (
-    <section data-header="dark" className="w-full pt-[70px]   pb-[65px]  lg:py-120 3xl:py-160">
+    <section data-header="dark" className="w-full py-120 3xl:py-160">
       <div className="container flex flex-col justify-center">
         {/* Header */}
-        <div className="text-center ">
+        <div className="text-center content-spacing-mobile-padding">
           {title && <SectionHeading
             title={title}
-            className="text-heading  text-primary-2 mb-20 max-w-[666px] mx-auto"
+            className="text-heading  text-primary-2 mb-6 md:mb-20 max-w-[666px] mx-auto"
           />}
           {subTitle && <SectionDescription
             text={subTitle}
-            className="text-25 uppercase font-[optima] mb-[40px] text-foreground-light leading-[1.5] md:leading-[1.4] font-normal"
+            className="text-25 uppercase font-[optima] mb-5 md:mb-[40px] text-foreground-light leading-[1.5] md:leading-[1.4] font-normal"
           />}
 
           {description && <motion.p

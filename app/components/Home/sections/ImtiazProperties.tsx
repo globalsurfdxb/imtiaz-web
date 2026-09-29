@@ -74,7 +74,7 @@ const ImtiazProperties = () => {
           {/* Active Property Info */}
           <div className="mb-5 flex justify-between items-end container">
             <div className="flex flex-col">
-              <h2 className="font-[avenir] text-[50px] font-[400] text-white uppercase leading-[100%] mb-6">
+              <h2 className="font-[avenir] text-[50px] font-[400] text-white uppercase leading-[100%] mb-6 md:mb-20">
                 {properties[activeIndex].name}
               </h2>
               <p className="font-[avenir] text-[24px] font-[350] text-white/80 leading-[1] ">

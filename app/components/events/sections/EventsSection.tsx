@@ -17,6 +17,7 @@ import FilterDropdown from "../../common/FilterDropdown";
 import EventCard from "./EventCard";
 import { Plus, SearchX } from "lucide-react";
 import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButtonV4 from "../../common/CustomOutlineButton-v4";
 import { motion } from "framer-motion";
 import {
   containerStagger,
@@ -30,7 +31,7 @@ const EVENTS_PER_PAGE = 6;
 
 // ── Empty state ──────────────────────────────────────────────────────────────
 const EmptyState = () => (
-  <div className="col-span-full flex flex-col items-center justify-center gap-6 text-center">
+  <div className="col-span-full flex flex-col items-center justify-center gap-6 text-center content-spacing-mobile-padding">
     <motion.div
       variants={moveUp(0)}
       initial="hidden"
@@ -214,7 +215,7 @@ const eventCategories = useMemo(() => {
 
   return (
     <section
-      className="w-full bg-white pt-5 md:pt-70 pb-120 3xl:pb-160"
+      className="w-full bg-white pt-[50px] md:pt-70 pb-120 3xl:pb-160"
       data-header="dark"
     >
       <div className="container">
@@ -286,12 +287,12 @@ const eventCategories = useMemo(() => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="lg:hidden mb-[30px] md:mb-70"
+          className="lg:hidden mb-5 md:mb-70"
         >
           {/* Toggle button */}
           <button
             onClick={() => setFiltersOpen((prev) => !prev)}
-            className="flex items-center text-[12px] md:text-16 justify-between w-full px-6 py-4 rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
+            className="flex items-center text-[12px] md:text-16 justify-between w-full px-6 py-4 max-md:h-[32px] max-md:py-0 max-md:px-[16px] rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
           >
             <span>Filters</span>
             <span
@@ -300,7 +301,7 @@ const eventCategories = useMemo(() => {
                 transform: filtersOpen ? "rotate(45deg)" : "rotate(0deg)",
               }}
             >
-              <Plus size={20} />
+              <Plus size={20} className="max-md:w-[18px] max-md:h-[18px]" />
             </span>
           </button>
 
@@ -315,18 +316,21 @@ const eventCategories = useMemo(() => {
           >
             <div className="flex flex-col gap-3 pt-4">
               <FilterDropdown
+                compactMobile
                 placeholder="Topics"
                 options={eventCategories}
                 value={selectedTopic}
                 onChange={(val) => updateParam("topic", val)}
               />
               <FilterDropdown
+                compactMobile
                 placeholder="Year"
                 options={eventYears}
                 value={selectedYear}
                 onChange={(val) => updateParam("year", val)}
               />
               <FilterDropdown
+                compactMobile
                 placeholder="Month"
                 options={eventMonths}
                 value={selectedMonth}
@@ -334,21 +338,21 @@ const eventCategories = useMemo(() => {
               />
 
               {hasFilter && (
-                <CustomOutlineButton
+                <CustomOutlineButtonV4
                   text="Clear Filter"
                   onClick={clearFilters}
                   variant="dark"
                   px="px-60"
                   borderColor="border-primary-2"
                   textColor="text-foreground-light"
-                  className="w-full md:w-auto !py-[17px] md:!py-5 h-[44px] md:h-[50px]  xl:h-[66px] uppercase"
+                  className="w-full md:w-auto md:!py-5 h-[44px] md:h-[50px] xl:h-[66px] uppercase"
                 />
               )}
             </div>
           </div>
         </motion.div>
 
-        <div className="w-full my-[30px] md:my-50">
+        <div className="w-full mb-5 md:my-50">
           <div className="relative w-full h-px overflow-hidden">
             <motion.div
               className="absolute inset-0 bg-black/10 origin-center"

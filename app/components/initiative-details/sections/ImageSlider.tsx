@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import { motion } from "framer-motion";
 import { moveUp } from "@/app/components/motionVariants";
+import SliderArrowButton from "@/app/components/common/SliderNavigationButton-v4";
 
 const ImageSlider = ({ images }: { images: {featured_image_desktop:string;}[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -162,19 +163,11 @@ const ImageSlider = ({ images }: { images: {featured_image_desktop:string;}[] })
           viewport={{ once: true }}
           className="absolute left-20 lg:left-70 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
         >
-          <button
+          <SliderArrowButton
             onClick={() => swiperRef.current?.slidePrev()}
-            className="cursor-pointer group w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden relative"
-          >
-            <span className="absolute right-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-            <Image
-              src="/icons/left_arrow_slider_primary.svg"
-              alt="Previous"
-              width={28}
-              height={28}
-              className="relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-            />
-          </button>
+            direction="prev"
+            variant="light"
+          />
         </motion.div>
 
         {/* next button — z-30 above gradient, pointer-events-auto */}
@@ -185,19 +178,11 @@ const ImageSlider = ({ images }: { images: {featured_image_desktop:string;}[] })
           viewport={{ once: true }}
           className="absolute right-20 lg:right-70 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
         >
-          <button
+          <SliderArrowButton
             onClick={() => swiperRef.current?.slideNext()}
-            className="cursor-pointer group w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px]  border border-white rounded-[50px] flex items-center justify-center overflow-hidden relative"
-          >
-            <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-            <Image
-              src="/icons/left_arrow_slider_primary.svg"
-              alt="Next"
-              width={28}
-              height={28}
-              className="relative rotate-180 z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-            />
-          </button>
+            direction="next"
+            variant="light"
+          />
         </motion.div>
 
         {/* dots — z-30, pointer-events-auto */}

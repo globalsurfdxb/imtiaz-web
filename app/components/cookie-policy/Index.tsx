@@ -1,4 +1,4 @@
-import InnerHeroBanner from '../common/InnerHeroBanner'
+import InnerHeroBanner from '../common/InnerHeroBanner-v4'
 import FooterContent from '../common/FooterContent'
 import { cookieContent } from './data'
 

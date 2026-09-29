@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { useParallax } from "@/app/hooks/useParallax";
 
 interface Initiative {
@@ -46,7 +46,7 @@ export default function InitiativeCard({ title, link, image, mobileImage }: Init
           <div className="flex justify-center">
             <CustomOutlineButton
               text="Read More"
-              className="w-full md:w-auto !py-[17px] md:!py-5 h-[44px] md:h-[50px]  xl:h-[66px] uppercase"
+              className="!py-[17px] md:!py-5 h-[44px] md:h-[50px]  xl:h-[66px] uppercase"
             />
           </div>
         </div>

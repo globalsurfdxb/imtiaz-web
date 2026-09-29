@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import CountryCodeSelect from "@/app/components/auth/CountryCodeList";
 import Image from "next/image";
 import { SearchableDropdown, allCountries } from "./CountryNameList";
-import CustomOutlineButton from "../common/CustomOutlineButton";
+import CustomOutlineButton from "../common/CustomOutlineButton-v4";
 import { useRef, useEffect, useState } from "react";
 import { SectionHeading } from "../animations/SectionHeading";
 import { SectionDescription } from "../animations/SectionDescription";
@@ -89,16 +89,16 @@ export default function PaymentForm({title,description}:{title:string;descriptio
       className="w-full min-h-screen py-120 3xl:py-130 bg-[#EBEBEC] dark-section-2"
       data-header="dark"
     >
-      <div className="container flex flex-col lg:flex-row gap-150 gap-[40px] md:gap-80 lg:gap-50 2xl:gap-0">
+      <div className="container flex flex-col lg:flex-row gap-150 gap-[50px] md:gap-80 lg:gap-50 2xl:gap-0">
         {/* Left col — 49% */}
-        <div className="w-full lg:w-[48.5%] flex-shrink-0 flex flex-col">
+        <div className="w-full lg:w-[48.5%] flex-shrink-0 flex flex-col content-spacing-mobile-padding">
           <SectionHeading
             title={title}
-            className="text-foreground mb-20 lg:max-w-[11ch]"
+            className="text-foreground mb-6 md:mb-20 lg:max-w-[11ch]"
           />
           <SectionDescription
             text={description}
-            className="text-foreground-light/80 max-w-[473px] mb-[30px] md:mb-50"
+            className="text-foreground-light/80 max-w-[473px] mb-6 md:mb-[30px] md:mb-50"
           />
           <SectionHeading
             title="Pay by Card"
@@ -172,7 +172,7 @@ export default function PaymentForm({title,description}:{title:string;descriptio
         </div>
 
         {/* Right col — 51% */}
-        <div className="w-full lg:w-[51.5%] flex flex-col justify-center">
+        <div className="w-full lg:w-[51.5%] flex flex-col justify-center content-spacing-mobile-padding">
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             {/* Row 1 — First + Last name */}
             <motion.div
@@ -441,7 +441,7 @@ export default function PaymentForm({title,description}:{title:string;descriptio
               <input
                 id="message"
                 type="text"
-                className="w-full mt-[52px] md:mt-40 pb-[5px] text-description text-foreground-light bg-transparent outline-none p-0"
+                className="w-full mt-10 md:mt-[52px] md:mt-40 pb-[5px] text-description text-foreground-light bg-transparent outline-none p-0"
                 {...register("message")}
               />
               <FieldLine hasError={false} />

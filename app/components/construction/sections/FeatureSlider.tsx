@@ -93,7 +93,7 @@ const FeatureSlider = ({ features }: FeatureSliderProps) => {
           >
             {features.map((feat, idx) => (
               <SwiperSlide key={idx}>
-                <div className="relative flex items-center justify-center py-[30px]">
+                <div className="relative flex items-center justify-center py-5 md:py-[30px]">
                   {/* Left separator only — no right separator */}
                   <div
                     className="hidden sm:block absolute left-0 top-0 bottom-0"
@@ -102,7 +102,7 @@ const FeatureSlider = ({ features }: FeatureSliderProps) => {
 
                   {/* Feature content */}
                   <div className="flex flex-col items-center justify-center text-center px-8">
-                    <span className="text-white text-heading mb-[10px]">
+                    <span className="text-white text-heading text-trim mb-5 md:mb-[10px]">
                       {feat.key}
                     </span>
                     <span className="text-white/70 text-description">
@@ -116,7 +116,7 @@ const FeatureSlider = ({ features }: FeatureSliderProps) => {
         </div>
 
         {/* ── Pagination dots (below lg only) ── */}
-        <div className="flex justify-center sm:pt-20 lg:pt-0 pb-[14px] gap-[10px]">
+        <div className="flex justify-center sm:pt-20 lg:pt-0 pb-5 md:pb-[14px] gap-[10px]">
           {Array.from({ length: dotCount }, (_, i) => (
             <button
               key={i}

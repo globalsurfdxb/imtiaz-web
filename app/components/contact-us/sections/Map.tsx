@@ -10,7 +10,15 @@ interface Props {
   title?: string;
 }
 
-const MapOriginal = ({title,latitude="25.1972",longitude="55.2744"}:{title:string;latitude:string;longitude:string;}) => {
+const MapOriginal = ({
+  title,
+  latitude = "25.1972",
+  longitude = "55.2744",
+}: {
+  title: string;
+  latitude: string;
+  longitude: string;
+}) => {
   // const latitude = "25.1972";
   // const longitude = "55.2744";
   const lat = parseFloat(latitude);
@@ -21,7 +29,7 @@ const MapOriginal = ({title,latitude="25.1972",longitude="55.2744"}:{title:strin
       <div className="hidden md:block container">
         <SectionHeading
           title={title}
-          className="text-heading  text-foreground mb-50 "
+          className="text-heading  text-foreground mb-50"
         />
 
         <div className="h-[500px] lg:h-[784px]">
@@ -46,10 +54,11 @@ const MapOriginal = ({title,latitude="25.1972",longitude="55.2744"}:{title:strin
         </div>
       </div>
 
-      <div className="md:hidden">
+    <div className="md:hidden content-spacing-mobile-padding">
         <SectionHeading
+          as="h3"
           title={"our head office"}
-          className="text-heading  text-foreground mb-50 container"
+          className="text-heading text-center  text-foreground mb-6 md:mb-50 container"
         />
 
         <div className="h-[488px]">
