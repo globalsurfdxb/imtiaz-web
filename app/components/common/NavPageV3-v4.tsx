@@ -2242,13 +2242,12 @@ function DesktopMegaMenu({
                 </div>
                 <div className="flex gap-[5px] w-full mt-[30px]">
                   {socialLinks.map((icon, i) => (
-                    <Link href={icon.url} target="_blank">
+                    <Link key={icon.url} href={icon.url} target="_blank">
                       <motion.div
                         variants={moveUp(i * 0.2)}
                         initial="hidden"
                         whileInView="show"
                         viewport={{ amount: 0.2, once: true }}
-                        key={i}
                         className="cursor-pointer rounded-full w-[33px] h-[33px] bg-white/25 backdrop-blur-[30px] flex items-center justify-center"
                       >
                         <Image
