@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import { motion, AnimatePresence } from "framer-motion";
 import { PressItem } from "../data";
-import CustomOutlineButton from "@/app/components/common/CustomOutlineButton";
+import CustomOutlineButton from "@/app/components/common/CustomOutlineButton-v4";
 import { useParallax } from "@/app/hooks/useParallax";
 import { moveUp } from "../../motionVariants";
 
@@ -34,7 +34,7 @@ const LatestNewsSlider = ({ news }: { news: PressItem[] }) => {
       {/* Swiper */}
       <div
         ref={ref}
-        className="relative w-full h-[453px] md:h-[540px] lg:h-[600px] 2xl:h-[650px] 3xl:h-[763px] cursor-grab"
+        className="relative w-full h-[495px] md:h-[540px] lg:h-[600px] 2xl:h-[650px] 3xl:h-[763px] cursor-grab"
       >
         <Swiper
           modules={[Autoplay, EffectFade]}
@@ -59,7 +59,7 @@ const LatestNewsSlider = ({ news }: { news: PressItem[] }) => {
                 }}
               />
               <Image
-                src={item.mobileImage}
+                src={item.mobileImage ? item.mobileImage : item.image}
                 alt={item.title}
                 fill
                 className="object-cover lg:hidden"
@@ -87,10 +87,10 @@ const LatestNewsSlider = ({ news }: { news: PressItem[] }) => {
         </Swiper>
 
         {/* Content overlay — outside Swiper slides */}
-        <div className="absolute inset-0 flex flex-col items-center justify-between py-50 px-20 sm:px-40 md:px-50 text-center pointer-events-none z-10">
+        <div className="absolute inset-0 flex flex-col items-center justify-between py-[30px] md:py-50 px-20 sm:px-40 md:px-50 text-center pointer-events-none z-10">
           {/* Top label */}
           <div  >
-            <span className="hidden md:block text-19 leading-[100%] text-white font-[avenirBook] font-[800] px-6 py-1 uppercase bg-[#FFFFFF3D] backdrop-blur-[30px] rounded-full">
+            <span className="text-19 leading-[100%] text-white font-[avenirBook] font-[800] px-6 py-1 max-md:inline-flex max-md:items-center max-md:h-[32px] max-md:py-0 max-md:px-[16px] max-md:text-[12px] uppercase bg-[#FFFFFF3D] backdrop-blur-[30px] rounded-full">
               Latest News
             </span>
           </div>
@@ -100,7 +100,7 @@ const LatestNewsSlider = ({ news }: { news: PressItem[] }) => {
             <AnimatePresence mode="wait">
               <motion.p
                 key={`cat-${activeIndex}`}
-                className="text-white/80 text-description mb-20 capitalize hidden md:block"
+                className="text-white/80 text-description mb-20 capitalize text-trim"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -117,7 +117,7 @@ const LatestNewsSlider = ({ news }: { news: PressItem[] }) => {
             <AnimatePresence mode="wait">
               <motion.h2
                 key={`title-${activeIndex}`}
-                className="text-heading text-white max-w-[1638px] mb-20 line-clamp-2"
+                className="text-[18px] md:text-50 text-heading text-white max-w-[1638px] mb-20 line-clamp-2"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -147,7 +147,7 @@ const LatestNewsSlider = ({ news }: { news: PressItem[] }) => {
                   <CustomOutlineButton
                     text="Read More"
                     borderColor="border-white/90"
-                    px="px-[12px] lg:px-[22px] 3xl:px-[36.6px]"
+                    px="h-[44px] md:h-[50px] xl:h-[66px] px-[29px] md:px-[12px] lg:px-[22px] 3xl:px-[36.6px]"
                   />
                 </Link>
               </motion.div>

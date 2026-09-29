@@ -95,9 +95,9 @@ export default function Reasons({data}:{data:InvestReasonsData}) {
 
   return (
     <section data-header="dark" className="w-full bg-gray">
-      <div className="container py-[70px] lg:py-120 3xl:py-130">
-        <div className="text-center mb-[40px] lg:mb-60 3xl:mb-[66px]">
-          <SectionHeading title={sectionTitle} className="uppercase mb-[20px] lg:mb-20" />
+      <div className="container py-120 3xl:py-130">
+        <div className="text-center mb-[20px] lg:mb-60 3xl:mb-[66px] content-spacing-mobile-padding">
+          <SectionHeading title={sectionTitle} className="uppercase mb-6 md:mb-20" />
           <SectionDescription
             text={sectionDescription}
             className="max-w-[750px] mx-auto text-foreground-light whitespace-pre-line"
@@ -172,7 +172,7 @@ export default function Reasons({data}:{data:InvestReasonsData}) {
                             initial="hidden"
                             whileInView="show"
                             viewport={{ once: true }}
-                            className="font-[optima] uppercase text-25 leading-[1.4] mb-[10px] md:mb-20 tracking-[2%] text-foreground text-center"
+                            className="font-[optima] uppercase text-25 leading-[1.4] md:mb-20 tracking-[2%] text-foreground text-center"
                           >
                             {reason.title}
                           </motion.h3>
@@ -214,7 +214,7 @@ export default function Reasons({data}:{data:InvestReasonsData}) {
           ))}
         </Swiper>
         {/* Pagination (only below 1540px) */}
-        <div className="flex justify-center mt-[40px] md:mt-50 gap-[10px] min-[1540px]:hidden">
+        <div className="flex justify-center mt-[30px] md:mt-50 gap-[10px] min-[1540px]:hidden">
           {Array.from({ length: dotCount }, (_, i) => (
             <button
               key={i}

@@ -617,9 +617,9 @@ export default function ProjectCard({
           >
             {status && (
               <div
-                className={`bg-white/30 backdrop-blur-[30px] px-[15px] py-[1.5px] rounded-full h-[28px] flex items-center justify-center transition-transform duration-900 ${show ? "translate-y-0" : "-translate-y-2"}`}
+                className={`bg-white/30 backdrop-blur-[30px] px-[15px] py-[2px] rounded-full h-8 sm:h-[28px] flex items-center justify-center transition-transform duration-900 ${show ? "translate-y-0" : "-translate-y-2"}`}
               >
-                <p className="text-white/80 text-description   uppercase h-[22px]">
+                <p className="text-white/80 text-description   uppercase text-trim">
                   {status}
                 </p>
               </div>

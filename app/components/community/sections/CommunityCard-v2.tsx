@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useId } from "react";
 import { CommunityCard as CommunityCardType } from "../data";
-import CustomOutlineButton from "@/app/components/common/CustomOutlineButton";
+import CustomOutlineButton from "@/app/components/common/CustomOutlineButton-v4";
 
 type IconUrlKey = `icon${1 | 2 | 3}_url`;
 type IconTextKey = `icon${1 | 2 | 3}_text`;
@@ -84,13 +84,14 @@ const CommunityCard = ({ card }: { card: CommunityCardType }) => {
       </div>
 
       {/* BELOW LG — always-visible state matching the image */}
-      <div className="pt-4 lg:pt-10 bg-gray flex flex-col items-center justify-center pointer-events-none">
+      <div className="pt-5 lg:pt-10 bg-gray flex flex-col items-center justify-center pointer-events-none">
         {/* Title at top */}
 
         {/* Bottom section: pill + divider + CTA */}
-        <div className="w-full flex flex-col items-center justify-center gap-6 md:gap-[50px]">
+        <div className="w-full flex flex-col items-center justify-center gap-[30px] md:gap-[50px]">
           <h3
-            className="text-foreground font-[optima] text-24 leading-[35px] text-center px-10 md:px-4 uppercase"
+            // className="text-foreground font-[optima] text-24 leading-[35px] text-center px-10 md:px-4 uppercase text-trim"
+            className="text-foreground font-[optima] text-[18px] leading-[1.2] sm:leading-[1.3] md:text-24 md:leading-[35px] text-center px-10 md:px-4 uppercase text-trim"
             style={{
               transition: active
                 ? "opacity 0.2s ease-in-out"
@@ -101,7 +102,7 @@ const CommunityCard = ({ card }: { card: CommunityCardType }) => {
           </h3>
 
           {/* Tags pill — full width, flex wrap, centered */}
-          <div className="flex flex-wrap items-center justify-center gap-x-[50px] gap-y-3 md:gap-y-[20px] w-[80%] px-[1px] pb-6 lg:pb-10">
+          <div className="flex flex-wrap items-center justify-center gap-x-[50px] gap-y-[10px] md:gap-y-[20px] w-[80%] px-[1px] pb-5 lg:pb-10">
             {tags.reverse().map((tag, i) => (
               <div key={i} className="flex items-center gap-[10px]">
                 <Image
@@ -111,7 +112,7 @@ const CommunityCard = ({ card }: { card: CommunityCardType }) => {
                   height={25}
                   className="h-[18px] w-auto brightness-100 invert"
                 />
-                <span className="pt-1 text-foreground font-[avenirBook] text-[12px] md:text-16 uppercase leading-[1.72]">
+                <span className="text-foreground font-[avenirBook] text-[12px] md:text-16 uppercase leading-[1.72]">
                   {tag.label}
                 </span>
               </div>

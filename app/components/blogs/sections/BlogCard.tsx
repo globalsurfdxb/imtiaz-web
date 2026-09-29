@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParallax } from "@/app/hooks/useParallax";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 
 type Blog = {
   id: number;
@@ -82,7 +82,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
           <p className="text-white/80 font-[avenirBook] text-[14px] md:text-16 mb-20 leading-[1.54] capitalize flex gap-2">
             {blog.category} <span className={`${blog.category?.length > 0  ?  'block' : 'hidden'}`}>-</span> {formatted(blog.date)}
           </p>
-          <h3 className="text-white uppercase text-[18px] md:text-25 leading-[1.5] md:leading-[1.4] mb-5 md:mb-40 text-center">
+          <h3 className="text-white uppercase text-[18px] md:text-25 leading-[1.5] md:leading-[1.4] mb-5 md:mb-40 text-center text-trim">
             {blog.title}
           </h3>
           {/* <span className="text-white font-[avenirBook] text-19 leading-[100%] underline underline-offset-3">

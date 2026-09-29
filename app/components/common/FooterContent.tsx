@@ -9,10 +9,9 @@ const processContent = (html: string) => {
   const txt = document.createElement("textarea");
   txt.innerHTML = html;
   const decoded = txt.value;
-  return decoded.replace(
-    /<table/g,
-    '<div class="table-wrapper"><table'
-  ).replace(/<\/table>/g, "</table></div>");
+  return decoded
+    .replace(/<table/g, '<div class="table-wrapper"><table')
+    .replace(/<\/table>/g, "</table></div>");
 };
 
 const FooterContent = ({
@@ -24,12 +23,12 @@ const FooterContent = ({
 }) => {
   return (
     <section
-      className="w-full bg-white pt-[70px] pb-[20px] md:pb-70 overflow-hidden"
+      className="w-full bg-white pt-[50px] pb-[50px] md:pb-70 overflow-hidden"
       data-header="dark"
     >
       <div className="container container-spacing-details-page">
         <SectionHeading
-          className="text-center pb-[20px] pb-[50px]"
+          className="text-center pb-6 md:pb-[50px]"
           title={title}
         />
         <motion.div
@@ -37,7 +36,7 @@ const FooterContent = ({
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="blog-content dynamicmn"
+          className="blog-content dynamicmn content-spacing-mobile-padding"
           dangerouslySetInnerHTML={{
             __html: processContent(content),
           }}

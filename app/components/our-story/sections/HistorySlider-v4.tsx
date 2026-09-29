@@ -116,7 +116,7 @@ export default function HistorySection({
       {/* ── Header ── */}
       <div className="container text-center mb-[90px] max-md:mb-0 md:mb-150 lg:mb-50">
         <div className="content-spacing-mobile">
-          <SectionHeading title={title} className="mb-6 uppercase" />
+          <SectionHeading title={title} className="mb-6 md:mb-20 uppercase" />
           <SectionDescription
             text={description}
             className="max-w-[870px] text-foreground-light mx-auto text-center text-trim"

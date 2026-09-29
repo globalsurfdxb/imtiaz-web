@@ -18,7 +18,7 @@ const EventContent = ({ content }: { content: string }) => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="blog-content"
+          className="blog-content content-spacing-mobile-padding"
           dangerouslySetInnerHTML={{
             __html: decodeHtml(content),
           }}

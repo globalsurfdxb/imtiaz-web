@@ -1,5 +1,5 @@
 import InnerHeroBanner from "./sections/InnerHeroBanner";
-import { bannerData, eventDetails, PropertyDetailsData } from "./data";
+import { PropertyDetailsData } from "./data";
 import MeydanHorizon from "./sections/MeydanHorizon";
 import IconGrid from "../common/IconGrid";
 import Amenities from "../common/Amenities";
@@ -7,11 +7,10 @@ import LandpropertyCards from "./sections/LandpropertyCards";
 import Map from "./sections/Map";
 import Faqsection from "./sections/Faqsection";
 import ConstructionProgress from "./sections/ConstructionProgress";
-// import { EverythingWithinData, amenitiesData } from "./data";
 import GallerySlider from "./sections/GallerySlider";
 import UnitLayout from "./sections/UnitLayout";
 import ProjectIntro from "./sections/ProjectIntro";
-import RegBtn from "./sections/RegBtn";
+// import RegBtn from "./sections/RegBtn";
 import { PropertiesPageData } from "../property/data";
 
 const Index = ({

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 // import { pressItems } from "../../news/data";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { moveUp, moveUpV2 } from "../../motionVariants";
 import Reveal from "../../animations/RevealOneByOneAnimation";
 import { SectionHeading } from "../../animations/SectionHeading";
@@ -13,7 +13,7 @@ import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import { useParallax } from "@/app/hooks/useParallax";
-import SliderArrowButton from "../../common/SliderNavigationButton";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import Link from "next/link";
 import { EventCategory, EventListingData } from "../../events/data";
 
@@ -29,7 +29,7 @@ const OtherEvents = ({
   const { ref, parallaxY } = useParallax(15);
   return (
     <section className="pb-120 3xl:pb-160 container" data-header="dark">
-      <div className="border-t border-black/10 pt-[70px] md:pt-50">
+      <div className="border-t border-black/10 pt-[50px]">
         <SectionHeading
           title="Other Events"
           className="text-center uppercase"
@@ -123,7 +123,6 @@ const OtherEvents = ({
                 borderColor="border-primary-2"
                 textColor="text-primary-2"
                 px="px-[12px] sm:px-[26px]"
-                className="min-w-[139px] md:w-full"
               />
             </Link>
 

@@ -17,7 +17,7 @@ const EventHero = ({ event }: Props) => {
   const formattedDate = event.post_date?.replace(/-/g, " - ");
 
   return (
-    <section className="w-full pt-[174px] md:pt-200" data-header="dark">
+    <section className="w-full pt-[145px] md:pt-200" data-header="dark">
       <div className="container flex flex-col items-center container-spacing-details-page">
         {/* Breadcrumb */}
         <motion.div
@@ -32,13 +32,13 @@ const EventHero = ({ event }: Props) => {
         {/* Title */}
         <SectionHeading
           title={event.page_banner_title}
-          className="max-w-[50ch] text-foreground text-center uppercase mt-[40px] md:mt-100"
+          className="max-w-[50ch] text-foreground text-center uppercase mt-[50px] md:mt-100 content-spacing-mobile-padding"
         />
 
         {/* Image with overlay and meta bar */}
         <div
           ref={ref}
-          className="w-full h-[300px] md:h-[500px] lg:h-[500px] 2xl:h-[560px] 3xl:h-[722px] mt-[40px] md:mt-50 relative overflow-hidden"
+          className="w-full h-[300px] md:h-[500px] lg:h-[500px] 2xl:h-[560px] 3xl:h-[722px] mt-[50px] md:mt-50 relative overflow-hidden"
         >
           <Image
             src={event.page_banner_desktop}

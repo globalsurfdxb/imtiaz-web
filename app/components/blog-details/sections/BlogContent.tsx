@@ -46,7 +46,7 @@ const BlogContent = ({ content }: { content: string }) => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="blog-content dynamicmn"
+          className="blog-content dynamicmn content-spacing-mobile-padding"
           dangerouslySetInnerHTML={{
             __html: decodeHtml(content),
           }}

@@ -27,7 +27,7 @@ const VideoSection = ({
 
   return (
     <section
-      className="w-full bg-white md:pb-50 mt-[50px]"
+      className="w-full bg-white md:pb-50 mt-[20px]"
       data-header="dark"
     >
       <div

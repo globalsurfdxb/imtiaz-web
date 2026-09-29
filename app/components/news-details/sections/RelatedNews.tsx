@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { NewsListingResponse, pressItems } from "../../news/data";
 import NewsCard from "../../news/sections/NewsCard";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { moveUp, moveUpV2 } from "../../motionVariants";
 import Reveal from "../../animations/RevealOneByOneAnimation";
 import { SectionHeading } from "../../animations/SectionHeading";
@@ -12,7 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
-import SliderArrowButton from "../../common/SliderNavigationButton";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import { useParallax } from "@/app/hooks/useParallax";
 import Link from "next/link";
 
@@ -122,7 +122,6 @@ const RelatedNews = ({ data, currentNews }: { data: NewsListingResponse['data'],
                 borderColor="border-primary-2"
                 textColor="text-foreground-light"
                 px="px-[12px] sm:px-[26px]"
-                className="min-w-[139px] md:w-full"
               />
             </Link>
 

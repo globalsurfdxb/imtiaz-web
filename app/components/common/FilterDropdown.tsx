@@ -12,6 +12,8 @@ interface FilterDropdownProps {
   value: string;
   onChange: (val: string) => void;
   className?: string;
+  // match CustomOutlineButton-v4 below md: 32px height, 16px padding, 12px text
+  compactMobile?: boolean;
 }
 
 const FilterDropdown = ({
@@ -21,6 +23,7 @@ const FilterDropdown = ({
   value,
   onChange,
   className,
+  compactMobile = false,
 }: FilterDropdownProps) => {
   const [open, setOpen] = useState(false);
   const [hasScroll, setHasScroll] = useState(false);
@@ -56,6 +59,11 @@ const FilterDropdown = ({
       pendingRef.current = false;
     };
   }, []);
+
+  // compactMobile: tighter list items below md to match the 32px trigger
+  const itemMobile = compactMobile
+    ? "max-md:px-[16px] max-md:py-[8px] max-md:text-[12px]"
+    : "";
 
   const handleScroll = () => {
     if (!listRef.current) return;
@@ -103,7 +111,7 @@ const FilterDropdown = ({
       {/* Trigger */}
       <button
         onClick={handleToggle}
-        className={`w-full h-[50px] lg:h-[66px] flex items-center justify-between px-[26.5px] rounded-full ${variant === "primary" ? "bg-[#EBEBEC]" : "bg-transparent border border-primary"} font-[avenirBook] text-16 text-foreground-light cursor-pointer`}
+        className={`w-full h-[50px] lg:h-[66px] flex items-center justify-between px-[26.5px] rounded-full ${variant === "primary" ? "bg-[#EBEBEC]" : "bg-transparent border border-primary"} font-[avenirBook] text-16 text-foreground-light cursor-pointer ${compactMobile ? "max-md:h-[32px] max-md:px-[16px] max-md:text-[12px] max-md:gap-[10px]" : ""}`}
       >
         <span className={value ? "text-foreground" : "text-foreground-light"}>
           {value || placeholder}
@@ -113,7 +121,7 @@ const FilterDropdown = ({
           alt="arrow-down-tip"
           width={20}
           height={20}
-          className={`w-auto h-[7.4px] transition-transform duration-300 shrink-0 ${open ? "rotate-180" : ""}`}
+          className={`w-auto h-[7.4px] max-md:w-[11.7px] max-md:h-[6.4px] transition-transform duration-300 shrink-0 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
@@ -133,7 +141,7 @@ const FilterDropdown = ({
               opacity: { duration: 0.3, ease: "easeIn" },
             }}
             style={{ transformOrigin: "top" }}
-            className="absolute top-[calc(100%+8px)] left-0 w-full bg-white border border-black/10 rounded-2xl shadow-lg z-50 overflow-hidden"
+            className={`absolute top-[calc(100%+8px)] left-0 w-full bg-white border border-black/10 rounded-2xl shadow-lg z-50 overflow-hidden ${compactMobile ? "max-md:top-[calc(100%+6px)]" : ""}`}
           >
             {/* Scrollable list */}
             <div
@@ -152,7 +160,7 @@ const FilterDropdown = ({
                   onChange("");
                   setOpen(false);
                 }}
-                className="w-full text-left px-5 py-3 text-[13px] font-[avenirRoman] text-black/40 hover:bg-black/5 transition-colors duration-150"
+                className={`w-full text-left px-5 py-3 text-[13px] font-[avenirRoman] text-black/40 hover:bg-black/5 transition-colors duration-150 ${itemMobile}`}
               >
                 All
               </button>
@@ -166,7 +174,7 @@ const FilterDropdown = ({
                     onChange(opt);
                     setOpen(false);
                   }}
-                  className={`w-full text-left px-5 py-3 text-[14px] xl:text-[15px] font-[avenirRoman] transition-colors duration-150 hover:bg-gray ${
+                  className={`w-full text-left px-5 py-3 text-[14px] xl:text-[15px] font-[avenirRoman] transition-colors duration-150 hover:bg-gray ${itemMobile} ${
                     value === opt
                       ? "text-primary font-[avenirBook]"
                       : "text-foreground-light"

@@ -1,4 +1,4 @@
-import InnerHeroBanner from "../common/InnerHeroBanner";
+import InnerHeroBanner from "../common/InnerHeroBanner-v4";
 import { bannerData, ConstructionProgressData } from "./data";
 import Main from "./sections/Main";
 

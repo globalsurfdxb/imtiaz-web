@@ -5,7 +5,7 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
 import FilterDropdown from "../../common/FilterDropdown";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import CareerCard from "./CareerCard";
 // import { careersData, vacanciesConfig } from "../data";
 import Reveal from "../../animations/RevealOneByOneAnimation";
@@ -80,7 +80,13 @@ const EmptyState = () => (
   </div>
 );
 
-export default function VacanciesSection({careersData, vacanciesConfig}:{careersData:Career[], vacanciesConfig:VacanciesConfig}) {
+export default function VacanciesSection({
+  careersData,
+  vacanciesConfig,
+}: {
+  careersData: Career[];
+  vacanciesConfig: VacanciesConfig;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -154,20 +160,21 @@ export default function VacanciesSection({careersData, vacanciesConfig}:{careers
   return (
     <section data-header="dark" className="bg-gray py-120 2xl:py-130">
       {/* Heading + Description */}
-      <div className="container text-center mb-50">
-        <SectionHeading
-          title={vacanciesConfig.section.title}
-          className="mb-20 text-foreground"
-        />
-        <SectionDescription
-          text={vacanciesConfig.section.description}
-          className="max-w-[623px] mx-auto text-foreground-light mb-20"
-        />
+      <div className="container text-center mb-[50px]">
+        <div className="content-spacing-mobile-padding">
+          <SectionHeading
+            title={vacanciesConfig.section.title}
+            className="mb-6 md:mb-20 text-foreground"
+          />
+          <SectionDescription
+            text={vacanciesConfig.section.description}
+            className="max-w-[623px] mx-auto text-foreground-light mb-6 md:mb-20"
+          />
+        </div>
 
         {/* Filters */}
         <div className="flex flex-wrap items-center justify-center gap-[10px]">
           <motion.div
-            className="w-[170px] sm:w-auto"
             variants={moveUp(0)}
             initial="hidden"
             whileInView="show"
@@ -175,6 +182,7 @@ export default function VacanciesSection({careersData, vacanciesConfig}:{careers
           >
             <FilterDropdown
               variant="secondary"
+              compactMobile
               placeholder="Department"
               options={vacanciesConfig.filters.department}
               value={selectedDepartment}
@@ -182,7 +190,6 @@ export default function VacanciesSection({careersData, vacanciesConfig}:{careers
             />
           </motion.div>
           <motion.div
-            className="w-[170px] sm:w-auto"
             variants={moveUp(0.12)}
             initial="hidden"
             whileInView="show"
@@ -190,6 +197,7 @@ export default function VacanciesSection({careersData, vacanciesConfig}:{careers
           >
             <FilterDropdown
               variant="secondary"
+              compactMobile
               placeholder="Job Type"
               options={vacanciesConfig.filters.jobType}
               value={selectedJobType}
@@ -209,7 +217,7 @@ export default function VacanciesSection({careersData, vacanciesConfig}:{careers
                 px="px-60"
                 borderColor="border-primary-2"
                 textColor="text-foreground-light"
-                className="w-full md:w-auto !py-[17px] md:!py-5 h-[50px] lg:h-[66px] uppercase"
+                className="w-full md:w-auto md:!py-5 h-[50px] lg:h-[66px] uppercase"
               />
             </motion.div>
           )}

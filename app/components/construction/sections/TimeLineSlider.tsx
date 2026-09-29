@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 import "swiper/css";
 
-import SliderArrowButton from "../../common/SliderNavigationButton";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 // import { timelineSectionData } from "../data";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
@@ -68,14 +68,14 @@ const jumpToYear = (index: number) => {
       <div className="w-full flex-col gap-20 items-center justify-center text-center mb-[30px] md:mb-50 container">
         <SectionHeading
           title={title}
-          className="mb-20 text-foreground max-w-[30ch] mx-auto"
+          className="mb-6 md:mb-20 text-foreground max-w-[30ch] mx-auto content-spacing-mobile-padding"
         />
         <SectionDescription
           text={description}
-          className="text-description max-w-[115ch] mx-auto sm:whitespace-pre-line"
+          className="text-description max-w-[115ch] mx-auto sm:whitespace-pre-line content-spacing-mobile-padding"
         />
 
-        <div className="lg:hidden flex gap-[10px] my-[30px] items-center justify-between">
+        <div className="lg:hidden flex gap-[10px] my-6 md:my-[30px] items-center justify-between">
           <motion.div
             variants={moveRight(0.2)}
             initial="hidden"
@@ -224,7 +224,7 @@ const jumpToYear = (index: number) => {
       </div>
 
       {/* Divider */}
-      <div className="relative flex items-center justify-center mt-[32px] mb-50 container">
+      <div className="relative flex items-center justify-center mt-[32px] mb-6 md:mb-50 container">
         <div
           className="w-full h-px"
           style={{

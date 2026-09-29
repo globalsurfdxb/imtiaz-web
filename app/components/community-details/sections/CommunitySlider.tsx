@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import { motion } from "framer-motion";
 import { moveUp } from "@/app/components/motionVariants";
+import SliderArrowButton from "@/app/components/common/SliderNavigationButton-v4";
 import { GalleryItem } from "../data";
 
 const SignatureMomentsSlider = ({ images }: { images: GalleryItem[] }) => {
@@ -153,6 +154,14 @@ const SignatureMomentsSlider = ({ images }: { images: GalleryItem[] }) => {
               "linear-gradient(180deg, rgba(0, 0, 0, 0) 55.27%, rgba(0, 0, 0, 1) 100%)",
           }}
         />
+        {/* mobile side shade — keeps the prev/next buttons readable over bright images */}
+        <div
+          className="md:hidden absolute inset-0 z-20 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.45) 100%)",
+          }}
+        />
 
         {/* prev button — z-30 above gradient, pointer-events-auto */}
         {images.length > 1 && (
@@ -163,24 +172,16 @@ const SignatureMomentsSlider = ({ images }: { images: GalleryItem[] }) => {
           viewport={{ once: true }}
           className="absolute left-20 lg:left-70 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
         >
-          <button
+          <SliderArrowButton
             onClick={() => {
               const swiper = swiperRef.current;
               if (!swiper) return;
               swiper.animating = false;
               swiper.slidePrev();
             }}
-            className="cursor-pointer group w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px]   border border-white rounded-[50px] flex items-center justify-center overflow-hidden relative"
-          >
-            <span className="absolute right-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-            <Image
-              src="/icons/left_arrow_slider_primary.svg"
-              alt="Previous"
-              width={28}
-              height={28}
-              className="relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-            />
-          </button>
+            direction="prev"
+            variant="light"
+          />
         </motion.div>
         )}
 
@@ -193,30 +194,22 @@ const SignatureMomentsSlider = ({ images }: { images: GalleryItem[] }) => {
           viewport={{ once: true }}
           className="absolute right-20 lg:right-70 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
         >
-          <button
+          <SliderArrowButton
             onClick={() => {
               const swiper = swiperRef.current;
               if (!swiper) return;
               swiper.animating = false;
               swiper.slideNext();
             }}
-            className="cursor-pointer group w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px]   border border-white rounded-[50px] flex items-center justify-center overflow-hidden relative"
-          >
-            <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-            <Image
-              src="/icons/left_arrow_slider_primary.svg"
-              alt="Next"
-              width={28}
-              height={28}
-              className="relative rotate-180 z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-            />
-          </button>
+            direction="next"
+            variant="light"
+          />
         </motion.div>
         )}
 
         {/* dots — z-30, pointer-events-auto */}
         {images.length > 1 && (
-        <div className="absolute bottom-[60px] lg:bottom-120 3xl:bottom-130 left-1/2 -translate-x-1/2 z-30 pointer-events-auto flex items-center justify-center gap-3">
+        <div className="absolute bottom-[50px] lg:bottom-120 3xl:bottom-130 left-1/2 -translate-x-1/2 z-30 pointer-events-auto flex items-center justify-center gap-3">
           {images.map((_, i) => (
             <button
               key={i}

@@ -35,10 +35,10 @@ function AccordionItem({
       {/* Question Row */}
       <button
         onClick={onToggle}
-        className={`${isOpen ? "pb-[10px] md:pb-20" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-20 md:pt-40` : "py-20 md:py-40"} text-left group focus:outline-none`}  
+        className={`${isOpen ? "pb-4.5" : ""} w-full flex items-start sm:items-center justify-between cursor-pointer gap-20 ${isLast ? `pt-20 md:pt-40` : "py-20 md:py-40"} text-left group focus:outline-none`}  
         aria-expanded={isOpen}
       >
-        <span className="text-19 md:text-25 uppercase text-foreground pr-2 leading-[1.4] font-[optima] font-[400]">
+        <span className="text-25 uppercase text-foreground pr-2 leading-[1.4] font-[optima] font-[400] text-trim">
           {item.title}
         </span>
         <span className="flex-shrink-0 select-none">
@@ -111,18 +111,18 @@ export default function Faq({title,description,data}:{title:string,description:s
 
   return (
     <section
-      className="w-full pt-[70px] lg:pt-120 3xl:pt-160 pb-[70px] lg:pb-100"
+      className="w-full pt-120 3xl:pt-160 pb-120"
       data-header="dark"
     >
       <div className="container">
         {/* Header */}
-        <div className="w-full flex flex-col items-center text-center mb-[10px]">
-          {title && <SectionHeading title={title} className="mb-20 text-foreground" />}
-          {description && <SectionDescription text={description} className="shrink-0 max-w-[407px] text-foreground-light" />}
+        <div className="w-full flex flex-col items-center text-center mb-[10px] content-spacing-mobile-padding">
+          {title && <SectionHeading title={title} className="mb-6 md:mb-20 text-foreground" />}
+          {description && <SectionDescription text={description} className="shrink-0 max-w-[407px] text-foreground-light mb-[30px]" />}
         </div>
 
         {/* Accordion */}
-        <div className="max-w-[973px] mx-auto">
+        <div className="max-w-[973px] mx-auto content-spacing-mobile-padding">
           {(data ||  []).map((item, index) => (
             <Reveal variants={moveUpV2} key={index} >
 

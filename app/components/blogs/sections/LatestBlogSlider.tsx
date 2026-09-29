@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import { motion, AnimatePresence } from "framer-motion";
 import { Blog } from "../data";
-import CustomOutlineButton from "@/app/components/common/CustomOutlineButton";
+import CustomOutlineButton from "@/app/components/common/CustomOutlineButton-v4";
 import { useParallax } from "@/app/hooks/useParallax";
 import { moveUp } from "../../motionVariants";
 
@@ -92,7 +92,7 @@ const LatestBlogSlider = ({ blogs }: { blogs: Blog[] }) => {
         <div className="absolute inset-0 flex flex-col items-center justify-between py-[30px] md:py-50 px-20 sm:px-40 md:px-50 text-center pointer-events-none z-10">
           {/* Top label */}
           <div>
-            <span className="text-19 leading-[100%] text-white font-[avenirBook] font-[800] px-6 py-1 uppercase bg-[#FFFFFF3D] backdrop-blur-[30px] rounded-full">
+            <span className="text-19 leading-[100%] text-white font-[avenirBook] font-[800] px-6 py-1 max-md:inline-flex max-md:items-center max-md:h-[32px] max-md:py-0 max-md:px-[16px] max-md:text-[12px] uppercase bg-[#FFFFFF3D] backdrop-blur-[30px] rounded-full">
               Latest Blog
             </span>
           </div>
@@ -102,7 +102,7 @@ const LatestBlogSlider = ({ blogs }: { blogs: Blog[] }) => {
             <AnimatePresence mode="wait">
               <motion.p
                 key={`cat-${activeIndex}`}
-                className="text-white/80   text-description mb-20 capitalize"
+                className="text-white/80   text-description mb-20 capitalize text-trim"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}

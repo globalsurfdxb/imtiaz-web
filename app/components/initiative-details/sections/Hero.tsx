@@ -29,7 +29,7 @@ const BlogHero = ({ title }: { title: string }) => {
 
 
   return (
-    <section className="w-full pt-[174px] md:pt-200" data-header="dark">
+    <section className="w-full pt-[145px] md:pt-200" data-header="dark">
       <div className="container flex flex-col items-center container-spacing-details-page">
         {/* Breadcrumb */}
         <motion.div
@@ -44,11 +44,11 @@ const BlogHero = ({ title }: { title: string }) => {
         {/* Title */}
         <SectionHeading
           title={title}
-          className="max-w-[55ch] text-foreground text-center uppercase mt-[40px] md:mt-100"
+          className="max-w-[55ch] text-foreground text-center uppercase mt-[50px] md:mt-100 content-spacing-mobile-padding"
         />
 
         {/* Meta row */}
-        <div className="mt-[40px] md:mt-20 flex items-center justify-end w-full">
+        <div className="mt-[50px] md:mt-20 flex items-center justify-end w-full">
           {/* Share button */}
           <motion.button
             variants={moveUp(0.15)}

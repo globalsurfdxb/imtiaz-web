@@ -9,7 +9,7 @@ export default function StudioDesc({data}: any) {
   return (
     <section data-header="dark" className="w-full bg-gray">
       <div className="container py-120 3xl:py-130">
-        <div className="flex flex-col items-center text-center mx-auto">
+        <div className="flex flex-col items-center text-center mx-auto content-spacing-mobile-padding">
           {/* Title */}
           <SectionHeading
             title={data?.why_title}

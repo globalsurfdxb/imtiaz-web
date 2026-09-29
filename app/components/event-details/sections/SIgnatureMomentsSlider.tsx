@@ -72,7 +72,7 @@ const SignatureMomentsSlider = ({ images, title }: { images: {featured_image_des
       <div className="container">
         <SectionHeading
           title={title}
-          className="text-center mb-5 md:mb-50 text-foreground"
+          className="text-center mb-6 md:mb-50 text-foreground"
         />
       </div>
 

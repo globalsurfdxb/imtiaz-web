@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState, useEffect } from "react";
+import { useCallback, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import Breadcrumb from "./Breadcrumb";
@@ -163,7 +163,7 @@ const InnerHeroBanner = ({
           <div className={`${maxTitle} mx-auto`}>
             <AnimatedHeading
               title={title}
-              className="mb-6 text-white text-trim"
+              className="mb-6 md:mb-20 text-white text-trim"
               mode="blade"
               delay={HEADING_DELAY}
             />

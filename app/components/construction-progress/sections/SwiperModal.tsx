@@ -7,6 +7,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { motion } from "framer-motion";
 import { moveUp } from "@/app/components/motionVariants";
+import SliderArrowButton from "@/app/components/common/SliderNavigationButton-v4";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -171,16 +172,10 @@ export default function SwiperModal({
             animate="show"
             className="absolute left-20 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
           >
-            <button className="modal-swiper-prev cursor-pointer group w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px]  border border-white rounded-[50px] flex items-center justify-center overflow-hidden relative">
-              <span className="absolute right-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-              <Image
-                src="/icons/left_arrow_slider_primary.svg"
-                alt="Previous"
-                width={28}
-                height={28}
-                className="relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-              />
-            </button>
+            {/* Swiper binds navigation to this wrapper's class */}
+            <div className="modal-swiper-prev">
+              <SliderArrowButton direction="prev" variant="light" />
+            </div>
           </motion.div>
 
           {/* Next Button */}
@@ -190,16 +185,9 @@ export default function SwiperModal({
             animate="show"
             className="absolute right-20 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
           >
-            <button className="modal-swiper-next cursor-pointer group w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] border border-white rounded-[50px] flex items-center justify-center overflow-hidden relative">
-              <span className="absolute left-0 top-0 h-full w-0 bg-white/30 transition-all duration-300 group-hover:w-full z-0" />
-              <Image
-                src="/icons/left_arrow_slider_primary.svg"
-                alt="Next"
-                width={28}
-                height={28}
-                className="relative rotate-180 z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] invert brightness-0 group-hover:invert-0 group-hover:brightness-100 transition-all duration-300"
-              />
-            </button>
+            <div className="modal-swiper-next">
+              <SliderArrowButton direction="next" variant="light" />
+            </div>
           </motion.div>
 
           {/* Pagination */}
@@ -243,7 +231,7 @@ export default function SwiperModal({
         </div>
 
         {/* Month Info — below lg: date and location in a row, thumbs centered below */}
-        <div className="mt-[10px] flex flex-col lg:hidden gap-3">
+        <div className="mt-5 flex flex-col lg:hidden gap-3">
           <div className="flex justify-between items-start">
             <h3 className="text-25 font-[optima] leading-[1.4] text-white">
               <div>{monthData.date.split(" ")[0]}</div>

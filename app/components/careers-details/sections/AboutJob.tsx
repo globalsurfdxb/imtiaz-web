@@ -22,14 +22,20 @@ interface Props {
   data: jobDetail;
 }
 
-const AboutJob = ({ data,overviewTitle }: { data: CareerDetailsResponse['data'],overviewTitle:string }) => {
+const AboutJob = ({
+  data,
+  overviewTitle,
+}: {
+  data: CareerDetailsResponse["data"];
+  overviewTitle: string;
+}) => {
   return (
     <section
       className="w-full bg-white py-120 3xl:py-[160px]"
       data-header="dark"
     >
       <div className="container  ">
-        <div className="2xl:!max-w-[1322px] mx-auto">
+        <div className="2xl:!max-w-[1322px] mx-auto content-spacing-mobile-padding">
           <motion.div
             variants={moveUp(0.1)}
             initial="hidden"
@@ -39,7 +45,7 @@ const AboutJob = ({ data,overviewTitle }: { data: CareerDetailsResponse['data'],
           >
             <SectionHeading
               title={overviewTitle}
-              className=" text-heading   text-foreground   uppercase  mb-20"
+              className=" text-heading   text-foreground   uppercase mb-6 md:mb-20"
             />
             <motion.div
               variants={moveUp(0.1)}
@@ -55,19 +61,17 @@ const AboutJob = ({ data,overviewTitle }: { data: CareerDetailsResponse['data'],
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="mt-[40px] sm:mt-50 pb-[40px] sm:pb-50 border-t border-black/10"
+            className="mt-5 sm:mt-50 pb-5 sm:pb-50 border-t border-black/10"
           ></motion.div>
 
-
-          <motion.div className="career-details-responsibility"
+          <motion.div
+            className="career-details-responsibility"
             variants={moveUp(0.1)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
             dangerouslySetInnerHTML={{ __html: data.job_responsibility || "" }}
           >
-
-
             {/* <motion.div
               variants={moveUp(0.1)}
               initial="hidden"
@@ -100,7 +104,6 @@ const AboutJob = ({ data,overviewTitle }: { data: CareerDetailsResponse['data'],
                 ))}
               </motion.div>
             </motion.div> */}
-
           </motion.div>
 
           <motion.div
@@ -117,7 +120,7 @@ const AboutJob = ({ data,overviewTitle }: { data: CareerDetailsResponse['data'],
             whileInView="show"
             viewport={{ once: true }}
             className="career-details-qualification"
-            dangerouslySetInnerHTML={{__html:data.job_qualification || ""}}
+            dangerouslySetInnerHTML={{ __html: data.job_qualification || "" }}
           >
             {/* <motion.div
               variants={moveUp(0.1)}
@@ -147,7 +150,6 @@ const AboutJob = ({ data,overviewTitle }: { data: CareerDetailsResponse['data'],
               </motion.div>
             </motion.div> */}
           </motion.div>
-
         </div>
       </div>
     </section>

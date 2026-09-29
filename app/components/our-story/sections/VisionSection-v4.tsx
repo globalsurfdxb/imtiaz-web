@@ -31,7 +31,7 @@ export default function VisionSection({data}:{data:VisionSectionData}) {
           <div className="content-spacing-mobile">
             <SectionHeading
               title={data.title}
-              className="uppercase text-foreground mb-6"
+              className="uppercase text-foreground mb-6 md:mb-20"
             />
             <SectionDescription
               text={data.description}

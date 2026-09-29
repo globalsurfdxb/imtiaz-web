@@ -11,8 +11,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { motion } from "framer-motion";
 import { moveUp, moveUpV2 } from "@/app/components/motionVariants";
-import Image from "next/image";
 import CustomOutlineButton from "../../common/CustomOutlineButton";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import Reveal from "../../animations/RevealOneByOneAnimation";
 
 const LandpropertyCards = ({title,items}:{title:string,items:RelatedProperty[]}) => {
@@ -43,7 +43,7 @@ const LandpropertyCards = ({title,items}:{title:string,items:RelatedProperty[]})
         <div className="text-center">
           {title && <SectionHeading
             title={title}
-            className="text-heading mb-20 lg:mb-50"
+            className="text-heading mb-6 md:mb-20 lg:mb-50 content-spacing-mobile-padding"
           />}
 
           {/* 📱 MOBILE to 1140: SWIPER */}
@@ -98,26 +98,14 @@ const LandpropertyCards = ({title,items}:{title:string,items:RelatedProperty[]})
             </Swiper>
 
             {/* Nav buttons */}
-            <div className="flex items-center justify-center gap-[15px] mt-30">
+            <div className="flex items-center justify-center gap-[15px] mt-5 md:mt-30">
               <motion.div
                 variants={moveUp(0.1)}
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true }}
               >
-                <button
-                  ref={prevRef}
-                  className="relative cursor-pointer w-[50px] h-[50px] group border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
-                >
-                  <span className="absolute right-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                  <Image
-                    src="/icons/left_arrow_slider_primary.svg"
-                    alt="Previous"
-                    width={28}
-                    height={28}
-                    className="relative z-10 object-contain w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                  />
-                </button>
+                <SliderArrowButton ref={prevRef} direction="prev" variant="dark" />
               </motion.div>
               <motion.div
                 variants={moveUp(0.16)}
@@ -125,19 +113,7 @@ const LandpropertyCards = ({title,items}:{title:string,items:RelatedProperty[]})
                 whileInView="show"
                 viewport={{ once: true }}
               >
-                <button
-                  ref={nextRef}
-                  className="relative cursor-pointer w-[50px] h-[50px] group border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
-                >
-                  <span className="absolute left-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                  <Image
-                    src="/icons/left_arrow_slider_primary.svg"
-                    alt="Next"
-                    width={28}
-                    height={28}
-                    className="relative z-10 rotate-180 object-contain w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                  />
-                </button>
+                <SliderArrowButton ref={nextRef} direction="next" variant="dark" />
               </motion.div>
             </div>
 

@@ -472,8 +472,6 @@
 //   );
 // }
 
-
-
 "use client";
 
 import Image from "next/image";
@@ -488,16 +486,14 @@ import EnquiryForm from "../../auth/EnquiryForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
-
 type Unit = {
-  id: number,
-  label: string,
-  units: string,
-  area: string,
-  image: string,
-  brand_logo: string
-}
+  id: number;
+  label: string;
+  units: string;
+  area: string;
+  image: string;
+  brand_logo: string;
+};
 
 function FloorPlanImage({ unit }: { unit: Unit }) {
   const imageRef = useRef<HTMLDivElement>(null);
@@ -539,10 +535,7 @@ function MobileFloorPanel({ unit }: { unit: Unit }) {
   }, [unit.id]);
 
   return (
-    <div
-      ref={panelRef}
-      className="overflow-hidden"
-    >
+    <div ref={panelRef} className="overflow-hidden">
       {/* Floor plan image */}
       <div className="relative w-full aspect-square max-w-[340px] md:max-w-[360px] lg:max-w-[320px] mx-auto mb-20 md:mb-6">
         <FloorPlanImage unit={unit} />
@@ -569,7 +562,7 @@ function MobileFloorPanel({ unit }: { unit: Unit }) {
 
       {/* Download button */}
       <a href={unit.image} download={`${unit.image}`}>
-        <div className="w-fit mx-auto mt-[30px]  group flex items-center justify-center gap-2 border border-[#6b1a1a] leading-[1.37] text-foreground-light rounded-full px-6 py-3 text-description hover:bg-[#6b1a1a] hover:text-white transition-colors duration-300">
+        <div className="w-fit mx-auto mt-[30px]  group flex items-center justify-center gap-2 border border-[#6b1a1a] leading-[1.37] text-foreground-light rounded-full px-6 py-3 text-description max-md:h-[32px] max-md:py-0 max-md:px-[16px] max-md:text-[12px] max-md:[&_svg]:w-[16px] max-md:[&_svg]:h-[16px] hover:bg-[#6b1a1a] hover:text-white transition-colors duration-300">
           <div className="flex items-center gap-[10px]">
             <span>
               <svg
@@ -613,14 +606,19 @@ function MobileFloorPanel({ unit }: { unit: Unit }) {
   );
 }
 
-function SideInfo({ unit, openModal }: { unit: Unit; openModal: (url: string, fileName: string) => void }) {
+function SideInfo({
+  unit,
+  openModal,
+}: {
+  unit: Unit;
+  openModal: (url: string, fileName: string) => void;
+}) {
   const sideInfoRef = useRef<HTMLDivElement>(null);
 
   const getFileName = (path: string, label: string) => {
-    const fileName = path?.split('/').pop() || label.toLowerCase();
+    const fileName = path?.split("/").pop() || label.toLowerCase();
     return fileName;
   };
-
 
   useEffect(() => {
     if (!sideInfoRef.current) return;
@@ -654,11 +652,15 @@ function SideInfo({ unit, openModal }: { unit: Unit; openModal: (url: string, fi
         </div>
       </div>
 
-      <div onClick={() => openModal(unit.image, getFileName(unit.image, unit.label))}>
+      <div
+        onClick={() =>
+          openModal(unit.image, getFileName(unit.image, unit.label))
+        }
+      >
         <CustomIconButton
           icondownload={true}
           iconColor="dark"
-          className="w-fit 2xl:!px-[37.5px] 3xl:!px-[41px] 2xl:!py-[20px]"
+          className="w-fit 2xl:!px-[37.5px] 3xl:!px-[41px] 2xl:!py-[20px] max-md:h-[32px] max-md:py-0 max-md:!px-[16px] max-md:text-[12px] max-md:[&_img]:w-[16px] max-md:[&_img]:h-[16px]"
           text="Download Unit layout"
           borderColor="border-primary-2"
           textColor="text-primary-2"
@@ -670,7 +672,6 @@ function SideInfo({ unit, openModal }: { unit: Unit; openModal: (url: string, fi
 }
 
 export default function UnitLayout({ data }: { data: UnitLayoutItem[] }) {
-
   const units = (data || []).map((item, index) => ({
     id: index,
     label: item.title || "",
@@ -682,9 +683,9 @@ export default function UnitLayout({ data }: { data: UnitLayoutItem[] }) {
   const [enquiryVisible, setEnquiryVisible] = useState(false);
   const backdropRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-  const pendingDownload = useRef<{ url: string; fileName: string } | null>(null);
-
-
+  const pendingDownload = useRef<{ url: string; fileName: string } | null>(
+    null,
+  );
 
   const openModal = (url: string, fileName: string) => {
     pendingDownload.current = { url, fileName };
@@ -696,57 +697,75 @@ export default function UnitLayout({ data }: { data: UnitLayoutItem[] }) {
     if (!enquiryVisible) return;
     setTimeout(() => {
       if (!backdropRef.current || !modalRef.current) return;
-      gsap.fromTo(backdropRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" });
+      gsap.fromTo(
+        backdropRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: "power2.out" },
+      );
       gsap.fromTo(
         modalRef.current,
         { opacity: 0, scale: 1.08, filter: "blur(8px)" },
-        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }
+        {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.55,
+          ease: "power3.out",
+        },
       );
     }, 50);
   }, [enquiryVisible]);
 
   const closeModal = () => {
     if (!backdropRef.current || !modalRef.current) return;
-    gsap.to(backdropRef.current, { opacity: 0, duration: 0.3, ease: "power2.in" });
+    gsap.to(backdropRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+    });
     gsap.to(modalRef.current, {
-      opacity: 0, scale: 1.06, filter: "blur(16px)", duration: 0.5, ease: "power3.out",
+      opacity: 0,
+      scale: 1.06,
+      filter: "blur(16px)",
+      duration: 0.5,
+      ease: "power3.out",
       onComplete: () => setEnquiryVisible(false),
     });
   };
 
-const handleSuccess = async () => {
-  closeModal();
-  if (!pendingDownload.current) return;
-  const { url, fileName } = pendingDownload.current;
-  pendingDownload.current = null;
+  const handleSuccess = async () => {
+    closeModal();
+    if (!pendingDownload.current) return;
+    const { url, fileName } = pendingDownload.current;
+    pendingDownload.current = null;
 
-  try {
-    const response = await fetch(url);
-    const blob = await response.blob();
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
 
-    const mimeToExt: Record<string, string> = {
-      "image/jpeg": "jpg",
-      "image/png": "png",
-      "image/webp": "webp",
-      "application/pdf": "pdf",
-    };
-    const mime = blob.type.split(";")[0].trim();
-    const ext = mimeToExt[mime] || "jpg";
-    const baseName = fileName.replace(/\.[^/.]+$/, "");
-    const finalName = `${baseName}.${ext}`;
+      const mimeToExt: Record<string, string> = {
+        "image/jpeg": "jpg",
+        "image/png": "png",
+        "image/webp": "webp",
+        "application/pdf": "pdf",
+      };
+      const mime = blob.type.split(";")[0].trim();
+      const ext = mimeToExt[mime] || "jpg";
+      const baseName = fileName.replace(/\.[^/.]+$/, "");
+      const finalName = `${baseName}.${ext}`;
 
-    const objectUrl = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = objectUrl;
-    a.download = finalName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(objectUrl);
-  } catch {
-    window.open(url, "_blank");
-  }
-};
+      const objectUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = objectUrl;
+      a.download = finalName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(objectUrl);
+    } catch {
+      window.open(url, "_blank");
+    }
+  };
 
   const [activeId, setActiveId] = useState<number | null>(0);
   const activeUnit = units.find((u: { id: number }) => u.id === activeId);
@@ -757,10 +776,10 @@ const handleSuccess = async () => {
   const panelRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const { scrollTo } = useLenis();
 
-  console.log(activeUnit)
+  console.log(activeUnit);
   const handleUnitClick = (unitId: number) => {
     const isCurrentlyActive = activeId === unitId;
-    console.log(isCurrentlyActive)
+    console.log(isCurrentlyActive);
     setActiveId(unitId);
 
     if (
@@ -837,11 +856,11 @@ const handleSuccess = async () => {
     <section
       data-header="dark"
       ref={sectionRef}
-      className="bg-gray py-[70px] lg:py-120 2xl:py-130"
+      className="bg-gray py-120 2xl:py-130"
     >
       <SectionHeading
         title={"UNIT LAYOUT"}
-        className="text-center text-heading mb-50"
+        className="text-center text-heading mb-[50px]"
       />
       <div className="container">
         <div className="mx-auto 3xl:!max-w-[1605px] flex items-end flex-col lg:flex-row gap-8 lg:gap-12">
@@ -858,21 +877,24 @@ const handleSuccess = async () => {
                   <div key={unit.id} className="contents lg:block">
                     <button
                       data-unit-id={unit.id}
-                      className={`cursor-pointer flex items-center justify-center group relative transition-colors duration-300 overflow-hidden w-full text-center py-4 px-6 3xl:py-[16.67px] rounded-full bg-white text-foreground-light font-[avenirBook] text-16 leading-[100%] 2xl:h-[58.33px] 2xl:max-w-[305px]`}
+                      className={`cursor-pointer flex items-center justify-center group relative transition-colors duration-300 overflow-hidden w-full text-center py-4 px-6 3xl:py-[16.67px] rounded-full bg-white text-foreground-light font-[avenirBook] text-16 leading-[100%] 2xl:h-[58.33px] 2xl:max-w-[305px] max-md:h-[32px] max-md:py-0 max-md:px-[16px] max-md:text-[12px]`}
                       onClick={() => handleUnitClick(unit.id)}
                     >
                       <div className="flex items-center gap-[10px] 2xl:gap-[10px]">
                         <span
-                          className={`${isActive ? "scale-x-100" : ""
-                            } absolute inset-y-0 left-0 w-[50%] bg-primary-2 transform scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100`}
+                          className={`${
+                            isActive ? "scale-x-100" : ""
+                          } absolute inset-y-0 left-0 w-[50%] bg-primary-2 transform scale-x-0 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100`}
                         ></span>
                         <span
-                          className={`${isActive ? "scale-x-100" : ""
-                            } absolute inset-y-0 right-0 w-[50%] bg-primary-2 transform scale-x-0 origin-right transition-transform duration-300 ease-out group-hover:scale-x-100`}
+                          className={`${
+                            isActive ? "scale-x-100" : ""
+                          } absolute inset-y-0 right-0 w-[50%] bg-primary-2 transform scale-x-0 origin-right transition-transform duration-300 ease-out group-hover:scale-x-100`}
                         ></span>
                         <span
-                          className={`${isActive ? "text-white" : ""
-                            } relative z-10 transition-colors duration-300 min-w-[98px] inline-block text-center group-hover:text-white`}
+                          className={`${
+                            isActive ? "text-white" : ""
+                          } relative z-10 transition-colors duration-300 min-w-[98px] inline-block text-center group-hover:text-white`}
                         >
                           {unit.label}
                         </span>
@@ -885,7 +907,7 @@ const handleSuccess = async () => {
 
             {/* Mobile: panel rendered BELOW the full grid */}
             {activeUnit && (
-              <div className="block lg:hidden mt-[30px]">
+              <div className="block lg:hidden mt-5 md:mt-[30px]">
                 <MobileFloorPanel unit={activeUnit} />
               </div>
             )}
@@ -910,7 +932,7 @@ const handleSuccess = async () => {
           {/* RIGHT: Stats + download — desktop only */}
           {activeUnit && (
             <div className="hidden lg:flex flex-col justify-center gap-6 min-w-[300px] 3xl:min-w-[358px]">
-              <SideInfo unit={activeUnit} openModal={openModal}/>
+              <SideInfo unit={activeUnit} openModal={openModal} />
             </div>
           )}
         </div>
@@ -919,15 +941,25 @@ const handleSuccess = async () => {
       {/* Enquiry Modal */}
       {enquiryVisible && (
         <>
-          <div ref={backdropRef} className="fixed inset-0 z-[1000] bg-black/80 backdrop-blur-[6px] opacity-0" onClick={closeModal} />
-          <div ref={modalRef} className="fixed inset-0 z-[1001] flex items-center justify-center opacity-0 pointer-events-none">
+          <div
+            ref={backdropRef}
+            className="fixed inset-0 z-[1000] bg-black/80 backdrop-blur-[6px] opacity-0"
+            onClick={closeModal}
+          />
+          <div
+            ref={modalRef}
+            className="fixed inset-0 z-[1001] flex items-center justify-center opacity-0 pointer-events-none"
+          >
             <div className="pointer-events-auto w-full">
-              <EnquiryForm onClose={closeModal} onSwitch={() => { }} onSuccess={handleSuccess} />
+              <EnquiryForm
+                onClose={closeModal}
+                onSwitch={() => {}}
+                onSuccess={handleSuccess}
+              />
             </div>
           </div>
         </>
       )}
-
     </section>
   );
 }

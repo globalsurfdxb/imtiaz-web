@@ -59,14 +59,14 @@ export default function InvestmentSection({data}:{data:InvestmentAppealData}) {
   return (
     <section data-header="dark" className="w-full bg-white">
       {/* Top white header */}
-      <div className="container text-center pt-[70px] lg:pt-120 3xl:pt-160">
+      <div className="container text-center pt-120 3xl:pt-160">
         <SectionHeading
           title={data.sectionTitle}
-          className="uppercase mb-20"
+          className="uppercase mb-6 md:mb-20 content-spacing-mobile-padding"
         />
         <SectionDescription
           text={data.sectionDescription}
-          className="max-w-[754px] mx-auto mb-50 text-foreground-light whitespace-pre-line"
+          className="max-w-[754px] mx-auto mb-[50px] text-foreground-light whitespace-pre-line content-spacing-mobile-padding"
         />
       </div>
 
@@ -104,7 +104,7 @@ export default function InvestmentSection({data}:{data:InvestmentAppealData}) {
         />
 
         {/* Stats — pinned to bottom */}
-        <div className="absolute bottom-0 left-0 right-0 pb-[70px] lg:pb-60">
+        <div className="absolute bottom-0 left-0 right-0 pb-[50px] lg:pb-60">
           <div>
             <Swiper
               modules={[Autoplay]}
@@ -141,25 +141,25 @@ export default function InvestmentSection({data}:{data:InvestmentAppealData}) {
                 return (
                   <SwiperSlide key={index}>
                     <Reveal variants={moveUpV2}>
-                      <div className="relative flex flex-col items-center justify-center py-40">
+                      <div className="relative flex flex-col items-center justify-center py-5 md:py-40">
                         {/* Value */}
                         <motion.span
                           variants={moveUp(0.1)}
                           initial="hidden"
                           whileInView="show"
                           viewport={{ once: true }}
-                          className="text-heading text-white mb-[10px]"
+                          className="text-heading text-white mb-5 md:mb-[10px] text-trim"
                         >
                           <Counter value={stat.value} duration={2000} />
                         </motion.span>
 
                         {/* Label */}
                         <motion.span
-                          variants={moveUp(0.15)}
-                          initial="hidden"
-                          whileInView="show"
-                          viewport={{ once: true }}
-                          className="text-description text-white py-1 sm:py-0"
+                          // variants={moveUp(0.15)}
+                          // initial="hidden"
+                          // whileInView="show"
+                          // viewport={{ once: true }}
+                          className="text-description text-white text-trim"
                         >
                           {stat.label}
                         </motion.span>
@@ -183,7 +183,7 @@ export default function InvestmentSection({data}:{data:InvestmentAppealData}) {
               })}
             </Swiper>
             {showPagination && (
-              <div className="flex justify-center mt-[30px] md:mt-50 gap-[10px]">
+              <div className="flex justify-center mt-5 md:mt-50 gap-[10px]">
                 {data.stats.map((_, i) => (
                   <button
                     key={i}

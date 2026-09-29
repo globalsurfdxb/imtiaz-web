@@ -1,4 +1,4 @@
-import InnerHeroBanner from "../common/InnerHeroBanner";
+import InnerHeroBanner from "../common/InnerHeroBanner-v4";
 import { bannerData, BlogListingData } from "./data";
 import BlogsSection from "./sections/BlogsSection";
 import { Suspense } from "react";

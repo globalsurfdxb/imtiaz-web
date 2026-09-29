@@ -38,7 +38,7 @@ const NewsHero = ({ news }: Props) => {
   };
 
   return (
-    <section className="w-full pt-[174px] md:pt-200" data-header="dark">
+    <section className="w-full pt-[145px] md:pt-200" data-header="dark">
       <div className="container flex flex-col items-center container-spacing-details-page">
         {/* Breadcrumb */}
         <motion.div
@@ -53,11 +53,11 @@ const NewsHero = ({ news }: Props) => {
         {/* Title */}
         <SectionHeading
           title={news.page_banner_title}
-          className="max-w-[50ch] text-foreground text-center uppercase mt-[40px] md:mt-100"
+          className="max-w-[50ch] text-foreground text-center uppercase mt-[50px] md:mt-100 content-spacing-mobile-padding"
         />
 
         {/* Meta row */}
-        <div className="mt-[40px] md:mt-20 flex items-center justify-between w-full">
+        <div className="mt-[50px] md:mt-20 flex items-center justify-between w-full">
           <motion.div
             variants={moveUp(0.12)}
             initial="hidden"

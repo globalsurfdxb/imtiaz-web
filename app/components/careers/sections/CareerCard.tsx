@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 // import type { Career } from "../data";
 import Link from "next/link";
 interface CareerCardProps {
@@ -18,7 +18,7 @@ export default function CareerCard({ career }: CareerCardProps) {
   return (
     <div className="bg-white p-20 sm:p-30 flex flex-col hover:scale-[1.03] transition-all duration-500">
       {/* Top row — location + job type */}
-      <div className="flex items-center justify-between mb-[30px]">
+      <div className="flex items-center justify-between mb-6 md:mb-[30px]">
         <div className="flex items-center gap-[10px]">
           <Image
             src="/images/careers/location.svg"
@@ -37,12 +37,12 @@ export default function CareerCard({ career }: CareerCardProps) {
       </div>
 
       {/* Title */}
-      <h3 className="font-[optima] text-25 leading-[1.4] uppercase text-foreground mb-[10px]">
+      <h3 className="font-[optima] text-25 leading-[1.4] uppercase text-foreground mb-5 md:mb-[10px] text-trim">
         {career.title}
       </h3>
 
       {/* Description */}
-      <p className="text-foreground-light text-[14px] sm:text-description mb-20">
+      <p className="text-foreground-light text-[14px] sm:text-description mb-20 text-trim">
         {career.description}
       </p>
 

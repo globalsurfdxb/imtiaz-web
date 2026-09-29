@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { EventItem } from "../data";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { useParallax } from "@/app/hooks/useParallax";
 
 const EventCard = ({ item }: { item: EventItem }) => {

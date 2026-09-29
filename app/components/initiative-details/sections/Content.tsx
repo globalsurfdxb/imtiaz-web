@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { moveUp } from "../../motionVariants";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import Link from "next/link";
 
 const decodeHtml = (html: string) => {
@@ -15,7 +15,7 @@ const decodeHtml = (html: string) => {
 const Content = ({ content,sourceUrl }: { content: string,sourceUrl:string }) => {
   return (
     <section
-      className="w-full bg-white pt-5 md:pt-0 pb-[40px] md:pb-50  "
+      className="w-full bg-white pt-5 md:pt-0 pb-[50px]"
       data-header="dark"
     >
       <div className="container container-spacing-details-page">
@@ -24,7 +24,7 @@ const Content = ({ content,sourceUrl }: { content: string,sourceUrl:string }) =>
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="blog-content dynamicmn"
+          className="blog-content dynamicmn content-spacing-mobile-padding"
           dangerouslySetInnerHTML={{
             __html: decodeHtml(content),
           }}

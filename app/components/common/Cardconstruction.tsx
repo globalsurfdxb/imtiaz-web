@@ -5,7 +5,7 @@ import { useState, useEffect, useId } from "react";
 
 import type { ProjectCardType } from "@/types/cardtype";
 import { useParallax } from "@/app/hooks/useParallax";
-import CustomOutlineButton from "./CustomOutlineButton";
+import CustomOutlineButton from "./CustomOutlineButton-v4";
 import CustomIconButton from "./CustomIconButton";
 import Link from "next/link";
 
@@ -101,7 +101,7 @@ export default function Cardconstruction({
               dangerouslySetInnerHTML={{ __html: title }}
             /> */}
             <h3
-              className={`font-[optima] text-white max-w-[201px] md:max-w-full mx-auto text-25 leading-[1.4] uppercase text-center  transition-transform duration-900 `}
+              className={`text-trim font-[optima] text-white max-w-[201px] md:max-w-full mx-auto text-25 leading-[1.4] uppercase text-center  transition-transform duration-900 `}
             >
               {parts.length > 1 ? (
                 <>
@@ -114,7 +114,7 @@ export default function Cardconstruction({
               )}
             </h3>
             <div
-              className={`w-full h-px my-[10px] xl:my-[20px] transition-transform duration-900  `}
+              className={`w-full h-px my-[20px] transition-transform duration-900  `}
               style={{
                 background:
                   "linear-gradient(90deg, rgba(255,255,255,0) 0%, #FFFFFF 50%, rgba(255,255,255,0) 100%)",
@@ -134,7 +134,7 @@ export default function Cardconstruction({
                   text="SEE 360 VIEW"
                   icon360={true}
                   px="!py-[9px] 3xl:!py-[17.5px] 3xl:py-[16px] px-[29.4px] sm:px-[20px] lg:px-[25px] 2xl:px-[30px] 3xl:px-10 cursor-pointer"
-                  className="h-[44px] md:h-[50px]  xl:h-[66px]"
+                  className="h-[44px] md:h-[50px] xl:h-[66px] max-md:h-[32px] max-md:!py-0 max-md:!px-[16px] max-md:text-[12px] max-md:[&_img]:h-[16px] max-md:[&_img]:w-auto"
                 />
               ) : (
                 <Link

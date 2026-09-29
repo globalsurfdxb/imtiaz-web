@@ -95,6 +95,11 @@ const Breadcrumb = ({ variant = "white" }: BreadcrumbProps) => {
 
   const isBlack = variant === "black";
 
+  // Mobile truncation — with only "Home" + one crumb there's room to show more
+  const mobileMax = allCrumbs.length <= 2 ? 28 : 15;
+  const truncateMobile = (label: string) =>
+    label.length > mobileMax ? label.slice(0, mobileMax) + "..." : label;
+
   return (
     <div className="flex items-center gap-[10px] capitalize">
       {allCrumbs.map((crumb, i) => (
@@ -128,11 +133,7 @@ const Breadcrumb = ({ variant = "white" }: BreadcrumbProps) => {
               }`}
             >
               {/* mobile */}
-              <span className="md:hidden">
-                {crumb.label.length > 15
-                  ? crumb.label.slice(0, 15) + "..."
-                  : crumb.label}
-              </span>
+              <span className="md:hidden">{truncateMobile(crumb.label)}</span>
 
               {/* md */}
               <span className="hidden md:inline 2xl:hidden">
@@ -158,11 +159,7 @@ const Breadcrumb = ({ variant = "white" }: BreadcrumbProps) => {
               }`}
             >
               {/* mobile only */}
-              <span className="sm:hidden">
-                {crumb.label.length > 15
-                  ? crumb.label.slice(0, 15) + "..."
-                  : crumb.label}
-              </span>
+              <span className="sm:hidden">{truncateMobile(crumb.label)}</span>
 
               {/* md and up: full label */}
               <span className="hidden sm:inline">{crumb.label}</span>

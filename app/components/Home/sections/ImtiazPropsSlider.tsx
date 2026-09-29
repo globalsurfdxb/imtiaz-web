@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 // import { projectsData } from "../data";
@@ -25,7 +25,7 @@ type ImtiazPropertiesData = {
       id: string;
       title: string;
       image: string;
-      mobileImage:string;
+      mobileImage: string;
       link: string;
       hoverImage: string;
     }[];
@@ -142,7 +142,7 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="text-center text-heading mb-[20px] sm:mb-50"
+            className="text-center text-heading mb-6 md:mb-[20px] sm:mb-50 text-trim"
           >
             {title}
           </motion.h2>
@@ -195,21 +195,11 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               whileInView="show"
               viewport={{ once: true }}
             >
-              <button
+              <SliderArrowButton
                 onClick={() => swiperRef.current?.slidePrev()}
-                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
-              >
-                {/* FILL ANIMATION */}
-                <span className="absolute right-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                {/* ICON */}
-                <Image
-                  src="/icons/left_arrow_slider_primary.svg"
-                  alt="Arrow Right"
-                  width={28}
-                  height={28}
-                  className="relative z-10  object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                />
-              </button>
+                direction="prev"
+                variant="dark"
+              />
             </motion.div>
             <motion.div
               variants={moveUp(0.22)}
@@ -217,21 +207,11 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
               whileInView="show"
               viewport={{ once: true }}
             >
-              <button
+              <SliderArrowButton
                 onClick={() => swiperRef.current?.slideNext()}
-                className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
-              >
-                {/* FILL ANIMATION */}
-                <span className="absolute left-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                {/* ICON */}
-                <Image
-                  src="/icons/left_arrow_slider_primary.svg"
-                  alt="Arrow Right"
-                  width={28}
-                  height={28}
-                  className="relative z-10 rotate-180 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                />
-              </button>
+                direction="next"
+                variant="dark"
+              />
             </motion.div>
           </div>
         </div>

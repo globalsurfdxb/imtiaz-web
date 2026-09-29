@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { InvestorRelationsPageResponse } from "../data";
@@ -20,7 +20,13 @@ import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ImtiazProperties = ({ data, title }: { data: InvestorRelationsPageResponse['data']['properties'], title: string }) => {
+const ImtiazProperties = ({
+  data,
+  title,
+}: {
+  data: InvestorRelationsPageResponse["data"]["properties"];
+  title: string;
+}) => {
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
   const swiperRef = useRef<SwiperType | null>(null);
@@ -118,12 +124,12 @@ const ImtiazProperties = ({ data, title }: { data: InvestorRelationsPageResponse
   return (
     <section
       data-header="dark"
-      className="make-header-black w-full py-[70px] lg:py-120 3xl:py-160 bg-white z-10 relative"
+      className="make-header-black w-full py-120 3xl:py-160 bg-white z-10 relative"
     >
       <div className="container">
         <SectionHeading
           title={title}
-          className="text-foreground text-center mb-[20px] md:mb-50"
+          className="text-foreground text-center mb-6 md:mb-50"
         />
         <div className="relative" ref={rootRef}>
           <Swiper
@@ -148,10 +154,9 @@ const ImtiazProperties = ({ data, title }: { data: InvestorRelationsPageResponse
 
                 image: item.featured_image_desktop,
 
-                mobileImage:item.featured_image_mobile,
+                mobileImage: item.featured_image_mobile,
 
-                hoverImage:
-                  item.brand_logo || item.featured_image_mobile,
+                hoverImage: item.brand_logo || item.featured_image_mobile,
 
                 status: item.property_status,
 
@@ -179,7 +184,7 @@ const ImtiazProperties = ({ data, title }: { data: InvestorRelationsPageResponse
           </Swiper>
         </div>
         {/* BOTTOM BUTTONS */}
-        <div className="flex items-center justify-between md:justify-center mt-[20px] md:mt-50">
+        <div className="flex items-center justify-between md:justify-center mt-5 md:mt-50">
           <motion.div
             variants={moveUp(0.1)}
             initial="hidden"
@@ -206,20 +211,12 @@ const ImtiazProperties = ({ data, title }: { data: InvestorRelationsPageResponse
               whileInView="show"
               viewport={{ once: true }}
             >
-              <button
+              <SliderArrowButton
                 onClick={() => swiperRef.current?.slidePrev()}
-                className={`relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden transition-opacity duration-300
-        ${isBeginning ? "opacity-50 cursor-not-allowed pointer-events-none" : "opacity-100"}`}
-              >
-                <span className="absolute right-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                <Image
-                  src="/icons/left_arrow_slider_primary.svg"
-                  alt="Arrow Left"
-                  width={28}
-                  height={28}
-                  className="relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                />
-              </button>
+                direction="prev"
+                variant="dark"
+                disabled={isBeginning}
+              />
             </motion.div>
 
             <motion.div
@@ -228,20 +225,12 @@ const ImtiazProperties = ({ data, title }: { data: InvestorRelationsPageResponse
               whileInView="show"
               viewport={{ once: true }}
             >
-              <button
+              <SliderArrowButton
                 onClick={() => swiperRef.current?.slideNext()}
-                className={`relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden transition-opacity duration-300
-        ${isEnd ? "opacity-50 cursor-not-allowed pointer-events-none" : "opacity-100"}`}
-              >
-                <span className="absolute left-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                <Image
-                  src="/icons/left_arrow_slider_primary.svg"
-                  alt="Arrow Right"
-                  width={28}
-                  height={28}
-                  className="relative z-10 rotate-180 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                />
-              </button>
+                direction="next"
+                variant="dark"
+                disabled={isEnd}
+              />
             </motion.div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 import { LandpropertyData } from "../data";
 import ProjectCard from "../../common/ProjectCard";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import { SectionHeading } from "../../animations/SectionHeading";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,7 +10,7 @@ import "swiper/css";
 import { moveUp, moveUpV2 } from "../../motionVariants";
 import { motion } from "framer-motion";
 import Reveal from "../../animations/RevealOneByOneAnimation";
-import Image from "next/image";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import { useRef, useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import { PropertiesPageData } from "../../property/data";
@@ -24,11 +24,11 @@ const LandpropertyCards = ({data,community,property}:{data:PropertiesPageData['l
   return (
     <section className="w-full"
       data-header="dark">
-      <div className="container flex flex-col justify-center md:pt-100 pb-[70px] lg:pb-120 3xl:pb-160 md:border-t md:border-black/10">
+      <div className="container flex flex-col justify-center md:pt-100 pb-120 3xl:pb-160 md:border-t md:border-black/10">
         <div className="text-center">
           <SectionHeading
             title={LandpropertyData.title}
-            className="text-heading mb-[20px] md:mb-50"
+            className="text-heading mb-6 md:mb-50"
           />
 
           <motion.div
@@ -103,21 +103,11 @@ const LandpropertyCards = ({data,community,property}:{data:PropertiesPageData['l
                   whileInView="show"
                   viewport={{ once: true }}
                 >
-                  <button
+                  <SliderArrowButton
                     onClick={() => swiperRef.current?.slidePrev()}
-                    className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
-                  >
-                    {/* FILL ANIMATION */}
-                    <span className="absolute right-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                    {/* ICON */}
-                    <Image
-                      src="/icons/left_arrow_slider_primary.svg"
-                      alt="Arrow Right"
-                      width={28}
-                      height={28}
-                      className="relative z-10  object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                    />
-                  </button>
+                    direction="prev"
+                    variant="dark"
+                  />
                 </motion.div>
                 <motion.div
                   variants={moveUp(0.22)}
@@ -125,21 +115,11 @@ const LandpropertyCards = ({data,community,property}:{data:PropertiesPageData['l
                   whileInView="show"
                   viewport={{ once: true }}
                 >
-                  <button
+                  <SliderArrowButton
                     onClick={() => swiperRef.current?.slideNext()}
-                    className="relative cursor-pointer w-[50px] h-[50px] 3xl:w-[62px] 3xl:h-[62px] group  border border-[#404040] rounded-[50px] flex items-center justify-center overflow-hidden"
-                  >
-                    {/* FILL ANIMATION */}
-                    <span className="absolute left-0 top-0 h-full w-0 bg-primary transition-all duration-300 group-hover:w-full z-0" />
-                    {/* ICON */}
-                    <Image
-                      src="/icons/left_arrow_slider_primary.svg"
-                      alt="Arrow Right"
-                      width={28}
-                      height={28}
-                      className="relative z-10 rotate-180 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[20px] h-[20px] group-hover:invert group-hover:brightness-0 transition-colors duration-300"
-                    />
-                  </button>
+                    direction="next"
+                    variant="dark"
+                  />
                 </motion.div>
               </div>
             )}

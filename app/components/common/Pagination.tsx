@@ -55,7 +55,7 @@ const getPages = (): (number | "...")[] => {
   const pages = getPages();
 
   return (
-    <div className="flex items-end mt-[40px] md:mt-60 2xl:mt-100  ">
+    <div className="flex items-end mt-5 md:mt-[40px] md:mt-60 2xl:mt-100  ">
       {pages.map((page, i) => {
         const isEllipsis = page === "...";
         const isActive = page === currentPage;

@@ -1,31 +1,40 @@
 import type { Metadata } from "next";
 
 import "../globals.css";
-import HeaderWithHamburger from "../components/common/HeaderWithHamburger";
+import HeaderWithHamburger from "../components/common/HeaderWithHamburger-v4";
 import ScrollToTopReload from "../components/common/ScrollToTopReload";
 import LenisUnlock from "../components/common/LenisUnlock";
-import InnerFooter from "../components/layout/InnerFooter";
+import InnerFooter from "../components/layout/InnerFooter-v4";
 
 export const metadata: Metadata = {
   title: "IMTIAZ",
   description: "Imtiaz",
 };
 
-const menuResponse = await fetch(`${process.env.BASE_URL}/api/menu_communities_properties.php`, {
-  next: { revalidate: 60 },
-})
+const menuResponse = await fetch(
+  `${process.env.BASE_URL}/api/menu_communities_properties.php`,
+  {
+    next: { revalidate: 60 },
+  },
+);
 
 const menuData = await menuResponse.json();
 
-const propertyResponse = await fetch(`${process.env.BASE_URL}/api/properties.php?lang=en`, {
-  next: { revalidate: 60 },
-})
+const propertyResponse = await fetch(
+  `${process.env.BASE_URL}/api/properties.php?lang=en`,
+  {
+    next: { revalidate: 60 },
+  },
+);
 
 const propertyData = await propertyResponse.json();
 
-const communityResponse = await fetch(`${process.env.BASE_URL}/api/communities.php?lang=en`, {
-  next: { revalidate: 60 },
-});
+const communityResponse = await fetch(
+  `${process.env.BASE_URL}/api/communities.php?lang=en`,
+  {
+    next: { revalidate: 60 },
+  },
+);
 const communityData = await communityResponse.json();
 
 export default function RootLayout({
@@ -39,7 +48,10 @@ export default function RootLayout({
       <LenisUnlock />
       <HeaderWithHamburger menuData={menuData.data.listing} />
       {children}
-      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []} latestCommunities={communityData?.data?.listing?.slice(0, 8) ?? []}/>
+      <InnerFooter
+        latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []}
+        latestCommunities={communityData?.data?.listing?.slice(0, 8) ?? []}
+      />
     </>
-  )
+  );
 }

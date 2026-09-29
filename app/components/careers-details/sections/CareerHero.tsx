@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { moveDown, moveUp } from "../../motionVariants";
 import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import CareerForm from "../../auth/CareerForm";
 import Image from "next/image";
 
@@ -32,9 +32,9 @@ const CareerHero = ({ jobDescription }: Props) => {
 
   const closeAuth = () => setAuthView(null);
   return (
-    <section className="w-full pt-[174px] md:pt-200" data-header="dark">
+    <section className="w-full pt-[145px] md:pt-200" data-header="dark">
       <div className="container ">
-        <div className="flex flex-col pt-120 md:pt-0 2xl:!max-w-[1322px] mx-auto">
+        <div className="flex flex-col 2xl:!max-w-[1322px] mx-auto content-spacing-mobile-padding">
           {/* Breadcrumb */}
           <motion.div
             variants={moveDown(0.1)}
@@ -46,15 +46,15 @@ const CareerHero = ({ jobDescription }: Props) => {
             <Breadcrumb variant="black" />
           </motion.div>
 
-          <div className="pt-[40px] pb-[70px] md:pt-auto md:pb-auto md:py-120 3xl:py-[130px]">
+          <div className="py-120 3xl:py-[130px]">
             {/* Title */}
             <SectionHeading
               title={jobDescription.title}
-              className="  text-foreground   uppercase  mb-20"
+              className="  text-foreground  uppercase mb-6 md:mb-20"
             />
             <SectionDescription
               text={jobDescription.description}
-              className=" max-w-[136.6ch] text-foreground-light mb-50"
+              className="max-w-[136.6ch] text-foreground-light mb-5 md:mb-50"
             />
             <motion.div
               variants={moveUp(0.1)}

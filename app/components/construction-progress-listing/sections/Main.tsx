@@ -1,12 +1,19 @@
 "use client";
 
-import { useMemo, useEffect, useState, useRef, useCallback, Suspense } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation"; 
-// import { offPlanProperties } from "../data"; 
+import {
+  useMemo,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  Suspense,
+} from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+// import { offPlanProperties } from "../data";
 import Cardconstruction from "../../common/Cardconstruction";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import { moveUp, moveUpV2 } from "../../motionVariants";
-import Pagination from "../../common/Pagination";  
+import Pagination from "../../common/Pagination";
 import Reveal from "../../animations/RevealOneByOneAnimation";
 import { useLenis } from "@/app/contexts/LenisContext";
 import { Property } from "../data";
@@ -16,10 +23,10 @@ const getItemsPerPage = () =>
   typeof window !== "undefined" && window.innerWidth >= 1600 ? 8 : 6;
 
 // ── Main Content Component ─────────────────────────────────────────────────
-const MainContent = ({data}:any) => {
+const MainContent = ({ data }: any) => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams(); 
+  const searchParams = useSearchParams();
 
   // Always-current ref so callbacks never capture stale searchParams
   const searchParamsRef = useRef(searchParams);
@@ -31,7 +38,7 @@ const MainContent = ({data}:any) => {
   const savedScrollY = useRef<number | null>(null);
 
   const { scrollTo, lock, unlock } = useLenis();
-  
+
   const currentPage = Number(searchParams.get("page") || "1");
   const [view, setView] = useState<"list" | "map">("list");
 
@@ -138,17 +145,25 @@ const MainContent = ({data}:any) => {
   }, [sorted, currentPage, itemsPerPage]);
 
   return (
-    <section className="w-full bg-white" data-header="dark" id="properties-list"> 
+    <section
+      className="w-full bg-white"
+      data-header="dark"
+      id="properties-list"
+    >
       {/* ── Cards / Map ── */}
       <div className="flex flex-col justify-center container">
-        <div className="text-center"> 
+        <div className="text-center">
           <div className="project-card-grid">
             {paginated.map((project, i) => (
               <Reveal variants={moveUpV2} key={i} delayRange={i * 0.11}>
-                <Cardconstruction image={project.featured_image_desktop} mobileImage={project.featured_image_mobile} {...project} />
+                <Cardconstruction
+                  image={project.featured_image_desktop}
+                  mobileImage={project.featured_image_mobile}
+                  {...project}
+                />
               </Reveal>
             ))}
-          </div> 
+          </div>
         </div>
       </div>
 
@@ -169,7 +184,7 @@ const MainContent = ({data}:any) => {
           />
         </motion.div>
       )}
-    </section> 
+    </section>
   );
 };
 
@@ -180,7 +195,10 @@ const LoadingFallback = () => (
       <div className="text-center">
         <div className="project-card-grid">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-[300px] bg-gray-200 rounded-lg animate-pulse" />
+            <div
+              key={i}
+              className="h-[300px] bg-gray-200 rounded-lg animate-pulse"
+            />
           ))}
         </div>
       </div>
@@ -189,10 +207,10 @@ const LoadingFallback = () => (
 );
 
 // ── Main Component with Suspense ───────────────────────────────────────────
-const Main = ({data}:{data:Property[]}) => {
+const Main = ({ data }: { data: Property[] }) => {
   return (
     <Suspense fallback={<LoadingFallback />}>
-      <MainContent data={data}/>
+      <MainContent data={data} />
     </Suspense>
   );
 };

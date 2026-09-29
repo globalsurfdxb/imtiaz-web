@@ -18,6 +18,7 @@ import Pagination from "../../common/Pagination";
 import FilterDropdown from "../../common/FilterDropdown";
 import { Plus, SearchX } from "lucide-react";
 import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButtonV4 from "../../common/CustomOutlineButton-v4";
 import { motion } from "framer-motion";
 import {
   containerStagger,
@@ -31,7 +32,7 @@ const NEWS_PER_PAGE = 6;
 
 // ── Empty state ──────────────────────────────────────────────────────────────
 const EmptyState = () => (
-  <div className="col-span-full flex flex-col items-center justify-center gap-6 text-center">
+  <div className="col-span-full flex flex-col items-center justify-center gap-6 text-center content-spacing-mobile-padding">
     <motion.div
       variants={moveUp(0)}
       initial="hidden"
@@ -226,7 +227,7 @@ const pressCategories = useMemo(() => {
 
   return (
     <section
-      className="w-full bg-white pt-5 md:pt-70 pb-120 3xl:pb-160"
+      className="w-full bg-white pt-[50px] md:pt-70 pb-120 3xl:pb-160"
       data-header="dark"
     >
       <div className="container">
@@ -298,12 +299,12 @@ const pressCategories = useMemo(() => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="lg:hidden mb-[30px] md:b-70"
+          className="lg:hidden mb-5 md:mb-[30px]"
         >
           {/* Toggle button */}
           <button
             onClick={() => setFiltersOpen((prev) => !prev)}
-            className="flex text-[12px] md:text-16 items-center justify-between w-full px-6 py-4 rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
+            className="flex text-[12px] md:text-16 items-center justify-between w-full px-6 py-4 max-md:h-[32px] max-md:py-0 max-md:px-[16px] rounded-full border border-primary-2 text-foreground-light text-description uppercase cursor-pointer"
           >
             <span>Filters</span>
             <span
@@ -312,7 +313,7 @@ const pressCategories = useMemo(() => {
                 transform: filtersOpen ? "rotate(45deg)" : "rotate(0deg)",
               }}
             >
-              <Plus size={20} />
+              <Plus size={20} className="max-md:w-[18px] max-md:h-[18px]" />
             </span>
           </button>
 
@@ -327,18 +328,21 @@ const pressCategories = useMemo(() => {
           >
             <div className="flex flex-col gap-3 pt-4">
               <FilterDropdown
+                compactMobile
                 placeholder="Topics"
                 options={pressCategories}
                 value={selectedCategory}
                 onChange={(val) => updateParam("category", val)}
               />
               <FilterDropdown
+                compactMobile
                 placeholder="Year"
                 options={pressYears}
                 value={selectedYear}
                 onChange={(val) => updateParam("year", val)}
               />
               <FilterDropdown
+                compactMobile
                 placeholder="Month"
                 options={pressMonths}
                 value={selectedMonth}
@@ -346,21 +350,21 @@ const pressCategories = useMemo(() => {
               />
 
               {hasFilter && (
-                <CustomOutlineButton
+                <CustomOutlineButtonV4
                   text="Clear Filter"
                   onClick={clearFilters}
                   variant="dark"
                   px="px-60"
                   borderColor="border-primary-2"
                   textColor="text-primary-2"
-                  className="w-full md:w-auto !py-[17px] md:!py-5 h-[44px] lg:h-[50px]  xl:h-[66px] uppercase"
+                  className="w-full md:w-auto md:!py-5 h-[44px] lg:h-[50px] xl:h-[66px] uppercase"
                 />
               )}
             </div>
           </div>
         </motion.div>
 
-        <div className="w-full mb-[30px] md:mb-50">
+        <div className="w-full mb-5 md:mb-50">
           <div className="relative w-full h-px overflow-hidden">
             <motion.div
               className="absolute inset-0 bg-black/10 origin-center"
@@ -391,7 +395,7 @@ const pressCategories = useMemo(() => {
           >
             <LatestNewsSlider news={latestNews.slice(0, 3)} />
           </motion.div>
-          <div className="w-full my-[40px] md:my-50">
+          <div className="w-full mt-[50px] mb-5 md:my-50">
             <div className="relative w-full h-px overflow-hidden">
               <motion.div
                 className="absolute inset-0 bg-black/10 origin-center"

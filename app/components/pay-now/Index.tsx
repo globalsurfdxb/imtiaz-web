@@ -1,22 +1,23 @@
-import InnerHeroBanner from "../common/InnerHeroBanner"
-import PaymentForm from "./PaymentSection"
-import { bannerData, OnlinePaymentResponse } from "./data"
+import InnerHeroBanner from "../common/InnerHeroBanner-v4";
+// import PaymentForm from "./PaymentSection";
+import { OnlinePaymentResponse } from "./data";
 
-const Index = ({data}:{data:OnlinePaymentResponse['data']}) => {
+const Index = ({ data }: { data: OnlinePaymentResponse["data"] }) => {
   return (
     <>
-    <InnerHeroBanner 
-    title={data.page_banner_title}
-    image={data.page_banner_desktop}
-    mobileImage={data.page_banner_mobile}
-    description={data.page_banner_caption}
-    maxW="max-w-[641px]" />
-    {/* <PaymentForm 
+      <InnerHeroBanner
+        title={data.page_banner_title}
+        image={data.page_banner_desktop}
+        mobileImage={data.page_banner_mobile}
+        description={data.page_banner_caption}
+        maxW="max-w-[641px]"
+      />
+      {/* <PaymentForm 
     title={data.page_title}
     description={data.page_caption}
     /> */}
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

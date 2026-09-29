@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
-import SliderArrowButton from "../../common/SliderNavigationButton";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import { SectionHeading } from "../../animations/SectionHeading";
 import Reveal from "../../animations/RevealOneByOneAnimation";
 import { moveUpV2 } from "../../motionVariants";
@@ -67,9 +67,9 @@ const ColItem = ({
     <div className="relative flex flex-col items-center justify-center text-center">
       {/* Title — moves up smoothly */}
       <motion.h3
-        className="text-white font-[optima] uppercase max-w-[201px] md:max-w-full text-25"
+        className="text-white font-[optima] uppercase max-w-[201px] md:max-w-full text-25 text-trim [--title-y:-24px] md:[--title-y:-16px]"
         initial={false}
-        animate={{ y: isActive ? -16 : 0 }}
+        animate={{ y: isActive ? "var(--title-y)" : 0 }}
         transition={{
           duration: 0.9,
           ease: [0.25, 0.46, 0.45, 0.94],
@@ -81,7 +81,7 @@ const ColItem = ({
 
       {/* Clip wrapper — animate height via motion, not maxHeight */}
       <motion.div
-        className="overflow-hidden"
+        className="content-spacing-mobile-padding"
         initial={false}
         animate={{ height: isActive ? "auto" : 0 }}
         transition={{
@@ -94,7 +94,7 @@ const ColItem = ({
           initial={false}
           animate={{
             opacity: isActive ? 1 : 0,
-            y: isActive ? 0 : 16,
+            y: isActive ? 0 : "var(--impact-y)",
           }}
           transition={{
             opacity: {
@@ -108,9 +108,9 @@ const ColItem = ({
               delay: isActive ? 0.25 : 0,
             },
           }}
-          className="pt4 md:pt-[10px]"
+          className="md:pt-[10px] [--impact-y:24px] md:[--impact-y:16px]"
         >
-          <p className="text-white/80 text-16 font-[avenirBook] leading-[1.54] max-w-[507px] mx-auto px-30 3xl:px-5">
+          <p className="text-white/80 text-16 font-[avenirBook] leading-[1.54] max-w-[507px] mx-auto px-30 3xl:px-5 text-trim">
             {item.description}
           </p>
         </motion.div>
@@ -297,12 +297,12 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
       <div className="absolute top-120 md:top-130 left-1/2 -translate-x-1/2 z-20 container">
         <SectionHeading
           title={data.title}
-          className="text-white text-center pointer-events-none mb-20"
+          className="text-white text-center pointer-events-none mb-6 md:mb-20 content-spacing-mobile-padding"
         />
         {data.description && (
           <SectionDescription
             text={data.description}
-            className="text-white text-center max-w-[931px] mx-auto whitespace-pre-line"
+            className="text-white text-center max-w-[931px] mx-auto whitespace-pre-line content-spacing-mobile-padding"
           />
         )}
       </div>
@@ -371,7 +371,7 @@ export default function ImpactAreas({ data }: { data: ImpactAreas }) {
           ))}
         </Swiper>
         {/* Pagination Dots */}
-        <div className="flex gap-3 justify-center items-center z-[50] absolute bottom-[70px] md:bottom-70 left-1/2 -translate-x-1/2">
+        <div className="flex gap-3 justify-center items-center z-[50] absolute bottom-[50px] md:bottom-70 left-1/2 -translate-x-1/2">
           {data.items.map((_, i) => (
             <button
               key={i}

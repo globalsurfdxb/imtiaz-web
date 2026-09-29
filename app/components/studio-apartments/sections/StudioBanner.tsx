@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import Breadcrumb from "@/app/components/common/Breadcrumb";
 import { AnimatedHeading } from "@/app/components/animations/AnimateHeading";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 import Link from "next/link";
 
 interface InnerHeroProps {
@@ -165,10 +165,10 @@ const InnerHeroBanner = ({
       <div className="container relative lg:absolute lg:inset-0 flex items-center justify-center py-[120px] lg:py-0">
         <div className="w-full text-center">
           {/* delay prop fires blade animation after zoom-out nearly finishes */}
-          <div className={`${maxTitle} mx-auto`}>
+          <div className={`${maxTitle} mx-auto content-spacing-mobile-padding`}>
             <AnimatedHeading
               title={title}
-              className="mb-20 text-white"
+              className="mb-[22px] md:mb-20 text-white text-trim"
               mode="blade"
               delay={HEADING_DELAY}
             />
@@ -177,12 +177,12 @@ const InnerHeroBanner = ({
             <p
               ref={descRef}
               style={{ opacity: 0 }}
-              className={`text-white/80 text-description ${maxW} mx-auto text-center flex items-center justify-center px-30 xl:px-0 whitespace-pre-line`}
+              className={`text-white/80 text-description ${maxW} mx-auto text-center flex items-center justify-center whitespace-pre-line content-spacing-mobile-padding`}
               dangerouslySetInnerHTML={{ __html: description }} />
           )}
           <div
             ref={btnRef}
-            className="mt-[40px] md:mt-50 overflow-hidden flex justify-center w-full"
+            className="mt-[50px] overflow-hidden flex justify-center w-full"
           >
             <Link href={buttonLink}>
               <CustomOutlineButton

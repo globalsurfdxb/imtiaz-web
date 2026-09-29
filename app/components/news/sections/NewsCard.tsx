@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PressItem } from "../data";
 import { useParallax } from "@/app/hooks/useParallax";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
 
 const EventCard = ({ item }: { item: PressItem }) => {
   const { ref, parallaxY } = useParallax(15);
@@ -74,7 +74,7 @@ const EventCard = ({ item }: { item: PressItem }) => {
       </div>
 
       {/* Content */}
-      <div className="relative bg-[#EBEBEC] py-[30px] p-40 flex flex-col items-center gap-[20px] md:gap-20 overflow-hidden group">
+      <div className="relative bg-[#EBEBEC] py-5 sm:py-[30px] p-5 md:p-40 flex flex-col items-center gap-[18px] md:gap-20 overflow-hidden group">
         {/* white/30 fill animation */}
         <div className="absolute inset-0 bg-white/30 origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100" />
 

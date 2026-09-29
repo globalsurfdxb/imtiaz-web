@@ -11,15 +11,15 @@ import { SectionHeading } from "../../animations/SectionHeading";
 import { SectionDescription } from "../../animations/SectionDescription";
 
 type IconSliderData = {
- title:string;
- description:string;
- items:{
-  icon:string;
-  title:string;
- }[]
-}
+  title: string;
+  description: string;
+  items: {
+    icon: string;
+    title: string;
+  }[];
+};
 
-export default function IconSlider({data}:{data:IconSliderData}) {
+export default function IconSlider({ data }: { data: IconSliderData }) {
   const swiperRef = useRef<SwiperType | null>(null);
   const showPagination = data.items.length > 1;
 
@@ -37,7 +37,7 @@ export default function IconSlider({data}:{data:IconSliderData}) {
           }}
         />
         {/* Header */}
-        <div className="w-full flex-col gap-20 items-center justify-center text-center mb-[30px] md:mb-50">
+        <div className="w-full flex-col gap-20 items-center justify-center text-center mb-[30px] md:mb-50 content-spacing-mobile-padding">
           <SectionHeading
             title={data.title}
             className="mb-20 text-foreground max-w-[45ch] mx-auto"

@@ -4,9 +4,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
-import { InnovationPageResponse, sustainabilitySpotlight } from "../data";
-import CustomOutlineButton from "../../common/CustomOutlineButton";
-import SliderArrowButton from "../../common/SliderNavigationButton";
+import CustomOutlineButton from "../../common/CustomOutlineButton-v4";
+import SliderArrowButton from "../../common/SliderNavigationButton-v4";
 import { moveUp, itemVariants } from "../../motionVariants";
 
 export type SpotlightCardItem = {
@@ -15,7 +14,7 @@ export type SpotlightCardItem = {
   title: string;
   href: string;
   image: string;
-  mobileImage:string;
+  mobileImage: string;
   alt: string;
 };
 
@@ -26,7 +25,7 @@ function ImageTrack({
   className,
   pointerHandlers,
 }: {
-  slides: { image: string; alt: string; mobileImage:string; }[];
+  slides: { image: string; alt: string; mobileImage: string }[];
   targetRef: React.MutableRefObject<HTMLImageElement[]>;
   parallaxRef: React.MutableRefObject<HTMLDivElement | null>; // fix: allow null
   className: string;
@@ -61,8 +60,14 @@ function ImageTrack({
   );
 }
 
-export default function SustainabilitySpotlight({title,data}:{title:string;data:SpotlightCardItem[]}) {
-  const slides = data.slice(0,4);
+export default function SustainabilitySpotlight({
+  title,
+  data,
+}: {
+  title: string;
+  data: SpotlightCardItem[];
+}) {
+  const slides = data.slice(0, 4);
 
   const [current, setCurrent] = useState(0);
 
@@ -121,86 +126,96 @@ export default function SustainabilitySpotlight({title,data}:{title:string;data:
   );
 
   // ── Core go() ─────────────────────────────────────────────────────────────────
-const dTlRef = useRef<gsap.core.Timeline | null>(null);
-const mTlRef = useRef<gsap.core.Timeline | null>(null);
-const transitionIdRef = useRef(0);
+  const dTlRef = useRef<gsap.core.Timeline | null>(null);
+  const mTlRef = useRef<gsap.core.Timeline | null>(null);
+  const transitionIdRef = useRef(0);
 
-const go = useCallback(
-  (nextIdx: number, forcedDir?: 1 | -1) => {
-    if (nextIdx === currentIdxRef.current) return;
+  const go = useCallback(
+    (nextIdx: number, forcedDir?: 1 | -1) => {
+      if (nextIdx === currentIdxRef.current) return;
 
-    const prevIdx = currentIdxRef.current;
-    const dir: 1 | -1 = forcedDir ?? (nextIdx > prevIdx ? 1 : -1);
+      const prevIdx = currentIdxRef.current;
+      const dir: 1 | -1 = forcedDir ?? (nextIdx > prevIdx ? 1 : -1);
 
-    // Kill the actual timelines so their onComplete can never fire later
-    dTlRef.current?.kill();
-    mTlRef.current?.kill();
-    dTlRef.current = null;
-    mTlRef.current = null;
+      // Kill the actual timelines so their onComplete can never fire later
+      dTlRef.current?.kill();
+      mTlRef.current?.kill();
+      dTlRef.current = null;
+      mTlRef.current = null;
 
-    [...dImgsRef.current, ...mImgsRef.current].forEach((img) => {
-      if (img) gsap.killTweensOf(img);
-    });
-    settle(prevIdx);
-
-    currentIdxRef.current = nextIdx;
-    isAnimRef.current = true;
-    setCurrent(nextIdx);
-
-    // Any leftover callback from a previous, now-interrupted transition
-    // will see a mismatched id and no-op instead of clobbering state.
-    const myTransitionId = ++transitionIdRef.current;
-
-    const fromClip =
-      dir === 1 ? "inset(0% 0% 0% 100%)" : "inset(0% 100% 0% 0%)";
-
-    [dImgsRef.current[nextIdx], mImgsRef.current[nextIdx]].forEach((img) => {
-      if (img) gsap.set(img, { clipPath: fromClip, zIndex: 2, scale: 1.06 });
-    });
-
-    let dDone = false;
-    let mDone = false;
-
-    const onBothDone = () => {
-      if (transitionIdRef.current !== myTransitionId) return; // stale
-      if (!dDone || !mDone) return;
-      settle(nextIdx);
-      isAnimRef.current = false;
-    };
-
-    const animate = (
-      img: HTMLImageElement | undefined,
-      onDone: () => void,
-      storeTl: (tl: gsap.core.Timeline) => void,
-    ) => {
-      if (!img) {
-        onDone();
-        return;
-      }
-      const tl = gsap.timeline({
-        onComplete: () => {
-          if (transitionIdRef.current !== myTransitionId) return; // stale
-          onDone();
-        },
+      [...dImgsRef.current, ...mImgsRef.current].forEach((img) => {
+        if (img) gsap.killTweensOf(img);
       });
-      storeTl(tl);
-      tl.to(img, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.7, ease: "expo.inOut" });
-      tl.to(img, { scale: 1, duration: 1.4, ease: "power2.out" }, "<");
-    };
+      settle(prevIdx);
 
-    animate(
-      dImgsRef.current[nextIdx],
-      () => { dDone = true; onBothDone(); },
-      (tl) => (dTlRef.current = tl),
-    );
-    animate(
-      mImgsRef.current[nextIdx],
-      () => { mDone = true; onBothDone(); },
-      (tl) => (mTlRef.current = tl),
-    );
-  },
-  [slides, settle],
-);
+      currentIdxRef.current = nextIdx;
+      isAnimRef.current = true;
+      setCurrent(nextIdx);
+
+      // Any leftover callback from a previous, now-interrupted transition
+      // will see a mismatched id and no-op instead of clobbering state.
+      const myTransitionId = ++transitionIdRef.current;
+
+      const fromClip =
+        dir === 1 ? "inset(0% 0% 0% 100%)" : "inset(0% 100% 0% 0%)";
+
+      [dImgsRef.current[nextIdx], mImgsRef.current[nextIdx]].forEach((img) => {
+        if (img) gsap.set(img, { clipPath: fromClip, zIndex: 2, scale: 1.06 });
+      });
+
+      let dDone = false;
+      let mDone = false;
+
+      const onBothDone = () => {
+        if (transitionIdRef.current !== myTransitionId) return; // stale
+        if (!dDone || !mDone) return;
+        settle(nextIdx);
+        isAnimRef.current = false;
+      };
+
+      const animate = (
+        img: HTMLImageElement | undefined,
+        onDone: () => void,
+        storeTl: (tl: gsap.core.Timeline) => void,
+      ) => {
+        if (!img) {
+          onDone();
+          return;
+        }
+        const tl = gsap.timeline({
+          onComplete: () => {
+            if (transitionIdRef.current !== myTransitionId) return; // stale
+            onDone();
+          },
+        });
+        storeTl(tl);
+        tl.to(img, {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.7,
+          ease: "expo.inOut",
+        });
+        tl.to(img, { scale: 1, duration: 1.4, ease: "power2.out" }, "<");
+      };
+
+      animate(
+        dImgsRef.current[nextIdx],
+        () => {
+          dDone = true;
+          onBothDone();
+        },
+        (tl) => (dTlRef.current = tl),
+      );
+      animate(
+        mImgsRef.current[nextIdx],
+        () => {
+          mDone = true;
+          onBothDone();
+        },
+        (tl) => (mTlRef.current = tl),
+      );
+    },
+    [slides, settle],
+  );
 
   const goPrev = useCallback(() => {
     const i =
@@ -281,8 +296,11 @@ const go = useCallback(
   const slide = slides[current];
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#EBEBEC] py-120 3xl:py-130" 
-      data-header="dark">
+    <section
+      ref={sectionRef}
+      className="w-full bg-[#EBEBEC] py-120 3xl:py-130"
+      data-header="dark"
+    >
       <div className="container">
         {/* ══ MOBILE ══════════════════════════════════════════════════════════════ */}
         <div className="flex flex-col items-center lg:hidden">
@@ -291,7 +309,7 @@ const go = useCallback(
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="uppercase text-heading text-foreground mb-50 text-center"
+            className="uppercase text-heading text-foreground mb-6 md:mb-50 text-center text-trim content-spacing-mobile-padding"
           >
             {title}
           </motion.h2>
@@ -299,7 +317,7 @@ const go = useCallback(
           <AnimatePresence mode="wait">
             <motion.div
               key={slide.title}
-              className="flex flex-col items-center text-center mb-50"
+              className="flex flex-col items-center text-center mb-5 md:mb-50 content-spacing-mobile-padding"
             >
               <motion.span
                 custom={0}
@@ -307,7 +325,7 @@ const go = useCallback(
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-16 font-[avenirBook] text-foreground-light mb-20"
+                className="text-16 font-[avenirBook] text-foreground-light mb-6 text-trim"
               >
                 {slide.date}
               </motion.span>
@@ -317,7 +335,7 @@ const go = useCallback(
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-25 font-[optima] uppercase text-foreground line-clamp-2 leading-[1.2] mb-50 max-w-[598px]"
+                className="text-25 font-[optima] uppercase text-foreground line-clamp-2 leading-[1.2] mb-6 md:mb-50 max-w-[598px] text-trim"
               >
                 {slide.title}
               </motion.h3>
@@ -328,20 +346,20 @@ const go = useCallback(
                 animate="visible"
                 exit="exit"
               >
-                <Link  href={slide.href}  > 
-                        <CustomOutlineButton
-                            px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px] h-[44px] md:h-[50px]  xl:h-[66px]"
-                            text="Read More"
-                            borderColor="border-primary-2"
-                            textColor="text-primary-2"
-                            variant="dark"
-                          />  
-                          </Link>
+                <Link href={slide.href}>
+                  <CustomOutlineButton
+                    px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px] h-[44px] md:h-[50px]  xl:h-[66px]"
+                    text="Read More"
+                    borderColor="border-primary-2"
+                    textColor="text-primary-2"
+                    variant="dark"
+                  />
+                </Link>
               </motion.div>
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex items-center gap-[10px] mb-50">
+          <div className="flex items-center gap-[10px] mb-[50px]">
             {slides.map((_, i) => (
               <button
                 key={i}
@@ -368,14 +386,13 @@ const go = useCallback(
 
           <div className="flex justify-between md:justify-center gap-30 w-full">
             <Link href={"/media-center/news"}>
-            <CustomOutlineButton
-              variant="dark"
-              text="View All"
-              borderColor="border-primary-2"
-              textColor="text-primary-2"
-              px="px-[12px] sm:px-[26px]"
-              className="min-w-[139px] md:w-full"
-            />
+              <CustomOutlineButton
+                variant="dark"
+                text="View All"
+                borderColor="border-primary-2"
+                textColor="text-primary-2"
+                px="px-[12px] sm:px-[26px]"
+              />
             </Link>
             <div className="flex items-center gap-[15px]">
               <SliderArrowButton
@@ -450,15 +467,15 @@ const go = useCallback(
                         animate="show"
                         exit="exit"
                       >
-                        <Link  href={slide.href}  > 
-                        <CustomOutlineButton
+                        <Link href={slide.href}>
+                          <CustomOutlineButton
                             px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px] h-[44px] md:h-[50px]  xl:h-[66px]"
                             text="Read More"
                             borderColor="border-primary-2"
                             textColor="text-primary-2"
                             variant="dark"
-                          />  
-                          </Link>
+                          />
+                        </Link>
                       </motion.div>
                     </div>
                   </motion.div>
@@ -502,13 +519,13 @@ const go = useCallback(
                 exit="exit"
               >
                 <Link href={"/media-center/news"}>
-                <CustomOutlineButton
-                  variant="dark"
-                  text="View All"
-                  borderColor="border-primary-2"
-                  textColor="text-primary-2"
-                  px="px-[12px] lg:px-[20px] 3xl:px-[36.6px]"
-                />
+                  <CustomOutlineButton
+                    variant="dark"
+                    text="View All"
+                    borderColor="border-primary-2"
+                    textColor="text-primary-2"
+                    px="px-[12px] lg:px-[20px] 3xl:px-[36.6px]"
+                  />
                 </Link>
               </motion.div>
               <div className="flex items-center gap-[10px] 3xl:gap-[15px]">
