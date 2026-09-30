@@ -25,7 +25,7 @@ export default function VisionSection({data}:{data:VisionSectionData}) {
   // const { title, description, bgImage, bgImageMobile, stats } = visionSectionData;
 
   return (
-    <section data-header="dark" className="make   ">
+    <section data-header="dark" className="make">
       <div className="pt-[50px] pb-[50px] md:hidden">
         <div className="container text-center">
           <div className="content-spacing-mobile">
@@ -75,7 +75,8 @@ export default function VisionSection({data}:{data:VisionSectionData}) {
         {/* Content */}
         <div className="relative z-10 pt-[50px] md:pt-120 3xl:pt-130 pb-4 xl:pb-50 text-center flex flex-col justify-end md:justify-between items-center h-full container">
           {/* Title and Description */}
-          <div className="hidden md:block md:-mt-10 lg:-mt-8 2xl:-mt-5">
+          {/* <div className="hidden md:block md:-mt-10 lg:-mt-8 2xl:-mt-5"> */}
+          <div className="hidden md:block">
             <div>
               <SectionHeading
                 title={data.title}
