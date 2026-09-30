@@ -18,13 +18,18 @@ export default function AwardSection({
   bgImage,
   bgImagemob,
 }: Props) {
+  
   return (
     <section
       data-header="dark"
-      className="relative w-full overflow-hidden flex flex-col max-[640px]:h-[955px]"
+      // Tuning per breakpoint: --img-h = image height, --safe-line = line (from top) the description may never rise above
+      className="relative w-full overflow-hidden flex flex-col min-h-[var(--img-h)] bg-[#111316]
+        [--img-h:655px] [--safe-line:460px]
+        sm:[--img-h:980px] sm:[--safe-line:520px]
+        3xl:[--img-h:1140px] 3xl:[--safe-line:660px]"
     >
-      {/* Background Image */}
-      <div className="absolute top-0 left-0 right-0 bottom-[140px] sm:inset-0 z-0 overflow-hidden">
+      {/* Background Image — fixed height so it never scales with content */}
+      <div className="absolute top-0 inset-x-0 h-[var(--img-h)] z-0 overflow-hidden">
         <Image
           src={bgImage}
           alt="background"
@@ -37,10 +42,15 @@ export default function AwardSection({
           fill
           className="object-cover object-center max-[640px]:block hidden"
         />
+        {/* Darken the image bottom for text legibility, then fade into the section colour for when content extends past the image */}
+        <div
+          className="absolute bottom-0 inset-x-0 h-1/2"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 80%, #111316 100%)",
+          }}
+        />
       </div>
-
-      {/* Bottom spacer — mobile only */}
-      <div className="absolute bottom-0 inset-x-0 h-[140px] bg-[#111316] z-0 min-[640px]:hidden" />
 
       <div
         className="absolute inset-0 w-full"
@@ -50,9 +60,9 @@ export default function AwardSection({
         }}
       />
 
-      <div className="max-[640px]:flex flex-col justify-between h-full">
+      <div className="flex flex-1 flex-col justify-between">
         {/* Title block — top */}
-        <div className="relative z-10 flex flex-col items-center container pt-[50px] sm:pt-120 3xl:pt-130 mb-250 3xl:mb-[384px]">
+        <div className="relative z-10 flex flex-col items-center container pt-[50px] sm:pt-120 3xl:pt-130 min-h-[var(--safe-line)]">
           <SectionHeading
             title={title}
             className="max-w-[45ch] text-center min-[450px]:mb-20"
@@ -75,16 +85,7 @@ export default function AwardSection({
         </div>
 
         {/* Description block — bottom */}
-        <div className="relative z-20 w-full flex items-end h-[471px] max-[640px]:h-auto pb-[50px]">
-          {/* Dark overlay for text legibility — capped above the spacer on mobile so the spacer keeps its exact color */}
-          <div
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 90%)",
-            }}
-            className="absolute inset-0 max-[640px]:bottom-[140px]"
-          />
-
+        <div className="relative z-20 w-full pb-[50px]">
           <div className="relative mx-auto text-center container">
             <motion.div
               variants={moveUp(0.12)}
