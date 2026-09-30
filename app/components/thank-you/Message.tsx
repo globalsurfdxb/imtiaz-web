@@ -37,7 +37,7 @@ export default function ThankYouSection({ onClose }: ThankYouSectionProps) {
     return (
         <section
             ref={sectionRef}
-            className="w-full h-screen light-section py-120 3xl:py-160 flex items-center justify-center opacity-0"
+            className="w-full h-screen light-section py-120 3xl:py-130 flex items-center justify-center opacity-0"
         >
             <Image src={'/images/thank-you/bg.jpeg'} className="absolute inset-0" fill alt="bg-image"/>
 <div className="absolute inset-0 bg-black/50" />

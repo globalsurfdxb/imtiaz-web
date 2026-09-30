@@ -11,7 +11,7 @@ const MapOriginal = () => {
   const lng = parseFloat(longitude);
 
   return (
-    <section className="w-full h-[839px] py-120 3xl:py-160">
+    <section className="w-full h-[839px] py-120 3xl:py-130">
       {/* <div className=" flex flex-col justify-center">
         <div>
           <Image

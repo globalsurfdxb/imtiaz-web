@@ -13,7 +13,7 @@ const ExploreSpaces = ({
   data: TourListingItem[];
 }) => {
   return (
-    <section className="py-120 3xl:py-160" data-header="dark">
+    <section className="py-120 3xl:py-130" data-header="dark">
       <div className="container">
         <div className="flex flex-col justify-center items-center mb-[50px]">
           <SectionHeading

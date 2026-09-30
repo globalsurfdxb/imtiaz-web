@@ -102,7 +102,9 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
         {/* ================= TOP HERO SECTION ================= */}
         {/* <div className="w-full overflow-hidden pt-[40px] pb-[30px] md:py-[40px] lg:py-120 min-[1500px]:py-80 min-[1600px]:py-100 bg-primary-2"> */}
         <div className="w-full overflow-hidden bg-primary-2 pt-[80px]">
-          <div className="z-[20] h-full container flex flex-col md:flex-row md:justify-between items-center shrink-0">
+          {/* xl:pb-50 reserves room below the row (without affecting items-center inside it)
+              so the absolutely-positioned error message isn't clipped by this section's overflow-hidden */}
+          <div className="z-[20] h-full container flex flex-col md:flex-row md:justify-between items-center shrink-0 xl:pb-50">
             {/* Logo */}
             <motion.div
               variants={moveUp(0)}
@@ -121,9 +123,7 @@ const InnerFooter = ({ latestProjects, latestCommunities }: { latestProjects: La
               </Link>
             </motion.div>
             {/* Stay Updated */}
-            {/* xl:pb-50 reserves room below the row (without affecting items-center inside it)
-                so the absolutely-positioned error message isn't clipped by this section's overflow-hidden */}
-            <div className="w-full md:w-auto flex flex-col mt-12 md:mt-0 md:flex-row gap-5 xl:gap-10 items-center xl:pb-50">
+            <div className="w-full md:w-auto flex flex-col mt-12 md:mt-0 md:flex-row gap-5 xl:gap-10 items-center">
               <motion.p
                 className="text-19 font-[avenirBook] text-white uppercase leading-[1.5] text-trim"
               >

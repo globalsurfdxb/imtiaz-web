@@ -61,7 +61,7 @@ export default function Amenities({ data, maxTitle }: Props) {
   return (
     <section
       data-header="dark"
-      className="w-full py-[50px] lg:py-120 3xl:py-[140px] "
+      className="w-full py-[50px] lg:py-120 3xl:py-130 "
     >
       <div className="container flex flex-col justify-center">
         {/* Header */}

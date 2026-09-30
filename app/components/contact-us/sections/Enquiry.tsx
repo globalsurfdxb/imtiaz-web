@@ -221,7 +221,7 @@ export default function EnquirySection({
 
   return (
     <section
-      className="w-full light-section py-120 3xl:pt-130 3xl:pb-160"
+      className="w-full light-section py-120 3xl:pt-130 3xl:pb-130"
       data-header="dark"
     >
       <div className="container">

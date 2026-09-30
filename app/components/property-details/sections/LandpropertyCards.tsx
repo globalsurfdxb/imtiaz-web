@@ -24,7 +24,7 @@ const LandpropertyCards = ({data,community,property}:{data:PropertiesPageData['l
   return (
     <section className="w-full"
       data-header="dark">
-      <div className="container flex flex-col justify-center md:pt-100 pb-120 3xl:pb-160 md:border-t md:border-black/10">
+      <div className="container flex flex-col justify-center md:pt-100 pb-120 3xl:pb-130 md:border-t md:border-black/10">
         <div className="text-center">
           <SectionHeading
             title={LandpropertyData.title}

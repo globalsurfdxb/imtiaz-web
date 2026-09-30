@@ -109,7 +109,7 @@ export default function OffPlanBanner() {
 
   return (
     <section
-      className="w-full bg-white py-120 3xl:py-160"
+      className="w-full bg-white py-120 3xl:py-130"
       data-header="dark"
     >
       <div className="container">

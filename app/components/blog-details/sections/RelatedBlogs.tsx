@@ -27,7 +27,7 @@ const RelatedBlogs = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const { ref, parallaxY } = useParallax(15);
   return (
-    <section className="pb-120 3xl:pb-160 container" data-header="dark">
+    <section className="pb-120 3xl:pb-130 container" data-header="dark">
       <div className="border-t border-black/10 pt-[40px] md:pt-50">
         <SectionHeading
           title="Related Blogs"

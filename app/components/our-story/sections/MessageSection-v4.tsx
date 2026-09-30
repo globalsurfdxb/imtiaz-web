@@ -55,12 +55,11 @@ export default function MessageSection({ data }: Props) {
           <div className="w-full text-center px-5 md:px-0 pt-[50px] sm:pt-120 3xl:pt-130 sm:mb-20">
             <SectionHeading title={data.title} className="uppercase" />
           </div>
-          <div className="hidden sm:block mx-5 md:mx-0">
+          {/* <div className="hidden sm:block mx-5 md:mx-0">
             <div
               className="relative w-full max-w-[527px] mx-auto overflow-hidden "
               style={{ height: "1px" }}
             >
-              {/* Left half — draws leftward from center */}
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
@@ -72,7 +71,6 @@ export default function MessageSection({ data }: Props) {
                     "linear-gradient(90deg, rgba(23, 23, 23, 0) 0%, #171717 100%)",
                 }}
               />
-              {/* Right half — draws rightward from center */}
               <motion.div
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
@@ -85,7 +83,7 @@ export default function MessageSection({ data }: Props) {
                 }}
               />
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Main content area */}

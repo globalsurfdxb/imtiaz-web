@@ -86,7 +86,7 @@ export default function ThinkingThatDelivers({
   return (
     <section
       ref={sectionRef}
-      className="thinking-delivers w-full py-120 3xl:py-160"
+      className="thinking-delivers w-full py-120 3xl:py-130"
       data-header="dark"
     >
       <div className="container">

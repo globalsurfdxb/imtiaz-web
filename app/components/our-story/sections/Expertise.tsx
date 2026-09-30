@@ -5,7 +5,7 @@ import CustomOutlineButton from "../../common/CustomOutlineButton";
 import Link from "next/link";
 const Expertise = ({title,description,buttonText,buttonLink}:{title:string;description:string;buttonText:string;buttonLink:string;}) => {
   return (
-    <section data-header="dark" className="w-full py-120 3xl:pt-140 3xl:pb-160">
+    <section data-header="dark" className="w-full py-120 3xl:pt-140 3xl:pb-130">
       <div className="container mx-auto flex flex-col items-center">
         <SectionHeading
           title={title}

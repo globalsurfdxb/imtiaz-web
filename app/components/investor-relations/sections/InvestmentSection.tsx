@@ -59,7 +59,7 @@ export default function InvestmentSection({data}:{data:InvestmentAppealData}) {
   return (
     <section data-header="dark" className="w-full bg-white">
       {/* Top white header */}
-      <div className="container text-center pt-120 3xl:pt-160">
+      <div className="container text-center pt-120 3xl:pt-130">
         <SectionHeading
           title={data.sectionTitle}
           className="uppercase mb-6 md:mb-20 content-spacing-mobile-padding"

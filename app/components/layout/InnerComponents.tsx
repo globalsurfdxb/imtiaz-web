@@ -9,25 +9,27 @@ export default function InnerLayout({
   children,
   menuData,
   propertyData,
-  communityData
+  communityData,
 }: {
   children: React.ReactNode;
   menuData: any;
-  propertyData:any;
-  communityData:any;
+  propertyData: any;
+  communityData: any;
 }) {
   const { unlock } = useLenis();
 
   useEffect(() => {
     unlock();
   }, [unlock]);
-  
 
   return (
     <>
-      <InnerHeader menuData={menuData}/>
+      <InnerHeader menuData={menuData} />
       {children}
-      <InnerFooter latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []} latestCommunities={communityData?.data?.listing?.slice(0, 8) ?? []}/>
+      <InnerFooter
+        latestProjects={propertyData?.data?.listing?.slice(0, 6) ?? []}
+        latestCommunities={communityData?.data?.listing?.slice(0, 8) ?? []}
+      />
     </>
   );
 }

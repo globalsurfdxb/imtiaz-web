@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import NavPageV3 from "../common/NavPageV3-v4";
 import AuthSlider from "../auth/AuthSlider-v4";
@@ -15,95 +13,19 @@ import { useLenis } from "@/app/contexts/LenisContext";
 
 type AuthView = "login" | "signup";
 
-// Static version of HeaderWithHamburger-v4 — same final look (sizes, pill, gradient,
-// hide-on-scroll), without the intro GSAP animation.
+// Static version of HeaderWithHamburger-v4 without the intro GSAP animation.
+// Pinned at the top on all screens with a black gradient backdrop (no pill).
 const InnerHeader = ({ menuData }: { menuData: any }) => {
-  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showHeader, setShowHeader] = useState(true);
-  const [darkHeader, setDarkHeader] = useState(false);
   const [authView, setAuthView] = useState<AuthView | null>(null);
   const [mounted, setMounted] = useState(false);
   const closeAuth = () => setAuthView(null);
 
-  const lastScroll = useRef(0);
-  const { isProgrammaticScroll, lock, unlock } = useLenis();
+  const { lock, unlock } = useLenis();
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      ticking = false;
-      if (isProgrammaticScroll.current) return;
-
-      const current = Math.max(window.scrollY, 0);
-
-      // rubber-band guard: at/near top, always show, don't trust delta
-      if (current <= 0) {
-        setShowHeader(true);
-        lastScroll.current = 0;
-        return;
-      }
-
-      const delta = current - lastScroll.current;
-
-      if (Math.abs(delta) > 5) {
-        if (delta > 0 && current > 300) {
-          setShowHeader(false);
-        } else if (delta < 0) {
-          setShowHeader(true);
-        }
-        lastScroll.current = current;
-      }
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(handleScroll);
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isProgrammaticScroll]);
-
-  // Dark pill over sections marked .make-header-black / [data-header='dark']
-  useEffect(() => {
-    const targets = Array.from(
-      document.querySelectorAll<HTMLElement>(
-        ".make-header-black, [data-header='dark']",
-      ),
-    );
-    if (!targets.length) {
-      setDarkHeader(false);
-      return;
-    }
-
-    const HEADER_LINE = 80;
-
-    const evaluate = () => {
-      const isDark = targets.some((el) => {
-        const rect = el.getBoundingClientRect();
-        return rect.top <= HEADER_LINE && rect.bottom >= HEADER_LINE;
-      });
-      setDarkHeader(isDark);
-    };
-
-    const observer = new IntersectionObserver(evaluate, {
-      threshold: [0, 0.01, 0.25, 0.5, 0.75, 1],
-    });
-
-    targets.forEach((el) => observer.observe(el));
-
-    evaluate();
-
-    return () => observer.disconnect();
-  }, [pathname]);
 
   // Lock page scroll while the menu or auth modal is open
   useEffect(() => {
@@ -139,25 +61,13 @@ const InnerHeader = ({ menuData }: { menuData: any }) => {
     <>
       <div
         id="inner-header"
-        className={clsx(
-          "fixed w-full z-[999] left-1/2 -translate-x-1/2 transition-transform duration-500",
-          showHeader
-            ? "translate-y-0"
-            : // below md the header stays pinned at the top; md and up keeps the hide-on-scroll behaviour
-              "translate-y-0 md:-translate-y-full md:pointer-events-none",
-        )}
+        className="fixed top-0 w-full z-[999] left-1/2 -translate-x-1/2"
       >
-        {/* Black gradient backdrop for small screens (replaces the pill below md) */}
-        <div className="md:hidden pointer-events-none absolute top-0 left-0 w-full h-full z-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent"></div>
+        {/* Black gradient backdrop */}
+        <div className="pointer-events-none absolute top-0 left-0 w-full h-full z-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent"></div>
         <header className="w-full">
           <div className="container flex justify-center lg:!px-[15px]">
-            <div className="flex items-center justify-between md:rounded-[150px] md:py-[15px] md:px-20 xl:pl-30 w-full relative h-[75px] min-[375px]:h-[80px] md:h-[65px] lg:h-[75px] min-[1920px]:h-[80px] md:mt-5">
-              <div
-                className={clsx(
-                  "max-md:hidden backdrop-blur-[30px] absolute inset-0 rounded-[150px] z-[-1] transition-colors duration-500",
-                  darkHeader ? "bg-black/60" : "bg-white/10",
-                )}
-              ></div>
+            <div className="flex items-center justify-between w-full relative h-[75px] min-[375px]:h-[80px] md:h-[65px] lg:h-[80px] min-[1920px]:h-[85px]">
 
               {/* ------- LEFT MENU ------- */}
               <div className="flex items-center w-[35%] sm:w-[40%] 2xl:w-[33.33%]">

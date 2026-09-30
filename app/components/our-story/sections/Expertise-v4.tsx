@@ -15,7 +15,7 @@ const Expertise = ({
   buttonLink: string;
 }) => {
   return (
-    <section data-header="dark" className="w-full py-[50px] sm:py-120 3xl:pt-140 3xl:pb-160">
+    <section data-header="dark" className="w-full py-[50px] sm:py-120 3xl:py-130">
       <div className="container mx-auto">
         <div className="flex flex-col items-center content-spacing-mobile-padding">
           <SectionHeading title={title} className="text-foreground mb-6 md:mb-20" />

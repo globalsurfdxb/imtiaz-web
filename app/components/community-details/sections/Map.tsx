@@ -364,8 +364,8 @@ const MapOriginal = ({
   return (
     <section
       data-header="dark"
-      className={`w-full ${!pt ? "pt-0" : "pt-120 3xl:pt-160"
-        } pb-120 3xl:pb-160`}
+      className={`w-full ${!pt ? "pt-0" : "pt-120 3xl:pt-130"
+        } pb-120 3xl:pb-130`}
     >
       <div className="h-[488px] lg:h-[839px]">
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API as string}>

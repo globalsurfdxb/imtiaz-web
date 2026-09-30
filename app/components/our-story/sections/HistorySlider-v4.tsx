@@ -111,7 +111,7 @@ export default function HistorySection({
   return (
     <section
       data-header="dark"
-      className="w-full bg-white py-[50px] md:py-120 3xl:pt-130 3xl:pb-180 overflow-hidden"
+      className="w-full bg-white py-[50px] md:py-120 3xl:py-130 overflow-hidden"
     >
       {/* ── Header ── */}
       <div className="container text-center mb-[90px] max-md:mb-0 md:mb-150 lg:mb-50">
