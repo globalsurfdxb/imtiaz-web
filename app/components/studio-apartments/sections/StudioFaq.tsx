@@ -115,7 +115,7 @@ export default function StudioFaq({ data }: any) {
   if (faqItems.length === 0) return null;
 
   return (
-    <section className="w-full bg-white py-120 3xl:py-160" data-header="dark">
+    <section className="w-full bg-white py-120 3xl:py-130" data-header="dark">
       <div className="container">
         {/* Header */}
         <div className="w-full flex flex-col items-center text-center md:mb-[10px] content-spacing-mobile-padding">

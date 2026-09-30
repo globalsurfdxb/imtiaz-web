@@ -101,7 +101,7 @@ const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   return (
     <section
       ref={sectionRef}
-      className="w-full py-120 3xl:py-160 overflow-hidden"
+      className="w-full py-120 3xl:py-130 overflow-hidden"
       data-header="dark"
     >
       <div className="container text-center mb-[40px] md:mb-60">

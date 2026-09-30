@@ -422,7 +422,7 @@ const Main = ({ data }: { data: OffPlanPageData }) => {
       </div>
 
       {/* ── Cards / Map ── */}
-      <section className="w-full pb-120 3xl:pb-160">
+      <section className="w-full pb-120 3xl:pb-130">
         {view === "list" ? (
           <div className="flex flex-col justify-center container">
             <div className="text-center">

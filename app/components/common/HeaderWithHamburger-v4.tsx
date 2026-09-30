@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
-import clsx from "clsx";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -19,13 +18,10 @@ type AuthView = "login" | "signup";
 
 const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showHeader, setShowHeader] = useState(true);
-  const [darkHeader, setDarkHeader] = useState(false);
   const [authView, setAuthView] = useState<AuthView | null>(null);
   const [mounted, setMounted] = useState(false);
   const closeAuth = () => setAuthView(null);
 
-  const lastScroll = useRef(0);
   const headerRef = useRef<HTMLDivElement>(null);
   const [langPos, setLangPos] = useState({ top: 0, right: 0 });
   const langBtnRef = useRef<HTMLButtonElement>(null);
@@ -48,51 +44,12 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
 
 
   useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      const current = Math.max(window.scrollY, 0);
-
-      // rubber-band guard: at/near top, always show, don't trust delta
-      if (current <= 0) {
-        setShowHeader(true);
-        lastScroll.current = 0;
-        ticking = false;
-        return;
-      }
-
-      const delta = current - lastScroll.current;
-
-      if (Math.abs(delta) > 5) {
-        if (delta > 0 && current > 300) {
-          setShowHeader(false);
-        } else if (delta < 0) {
-          setShowHeader(true);
-        }
-        lastScroll.current = current;
-      }
-
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(handleScroll);
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
     const w = window.innerWidth;
     const vh = window.innerHeight;
 
     const getHeaderMetrics = (w: number) => {
-      if (w >= 1920) return { startH: "70px", endH: "40px", hdrcntsH: "80px" };
-      if (w >= 1024) return { startH: "65px", endH: "35px", hdrcntsH: "75px" };
+      if (w >= 1920) return { startH: "70px", endH: "40px", hdrcntsH: "85px" };
+      if (w >= 1024) return { startH: "65px", endH: "35px", hdrcntsH: "80px" };
       if (w >= 768) return { startH: "45px", endH: "30px", hdrcntsH: "65px" };
       if (w >= 375) return { startH: "40px", endH: "20px", hdrcntsH: "80px" };
       return { startH: "39px", endH: "20px", hdrcntsH: "75px" };
@@ -110,8 +67,8 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
       .to(".hdrcnts", { height: hdrcntsH, duration: 0.5 })
       .to(".hdrlgs svg", { height: endH, duration: 0.5 }, "<")
       .to(".ovrlyabg", { opacity: "0", duration: 0.6 })
-      .to(".bckbg", { height: "100%", duration: 0.6 }, "-=2")
-      .to(".bckbg", { height: "100%", width: "100%", duration: 0.8 })
+      // hold where the pill used to expand, so the icons keep their original timing
+      .to({}, { duration: 0.8 })
       .to(".ovrlyabg", { opacity: "0", zIndex: "-1", height: "0%" })
       .fromTo(
         ".mnhmns button",
@@ -119,7 +76,7 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
         { y: 0, opacity: 1, stagger: 0.2, duration: 1 },
         "-=0.8",
       )
-      // gradient backdrop (below md) fades in at the same time the hamburger appears
+      // gradient backdrop fades in at the same time the hamburger appears
       .to(".hdrgrad", { opacity: 1, duration: 1 }, "<")
       .fromTo(
         ".rgtbtn button",
@@ -128,40 +85,9 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
         "<",
       )
       .add(() => {
-        gsap.set(".bckbg", { height: hdrcntsH }); // matches hdrcnts exactly, no drift
         window.dispatchEvent(new Event("headerAnimationComplete"));
       });
   }, []);
-
-
-  useEffect(() => {
-  const targets = Array.from(
-    document.querySelectorAll<HTMLElement>(
-      ".make-header-black, [data-header='dark']",
-    ),
-  );
-  if (!targets.length) return;
-
-  const HEADER_LINE = 80;
-
-  const evaluate = () => {
-    const isDark = targets.some((el) => {
-      const rect = el.getBoundingClientRect();
-      return rect.top <= HEADER_LINE && rect.bottom >= HEADER_LINE;
-    });
-    setDarkHeader(isDark);
-  };
-
-  const observer = new IntersectionObserver(evaluate, {
-    threshold: [0, 0.01, 0.25, 0.5, 0.75, 1],
-  });
-
-  targets.forEach((el) => observer.observe(el));
-
-  evaluate();
-
-  return () => observer.disconnect();
-}, []);
 
 
   const [isMobile, setIsMobile] = useState(false);
@@ -180,28 +106,15 @@ const HeaderWithHamburger = ({ menuData }: { menuData: any }) => {
     <>
       <div
         id="header"
-        className={clsx(
-          "mnhdr fixed w-full z-[999] left-1/2 -translate-x-1/2 transition-transform duration-500",
-          showHeader
-            ? "translate-y-0"
-            : // below md the header stays pinned at the top; md and up keeps the hide-on-scroll behaviour
-              "translate-y-0 md:-translate-y-full md:pointer-events-none",
-        )}
+        className="mnhdr fixed top-0 w-full z-[999] left-1/2 -translate-x-1/2"
       >
         <div className="ovrlyabg bg-black/60 w-full h-[100dvh] z-0 absolute"></div>
-        {/* Black gradient backdrop for small screens (replaces the pill below md). Fades in with the logo via GSAP (.hdrgrad) */}
-        <div className="hdrgrad md:hidden pointer-events-none absolute top-0 left-0 w-full h-full opacity-0 z-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent"></div>
+        {/* Black gradient backdrop. Fades in with the icons via GSAP (.hdrgrad) */}
+        <div className="hdrgrad pointer-events-none absolute top-0 left-0 w-full h-full opacity-0 z-0 bg-gradient-to-b from-black/80 via-black/40 to-transparent"></div>
         {/* <header className="overflow-hidden w-full"> */}
         <header className="w-full">
           <div className="container flex justify-center  lg:!px-[15px]">
-            <div className="hdrcnts flex items-center justify-between md:rounded-[150px] md:py-[15px] md:px-20 xl:pl-30 w-full relative h-[100dvh] md:mt-5">
-              <div
-                className={clsx(
-                  // max-md:hidden removes the whole blurred pill below md — only icons + logo remain (a gradient stands in, see .hdrgrad)
-                  "bckbg max-md:hidden backdrop-blur-[30px] left-1/2 w-0 -translate-x-1/2 absolute rounded-[150px] z-[-1] transition-colors duration-500",
-                  darkHeader ? "bg-black/60" : "bg-white/10",
-                )}
-              ></div>
+            <div className="hdrcnts flex items-center justify-between w-full relative h-[100dvh]">
 
               {/* ------- LEFT MENU ------- */}
               <div className="flex items-center w-[35%] sm:w-[40%] 2xl:w-[33.33%] mnhmns">

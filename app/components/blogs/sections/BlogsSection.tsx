@@ -216,7 +216,7 @@ const blogTopics = useMemo(() => {
 
   return (
     <section
-      className="w-full bg-white pt-[50px] md:pt-70 pb-120 3xl:pb-160"
+      className="w-full bg-white pt-[50px] md:pt-70 pb-120 3xl:pb-130"
       data-header="dark"
     >
       <div className="container">

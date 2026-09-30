@@ -13,7 +13,7 @@ const Index = ({data}:{data:ConstructionProgressData}) => {
         maxTitle="max-w-[73ch]"
         maxW="max-w-[66ch]"
       />
-      <div className="py-120 3xl:pt-[100px] 3xl:pb-160">
+      <div className="py-120 3xl:pt-[100px] 3xl:pb-130">
         <Main data={data.listing}/>
       </div>
     </>

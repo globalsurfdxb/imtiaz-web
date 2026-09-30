@@ -22,7 +22,7 @@ const Index = ({ data }: { data: any }) => {
   return (
     <>
       <div
-        className={`${data?.gallery && Object.keys(data?.gallery).length > 0 ? "" : "pb-[70px] md:pb-120 3xl:pb-160"}`}
+        className={`${data?.gallery && Object.keys(data?.gallery).length > 0 ? "" : "pb-[70px] md:pb-120 3xl:pb-130"}`}
       >
         <EventHero title={data?.page_banner_title} />
       </div>

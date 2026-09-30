@@ -9,7 +9,7 @@ const DubaiResidence = ({title,description,subTitle}:{title:string,description:s
   // const { title, description, subtitle } = communitySectionData;
 
   return (
-    <section data-header="dark" className="w-full py-120 3xl:py-160">
+    <section data-header="dark" className="w-full py-120 3xl:py-130">
       <div className="container flex flex-col justify-center">
         {/* Header */}
         <div className="text-center content-spacing-mobile-padding">

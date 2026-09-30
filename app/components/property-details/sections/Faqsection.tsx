@@ -111,7 +111,7 @@ export default function Faq({title,description,data}:{title:string,description:s
 
   return (
     <section
-      className="w-full pt-120 3xl:pt-160 pb-120"
+      className="w-full pt-120 3xl:pt-130 pb-120"
       data-header="dark"
     >
       <div className="container">

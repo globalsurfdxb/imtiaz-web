@@ -22,7 +22,7 @@ const MeydanHorizon = ({title,description,subTitle,slug}:Props) => {
   });
 
   return (
-    <section className="w-full py-120 3xl:py-160"
+    <section className="w-full py-120 3xl:py-130"
       data-header="dark">
       <div className="container flex flex-col justify-center">
         {/* Header */}

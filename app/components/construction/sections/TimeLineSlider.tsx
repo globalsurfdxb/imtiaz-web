@@ -63,7 +63,7 @@ const jumpToYear = (index: number) => {
   return (
     <section
       data-header="dark"
-      className="w-full overflow-hidden bg-white py-120 2xl:pb-130"
+      className="w-full overflow-hidden bg-white py-120 3xl:py-130"
     >
       <div className="w-full flex-col gap-20 items-center justify-center text-center mb-[30px] md:mb-50 container">
         <SectionHeading

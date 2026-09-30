@@ -25,7 +25,7 @@ const MapOriginal = ({
   const lng = parseFloat(longitude);
 
   return (
-    <section data-header="dark" className="w-full pb-120 3xl:pb-160">
+    <section data-header="dark" className="w-full pb-120 3xl:pb-130">
       <div className="hidden md:block container">
         <SectionHeading
           title={title}

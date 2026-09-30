@@ -73,7 +73,7 @@ export default function ScrollingGallery({
 
   return (
     <section
-      className="w-full py-120 3xl:py-160 overflow-hidden"
+      className="w-full py-120 3xl:py-130 overflow-hidden"
       data-header="dark"
     >
       <div className="container text-center mb-[50px] md:mb-60">

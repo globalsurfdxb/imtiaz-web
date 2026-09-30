@@ -475,7 +475,7 @@ useEffect(() => {
       </div>
 
       {/* ── Cards / Map ── */}
-      <section className="w-full pb-120 3xl:pb-160" id="properties-list">
+      <section className="w-full pb-120 3xl:pb-130" id="properties-list">
         {view === "list" ? (
           <div className="flex flex-col justify-center container">
             <div className="text-center">

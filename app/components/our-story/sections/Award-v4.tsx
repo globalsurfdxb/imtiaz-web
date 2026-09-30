@@ -70,7 +70,7 @@ export default function AwardSection({
           {/* <h2 className="text-heading text-center text-trim" dangerouslySetInnerHTML={{ __html: title }} /> */}
 
           {/* Divider line */}
-          <motion.div
+          {/* <motion.div
             variants={moveUp(0)}
             initial="hidden"
             whileInView="show"
@@ -81,7 +81,7 @@ export default function AwardSection({
               background:
                 "linear-gradient(90deg, rgba(23, 23, 23, 0) 0%, #171717 50%, rgba(23, 23, 23, 0) 100%)",
             }}
-          />
+          /> */}
         </div>
 
         {/* Description block — bottom */}

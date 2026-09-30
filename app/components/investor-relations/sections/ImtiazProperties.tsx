@@ -124,7 +124,7 @@ const ImtiazProperties = ({
   return (
     <section
       data-header="dark"
-      className="make-header-black w-full py-120 3xl:py-160 bg-white z-10 relative"
+      className="make-header-black w-full py-120 3xl:py-130 bg-white z-10 relative"
     >
       <div className="container">
         <SectionHeading

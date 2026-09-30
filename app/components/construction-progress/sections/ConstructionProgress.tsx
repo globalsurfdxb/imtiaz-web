@@ -683,7 +683,7 @@ export default function ConstructionProgress({data}:{data:YearData[]}) {
 
   return (
     <section
-      className="w-full py-120 3xl:pb-160 3xl:pt-100"
+      className="w-full py-120 3xl:pb-130 3xl:pt-100"
       data-header="dark"
     >
       <div className="container mx-auto px-4 md:px-6">

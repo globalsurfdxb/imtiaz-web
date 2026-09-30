@@ -11,7 +11,7 @@ const decodeHtml = (html: string) => {
 
 const EventContent = ({ content }: { content: string }) => {
   return (
-    <section className="w-full bg-white pt-20 pb-120 3xl:pb-160" data-header="dark">
+    <section className="w-full bg-white pt-20 pb-120 3xl:pb-130" data-header="dark">
       <div className="container container-spacing-details-page">
         <motion.div
           variants={moveUp(0.1)}
