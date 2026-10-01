@@ -121,6 +121,8 @@ const ImtiazProperties = ({
     setIsEnd(swiper.isEnd);
   };
 
+  console.log("ImtiazProperties data:", data);
+
   return (
     <section
       data-header="dark"
@@ -160,7 +162,7 @@ const ImtiazProperties = ({
 
                 status: item.property_status,
 
-                location: "",
+                location: item.location,
 
                 title: item.title,
 
