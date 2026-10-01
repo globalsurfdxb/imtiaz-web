@@ -121,7 +121,6 @@ const ImtiazProperties = ({
     setIsEnd(swiper.isEnd);
   };
 
-  console.log("ImtiazProperties data:", data);
 
   return (
     <section
