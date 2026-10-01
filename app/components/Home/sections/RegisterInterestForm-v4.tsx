@@ -222,13 +222,10 @@ export default function RegisterInterestForm({
         <div className="mt-50 flex justify-center">
           <CustomOutlineButton
             text="Submit Enquire"
-            minWidth={false}
             onClick={() => {}}
-            className="h-[44px] md:h-[50px]  xl:h-[66px] 3xl:w-[247px]"
             variant="dark"
             textColor="text-black"
             borderColor="border-primary"
-            px="px-[25px] md:px-[36px] lg:px-[42px]"
           />
         </div>
       </form>

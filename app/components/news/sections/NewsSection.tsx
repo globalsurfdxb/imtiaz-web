@@ -354,10 +354,9 @@ const pressCategories = useMemo(() => {
                   text="Clear Filter"
                   onClick={clearFilters}
                   variant="dark"
-                  px="px-60"
                   borderColor="border-primary-2"
                   textColor="text-primary-2"
-                  className="w-full md:w-auto md:!py-5 h-[44px] lg:h-[50px] xl:h-[66px] uppercase"
+                  className="uppercase"
                 />
               )}
             </div>

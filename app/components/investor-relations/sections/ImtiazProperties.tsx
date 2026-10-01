@@ -196,9 +196,7 @@ const ImtiazProperties = ({
                 text="View All"
                 variant="dark"
                 borderColor="border-primary"
-                className="3xl:w-[171.97px] 3xl:h-[66.45px] h-[44px] md:h-[50px]  xl:h-[66px]"
                 textColor="text-primary"
-                px="px-[30px] 3xl:px-[36.6px]"
               />
             </Link>
           </motion.div>

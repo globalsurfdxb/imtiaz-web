@@ -127,7 +127,7 @@ const CommunityCard = ({ card }: { card: CommunityCardType }) => {
               >
                 <CustomOutlineButton
                   text="View Community"
-                  px="px-[30px] h-[44px] md:h-[50px]  xl:h-[66px] w-fit mx-auto"
+                  px="mx-auto"
                   borderColor="border-primary-2"
                   textColor="text-foreground-light"
                   variant="dark"

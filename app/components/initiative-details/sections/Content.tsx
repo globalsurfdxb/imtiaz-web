@@ -36,7 +36,6 @@ const Content = ({ content,sourceUrl }: { content: string,sourceUrl:string }) =>
           text="Source"
           borderColor="border-primary-2"
           textColor="text-primary-2"
-          px="px-[12px] lg:px-[20px] 3xl:px-[36.6px] h-[47px]"
           readMore
         />
       </Link>

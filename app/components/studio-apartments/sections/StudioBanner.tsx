@@ -188,7 +188,6 @@ const InnerHeroBanner = ({
               <CustomOutlineButton
                 text={buttonText}
                 className="capitalize"
-                px="px-[22px] sm:px-[25px] xl:px-[33px]"
               />
             </Link>
           </div>

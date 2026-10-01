@@ -59,9 +59,9 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
   return (
     <section
       data-header="dark"
-      className={`make-header-black w-full h-[100svh] bg-white z-10 relative flex items-start sm:items-center justify-center`}
+      className={`make-header-black w-full h-[100svh] bg-white z-10 relative flex items-start justify-center`}
     >
-      <div className="container max-sm:pt-[130px]">
+      <div className="container pt-[110px] sm:pt-120 2xl:pt-[130px]">
         <div className="">
           <motion.h2
             variants={moveUp(0.2)}
@@ -118,7 +118,6 @@ const ImtiazProperties = ({ data, title, className }: ImtiazPropertiesData) => {
                 variant="dark"
                 borderColor="border-foreground sm:border-primary-2"
                 textColor="text-foreground sm:text-primary-2"
-                px="px-10 xl:px-[37px] h-[44px] md:h-[50px]  xl:h-[66px]"
               />
             </Link>
           </motion.div>

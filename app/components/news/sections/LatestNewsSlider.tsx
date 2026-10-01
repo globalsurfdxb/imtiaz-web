@@ -147,7 +147,6 @@ const LatestNewsSlider = ({ news }: { news: PressItem[] }) => {
                   <CustomOutlineButton
                     text="Read More"
                     borderColor="border-white/90"
-                    px="h-[44px] md:h-[50px] xl:h-[66px] px-[29px] md:px-[12px] lg:px-[22px] 3xl:px-[36.6px]"
                   />
                 </Link>
               </motion.div>

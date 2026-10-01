@@ -213,8 +213,6 @@ export default function ProjectCard({
               >
                 <CustomOutlineButton
                   text="View Property"
-                  px="py-[16px] px-[29.4px] sm:px-[20px] lg:px-[25px] 2xl:px-[30px] 3xl:px-10"
-                  className=" "
                 />
               </Link>
             </div>
@@ -285,7 +283,6 @@ export default function ProjectCard({
               >
                 <CustomOutlineButton
                   text="View Property"
-                  px="px-[20px] lg:px-[25px] 2xl:px-[30px] 3xl:px-10"
                   className="mx-auto translate-y-2 transition-all duration-300 delay-100 cursor-pointer flex items-center justify-center relative overflow-hidden"
                 />
               </Link>

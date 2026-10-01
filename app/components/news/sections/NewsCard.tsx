@@ -90,7 +90,6 @@ const EventCard = ({ item }: { item: PressItem }) => {
             text="Read More"
             borderColor="border-primary-2"
             textColor="text-primary-2"
-            px="px-[12px] lg:px-[20px] 3xl:px-[36.6px] h-[47px]"
             readMore
           />
 

@@ -145,8 +145,6 @@ export default function Cardconstruction({
                 >
                   <CustomOutlineButton
                     text="View Progress"
-                    px="py-[16px] px-[29.4px] sm:px-[20px] lg:px-[25px] 2xl:px-[30px] 3xl:px-10"
-                    className="h-[44px] md:h-[50px]  xl:h-[66px]"
                   />
                 </Link>
               )}

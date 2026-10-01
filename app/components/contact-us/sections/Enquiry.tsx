@@ -594,7 +594,6 @@ export default function EnquirySection({
                     text={submitLoading ? "Submitting..." : "Enquire"}
                     textColor="text-foreground-light"
                     borderColor="border-foreground-light"
-                    px="px-50 2xl:py-[23px] 2xl:px-[90.5px] h-[44px] md:h-[50px] xl:h-[66px]"
                   />
                 </div>
               </form>

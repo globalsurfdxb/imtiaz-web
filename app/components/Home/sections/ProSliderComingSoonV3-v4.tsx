@@ -567,17 +567,17 @@ export default function HeroSlider({
               </div>
 
               {/* -------------------------------- TOP AREA -------------------------------- */}
-              <div className="container px-4 md:px-6 lg:px-10 w-full overflow-hidden flex flex-col items-center justify-center">
+              <div className="container px-4 md:px-6 lg:px-10 w-full overflow-hidden flex flex-col items-center justify-center lg:h-full lg:pt-120 3xl:pt-130 lg:pb-[67px]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`top-${activeIndex}`}
                     initial="hidden"
                     animate={inView ? "show" : "hidden"}
                     exit="exit"
-                    className="flex flex-col justify-between items-center content-spacing-mobile-padding"
+                    className="flex flex-col justify-between items-center content-spacing-mobile-padding lg:h-full"
                   >
                     {/* Title */}
-                    <div className="flex gap-2 lg:flex-col lg:gap-0">
+                    <div className="flex gap-2 lg:gap-4">
                       <div className="overflow-hidden">
                         <motion.h1
                           variants={fadeUp}
@@ -591,7 +591,7 @@ export default function HeroSlider({
                         </motion.h1>
                       </div>
 
-                      <div className="overflow-hidden mb-6 md:mb-20">
+                      <div className="overflow-hidden mb-6 md:mb-20 lg:mb-0">
                         <motion.h1
                           variants={fadeUp}
                           // custom={0.3}
@@ -604,43 +604,46 @@ export default function HeroSlider({
                         </motion.h1>
                       </div>
                     </div>
-                    <div className="overflow-hidden">
-                      <motion.h1
-                        variants={fadeUp}
-                        // custom={0.3}
-                        custom={0.2}
-                        initial="hidden"
-                        animate={inView ? "show" : "hidden"}
-                        className="text-white text-description text-center max-w-[40ch] mx-auto text-trim"
-                      >
-                        {caption}
-                      </motion.h1>
-                    </div>
+                    {/* Description + button (bottom on lg) */}
+                    <div className="flex flex-col items-center">
+                      <div className="overflow-hidden">
+                        <motion.h1
+                          variants={fadeUp}
+                          // custom={0.3}
+                          custom={0.2}
+                          initial="hidden"
+                          animate={inView ? "show" : "hidden"}
+                          className="text-white text-description text-center max-w-[40ch] mx-auto text-trim"
+                        >
+                          {caption}
+                        </motion.h1>
+                      </div>
 
-                    <motion.div
-                      key={`btns-${activeIndex}`}
-                      initial="hidden"
-                      animate={inView ? "show" : "hidden"}
-                      exit="exit"
-                      className="flex gap-4 mt-5 md:mt-15 font-[avenirRoman] overflow-hidden"
-                    >
                       <motion.div
-                        variants={fadeUp}
-                        // custom={0.3}
-                        custom={0.23}
+                        key={`btns-${activeIndex}`}
                         initial="hidden"
                         animate={inView ? "show" : "hidden"}
+                        exit="exit"
+                        className="flex gap-4 mt-5 md:mt-15 font-[avenirRoman] overflow-hidden"
                       >
-                        <Link href={url} target="_blank">
-                          <CustomOutlineButton
-                            text={buttonText}
-                            borderColor="border-white"
-                            textColor="text-white"
-                            px="px-[30px] md:px-[25px] h-[44px] md:h-[50px]  xl:h-[66px] !leading-[1.58]"
-                          />
-                        </Link>
+                        <motion.div
+                          variants={fadeUp}
+                          // custom={0.3}
+                          custom={0.23}
+                          initial="hidden"
+                          animate={inView ? "show" : "hidden"}
+                        >
+                          <Link href={url} target="_blank">
+                            <CustomOutlineButton
+                              text={buttonText}
+                              borderColor="border-white"
+                              textColor="text-white"
+                              px="!leading-[1.58]"
+                            />
+                          </Link>
+                        </motion.div>
                       </motion.div>
-                    </motion.div>
+                    </div>
                   </motion.div>
                 </AnimatePresence>
               </div>

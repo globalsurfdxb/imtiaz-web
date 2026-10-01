@@ -30,8 +30,8 @@ const arrowIconClass =
         onClick={onClick}
         disabled={disabled}
         aria-disabled={disabled}
-        // v4: below `md` the round nav button is locked to 32px. `md` and up unchanged.
-        className={`relative w-[50px] h-[50px] max-md:w-[32px] max-md:h-[32px] 3xl:w-[62px] 3xl:h-[62px] group rounded-[50px] flex items-center justify-center overflow-hidden transition-opacity duration-300 ${isDark ? "border border-[#404040]" : "border border-white"} ${disabled ? "opacity-30 cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}
+        // v4: 32px below `md`, 50px from `md` up — same height as CustomOutlineButton-v4.
+        className={`relative w-[32px] h-[32px] md:w-[50px] md:h-[50px] shrink-0 group rounded-[50px] flex items-center justify-center overflow-hidden transition-opacity duration-300 ${isDark ? "border border-[#404040]" : "border border-white"} ${disabled ? "opacity-30 cursor-not-allowed pointer-events-none" : "cursor-pointer"}`}
       >
         {/* Hover fill */}
         <span
@@ -43,7 +43,7 @@ const arrowIconClass =
           alt={isNext ? "Next" : "Previous"}
           width={28}
           height={28}
-          className={`relative z-10 object-contain 3xl:w-[28px] 3xl:h-[28px] lg:w-[22px] lg:h-[22px] w-[21px] h-[21px] max-md:w-[14px] max-md:h-[14px] transition-all duration-300 ${isNext ? "rotate-180" : ""} ${arrowIconClass}`}
+          className={`relative z-10 object-contain w-[14px] h-[14px] md:w-[21px] md:h-[21px] lg:w-[22px] lg:h-[22px] transition-all duration-300 ${isNext ? "rotate-180" : ""} ${arrowIconClass}`}
         />
       </button>
     );

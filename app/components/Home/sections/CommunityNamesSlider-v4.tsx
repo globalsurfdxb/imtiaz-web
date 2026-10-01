@@ -629,7 +629,7 @@ export default function HeroFeatureSlider({
       />
 
       {/* Heading */}
-      <div className="container pt-[130px] md:pt-120 2xl:pt-[130px] relative z-10">
+      <div className="container pt-[110px] md:pt-120 3xl:pt-130 relative z-10">
         <motion.div className="flex items-center justify-center relative">
           <motion.div
             className="max-w-[1150px] w-full text center"
@@ -783,7 +783,6 @@ export default function HeroFeatureSlider({
                                   text="Read More"
                                   borderColor="border-white"
                                   textColor="text-white"
-                                  px="h-[44px] md:h-[50px]  xl:h-[66px] px-[30px] md:px-[37px]"
                                 />
                               </Link>
                             </div>

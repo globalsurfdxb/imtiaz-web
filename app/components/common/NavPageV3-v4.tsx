@@ -1816,7 +1816,7 @@ function MobileMegaMenu({
                     text={item.label}
                     borderColor="border-white"
                     textColor="text-white"
-                    px="px-[18px] h-[50px] !leading-[1.58]"
+                    px="!leading-[1.58]"
                     className="!text-[12px] lg:!text-[19px]"
                   />
                 </div>
@@ -2361,7 +2361,7 @@ function DesktopMegaMenu({
                         text={item.label}
                         borderColor="border-white"
                         textColor="text-white"
-                        px="px-[18px] sm:px-[20px] 2xl:px-[36px] h-[44px] 2xl:h-[50px] xl:h-[66px] !leading-[1.58]"
+                        px="!leading-[1.58]"
                         className="!text-[12px] lg:!text-[19px]"
                       />
                     </div>
@@ -2440,7 +2440,7 @@ function DesktopMegaMenu({
                     onClick={() => setIsMenuOpen?.(false)}
                     borderColor="border-white"
                     textColor="text-white"
-                    px="px-[18px] sm:px-[20px] 2xl:px-[36px] h-[44px] md:h-[50px] xl:h-[66px] !leading-[1.58]"
+                    px="!leading-[1.58]"
                     className="!text-[12px] lg:!text-[19px]"
                   />
                 </Link>}

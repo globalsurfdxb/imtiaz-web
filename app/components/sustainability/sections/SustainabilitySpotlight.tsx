@@ -348,7 +348,6 @@ export default function SustainabilitySpotlight({
               >
                 <Link href={slide.href}>
                   <CustomOutlineButton
-                    px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px] h-[44px] md:h-[50px]  xl:h-[66px]"
                     text="Read More"
                     borderColor="border-primary-2"
                     textColor="text-primary-2"
@@ -391,7 +390,6 @@ export default function SustainabilitySpotlight({
                 text="View All"
                 borderColor="border-primary-2"
                 textColor="text-primary-2"
-                px="px-[12px] sm:px-[26px]"
               />
             </Link>
             <div className="flex items-center gap-[15px]">
@@ -469,7 +467,6 @@ export default function SustainabilitySpotlight({
                       >
                         <Link href={slide.href}>
                           <CustomOutlineButton
-                            px="py-[16px] px-[33px] lg:px-[23px] 3xl:px-[48px] 3xl:py-[23px] h-[44px] md:h-[50px]  xl:h-[66px]"
                             text="Read More"
                             borderColor="border-primary-2"
                             textColor="text-primary-2"
@@ -524,7 +521,6 @@ export default function SustainabilitySpotlight({
                     text="View All"
                     borderColor="border-primary-2"
                     textColor="text-primary-2"
-                    px="px-[12px] lg:px-[20px] 3xl:px-[36.6px]"
                   />
                 </Link>
               </motion.div>

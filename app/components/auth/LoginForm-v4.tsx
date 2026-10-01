@@ -188,7 +188,6 @@ export default function LoginForm({ onClose, onSwitch }: LoginFormProps) {
 
           {/* Submit */}
           <CustomOutlineButton
-            className="w-full"
             text="LOG IN"
             borderColor="border-primary-2"
             textColor="text-foreground-light"

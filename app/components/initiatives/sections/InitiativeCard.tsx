@@ -46,7 +46,7 @@ export default function InitiativeCard({ title, link, image, mobileImage }: Init
           <div className="flex justify-center">
             <CustomOutlineButton
               text="Read More"
-              className="!py-[17px] md:!py-5 h-[44px] md:h-[50px]  xl:h-[66px] uppercase"
+              className="uppercase"
             />
           </div>
         </div>

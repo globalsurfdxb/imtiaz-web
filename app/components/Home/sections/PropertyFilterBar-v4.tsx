@@ -256,8 +256,7 @@ const PropertySearchBar = ({
       </button>  */}
           <Link href={href}>
             <CustomOutlineButton
-              className="w-fit "
-              px="!px-4 !py-3 !text-19 xl:!px-[45px] xl:!py-5 h-[44px] md:h-[50px]  xl:h-[66px] mt-5 lg:mt-0"
+              px="!text-19"
               text="Search Properties"
               borderColor="white"
               textColor="text-white"
