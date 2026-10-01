@@ -567,14 +567,14 @@ export default function HeroSlider({
               </div>
 
               {/* -------------------------------- TOP AREA -------------------------------- */}
-              <div className="container px-4 md:px-6 lg:px-10 w-full overflow-hidden flex flex-col items-center justify-center lg:h-full lg:pt-120 3xl:pt-130 lg:pb-[67px]">
+              <div className="container px-4 md:px-6 lg:px-10 w-full overflow-hidden flex flex-col items-center justify-center">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`top-${activeIndex}`}
                     initial="hidden"
                     animate={inView ? "show" : "hidden"}
                     exit="exit"
-                    className="flex flex-col justify-between items-center content-spacing-mobile-padding lg:h-full"
+                    className="flex flex-col justify-center items-center content-spacing-mobile-padding"
                   >
                     {/* Title */}
                     <div className="flex gap-2 lg:gap-4">
@@ -591,7 +591,7 @@ export default function HeroSlider({
                         </motion.h1>
                       </div>
 
-                      <div className="overflow-hidden mb-6 md:mb-20 lg:mb-0">
+                      <div className="overflow-hidden mb-6 md:mb-20">
                         <motion.h1
                           variants={fadeUp}
                           // custom={0.3}
