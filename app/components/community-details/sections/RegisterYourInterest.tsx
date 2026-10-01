@@ -249,13 +249,10 @@ export default function RegisterYourInterest() {
             >
               <CustomOutlineButton
                 text="Submit Enquire"
-                minWidth={false}
                 onClick={() => {}}
-                className="h-[44px] md:h-[50px]  xl:h-[66px]"
                 variant="dark"
                 textColor="text-foreground-light"
                 borderColor="border-primary-2"
-                px="px-[30px] md:px-60 2xl:px-[54.22px] 2xl:py-[23px]"
               />
             </motion.div>
           </form>

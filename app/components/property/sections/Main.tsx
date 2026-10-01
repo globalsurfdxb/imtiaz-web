@@ -342,10 +342,9 @@ useEffect(() => {
                     text="Clear Filter"
                     onClick={clearFilters}
                     variant="dark"
-                    px="px-60"
                     borderColor="border-primary-2"
                     textColor="text-foreground-light"
-                    className="w-full md:w-auto md:!py-5 h-[44px] md:h-[50px] xl:h-[66px] uppercase"
+                    className="uppercase"
                   />
                 )}
               </div>

@@ -68,7 +68,7 @@ const ConstructionProgress: React.FC<ConstructionProgressProps> = ({
             <Link href={url}>
               <CustomOutlineButton
                 text={buttonText}
-                px="px-[30px] 3xl:px-[40.4px] mx-auto h-[44px] md:h-[50px]  xl:h-[66px]"
+                px="mx-auto"
               />
             </Link>
           </div>

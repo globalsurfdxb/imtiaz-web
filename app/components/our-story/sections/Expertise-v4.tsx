@@ -29,8 +29,6 @@ const Expertise = ({
               borderColor="border-foreground sm:border-primary-2"
               variant="dark"
               textColor="text-foreground sm:text-primary-2"
-              className="h-[44px] md:h-[50px]  xl:h-[66px]"
-              px="px-[30px] lg:w-auto"
             />
           </Link>
         </div>

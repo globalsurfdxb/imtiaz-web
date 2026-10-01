@@ -559,7 +559,6 @@ export default function EnquirySection() {
                   text="Submit Enquire"
                   textColor="text-white"
                   borderColor="border-white"
-                  px="px-[32.2px] md:px-50 h-[44px] md:h-[50px]  xl:h-[66px]" 
                 />
               </form>
             </div>

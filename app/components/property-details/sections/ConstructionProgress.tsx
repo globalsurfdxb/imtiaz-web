@@ -310,7 +310,7 @@ export default function WynwoodProgress({
               >
                 <Link href={`/construction-progress-listing/${slug}` || "#"}>
                   <CustomOutlineButton
-                    className="w-fit  mx-auto 2xl:!px-[57.1px] 2xl:!py-[22.5px] px-[30px] h-[44px] md:h-[50px]  xl:h-[66px] "
+                    className="mx-auto"
                     text={construction_button_text || "Construction Updates"}
                     borderColor="border-primary"
                     textColor="text-primary"

@@ -10,7 +10,6 @@ interface OutlineButtonProps {
   onClick?: () => void;
   variant?: "light" | "dark";
   className?: string;
-  minWidth?: boolean;
   readMore?:boolean;
 
 }
@@ -21,10 +20,9 @@ const CustomOutlineButton = ({
   text,
   borderColor = "border-white/90",
   textColor = "text-white",
-  px = "px-10",
+  px = "",
   onClick,
   variant = "light",
-  minWidth = true,
   readMore
 }: OutlineButtonProps) => {
   const fillColor = variant === "dark" ? "bg-primary-2" : "bg-white/10";
@@ -40,10 +38,9 @@ const CustomOutlineButton = ({
       onClick={onClick}
       onMouseDown={handlePress}
       onTouchStart={handlePress}
-      // v4: below `md` the button is locked to 32px height / 16px horizontal
-      // padding via `max-md:` overrides. `md` and up stay identical to the
-      // original CustomOutlineButton.
-      className={`cursor-pointer flex items-center justify-center group relative transition-all duration-300 overflow-hidden ${px} py-[14px] lg:py-4 2xl:py-[19px] 3xl:py-[20.62px] max-md:h-[32px] max-md:py-0 max-md:px-[16px] rounded-full border ${borderColor} ${textColor} font-[avenirBook] leading-[100%] ${className} ${readMore ? "text-[12px] md:text-[16px]" : "text-[12px] md:text-[16px] md:text-[19px]" }`}
+      // v4: height is locked (32px below `md`, 50px from `md` up) so it always
+      // matches SliderNavigationButton-v4; `!` wins over heights passed via `px`.
+      className={`cursor-pointer flex items-center justify-center group relative transition-all duration-300 overflow-hidden !py-0 !h-[32px] md:!h-[50px] px-[16px] md:px-[30px] ${px} rounded-full border ${borderColor} ${textColor} font-[avenirBook] leading-[100%] ${className} ${readMore ? "text-[12px] md:text-[16px]" : "text-[12px] md:text-[16px] md:text-[19px]" }`}
       style={{ transform: pressed ? "scale(0.95)" : "scale(1)" }}
     >
       {/* Left fill */}
@@ -57,7 +54,7 @@ const CustomOutlineButton = ({
           className={`absolute inset-y-0 right-0 w-[50%] ${fillColor} transform scale-x-0 origin-right transition-transform duration-300 ease-out group-hover:scale-x-100`}
         />
         <span
-          className={`shrink-0 relative z-10 transition-colors duration-300 font-normal ${minWidth ? "md:min-w-[98px]" : ""} inline-block text-center ${variant === "dark" ? "group-hover:text-white" : ""}`}
+          className={`shrink-0 relative z-10 transition-colors duration-300 font-normal inline-block text-center ${variant === "dark" ? "group-hover:text-white" : ""}`}
         >
           {text}
         </span>

@@ -45,7 +45,7 @@ const EventCard = ({ item }: { item: EventItem }) => {
           <h3 className="text-white uppercase text-25 font-[optima] tracking-[2%] leading-[1.4] mb-5 md:mb-40 text-center line-clamp-2">
             {item.title}
           </h3>
-          <CustomOutlineButton text="Read More" px="px-[30px] md:px-[12px] lg:px-[20px] 3xl:px-[36.6px] h-[44px] md:h-[50px]  xl:h-[66px]"/>
+          <CustomOutlineButton text="Read More" />
         </div>
       </div>
     </Link>

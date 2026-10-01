@@ -248,7 +248,6 @@ export default function SignupForm({ onClose, onSwitch }: SignupFormProps) {
 
           {/* Submit */}
           <CustomOutlineButton
-            className="w-full"
             text="SIGN UP"
             borderColor="border-primary-2"
             textColor="text-foreground-light"

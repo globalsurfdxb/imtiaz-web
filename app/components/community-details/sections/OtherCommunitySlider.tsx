@@ -236,7 +236,7 @@ export default function CommunitySlider({
           >
             <Link href={"/communities"}>
               <CustomOutlineButton
-                className="w-fit mx-auto 2xl:!px-[35.5px] 2xl:!py-[22.5px] px-[30px] h-[44px] md:h-[50px]  xl:h-[66px]"
+                className="mx-auto"
                 text="View All"
                 borderColor="border-primary-2"
                 textColor="text-primary-2"
@@ -293,7 +293,6 @@ export default function CommunitySlider({
                   >
                     <Link href={`${slide.slug}`}>
                       <CustomOutlineButton
-                        className="px-[30px] py-2 h-[44px] md:h-[50px]  xl:h-[66px]"
                         text="View Community"
                         borderColor="border-white/80"
                         textColor="text-white"
@@ -363,7 +362,6 @@ export default function CommunitySlider({
                       >
                         <Link href={`${slide.slug}`} onClick={(e) => e.stopPropagation()}>
                           <CustomOutlineButton
-                            className="px-[30px] py-2 h-[44px] md:h-[50px] xl:h-[66px]"
                             text="View Community"
                             borderColor="border-white/80"
                             textColor="text-white"
@@ -465,7 +463,6 @@ export default function CommunitySlider({
                     <div>
                       <Link href={`${slide.slug}`} onClick={(e) => e.stopPropagation()}>
                         <CustomOutlineButton
-                          className="2xl:!px-[41px] 2xl:!py-[22.5px]"
                           text="View Community"
                           borderColor="border-white/80"
                           textColor="text-white"

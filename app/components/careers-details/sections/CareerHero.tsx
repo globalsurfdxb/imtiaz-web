@@ -65,7 +65,7 @@ const CareerHero = ({ jobDescription }: Props) => {
             >
               <CustomOutlineButton
                 onClick={() => setAuthView("career")}
-                className="w-fit uppercase 3xl:py-[23px] px-[30px] 3xl:px-[46px] h-[44px] md:h-[50px]  xl:h-[66px] 3xl:w-[204.11px]"
+                className="uppercase"
                 text="Apply now"
                 borderColor="border-primary-2"
                 textColor="text-foreground-light"

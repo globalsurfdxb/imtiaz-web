@@ -83,7 +83,6 @@ export default function HeroSection({video,title,description,buttonText,url}:{vi
                 text={buttonText}
                 borderColor="border-white"
                 textColor="text-white"
-                px="h-[44px] md:h-[50px]  xl:h-[66px] px-[30px] md:px-[37px]"
               />
             </Link>
           </div>

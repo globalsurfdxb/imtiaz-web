@@ -214,10 +214,9 @@ export default function VacanciesSection({
                 text="Clear Filter"
                 onClick={clearFilters}
                 variant="dark"
-                px="px-60"
                 borderColor="border-primary-2"
                 textColor="text-foreground-light"
-                className="w-full md:w-auto md:!py-5 h-[50px] lg:h-[66px] uppercase"
+                className="uppercase"
               />
             </motion.div>
           )}

@@ -92,7 +92,6 @@ const BlogCard = ({ blog }: BlogCardProps) => {
             <CustomOutlineButton
                     text="Read More"
                     borderColor="border-white/90"
-                    px="h-[50px] md:h-[57px] px-[29px] md:px-[12px] lg:px-[18px] 3xl:px-[36.6px]"
                   readMore
                   />
           </span>

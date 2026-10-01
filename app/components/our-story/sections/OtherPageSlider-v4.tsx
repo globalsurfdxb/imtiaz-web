@@ -359,7 +359,6 @@ useEffect(() => {
                 text={slides[current].buttonText}
                 className="capitalize"
                 variant="light"
-                px="px-[12px] sm:px-[26px] lg:px-[34px] 3xl:w-[172px] lg:w-auto h-[44px] md:h-[50px]  xl:h-[66px]"
               />
             </Link>
           </motion.div>

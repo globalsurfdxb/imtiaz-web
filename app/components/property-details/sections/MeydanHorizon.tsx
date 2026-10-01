@@ -45,9 +45,8 @@ const MeydanHorizon = ({title,description,subTitle,slug}:Props) => {
             <Link href={`/communities/${slug}`}>
             <CustomOutlineButton
               text="View Community"
-              px="px-[30px] 3xl:px-[39.54px] mx-auto mt-[50px] h-[44px] md:h-[50px]  xl:h-[66px]"
+              px="mx-auto"
               borderColor="border-primary"
-              className="h-[44px] md:h-[50px]  xl:h-[66px]"
               textColor="text-primary"
               variant="dark"
             /></Link>
