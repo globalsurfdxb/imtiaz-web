@@ -589,6 +589,7 @@ const EmptyState = () => (
 );
 
 const Main = ({ data }: { data: OffPlanPageData }) => {
+
   // Pre-filter to Off Plan only
   const offPlanListings = useMemo(
     () =>
