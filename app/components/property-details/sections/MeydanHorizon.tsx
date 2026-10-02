@@ -41,7 +41,7 @@ const MeydanHorizon = ({title,description,subTitle,slug}:Props) => {
             className="text-description text-foreground-light max-w-[754px] mx-auto"
           />}
 
-          <div ref={desktopBtnRef} style={{ opacity: 0 }}>
+          <div ref={desktopBtnRef} className="mt-[50px]" style={{ opacity: 0 }}>
             <Link href={`/communities/${slug}`}>
             <CustomOutlineButton
               text="View Community"

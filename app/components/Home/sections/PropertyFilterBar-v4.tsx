@@ -221,8 +221,8 @@ const PropertySearchBar = ({
 
   return (
     <div className="rounded-[25px] lg:rounded-full shadow-lg bg-white/5 backdrop-blur-[30px]  overflow-visible border border-white/10 px-[15px] py-[11px]">
-      <div className="flex flex-col lg:flex-row items-center gap-3     ">
-        <div className="flex flex-col md:flex-row items-center gap-3     ">
+      <div className="flex flex-col lg:flex-row items-center sm:gap-3     ">
+        <div className="flex flex-col md:flex-row items-center sm:gap-3">
           {filters.map((filter, i) => (
             <div key={filter.id} className="flex items-center flex-1">
               <Dropdown
@@ -248,7 +248,7 @@ const PropertySearchBar = ({
         </div>
         {/* Search Button */}
 
-        <motion.div variants={moveUp(0.01)} initial="hidden" whileInView="show">
+        <motion.div variants={moveUp(0.01)} initial="hidden" whileInView="show" className="mt-[30px] lg:mt-0">
           {/* <button 
         className="ml-2 bg-black text-white text-xs  tracking-widest px-6 py-4 rounded-full hover:bg-gray-900 active:scale-95 transition-all duration-200 whitespace-nowrap flex-shrink-0"
       >
