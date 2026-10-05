@@ -56,10 +56,19 @@ const EmptyState = () => (
   </motion.div>
 );
 
+// Default camera when no filter is applied
+const DEFAULT_CENTER = { lat: 25.15, lng: 55.27 }; // Dubai
+const DEFAULT_ZOOM_DESKTOP = 11;
+const DEFAULT_ZOOM_MOBILE = 9;
+
 export default function FeaturedProjects({
   projects,
+  fitToProjects = false,
 }: {
   projects: ProjectWithId[];
+  // true when a filter is applied: camera fits the filtered properties.
+  // false: camera stays on / returns to the default Dubai view.
+  fitToProjects?: boolean;
 }) {
   const [activeProject, setActiveProject] = useState<string>("");
   const swiperRef = useRef<SwiperType | null>(null);
@@ -75,12 +84,6 @@ export default function FeaturedProjects({
   const activeSize =
     zoom >= 15 ? BASE_SIZE : Math.max(20, BASE_SIZE * (zoom / 15) * 0.9);
   const innerSize = activeSize * 0.61;
-
-  useEffect(() => {
-    setVisibleProjects([]);
-    setHighlighted([]);
-    setActiveProject("0"); // ← index 0, not projects[0]?.id
-  }, [projects]);
 
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
@@ -257,21 +260,107 @@ export default function FeaturedProjects({
 // }, [map, projects, isDesktop]);
 
 
-useEffect(() => {
-  if (!map || projects.length === 0) return;
+  // Stable signature of the filtered set — the parent rebuilds the `projects`
+  // array on every render, so depending on the reference would refit the map
+  // (and undo the user's panning) on unrelated re-renders.
+  const projectsKey = projects
+    .map((p) => `${p.id}:${p.property_latitude},${p.property_longitude}`)
+    .join("|");
 
-  const idleListener = map.addListener("idle", () => {
-    const bounds = map.getBounds();
-    if (bounds) {
-      handleCameraChanged({
-        detail: { bounds: bounds.toJSON() },
-      } as MapCameraChangedEvent);
-    }
-    google.maps.event.removeListener(idleListener);
-  });
+  // Whenever the filtered set changes:
+  // - no filter: return to the default Dubai view and list what is visible there
+  // - filter applied: fit the camera to the filtered properties and list them
+  // Projects without valid coordinates stay in `projects` — they just can't be
+  // placed on the map.
+  useEffect(() => {
+    if (!map) return;
 
-  return () => google.maps.event.removeListener(idleListener);
-}, [map, projects, isDesktop]);
+    let idleListener: google.maps.MapsEventListener | null = null;
+
+    // Rebuild the left list from whatever the camera currently shows
+    const syncFromMap = () => {
+      const bounds = map.getBounds();
+      if (bounds) {
+        handleCameraChanged({
+          detail: { bounds: bounds.toJSON() },
+        } as MapCameraChangedEvent);
+      }
+    };
+
+    const timeout = setTimeout(() => {
+      if (!fitToProjects) {
+        const targetZoom = isDesktop ? DEFAULT_ZOOM_DESKTOP : DEFAULT_ZOOM_MOBILE;
+        const center = map.getCenter();
+        const atTarget =
+          !!center &&
+          Math.abs(center.lat() - DEFAULT_CENTER.lat) < 1e-6 &&
+          Math.abs(center.lng() - DEFAULT_CENTER.lng) < 1e-6 &&
+          map.getZoom() === targetZoom;
+
+        if (atTarget && map.getBounds()) {
+          // Camera won't move, so no idle event — sync right away
+          syncFromMap();
+        } else {
+          idleListener = google.maps.event.addListenerOnce(map, "idle", syncFromMap);
+          if (!atTarget) {
+            map.panTo(DEFAULT_CENTER);
+            map.setZoom(targetZoom);
+          }
+        }
+        return;
+      }
+
+      const placeable = projects
+        .map((p, i) => ({
+          index: i,
+          project: p,
+          lat: parseFloat(p.property_latitude),
+          lng: parseFloat(p.property_longitude),
+        }))
+        .filter(
+          ({ lat, lng }) =>
+            Number.isFinite(lat) &&
+            Number.isFinite(lng) &&
+            !(lat === 0 && lng === 0),
+        );
+
+      if (placeable.length === 0) {
+        setVisibleProjects([]);
+        setHighlighted([]);
+        setActiveProject("");
+        return;
+      }
+
+      // Everything is inside the fitted bounds by construction, so populate the
+      // list directly — the camera may not move (and fire events) if it is
+      // already in place. Later pans still narrow it via handleCameraChanged.
+      setVisibleProjects(placeable.map(({ project }) => project));
+      setHighlighted(placeable.map(({ index }) => index.toString()));
+      setActiveProject(placeable[0].index.toString());
+
+      if (placeable.length === 1) {
+        map.panTo({ lat: placeable[0].lat, lng: placeable[0].lng });
+        map.setZoom(14);
+        return;
+      }
+
+      const bounds = new google.maps.LatLngBounds();
+      placeable.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+      map.fitBounds(bounds, isDesktop ? 80 : 40);
+
+      // Avoid zooming in too far when the properties sit close together
+      idleListener = google.maps.event.addListenerOnce(map, "idle", () => {
+        const z = map.getZoom();
+        if (z !== undefined && z > 15) map.setZoom(15);
+      });
+    }, 250); // debounce so typing in search doesn't move the map on every keystroke
+
+    return () => {
+      clearTimeout(timeout);
+      if (idleListener) google.maps.event.removeListener(idleListener);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, projectsKey, fitToProjects, isDesktop]);
 
 
 
@@ -434,10 +523,10 @@ useEffect(() => {
                 // mapId="2567b86b459988d06657407f"
                 // defaultZoom={11}
 
-                  defaultCenter={{ lat: 25.15, lng: 55.27 }}
+                  defaultCenter={DEFAULT_CENTER}
   onZoomChanged={(e) => setZoom(e.detail.zoom)}
   mapId="2567b86b459988d06657407f"
-  defaultZoom={isDesktop ? 11 : 9}
+  defaultZoom={isDesktop ? DEFAULT_ZOOM_DESKTOP : DEFAULT_ZOOM_MOBILE}
                 className="w-full h-full"
                 gestureHandling="cooperative"
                 onCameraChanged={handleCameraChanged}
