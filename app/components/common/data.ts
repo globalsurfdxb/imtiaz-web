@@ -166,7 +166,10 @@ export const footerV2Data: FooterV2Data = {
     },
     {
       heading: "TRENDING SEARCHES",
-      items: [{ label: "Off Plan Properties", link: "/off-plan-properties" }, { label: "Studio Apartments", link: "/studio-apartments" }],
+      items: [{ label: "Off-Plan Properties in Dubai", link: "/apartments-for-sale-in-dubai/off-plan-properties-dubai" }, {label: "Off-Plan Properties in Meydan", link: "/apartments-for-sale-in-dubai/off-plan-properties-in-meydan" },
+        {label: "Off-Plan Apartments for Sale in Dubai", link: "/apartments-for-sale-in-dubai/off-plan-apartments-for-sale-in-dubai"} ,{ label : "Studio Apartments in Dubai" , link: "/apartments-for-sale-in-dubai/studio-apartments-in-dubai"},
+        {label: "Dubai Property Investment" , link: "/apartments-for-sale-in-dubai/dubai-property-investment"}, {label : "Waterfront Apartments for Sale in Dubai", link: "/apartments-for-sale-in-dubai/waterfront-apartments-for-sale-in-dubai"}
+      ],
     },
   ],
 
