@@ -101,7 +101,7 @@ const FooterGrid = ({ latestProjects, latestCommunities }: { latestProjects: Lat
             <ul className="space-y-2">
               {items.map((item, idx) => (
                 <Reveal variants={moveUpV3} key={idx}>
-                  <li className="text-white/80 3xl:text-19 font-[avenirBook] hover:text-white transition-colors duration-300 cursor-pointer leading-[2.105]">
+                  <li className="text-white/80 3xl:text-19 font-[avenirBook] hover:text-white transition-colors duration-300 cursor-pointer py-[6px] 3xl:py-2">
                     <Link href={item.link}>{item.label}</Link>
                   </li>
                 </Reveal>
